@@ -4,11 +4,16 @@ using UnityEngine;
 
 public class CameraFollowPlayer : MonoBehaviour
 {
+    [Header("Settings")]
+
     [SerializeField, Range(0, 5)] float _cameraFollowSpeed = 1;
     [SerializeField, Range(1, 5)] float _cameraGoBackAmount = 2;
-    [SerializeField] float _forwardCameraZoomOutAmount = 2;
-    [SerializeField] float _backwardCameraZoomOutAmount = 1.2f;
-    [SerializeField] Transform _player;
+    [SerializeField, Range(0,5)] float _forwardCameraZoomOutAmount = 2;
+    [SerializeField, Range(0, 5)] float _backwardCameraZoomOutAmount = 1.2f;
+
+    [Header("Drop")]
+
+    [SerializeField, ] Transform _player;
 
     Camera _thisCamera;
     Rigidbody2D _playerRigidBody;
@@ -17,6 +22,9 @@ public class CameraFollowPlayer : MonoBehaviour
 
     private void Awake()
     {
+        if (_player == null)
+            throw new System.Exception("There is no player the camera can follow! " + gameObject.name + " " + this);
+
         _thisCamera = GetComponent<Camera>();
         _playerRigidBody = _player.GetComponent<Rigidbody2D>();
 
@@ -33,7 +41,7 @@ public class CameraFollowPlayer : MonoBehaviour
     {
         Vector3 newPosition = _player.transform.position + (Vector3)_playerRigidBody.velocity * _cameraGoBackAmount;
         newPosition.z = transform.position.z;
-        transform.position = Vector3.Lerp(transform.position, newPosition, Time.deltaTime * _cameraFollowSpeed);
+        transform.position = Vector3.MoveTowards(transform.position, newPosition, Time.deltaTime * _cameraFollowSpeed);
     }
 
     private void ZoomOutDueToSpeed()
