@@ -10,6 +10,7 @@ public class CameraFollowPlayer : MonoBehaviour
     [SerializeField, Range(1, 5)] float _cameraGoBackAmount = 2;
     [SerializeField, Range(0,5)] float _forwardCameraZoomOutAmount = 2;
     [SerializeField, Range(0, 5)] float _backwardCameraZoomOutAmount = 1.2f;
+    [SerializeField, Range(0, 5)] float _cameraChangeSizeSpeed = 1.5f;
 
     [Header("Drop")]
 
@@ -41,7 +42,7 @@ public class CameraFollowPlayer : MonoBehaviour
     {
         Vector3 newPosition = _player.transform.position + (Vector3)_playerRigidBody.velocity * _cameraGoBackAmount;
         newPosition.z = transform.position.z;
-        transform.position = Vector3.MoveTowards(transform.position, newPosition, Time.deltaTime * _cameraFollowSpeed);
+        transform.position = Vector3.Lerp(transform.position, newPosition, Time.deltaTime * _cameraFollowSpeed);
     }
 
     private void ZoomOutDueToSpeed()
@@ -54,6 +55,6 @@ public class CameraFollowPlayer : MonoBehaviour
         else
             newSize += -dotProduct * _backwardCameraZoomOutAmount;
 
-        _thisCamera.orthographicSize = newSize;
+        _thisCamera.orthographicSize = Mathf.Lerp(_thisCamera.orthographicSize, newSize, Time.deltaTime * _cameraChangeSizeSpeed);
     }
 }

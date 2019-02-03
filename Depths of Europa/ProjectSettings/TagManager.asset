@@ -3,7 +3,9 @@
 --- !u!78 &1
 TagManager:
   serializedVersion: 2
-  tags: []
+  tags:
+  - PlayerOutside
+  - PlayerInside
   layers:
   - Default
   - TransparentFX
@@ -13,7 +15,7 @@ TagManager:
   - UI
   - 
   - 
-  - Test
+  - ShadowLayer
   - 
   - 
   - 
@@ -40,4 +42,13 @@ TagManager:
   m_SortingLayers:
   - name: Default
     uniqueID: 0
+    locked: 0
+  - name: Below Submarine
+    uniqueID: 78163125
+    locked: 0
+  - name: Submarine
+    uniqueID: 2301336031
+    locked: 0
+  - name: Above Submarine
+    uniqueID: 1560591631
     locked: 0
