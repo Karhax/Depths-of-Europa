@@ -11,6 +11,8 @@ public class MoveShip : MonoBehaviour
 
     [Header("Settings work with Linear Drag and Angular Drag, change in sync"), Space]
 
+    [SerializeField, Range(0, 4)] float _maxSpeedMagnitude = 2.25f;
+
     [SerializeField, Range(0, 3)] float _baseForwardSpeed = 0.55f;
     [SerializeField, Range(0, 3)] float _slowdownForwardSpeed = 0.25f;
     [SerializeField, Range(0, 3)] float _baseBackWardSpeed = 0.25f;
@@ -33,7 +35,7 @@ public class MoveShip : MonoBehaviour
         if (turn != 0)
             thisRigidbody.AddTorque(turn * -dotProduct * Time.deltaTime * _turnSpeed);
 
-        if (move != 0)
+        if (move != 0 && thisRigidbody.velocity.magnitude < _maxSpeedMagnitude)
         {
             if (move > 0)
                 SetNewSpeed(move, _baseForwardSpeed, _slowdownForwardSpeed, dotProduct);
