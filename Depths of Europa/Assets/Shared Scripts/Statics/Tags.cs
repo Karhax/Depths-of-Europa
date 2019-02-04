@@ -17,5 +17,6 @@ namespace Statics
         public static readonly string PLAYER_INSIDE = "PlayerInside";
 
         public static readonly string GAMECONTROLLER = "GameController";
+        public static readonly string FLARE = "Flare";
     }
 }
