@@ -81,7 +81,7 @@ public class PlayerMovement : MonoBehaviour {
 
     private void OnTriggerEnter2D(Collider2D other)
     {
-        if (other.gameObject.CompareTag(Statics.Tags.LADDER))
+        if (other.gameObject.CompareTag("Ladder"))
         {
             _onLadder = true;
             _rigidbody.gravityScale = 0;
@@ -89,7 +89,7 @@ public class PlayerMovement : MonoBehaviour {
     }
     private void OnTriggerExit2D(Collider2D other)
     {
-        if (other.gameObject.CompareTag(Statics.Tags.LADDER))
+        if (other.gameObject.CompareTag("Ladder"))
         {
             _onLadder = false;
             _rigidbody.gravityScale = _normalGravity;

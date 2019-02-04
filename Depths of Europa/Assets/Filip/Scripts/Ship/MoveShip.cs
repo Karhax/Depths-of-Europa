@@ -6,11 +6,15 @@ using Statics;
 public class MoveShip : MonoBehaviour
 {
     [Header("Turn speed behaves differently by collider size! Big range to make work"), Space]
-    [SerializeField, Range(0, 250)] float _turnSpeed = 60f;
+    [SerializeField, Range(0, 250)] float _slowTurnSpeed = 60f;
+    [SerializeField, Range(0, 250)] float _mediumTurnSpeed = 60f;
+    [SerializeField, Range(0, 250)] float _fastTurnSpeed = 25f;
     [Space]
 
     [Header("Settings work with Linear Drag and Angular Drag, change in sync"), Space]
 
+    [SerializeField, Range(0, 4)] float _slowSpeedMagnitude = 0.75f;
+    [SerializeField, Range(0, 4)] float _mediumSpeedMagnitude = 1.5f;
     [SerializeField, Range(0, 4)] float _maxSpeedMagnitude = 2.25f;
 
     [SerializeField, Range(0, 3)] float _baseForwardSpeed = 0.55f;
@@ -33,7 +37,7 @@ public class MoveShip : MonoBehaviour
         float dotProduct = Vector3.Dot(thisRigidbody.velocity, transform.up);
 
         if (turn != 0)
-            thisRigidbody.AddTorque(turn * -dotProduct * Time.deltaTime * _turnSpeed);
+            Turn(turn, dotProduct);
 
         if (move != 0 && thisRigidbody.velocity.magnitude < _maxSpeedMagnitude)
         {
@@ -42,6 +46,21 @@ public class MoveShip : MonoBehaviour
             else
                 SetNewSpeed(move, _baseBackWardSpeed, _slowdownBackwardSpeed, dotProduct);
         }
+    }
+
+    private void Turn(float turn, float dotProduct)
+    {
+        float speedMagnitude = thisRigidbody.velocity.magnitude;
+        float speedModifier = 1;
+
+        if (speedMagnitude <= _slowSpeedMagnitude)
+            speedModifier = _slowTurnSpeed;
+        else if (speedMagnitude <= _mediumSpeedMagnitude)
+            speedModifier = _mediumTurnSpeed;
+        else
+            speedModifier = _fastTurnSpeed;
+
+        thisRigidbody.AddTorque(turn * -dotProduct * Time.deltaTime * speedModifier);
     }
 
     private void SetNewSpeed(float move, float forwardSpeedType, float backwardSpeedType, float dotProduct)
