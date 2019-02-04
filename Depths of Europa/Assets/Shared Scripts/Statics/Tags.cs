@@ -18,5 +18,7 @@ namespace Statics
 
         public static readonly string GAMECONTROLLER = "GameController";
         public static readonly string FLARE = "Flare";
+
+        public static readonly string LADDER = "Ladder";
     }
 }
