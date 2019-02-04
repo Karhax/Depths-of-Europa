@@ -6,6 +6,7 @@ TagManager:
   tags:
   - PlayerOutside
   - PlayerInside
+  - Flare
   layers:
   - Default
   - TransparentFX
@@ -16,9 +17,9 @@ TagManager:
   - 
   - 
   - ShadowLayer
-  - 
-  - 
-  - 
+  - Flare
+  - PlayerShip
+  - Clickable
   - 
   - 
   - 
@@ -45,6 +46,9 @@ TagManager:
     locked: 0
   - name: Below Submarine
     uniqueID: 78163125
+    locked: 0
+  - name: Flare
+    uniqueID: 3472869935
     locked: 0
   - name: Submarine
     uniqueID: 2301336031
