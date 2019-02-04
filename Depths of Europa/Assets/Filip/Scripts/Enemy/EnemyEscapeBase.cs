@@ -20,7 +20,7 @@ public class EnemyEscapeBase : EnemyStateBase
         throw new System.NotImplementedException();
     }
 
-    public override EnemyStates OnTriggerStay(Collider2D other)
+    public override EnemyStates OnTriggerEnter(Collider2D other)
     {
         throw new System.NotImplementedException();
     }

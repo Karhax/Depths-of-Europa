@@ -24,9 +24,9 @@ public class BasicEnemy0 : MonoBehaviour
         ChangeState(_currentState.Update());
     }
 
-    private void OnTriggerStay2D(Collider2D other)
+    private void OnTriggerEnter2D(Collider2D other)
     {
-        _currentState.OnTriggerStay(other);
+        _currentState.OnTriggerEnter(other);
     }
 
     private void OnTriggerExit2D(Collider2D other)

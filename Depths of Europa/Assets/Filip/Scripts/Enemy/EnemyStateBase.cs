@@ -26,6 +26,6 @@ public abstract class EnemyStateBase
     public abstract EnemyStates Update();
     public abstract void ExitState();
 
-    public abstract EnemyStates OnTriggerStay(Collider2D other);
+    public abstract EnemyStates OnTriggerEnter(Collider2D other);
     public abstract EnemyStates OnTriggerExit(Collider2D other);
 }
