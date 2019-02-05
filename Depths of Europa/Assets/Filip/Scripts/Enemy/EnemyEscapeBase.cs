@@ -17,6 +17,7 @@ public class EnemyEscapeBase : EnemyStateBase
     Timer _escapedTimer;
 
     bool _doTimer = false;
+    bool diverting = false;
 
     public override void SetUp(BasicEnemy0 script)
     {
@@ -43,6 +44,15 @@ public class EnemyEscapeBase : EnemyStateBase
 
         _thisRigidbody.velocity = Vector2.Lerp(_thisRigidbody.velocity, _escapeDirection, Time.deltaTime * _turnSmootheness);
 
+        RaycastHit2D hit = Physics2D.BoxCast(thisTransform.position, new Vector2(0.1f, 0.1f), 0, thisTransform.right, 6, LayerMask.GetMask(Layers.DEFAULT));
+
+        Debug.Log(hit.collider);
+
+        if (hit.collider != null)
+        {
+            _escapeDirection = (_escapeDirection + -(Vector2)thisTransform.up * Time.deltaTime * 25).normalized * _escapeSpeed;
+        }
+
         if (_doTimer)
         {
             _escapedTimer.Time += Time.deltaTime;
@@ -60,10 +70,6 @@ public class EnemyEscapeBase : EnemyStateBase
         {
             _doTimer = false;
             _escapedTimer.Reset();
-        }
-        else
-        {
-            _escapeDirection = (thisTransform.position - _playerShip.position).normalized * _escapeSpeed;
         }
             
         return EnemyStates.STAY;
