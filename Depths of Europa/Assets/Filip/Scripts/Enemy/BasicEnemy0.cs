@@ -10,6 +10,8 @@ public class BasicEnemy0 : MonoBehaviour
 
     EnemyStateBase _currentState;
 
+    Transform _playerShip;
+
     private void Awake()
     {
         _idleState.SetUp(this);
@@ -26,12 +28,12 @@ public class BasicEnemy0 : MonoBehaviour
 
     private void OnTriggerEnter2D(Collider2D other)
     {
-        _currentState.OnTriggerEnter(other);
+        ChangeState(_currentState.OnTriggerEnter(other));
     }
 
     private void OnTriggerExit2D(Collider2D other)
     {
-        _currentState.OnTriggerExit(other);
+        ChangeState(_currentState.OnTriggerExit(other));
     }
 
     private void ChangeState(EnemyStates state)

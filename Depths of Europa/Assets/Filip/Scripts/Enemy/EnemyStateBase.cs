@@ -14,11 +14,13 @@ public enum EnemyStates
 public abstract class EnemyStateBase
 {
     protected BasicEnemy0 _script;
+    protected Transform thisTransform;
     protected Rigidbody2D _thisRigidbody;
 
     public virtual void SetUp(BasicEnemy0 script)
     {
         _script = script;
+        thisTransform = _script.transform;
         _thisRigidbody = _script.GetComponent<Rigidbody2D>();
     }
 

@@ -24,9 +24,9 @@ GameObject:
   - component: {fileID: 50487605200092406}
   - component: {fileID: 58496443344742140}
   - component: {fileID: 114529111420033596}
-  m_Layer: 0
+  m_Layer: 12
   m_Name: Basic_Enemy_0
-  m_TagString: Untagged
+  m_TagString: Enemy
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -108,10 +108,15 @@ MonoBehaviour:
   _idleState:
     _idleRadius: 6
     _speed: 1
+    _turnSmootheness: 0.5
     _turnSpeed: 4
     _minBackUpDistance: 1
     _maxBackUpDistance: 6
-    _minPointDistance: 0.5
+  _escapeState:
+    _escapeSpeed: 4
+    _durationToEscapePastLight: 3
+    _turnSmootheness: 0.5
+    _turnSpeed: 4
 --- !u!212 &212397184112311134
 SpriteRenderer:
   m_ObjectHideFlags: 1

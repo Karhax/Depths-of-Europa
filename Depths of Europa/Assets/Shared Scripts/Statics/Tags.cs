@@ -16,7 +16,10 @@ namespace Statics
         public static readonly string PLAYER_OUTSIDE = "PlayerOutside";
         public static readonly string PLAYER_INSIDE = "PlayerInside";
 
-        public static readonly string GAMECONTROLLER = "GameController";
+        public static readonly string GAME_CONTROLLER = "GameController";
         public static readonly string FLARE = "Flare";
+        public static readonly string LADDER = "Ladder";
+        public static readonly string LIGHT = "Light";
+        public static readonly string ENEMY = "Enemy";
     }
 }

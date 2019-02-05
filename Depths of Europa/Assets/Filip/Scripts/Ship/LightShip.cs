@@ -7,11 +7,12 @@ public class LightShip : MonoBehaviour
 {
     [Header("Settings")]
 
-    [SerializeField] int _maxAmountFlares;
-    [SerializeField] float _flareOutSpeed;
+    [SerializeField, Range(0, 15)] int _maxAmountFlares;
+    [SerializeField, Range(0, 15)] float _flareOutSpeed;
 
     [Header("Drop")]
 
+    [SerializeField] GameObject _trigger;
     [SerializeField] GameObject _flarePrefab;
     [SerializeField] GameObject _lightHolder;
     [SerializeField] GameObject _headlight;
@@ -66,10 +67,16 @@ public class LightShip : MonoBehaviour
     private void TurnLightsOnOff()
     {
         _lightHolder.SetActive(!_lightHolder.activeSelf);
+
+        if (_lightHolder.activeSelf)
+            _trigger.SetActive(_headlight.activeSelf);
+        else
+            _trigger.SetActive(false);
     }
 
     private void TurnHeadLightsOnOff()
     {
+        _trigger.SetActive(!_trigger.activeSelf);
         _headlight.SetActive(!_headlight.activeSelf);
     }
     private void UseFlare()
