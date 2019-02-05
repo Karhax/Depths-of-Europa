@@ -14,7 +14,7 @@ public class Timer
         get { return _time; }
         set
         {
-            if (value > _time)
+            if (value >= _time)
                 _time = value;
             else
                 throw new Exception("Time can only count up!");
