@@ -2,19 +2,14 @@
 using System.Collections.Generic;
 using UnityEngine;
 using Statics;
+using UnityEngine.UI;
 
 public class PauseMenuScript : MonoBehaviour {
 
-
     [SerializeField] bool _isPaused = false;
+    [SerializeField] GameObject _pauseMenuBackdrop;
 
-
-	// Use this for initialization
-	void Start () {
-		
-	}
 	
-	// Update is called once per frame
 	void Update () {
 		if(Input.GetButtonDown(GameInput.Cancel))
         {
@@ -28,10 +23,14 @@ public class PauseMenuScript : MonoBehaviour {
         _isPaused = !_isPaused;
         if(_isPaused)
         {
+            if(_pauseMenuBackdrop != null)
+                _pauseMenuBackdrop.SetActive(true);
             Time.timeScale = 0;
         }
         else if(!_isPaused)
         {
+            if (_pauseMenuBackdrop != null)
+                _pauseMenuBackdrop.SetActive(false);
             Time.timeScale = 1;
         }
     }
