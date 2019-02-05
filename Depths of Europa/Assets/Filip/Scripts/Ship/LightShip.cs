@@ -9,6 +9,7 @@ public class LightShip : MonoBehaviour
 
     [SerializeField, Range(0, 15)] int _maxAmountFlares;
     [SerializeField, Range(0, 15)] float _flareOutSpeed;
+    [SerializeField, Range(0, 10)] float _minTimeBetweenFlares;
 
     [Header("Drop")]
 
@@ -18,16 +19,17 @@ public class LightShip : MonoBehaviour
     [SerializeField] GameObject _headlight;
 
     int _currentFlareCount;
-    bool _canUseFlare = true;
     int _floorMask;
     float _camRayLength = 100f;
 
     Rigidbody2D thisRigidbody;
 
-    Timer _waitBetweenFlare = new Timer(0.2f);
+    Timer _waitBetweenFlare;
 
     private void Awake()
     {
+        _waitBetweenFlare = new Timer(_minTimeBetweenFlares, _minTimeBetweenFlares);
+
         thisRigidbody = GetComponent<Rigidbody2D>();
         _currentFlareCount = _maxAmountFlares;
 
@@ -48,20 +50,8 @@ public class LightShip : MonoBehaviour
         if (headLight && _lightHolder.activeSelf)
             TurnHeadLightsOnOff();
 
-        if (flare && _currentFlareCount > 0 && _canUseFlare && _waitBetweenFlare.Expired())
+        if (flare && _currentFlareCount > 0 && _waitBetweenFlare.Expired())
             UseFlare();
-    }
-
-    private void OnTriggerStay2D(Collider2D other)
-    {
-        if (other.CompareTag(Tags.FLARE) && _canUseFlare)
-            _canUseFlare = false;
-    }
-
-    private void OnTriggerExit2D(Collider2D other)
-    {
-        if (other.CompareTag(Tags.FLARE))
-            _canUseFlare = true;
     }
 
     private void TurnLightsOnOff()

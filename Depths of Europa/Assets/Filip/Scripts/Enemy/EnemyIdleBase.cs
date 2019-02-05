@@ -36,7 +36,7 @@ public class EnemyIdleBase : EnemyStateBase
         Vector2 direction = _currentDestination - (Vector2)thisTransform.position;
 
         if (direction != (Vector2)thisTransform.right)
-            thisTransform.right = Vector2.MoveTowards(thisTransform.right, direction, Time.deltaTime * _currentTurnSpeed);
+            thisTransform.right = Vector2.MoveTowards(thisTransform.right, _thisRigidbody.velocity, Time.deltaTime * _currentTurnSpeed);
 
         if (ReachedPoint())
             SetVelocity();

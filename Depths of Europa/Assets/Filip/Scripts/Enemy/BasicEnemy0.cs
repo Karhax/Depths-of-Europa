@@ -4,16 +4,19 @@ using UnityEngine;
 
 public class BasicEnemy0 : MonoBehaviour
 {
+    static int _currentMaxSortOrder = 0;
+
     [SerializeField] EnemyIdleBase _idleState;
     [SerializeField] EnemyAttackBase _attackState;
     [SerializeField] EnemyEscapeBase _escapeState;
 
     EnemyStateBase _currentState;
-
     Transform _playerShip;
 
     private void Awake()
     {
+        GetComponent<SpriteRenderer>().sortingOrder = _currentMaxSortOrder++;
+
         _idleState.SetUp(this);
         _attackState.SetUp(this);
         _escapeState.SetUp(this);
