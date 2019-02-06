@@ -6,12 +6,11 @@ using UnityEngine.UI;
 
 public class PauseMenuScript : MonoBehaviour {
 
-    [SerializeField] bool _isPaused = false;
+    bool _isPaused = false;
     [SerializeField] GameObject _pauseMenuBackdrop;
 
-	
-	void Update () {
-		if(Input.GetButtonDown(GameInput.Cancel))
+    void Update () {
+		if(Input.GetButtonDown(GameInput.CANCEL))
         {
             SetPause();
         }
