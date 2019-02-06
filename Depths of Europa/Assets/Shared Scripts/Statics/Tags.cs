@@ -21,5 +21,7 @@ namespace Statics
         public static readonly string LADDER = "Ladder";
         public static readonly string LIGHT = "Light";
         public static readonly string ENEMY = "Enemy";
+        public static readonly string NOTICE_HIGH_SPEED = "NoticeHighSpeed";
+        public static readonly string NOTICE_LOW_SPEED = "NoticeLowSpeed";
     }
 }

@@ -21,8 +21,6 @@ public class EnemyEscapeBase : EnemyStateBase
     int _divertDirection;
     bool _doTimer = false;
 
-    readonly Vector2 BOX_CAST_BOX = new Vector2(1, 1);
-
     public override void SetUp(BasicEnemy0 script)
     {
         _escapedTimer = new Timer(_durationToEscapePastLight);
@@ -46,7 +44,7 @@ public class EnemyEscapeBase : EnemyStateBase
         _escapedTimer.Reset();
     }
 
-    public override EnemyStates Update()
+    public override EnemyStates FixedUpdate()
     {
         if (_escapeDirection != (Vector2)thisTransform.right)
             thisTransform.right = Vector2.MoveTowards(thisTransform.right, _thisRigidbody.velocity, Time.deltaTime * _turnSpeed);
