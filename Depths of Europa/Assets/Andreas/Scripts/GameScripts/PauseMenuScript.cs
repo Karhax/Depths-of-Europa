@@ -65,7 +65,7 @@ public class PauseMenuScript : MonoBehaviour {
     {
         if (Application.isEditor)
         {
-            Debug.Log("Not possible to exit to desktop wgile running in editor");
+            Debug.Log("Not possible to exit to desktop while running in editor");
         }
         else
         {
