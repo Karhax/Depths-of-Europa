@@ -17,6 +17,7 @@ public abstract class EnemyStateBase
     protected Transform thisTransform;
     protected Rigidbody2D _thisRigidbody;
 
+    protected readonly Vector2 BOX_CAST_BOX = new Vector2(1, 1);
     public virtual void SetUp(BasicEnemy0 script)
     {
         _script = script;
@@ -25,7 +26,7 @@ public abstract class EnemyStateBase
     }
 
     public abstract void EnterState();
-    public abstract EnemyStates Update();
+    public abstract EnemyStates FixedUpdate();
     public abstract void ExitState();
 
     public abstract EnemyStates OnTriggerEnter(Collider2D other);
