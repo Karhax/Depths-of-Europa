@@ -4,38 +4,24 @@ using UnityEngine;
 using Statics;
 
 [System.Serializable]
-public class EnemyEscapeBase : EnemyStateBase
+public class EnemyEscapeBase : EnemyStateAttackEscapeBase
 {
-    [SerializeField, Range(0, 15)] float _escapeSpeed;
     [SerializeField, Range(0, 10)] float _durationToEscapePastLight;
-    [SerializeField, Range(0, 5)] float _turnSmootheness;
-    [SerializeField, Range(0, 10)] float _turnSpeed;
     [SerializeField, Range(0, 15)] float _lookRange;
-    [SerializeField, Range(0, 50)] float _dodgeSpeed;
 
-    Transform _playerShip;
-
-    Vector2 _escapeDirection;
     Timer _escapedTimer;
 
-    int _divertDirection;
     bool _doTimer = false;
 
-    public override void SetUp(BasicEnemy0 script)
+    public override void SetUp(BasicEnemy0 script, bool noticeByHighSpeed)
     {
         _escapedTimer = new Timer(_durationToEscapePastLight);
-        base.SetUp(script);
+        base.SetUp(script, noticeByHighSpeed);
     }
 
     public override void EnterState()
     {
-        _divertDirection = Random.Range(-1, 1);
-        if (_divertDirection == 0)
-            _divertDirection = 1;
-
-        if (_playerShip == null)
-            _playerShip = GameObject.FindGameObjectWithTag(Tags.PLAYER_OUTSIDE).transform;
-
+        base.EnterState();
         Flee();
     }
 
@@ -46,10 +32,8 @@ public class EnemyEscapeBase : EnemyStateBase
 
     public override EnemyStates FixedUpdate()
     {
-        if (_escapeDirection != (Vector2)thisTransform.right)
-            thisTransform.right = Vector2.MoveTowards(thisTransform.right, _thisRigidbody.velocity, Time.deltaTime * _turnSpeed);
-
-        _thisRigidbody.velocity = Vector2.Lerp(_thisRigidbody.velocity, _escapeDirection, Time.deltaTime * _turnSmootheness);
+        TurnTowardsTravelDistance(_turnSpeed);
+        SetVelocity();
 
         RaycastHit2D hit = Physics2D.BoxCast(thisTransform.position, BOX_CAST_BOX, 0, thisTransform.right, _lookRange, LayerMask.GetMask(Layers.DEFAULT));
 
@@ -115,18 +99,8 @@ public class EnemyEscapeBase : EnemyStateBase
         }
 
         if (isFlare)
-            Flee(flarePosition);
+            SetNewDirection((Vector2)thisTransform.position - flarePosition);
         else
-            Flee(_playerShip.position);
-    }
-
-    private void Flee(Vector2 position)
-    {
-        _escapeDirection = ((Vector2)thisTransform.position - position).normalized * _escapeSpeed;
-    }
-
-    private void Divert()
-    {
-        _escapeDirection = (_escapeDirection + _divertDirection * (Vector2)thisTransform.up * Time.deltaTime * _dodgeSpeed).normalized * _escapeSpeed;
+            SetNewDirection(thisTransform.position - _playerShip.position);
     }
 }

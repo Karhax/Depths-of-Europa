@@ -6,6 +6,10 @@ public class BasicEnemy0 : MonoBehaviour
 {
     static int _currentMaxSortOrder = 0;
 
+    [SerializeField] bool _noticeByHighSpeed;
+
+    [Space]
+
     [SerializeField] EnemyIdleBase _idleState;
     [SerializeField] EnemyAttackBase _attackState;
     [SerializeField] EnemyEscapeBase _escapeState;
@@ -17,9 +21,9 @@ public class BasicEnemy0 : MonoBehaviour
     {
         GetComponent<SpriteRenderer>().sortingOrder = _currentMaxSortOrder++;
 
-        _idleState.SetUp(this);
-        _attackState.SetUp(this);
-        _escapeState.SetUp(this);
+        _idleState.SetUp(this, _noticeByHighSpeed);
+        _attackState.SetUp(this, _noticeByHighSpeed);
+        _escapeState.SetUp(this, _noticeByHighSpeed);
 
         ChangeState(_idleState);
     }

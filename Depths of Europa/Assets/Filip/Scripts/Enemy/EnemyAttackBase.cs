@@ -4,39 +4,29 @@ using UnityEngine;
 using Statics;
 
 [System.Serializable]
-public class EnemyAttackBase : EnemyStateBase
+public class EnemyAttackBase : EnemyStateAttackEscapeBase
 {
-    [SerializeField, Range(0, 15)] float _attackSpeed;
-    [SerializeField, Range(0, 10)] float _durationToAttackOutOfSight;
-    [SerializeField, Range(0, 5)] float _turnSmootheness;
-    [SerializeField, Range(0, 10)] float _turnSpeed;
-    [SerializeField, Range(0, 15)] float _lookRange;
-    [SerializeField, Range(0, 50)] float _dodgeSpeed;
+    [SerializeField, Range(0, 10)] float _durationToAttackOutOfSight;    
+    [SerializeField, Range(0, 15)] float _avoidRange;
+    [SerializeField, Range(0, 15)] float _attackRange;
+    [SerializeField, Range(0, 50)] int _damage;
 
-    Transform _playerShip;
-
-    Vector2 _attackDirection;
     Timer _attackTimer;
 
-    int _divertDirection;
     bool _doTimer = false;
+    bool _playerInRange = false;
 
-    public override void SetUp(BasicEnemy0 script)
+    public override void SetUp(BasicEnemy0 script, bool noticeByHighSpeed)
     {
         _attackTimer = new Timer(_durationToAttackOutOfSight);
-        base.SetUp(script);
+        base.SetUp(script, noticeByHighSpeed);
     }
 
     public override void EnterState()
     {
-        _divertDirection = Random.Range(-1, 1);
-        if (_divertDirection == 0)
-            _divertDirection = 1;
-
-        if (_playerShip == null)
-            _playerShip = GameObject.FindGameObjectWithTag(Tags.PLAYER_OUTSIDE).transform;
-
+        base.EnterState();
         Attack();
+        _playerInRange = true;
     }
 
     public override void ExitState()
@@ -46,12 +36,10 @@ public class EnemyAttackBase : EnemyStateBase
 
     public override EnemyStates FixedUpdate()
     {
-        if (_attackDirection != (Vector2)thisTransform.right)
-            thisTransform.right = Vector2.MoveTowards(thisTransform.right, _thisRigidbody.velocity, Time.deltaTime * _turnSpeed);
+        TurnTowardsTravelDistance(_turnSpeed);
+        SetVelocity();
 
-        _thisRigidbody.velocity = Vector2.Lerp(_thisRigidbody.velocity, _attackDirection, Time.deltaTime * _turnSmootheness);
-
-        RaycastHit2D hit = Physics2D.BoxCast(thisTransform.position, BOX_CAST_BOX, 0, thisTransform.right, _lookRange, LayerMask.GetMask(Layers.DEFAULT));
+        RaycastHit2D hit = Physics2D.BoxCast(thisTransform.position, BOX_CAST_BOX, 0, thisTransform.right, _avoidRange, LayerMask.GetMask(Layers.DEFAULT));
 
         if (hit.collider != null)
             Divert();
@@ -73,27 +61,43 @@ public class EnemyAttackBase : EnemyStateBase
     {
         if (other.CompareTag(Tags.LIGHT))
             return EnemyStates.ESCAPE;
+        else if (other.CompareTag(Tags.PLAYER_OUTSIDE))
+        {
+            HitPlayer();
+            return EnemyStates.ESCAPE;
+        }    
+        else if ((other.CompareTag(Tags.NOTICE_HIGH_SPEED) && _noticeByHighSpeed) || (other.CompareTag(Tags.NOTICE_LOW_SPEED) && !_noticeByHighSpeed))
+            _playerInRange = true;
 
         return EnemyStates.STAY;
     }
 
     public override EnemyStates OnTriggerExit(Collider2D other)
     {
+        if ((other.CompareTag(Tags.NOTICE_HIGH_SPEED) && _noticeByHighSpeed) || (other.CompareTag(Tags.NOTICE_LOW_SPEED) && !_noticeByHighSpeed))
+            _playerInRange = false;
+
         return EnemyStates.STAY;
     }
 
     private void Attack()
     {
-        Attack(_playerShip.position);
+        RaycastHit2D hit = Physics2D.BoxCast(thisTransform.position, BOX_CAST_BOX, 0, thisTransform.right, _attackRange, LayerMask.GetMask(Layers.PLAYER_SHIP));
+        Debug.DrawRay(thisTransform.position, thisTransform.right * _attackRange, Color.red, 0.1f);
+
+        if (hit)
+        {
+            _doTimer = false;
+            _attackTimer.Reset();
+        }    
+        else
+            _doTimer = true;
+
+        SetNewDirection(_playerShip.position - thisTransform.position);
     }
 
-    private void Attack(Vector2 position)
+    private void HitPlayer()
     {
-        _attackDirection = (position - (Vector2)thisTransform.position).normalized * _attackSpeed;
-    }
-
-    private void Divert()
-    {
-        _attackDirection = (_attackDirection + _divertDirection * (Vector2)thisTransform.up * Time.deltaTime * _dodgeSpeed).normalized * _attackSpeed;
+        _playerShip.GetComponent<DamageShip>().Hit(_damage);
     }
 }

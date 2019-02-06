@@ -6,18 +6,13 @@ using Statics;
 [System.Serializable]
 public class EnemyIdleBase : EnemyStateBase
 {
-    [SerializeField] bool _noticeByHighSpeed;
     [SerializeField, Range(0, 15)] protected float _idleRadius;
-    [SerializeField, Range(0, 10)] protected float _speed;
-
-    [SerializeField, Range(0, 5)] float _turnSmootheness;
-    [SerializeField, Range(0, 10)] float _turnSpeed;
 
     [SerializeField, Range(0, 10)] float _minBackUpDistance;
     [SerializeField, Range(0, 15)] float _maxBackUpDistance;
 
-    Vector2 _currentDestination;
     Vector2 _centerPosition = Vector2.zero;
+    Vector2 _currentDestination;
 
     float _currentTurnSpeed;
     const float MIDDLE_ANGLE = 90f;
@@ -25,9 +20,9 @@ public class EnemyIdleBase : EnemyStateBase
 
     LayerMask _lookForPlayerLayer;
 
-    public override void SetUp(BasicEnemy0 script)
+    public override void SetUp(BasicEnemy0 script, bool noticeByHighSpeed)
     {
-        base.SetUp(script);
+        base.SetUp(script, noticeByHighSpeed);
         _lookForPlayerLayer = LayerMask.GetMask(Layers.PLAYER_SHIP) | LayerMask.GetMask(Layers.DEFAULT);
     }
 
@@ -42,10 +37,7 @@ public class EnemyIdleBase : EnemyStateBase
 
     public override EnemyStates FixedUpdate()
     {
-        Vector2 direction = _currentDestination - (Vector2)thisTransform.position;
-
-        if (direction != (Vector2)thisTransform.right)
-            thisTransform.right = Vector2.MoveTowards(thisTransform.right, _thisRigidbody.velocity, Time.deltaTime * _currentTurnSpeed);
+        TurnTowardsTravelDistance(_currentTurnSpeed);
 
         if (ReachedPoint())
             SetVelocity();
@@ -67,7 +59,7 @@ public class EnemyIdleBase : EnemyStateBase
         {
             return ShouldAttack(other.transform.position);
         }
-        else if (!other.CompareTag(Tags.ENEMY) && other.CompareTag(Tags.PLAYER_OUTSIDE))
+        else if (other.CompareTag(Tags.WALL))
             BackUp(thisTransform.position - other.transform.position);
         return EnemyStates.STAY;
     }
@@ -79,7 +71,7 @@ public class EnemyIdleBase : EnemyStateBase
 
     private void BackUp(Vector2 direction)
     {
-        _currentDestination = (Vector2)thisTransform.position + direction * Random.Range(_minBackUpDistance, _maxBackUpDistance);
+        SetNewDirection((direction * Random.Range(_minBackUpDistance, _maxBackUpDistance)) - (Vector2)thisTransform.position);
         SetTurnSpeed();
     }
 
@@ -92,6 +84,7 @@ public class EnemyIdleBase : EnemyStateBase
         {
             tries++;
             _currentDestination = new Vector2(Random.Range(-_idleRadius, _idleRadius), Random.Range(-_idleRadius, _idleRadius)) + _centerPosition;
+            SetNewDirection(_currentDestination - (Vector2)thisTransform.position);
 
             if (!(Vector2.Angle(thisTransform.right, _currentDestination) > 60))
                 doAgain = false;
@@ -102,13 +95,9 @@ public class EnemyIdleBase : EnemyStateBase
 
     private void SetTurnSpeed()
     {
-        _currentTurnSpeed = _turnSpeed * Vector2.Angle(thisTransform.right, _currentDestination - (Vector2)thisTransform.position) / MIDDLE_ANGLE;
+        _currentTurnSpeed = _turnSpeed * Vector2.Angle(thisTransform.right, _direction) / MIDDLE_ANGLE;
     }
 
-    private void SetVelocity()
-    {
-        _thisRigidbody.velocity = Vector2.Lerp(_thisRigidbody.velocity, (_currentDestination - (Vector2)thisTransform.position).normalized * _speed, Time.deltaTime * _turnSmootheness);
-    }
 
     private bool ReachedPoint()
     {

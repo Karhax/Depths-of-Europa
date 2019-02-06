@@ -23,5 +23,6 @@ namespace Statics
         public static readonly string ENEMY = "Enemy";
         public static readonly string NOTICE_HIGH_SPEED = "NoticeHighSpeed";
         public static readonly string NOTICE_LOW_SPEED = "NoticeLowSpeed";
+        public static readonly string WALL = "Wall";
     }
 }

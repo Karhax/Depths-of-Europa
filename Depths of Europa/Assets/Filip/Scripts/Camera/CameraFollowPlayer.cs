@@ -8,7 +8,7 @@ public class CameraFollowPlayer : MonoBehaviour
 
     [SerializeField, Range(0, 5)] float _cameraFollowSpeed = 1;
     [SerializeField, Range(0, 5)] float _cameraGoBackAmount = 2;
-    [SerializeField, Range(0,5)] float _forwardCameraZoomOutAmount = 2;
+    [SerializeField, Range(0, 5)] float _forwardCameraZoomOutAmount = 2;
     [SerializeField, Range(0, 5)] float _backwardCameraZoomOutAmount = 1.2f;
     [SerializeField, Range(0, 5)] float _cameraChangeSizeSpeed = 1.5f;
 

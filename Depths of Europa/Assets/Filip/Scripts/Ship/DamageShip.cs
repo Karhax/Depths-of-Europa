@@ -31,20 +31,23 @@ public class DamageShip : MonoBehaviour
         TakeDamage(collision.relativeVelocity.magnitude);
     }
 
+    public void Hit(int damage)
+    {
+        _currentHp -= damage;
+
+        _healthBar.gameObject.SetActive(true);
+        _healthBar.value = _currentHp;
+        StartCoroutine(RemoveHealthBar());
+
+        CheckIfDead();
+    }
+
     private void TakeDamage(float crashForce)
     {
         int damage = (int)(crashForce * _collisionDamageModifier);
 
         if (damage >= _minimumCollisionDamage)
-        {
-            _currentHp -= damage;
-
-            _healthBar.gameObject.SetActive(true);
-            _healthBar.value = _currentHp;
-            StartCoroutine(RemoveHealthBar());
-
-            CheckIfDead();
-        }
+            Hit(damage);
     }
 
     private void CheckIfDead()
