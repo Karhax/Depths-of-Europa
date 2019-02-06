@@ -3,11 +3,13 @@ using System.Collections.Generic;
 using UnityEngine;
 using Statics;
 using UnityEngine.UI;
+using UnityEngine.SceneManagement;
 
 public class PauseMenuScript : MonoBehaviour {
 
     bool _isPaused = false;
     [SerializeField] GameObject _pauseMenuBackdrop;
+    [SerializeField] string _mainMenuName;
 
     public delegate void PauseStateHandler(bool pauseState);
 
@@ -58,7 +60,10 @@ public class PauseMenuScript : MonoBehaviour {
     //TODO: Impliment main menu and main menu transition
     public void ExitToMenu()
     {
-        Debug.Log("Main menu and main menu trasition not implimented");
+        if (_mainMenuName != "" && SceneManager.GetSceneByName(_mainMenuName) != null)
+            SceneManager.LoadScene(_mainMenuName);
+        else
+            Debug.LogWarning("No scene with that name exists, please ensure that you have entered the scene name correctly");
     }
 
     public void ExitToDesktop()
