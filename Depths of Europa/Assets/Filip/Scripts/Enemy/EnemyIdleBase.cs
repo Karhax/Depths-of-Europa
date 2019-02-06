@@ -6,6 +6,7 @@ using Statics;
 [System.Serializable]
 public class EnemyIdleBase : EnemyStateBase
 {
+    [SerializeField] bool _noticeByHighSpeed;
     [SerializeField, Range(0, 15)] protected float _idleRadius;
     [SerializeField, Range(0, 10)] protected float _speed;
 
@@ -22,6 +23,14 @@ public class EnemyIdleBase : EnemyStateBase
     const float MIDDLE_ANGLE = 90f;
     const float RAY_CAST_LENGTH = 15f;
 
+    LayerMask _lookForPlayerLayer;
+
+    public override void SetUp(BasicEnemy0 script)
+    {
+        base.SetUp(script);
+        _lookForPlayerLayer = LayerMask.GetMask(Layers.PLAYER_SHIP) | LayerMask.GetMask(Layers.DEFAULT);
+    }
+
     public override void EnterState()
     {
         _centerPosition = thisTransform.position;
@@ -31,7 +40,7 @@ public class EnemyIdleBase : EnemyStateBase
     public override void ExitState()
     {}
 
-    public override EnemyStates Update()
+    public override EnemyStates FixedUpdate()
     {
         Vector2 direction = _currentDestination - (Vector2)thisTransform.position;
 
@@ -50,8 +59,15 @@ public class EnemyIdleBase : EnemyStateBase
     {
         if (other.CompareTag(Tags.LIGHT))
             return EnemyStates.ESCAPE;
-            
-        if (!other.CompareTag(Tags.ENEMY))
+        else if (other.CompareTag(Tags.NOTICE_HIGH_SPEED) && _noticeByHighSpeed)
+        {
+            return ShouldAttack(other.transform.position);
+        }
+        else if (other.CompareTag(Tags.NOTICE_LOW_SPEED) && !_noticeByHighSpeed)
+        {
+            return ShouldAttack(other.transform.position);
+        }
+        else if (!other.CompareTag(Tags.ENEMY) && other.CompareTag(Tags.PLAYER_OUTSIDE))
             BackUp(thisTransform.position - other.transform.position);
         return EnemyStates.STAY;
     }
@@ -98,5 +114,15 @@ public class EnemyIdleBase : EnemyStateBase
     {
         return !(thisTransform.position.x > _currentDestination.x - 0.5f && thisTransform.position.x < _currentDestination.x + 0.05f &&
                  thisTransform.position.y > _currentDestination.y - 0.5f && thisTransform.position.y < _currentDestination.y + 0.05f);
+    }
+
+    private EnemyStates ShouldAttack(Vector2 _playerPosition)
+    {
+        RaycastHit2D hit = Physics2D.BoxCast(thisTransform.position, BOX_CAST_BOX, 0, _playerPosition - (Vector2)thisTransform.position, RAY_CAST_LENGTH, _lookForPlayerLayer);
+
+        if (hit.collider != null)
+            return EnemyStates.ATTACK;
+
+        return EnemyStates.STAY;
     }
 }

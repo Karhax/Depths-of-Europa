@@ -23,34 +23,49 @@ public class MoveShip : MonoBehaviour
     [SerializeField, Range(0, 3)] float _slowdownBackwardSpeed = 0.25f;
     [SerializeField, Range(0, 3)] float _accelerationModifier = 0.55f;
 
-    Rigidbody2D thisRigidbody;
+    [SerializeField] float _highSpeedTriggerModifier;
+    [SerializeField] float _lowSpeedTriggerModifier;
+
+    [Header("Drop")]
+
+    [SerializeField] CircleCollider2D _highSpeedTrigger;
+    [SerializeField] CircleCollider2D _lowSpeedTrigger;
+
+    Rigidbody2D _thisRigidbody;
+    float _highSpeedTriggerNormalRadius;
+    float _lowSpeedTriggerNormalRadius;
 
     private void Awake()
     {
-        thisRigidbody = GetComponent<Rigidbody2D>();
+        _highSpeedTriggerNormalRadius = _highSpeedTrigger.radius;
+        _lowSpeedTriggerNormalRadius = _lowSpeedTrigger.radius;
+
+        _thisRigidbody = GetComponent<Rigidbody2D>();
     }
 
-    private void Update()
+    private void FixedUpdate()
     {
         float move = Input.GetAxis(GameInput.VERTICAL);
         float turn = Input.GetAxis(GameInput.HORIZONTAL);
-        float dotProduct = Vector3.Dot(thisRigidbody.velocity, transform.up);
+        float dotProduct = Vector3.Dot(_thisRigidbody.velocity, transform.up);
 
         if (turn != 0)
             Turn(turn, dotProduct);
 
-        if (move != 0 && thisRigidbody.velocity.magnitude < _maxSpeedMagnitude)
+        if (move != 0 && _thisRigidbody.velocity.magnitude < _maxSpeedMagnitude)
         {
             if (move > 0)
                 SetNewSpeed(move, _baseForwardSpeed, _slowdownForwardSpeed, dotProduct);
             else
                 SetNewSpeed(move, _baseBackWardSpeed, _slowdownBackwardSpeed, dotProduct);
         }
+
+        ChangeSpeedTriggers();
     }
 
     private void Turn(float turn, float dotProduct)
     {
-        float speedMagnitude = thisRigidbody.velocity.magnitude;
+        float speedMagnitude = _thisRigidbody.velocity.magnitude;
         float speedModifier = 1;
 
         if (speedMagnitude <= _slowSpeedMagnitude)
@@ -60,7 +75,7 @@ public class MoveShip : MonoBehaviour
         else
             speedModifier = _fastTurnSpeed;
 
-        thisRigidbody.AddTorque(turn * -dotProduct * Time.deltaTime * speedModifier);
+        _thisRigidbody.AddTorque(turn * -dotProduct * Time.deltaTime * speedModifier);
     }
 
     private void SetNewSpeed(float move, float forwardSpeedType, float backwardSpeedType, float dotProduct)
@@ -72,6 +87,15 @@ public class MoveShip : MonoBehaviour
         else
             newVelocity *= backwardSpeedType;
 
-        thisRigidbody.velocity += newVelocity;
+        _thisRigidbody.velocity += newVelocity;
+    }
+
+    private void ChangeSpeedTriggers()
+    {
+        float velocityMagnitude = _thisRigidbody.velocity.magnitude;
+
+        _highSpeedTrigger.radius = _highSpeedTriggerNormalRadius + velocityMagnitude * _highSpeedTriggerModifier;
+        _lowSpeedTrigger.radius = _lowSpeedTriggerNormalRadius - velocityMagnitude * _lowSpeedTriggerModifier;
+
     }
 }
