@@ -7,7 +7,7 @@ using UnityEngine.SceneManagement;
 public class MenuButtonScript : MonoBehaviour {
 
     [SerializeField, Tooltip("The Name of the scene that is to be loaded when the start game button is clicked.")] string _gameStartSceneName;
-
+    [SerializeField] string _settingMenuSceneName;
 	// Use this for initialization
 	void Start () {
 		
@@ -27,7 +27,10 @@ public class MenuButtonScript : MonoBehaviour {
     }
     public void Settings()
     {
-        Debug.Log("Settings menu and settings menu opening not implimented");
+        if (_settingMenuSceneName != "" && SceneManager.GetSceneByName(_settingMenuSceneName) != null)
+            SceneManager.LoadScene(_settingMenuSceneName);
+        else
+            Debug.LogWarning("No scene with that name exists, please ensure that you have entered the scene name correctly");
     }
     public void ExitToDesktop()
     {
