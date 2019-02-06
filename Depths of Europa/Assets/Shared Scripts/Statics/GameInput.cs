@@ -18,7 +18,7 @@ namespace Statics
         public static readonly string MOUSE_SCROLL = "Mouse ScrollWheel";
 
         public static readonly string SUBMIT = "Submit";
-        public static readonly string Cancel = "Cancel";
+        public static readonly string CANCEL = "Cancel";
         public static readonly string ENTER_SUBMARINE = "EnterSubmarine";
         public static readonly string HEADLIGHT = "Headlight";
     }
