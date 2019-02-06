@@ -60,7 +60,7 @@ public class PauseMenuScript : MonoBehaviour {
     //TODO: Impliment main menu and main menu transition
     public void ExitToMenu()
     {
-        if (SceneManager.GetSceneByName(_mainMenuName) != null)
+        if (_mainMenuName != "" && SceneManager.GetSceneByName(_mainMenuName) != null)
             SceneManager.LoadScene(_mainMenuName);
         else
             Debug.LogWarning("No scene with that name exists, please ensure that you have entered the scene name correctly");

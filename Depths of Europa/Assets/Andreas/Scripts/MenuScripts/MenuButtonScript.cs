@@ -20,7 +20,7 @@ public class MenuButtonScript : MonoBehaviour {
 
     public void StartGame()
     {
-        if (SceneManager.GetSceneByName(_gameStartSceneName) != null)
+        if (_gameStartSceneName != "" && SceneManager.GetSceneByName(_gameStartSceneName) != null)
             SceneManager.LoadScene(_gameStartSceneName);
         else
             Debug.LogWarning("No scene with that name exists, please ensure that you have entered the scene name correctly");
