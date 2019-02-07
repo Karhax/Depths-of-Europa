@@ -13,13 +13,17 @@ public class DialogBoxScriptableObject : ScriptableObject
 [System.Serializable]
 public class DialogBoxObject
 {
-    [SerializeField, TextAreaAttribute(4, 4)] string _dialogText;
-    [SerializeField] Sprite _icon;
+    [SerializeField] bool _rightTalking;
+    [SerializeField] Sprite _leftSprite;
+    [SerializeField] Sprite _rightSprite;
+    [SerializeField, TextAreaAttribute(3, 3)] string _dialogText;
     [SerializeField] Font _font;
     [SerializeField] AudioClip _audioClip;
 
+    public bool RightTalking { get { return _rightTalking; } set { _rightTalking = value; } }
     public string DialogText { get { return _dialogText; } private set { _dialogText = value; } }
-    public Sprite Icon { get { return _icon; } private set { _icon = value; } }
+    public Sprite LeftSprite { get { return _leftSprite; } private set { _leftSprite = value; } }
+    public Sprite RightSprite { get { return _rightSprite; } private set { _rightSprite = value; } }
     public Font Font { get { return _font; } private set { _font = value; } }
     public AudioClip AudioClip { get { return _audioClip; } private set { _audioClip = value; } }
 }

@@ -14,11 +14,13 @@ public class Dialog : MonoBehaviour
 
     [SerializeField, Range(1, 300)] float _normalTextSpeed;
     [SerializeField, Range(1, 300)] float _fastTextSpeed;
+    [SerializeField] Color _tintColorWhenNotTalking;
 
     [Header("Drop")]
 
     [SerializeField] Text _dialogText;
-    [SerializeField] Image _icon;
+    [SerializeField] Image _leftImage;
+    [SerializeField] Image _rightImage;
     [SerializeField] AudioSource _audioSource;
 
     bool _dialogPlaying = false;
@@ -56,29 +58,29 @@ public class Dialog : MonoBehaviour
         _currentDialogBox = 0;
         _currentScriptableObject = scriptableObject;
 
-        if (_currentScriptableObject.DialogBoxes.Length > _currentDialogBox)
-            StartCoroutine(DoDialogBox(_currentScriptableObject.DialogBoxes[_currentDialogBox]));       
+        StartNextDialogBox();
     }
 
-    IEnumerator DoDialogBox(DialogBoxObject dialogObject)
+    private bool StartNextDialogBox()
+    {
+        if (_currentScriptableObject.DialogBoxes.Length > _currentDialogBox)
+        {
+            StartCoroutine(DoDialogBox(_currentScriptableObject.DialogBoxes[_currentDialogBox]));
+            return true;
+        }
+
+        return false;
+    }
+
+    IEnumerator DoDialogBox(DialogBoxObject boxObject)
     {
         bool canSkip = false;
-
-        string text = dialogObject.DialogText;
+        string text = boxObject.DialogText;
         int placeInText = 0;
 
         StringBuilder stringBuilder = new StringBuilder();
 
-        _dialogText.font = dialogObject.Font;
-        _icon.sprite = dialogObject.Icon;
-
-        if (dialogObject.AudioClip != null)
-        {
-            _audioSource.clip = dialogObject.AudioClip;
-            _audioSource.Play();
-        }
-        else
-            _audioSource.Stop();
+        SetBoxSettings(boxObject);
 
         while (!canSkip)
         {
@@ -87,7 +89,7 @@ public class Dialog : MonoBehaviour
             if (_pressedDown)
             {
                 if (placeInText < text.Length)
-                    _textSpeedTimer.Duration = 1 / _fastTextSpeed;
+                    SetSpeed(_fastTextSpeed);
                 else
                     canSkip = true;
             }
@@ -120,18 +122,50 @@ public class Dialog : MonoBehaviour
 
     private void DoAnotherDialogBox()
     {
-        _timesPressedSkip = 0;
-        _textSpeedTimer.Duration = 1 / _normalTextSpeed;
-        _currentDialogBox++;
+        ResetAfterBox();
 
-        if (_currentDialogBox < _currentScriptableObject.DialogBoxes.Length)
-            StartCoroutine(DoDialogBox(_currentScriptableObject.DialogBoxes[_currentDialogBox]));
-        else
+        if (!StartNextDialogBox())
         {
             _dialogPlaying = false;
 
             if (DialogOverEvent != null)
                 DialogOverEvent.Invoke();
         }
+    }
+
+    private void SetBoxSettings(DialogBoxObject boxObject)
+    {
+        _dialogText.font = boxObject.Font;
+        _leftImage.sprite = boxObject.LeftSprite;
+        _rightImage.sprite = boxObject.RightSprite;
+
+        if (boxObject.RightTalking)
+            TintSprites(_tintColorWhenNotTalking, Color.white);
+        else
+            TintSprites(Color.white, _tintColorWhenNotTalking);
+
+        if (boxObject.AudioClip != null)
+        {
+            _audioSource.clip = boxObject.AudioClip;
+            _audioSource.Play();
+        }
+    }
+
+    private void TintSprites(Color left, Color right)
+    {
+        _leftImage.color = left;
+        _rightImage.color = right;
+    }
+
+    private void ResetAfterBox()
+    {
+        _timesPressedSkip = 0;
+        SetSpeed(_normalTextSpeed);
+        _currentDialogBox++;
+    }
+
+    private void SetSpeed(float speed)
+    {
+        _textSpeedTimer.Duration = 1 / speed;
     }
 }
