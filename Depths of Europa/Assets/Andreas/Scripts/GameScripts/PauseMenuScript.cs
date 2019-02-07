@@ -2,7 +2,6 @@
 using System.Collections.Generic;
 using UnityEngine;
 using Statics;
-using UnityEngine.UI;
 using UnityEngine.SceneManagement;
 
 public class PauseMenuScript : MonoBehaviour {
