@@ -7,6 +7,9 @@ using System.Text;
 
 public class Dialog : MonoBehaviour
 {
+    public delegate void DialogOver();
+    public event DialogOver DialogOverEvent;
+
     [Header("Settings")]
 
     [SerializeField, Range(1, 300)] float _normalTextSpeed;
@@ -18,6 +21,8 @@ public class Dialog : MonoBehaviour
     [SerializeField] Image _icon;
     [SerializeField] AudioSource _audioSource;
 
+    bool _dialogPlaying = false;
+
     DialogBoxScriptableObject _currentScriptableObject;
     int _currentDialogBox = 0;
 
@@ -25,6 +30,7 @@ public class Dialog : MonoBehaviour
 
     bool _pressedDown = false;
     bool _buttonUp = false;
+    int _timesPressedSkip = 0;
 
     private void Awake()
     {
@@ -33,12 +39,20 @@ public class Dialog : MonoBehaviour
 
     private void Update()
     {
-        _pressedDown = Input.GetButtonDown(GameInput.TEXT_SKIP);
-        _buttonUp = Input.GetButtonUp(GameInput.TEXT_SKIP);
+        if (_dialogPlaying)
+        {
+            _pressedDown = Input.GetButtonDown(GameInput.TEXT_SKIP);
+            _buttonUp = Input.GetButtonUp(GameInput.TEXT_SKIP);
+
+            if (_pressedDown)
+                _timesPressedSkip++;
+        }
     }
 
     public void StartAllDialogs(DialogBoxScriptableObject scriptableObject)
     {
+        _timesPressedSkip = 0;
+        _dialogPlaying = true;
         _currentDialogBox = 0;
         _currentScriptableObject = scriptableObject;
 
@@ -48,7 +62,6 @@ public class Dialog : MonoBehaviour
 
     IEnumerator DoDialogBox(DialogBoxObject dialogObject)
     {
-        int timesPressedSkip = 0;
         bool canSkip = false;
 
         string text = dialogObject.DialogText;
@@ -65,9 +78,7 @@ public class Dialog : MonoBehaviour
             _audioSource.Play();
         }
         else
-        {
             _audioSource.Stop();
-        }
 
         while (!canSkip)
         {
@@ -79,17 +90,7 @@ public class Dialog : MonoBehaviour
                     _textSpeedTimer.Duration = 1 / _fastTextSpeed;
                 else
                     canSkip = true;
-
-                /*if (timesPressedSkip < 2)
-                {
-                    timesPressedSkip++;
-                    placeInText = text.Length;
-                    _dialogText.text = text;
-                }*/
             }
-            else if (_buttonUp)
-                _textSpeedTimer.Duration = 1 / _normalTextSpeed;
-
 
             if (placeInText < text.Length)
             {
@@ -97,25 +98,40 @@ public class Dialog : MonoBehaviour
                 {
                     _textSpeedTimer.Reset();
                     stringBuilder.Append(text[placeInText++].ToString());
+
+                    if (placeInText >= text.Length)
+                        _audioSource.Stop();
                 }
             }
 
             _dialogText.text = stringBuilder.ToString();
 
+            if (_timesPressedSkip >= 2)
+            {
+                placeInText = text.Length;
+                _dialogText.text = text;
+            }
+
             yield return new WaitForEndOfFrame();
         }
-
-        Debug.Log("NEW");
 
         DoAnotherDialogBox();
     }
 
     private void DoAnotherDialogBox()
     {
+        _timesPressedSkip = 0;
         _textSpeedTimer.Duration = 1 / _normalTextSpeed;
         _currentDialogBox++;
 
         if (_currentDialogBox < _currentScriptableObject.DialogBoxes.Length)
             StartCoroutine(DoDialogBox(_currentScriptableObject.DialogBoxes[_currentDialogBox]));
+        else
+        {
+            _dialogPlaying = false;
+
+            if (DialogOverEvent != null)
+                DialogOverEvent.Invoke();
+        }
     }
 }
