@@ -11,6 +11,11 @@ public class PlayerGUIScript : MonoBehaviour {
     float _debugMaxHP = 100;
     [SerializeField] bool _debugHPChangeCall = false;
 
+    [SerializeField] bool _debugFlareArray = false;
+    public delegate void FlareAmmountChnageHandler(int ammountOFFlares);
+    public event FlareAmmountChnageHandler FlareAmmountChange;
+    [SerializeField] int _debugAmmountOfFlares = 5;
+
 	// Use this for initialization
 	void Start () {
 		
@@ -23,7 +28,12 @@ public class PlayerGUIScript : MonoBehaviour {
             OnHealthChange(_debugCurrentHP / _debugMaxHP);
             _debugHPChangeCall = false;
         }
-	}
+        if (_debugFlareArray)
+        {
+            FlareAmmountChange(_debugAmmountOfFlares);
+            _debugFlareArray = false;
+        }
+    }
 
     private void OnHealthChange(float HPRatio)
     {
