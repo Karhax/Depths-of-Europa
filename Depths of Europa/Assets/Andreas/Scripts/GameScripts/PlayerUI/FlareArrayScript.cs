@@ -6,18 +6,23 @@ public class FlareArrayScript : MonoBehaviour {
     [SerializeField] int _arrayID;
     [SerializeField] GameObject[] _imageArray = new GameObject[5];
     PlayerGUIScript Parent;
-
+    readonly int FIRST_ARRAY = 0;
+    private RectTransform RectTransform;
+    readonly Vector2 BASE_POSITION = new Vector2(25, 20);
+    readonly float X_POSITION_INCREMENT = 25f;
 
     private void Awake()
     {
+        RectTransform = GetComponent<RectTransform>();
         Parent = GetComponentInParent<PlayerGUIScript>();
         Parent.FlareAmmountChange += OnFlareAmmountChange;
         
     }
 
     // Use this for initialization
-    void Start () {
-		
+    void Start ()
+    {
+        RectTransform.anchoredPosition = new Vector2(BASE_POSITION.x + _arrayID * X_POSITION_INCREMENT, BASE_POSITION.y);
 	}
 	
 	// Update is called once per frame
@@ -28,9 +33,9 @@ public class FlareArrayScript : MonoBehaviour {
     private void OnFlareAmmountChange(int ammountOfFlares)
     {
         int showAmmount = FlareCalc(ammountOfFlares);
-        if(_arrayID != 0 && showAmmount < 0)
+        if(_arrayID != FIRST_ARRAY && showAmmount < 0)
         {
-            //TODO: selfdelete function
+            DeletThis();
         }
         else
         {
@@ -48,6 +53,17 @@ public class FlareArrayScript : MonoBehaviour {
 
     private int FlareCalc(int ammountOfFlares)
     {
-        return ammountOfFlares - (_arrayID * 5);
+        return ammountOfFlares - (_arrayID * _imageArray.Length);
+    }
+
+    private void DeletThis()
+    {
+        Parent.FlareAmmountChange -= OnFlareAmmountChange;
+        Destroy(gameObject);
+    }
+
+    public void SetArrayID(int newArrayID)
+    {
+        _arrayID = newArrayID;
     }
 }
