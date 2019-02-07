@@ -2,31 +2,26 @@
 using System.Collections.Generic;
 using UnityEngine;
 using Statics;
+using UnityEngine.UI;
 
 public class StartDialog : MonoBehaviour
 {
-    [Header("Settings")]
-
-    [SerializeField] float _minDialogTime;
-
-    [Header("Drop")]
-
     [SerializeField] DialogBoxScriptableObject _thisDialogBoxScriptableObject;
 
-    Timer _minDialogTimer;
+    Dialog _dialogScript;
 
     private void Awake()
     {
-        _minDialogTimer = new Timer(_minDialogTime);
+        _dialogScript = GetComponentInChildren<Dialog>();
     }
 
-    public void StartAllDialogs()
+    private void Start()
     {
-
+        StartDialogs();
     }
 
-    IEnumerator DoDialogBox(DialogBoxObject dialogObject)
+    public void StartDialogs()
     {
-        yield return new WaitForEndOfFrame();
+        _dialogScript.StartAllDialogs(_thisDialogBoxScriptableObject);
     }
 }
