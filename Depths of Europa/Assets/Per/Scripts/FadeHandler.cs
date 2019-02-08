@@ -37,7 +37,7 @@ public class FadeHandler : MonoBehaviour {
         {
             if (_fadeDuration <= 0)
             {
-                _fadeSpriteRenderer.color = new Color(1, 1, 1, 1);
+                _fadeSpriteRenderer.color = new Color(1, 1, 1, _directionMultiplier);
             }
             else
             {
@@ -45,7 +45,15 @@ public class FadeHandler : MonoBehaviour {
                 _fadeSpriteRenderer.color = new Color(1, 1, 1, nextAlpha);
             }
         }
-        if (_fadeSpriteRenderer.color.a >= 1)
+        if (_fadeSpriteRenderer.color.a >= 1 && _directionMultiplier > 0)
+        {
+            _fadeStarted = false;
+            if (FadeEnded != null)
+            {
+                FadeEnded();
+            }
+        }
+        else if (_fadeSpriteRenderer.color.a <= 0 && _directionMultiplier < 0)
         {
             _fadeStarted = false;
             if (FadeEnded != null)

@@ -25,7 +25,6 @@ public class LevelEndingScript : MonoBehaviour {
     public void EndLevel()
     {
         // Function that the connected dialog system should call to end the level.
-        // Call the GameManager and tell it to end the level.
         if (LevelEndingDetected != null)
         {
             LevelEndingDetected(_nextScene);
@@ -37,7 +36,7 @@ public class LevelEndingScript : MonoBehaviour {
         if (other.CompareTag(Statics.Tags.PLAYER_OUTSIDE))
         {
             MoveShip shipMovement = other.GetComponent<MoveShip>();
-            // _shipMovement.EnableInput(); NOT IMPLEMENTED
+            // shipMovement.DisableInput(); NOT IMPLEMENTED
 
             // Call function in the base object that plays the docking animation
 
