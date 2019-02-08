@@ -7,16 +7,23 @@ using System.Text;
 
 public class Dialog : MonoBehaviour
 {
+    public delegate void DialogOver();
+    public event DialogOver DialogOverEvent;
+
     [Header("Settings")]
 
     [SerializeField, Range(1, 300)] float _normalTextSpeed;
     [SerializeField, Range(1, 300)] float _fastTextSpeed;
+    [SerializeField] Color _tintColorWhenNotTalking;
 
     [Header("Drop")]
 
     [SerializeField] Text _dialogText;
-    [SerializeField] Image _icon;
+    [SerializeField] Image _leftImage;
+    [SerializeField] Image _rightImage;
     [SerializeField] AudioSource _audioSource;
+
+    bool _dialogPlaying = false;
 
     DialogBoxScriptableObject _currentScriptableObject;
     int _currentDialogBox = 0;
@@ -25,6 +32,7 @@ public class Dialog : MonoBehaviour
 
     bool _pressedDown = false;
     bool _buttonUp = false;
+    int _timesPressedSkip = 0;
 
     private void Awake()
     {
@@ -33,41 +41,46 @@ public class Dialog : MonoBehaviour
 
     private void Update()
     {
-        _pressedDown = Input.GetButtonDown(GameInput.TEXT_SKIP);
-        _buttonUp = Input.GetButtonUp(GameInput.TEXT_SKIP);
+        if (_dialogPlaying)
+        {
+            _pressedDown = Input.GetButtonDown(GameInput.TEXT_SKIP);
+            _buttonUp = Input.GetButtonUp(GameInput.TEXT_SKIP);
+
+            if (_pressedDown)
+                _timesPressedSkip++;
+        }
     }
 
     public void StartAllDialogs(DialogBoxScriptableObject scriptableObject)
     {
+        _timesPressedSkip = 0;
+        _dialogPlaying = true;
         _currentDialogBox = 0;
         _currentScriptableObject = scriptableObject;
 
-        if (_currentScriptableObject.DialogBoxes.Length > _currentDialogBox)
-            StartCoroutine(DoDialogBox(_currentScriptableObject.DialogBoxes[_currentDialogBox]));       
+        StartNextDialogBox();
     }
 
-    IEnumerator DoDialogBox(DialogBoxObject dialogObject)
+    private bool StartNextDialogBox()
     {
-        int timesPressedSkip = 0;
-        bool canSkip = false;
+        if (_currentScriptableObject.DialogBoxes.Length > _currentDialogBox)
+        {
+            StartCoroutine(DoDialogBox(_currentScriptableObject.DialogBoxes[_currentDialogBox]));
+            return true;
+        }
 
-        string text = dialogObject.DialogText;
+        return false;
+    }
+
+    IEnumerator DoDialogBox(DialogBoxObject boxObject)
+    {
+        bool canSkip = false;
+        string text = boxObject.DialogText;
         int placeInText = 0;
 
         StringBuilder stringBuilder = new StringBuilder();
 
-        _dialogText.font = dialogObject.Font;
-        _icon.sprite = dialogObject.Icon;
-
-        if (dialogObject.AudioClip != null)
-        {
-            _audioSource.clip = dialogObject.AudioClip;
-            _audioSource.Play();
-        }
-        else
-        {
-            _audioSource.Stop();
-        }
+        SetBoxSettings(boxObject);
 
         while (!canSkip)
         {
@@ -76,20 +89,10 @@ public class Dialog : MonoBehaviour
             if (_pressedDown)
             {
                 if (placeInText < text.Length)
-                    _textSpeedTimer.Duration = 1 / _fastTextSpeed;
+                    SetSpeed(_fastTextSpeed);
                 else
                     canSkip = true;
-
-                /*if (timesPressedSkip < 2)
-                {
-                    timesPressedSkip++;
-                    placeInText = text.Length;
-                    _dialogText.text = text;
-                }*/
             }
-            else if (_buttonUp)
-                _textSpeedTimer.Duration = 1 / _normalTextSpeed;
-
 
             if (placeInText < text.Length)
             {
@@ -97,25 +100,72 @@ public class Dialog : MonoBehaviour
                 {
                     _textSpeedTimer.Reset();
                     stringBuilder.Append(text[placeInText++].ToString());
+
+                    if (placeInText >= text.Length)
+                        _audioSource.Stop();
                 }
             }
 
             _dialogText.text = stringBuilder.ToString();
 
+            if (_timesPressedSkip >= 2)
+            {
+                placeInText = text.Length;
+                _dialogText.text = text;
+            }
+
             yield return new WaitForEndOfFrame();
         }
-
-        Debug.Log("NEW");
 
         DoAnotherDialogBox();
     }
 
     private void DoAnotherDialogBox()
     {
-        _textSpeedTimer.Duration = 1 / _normalTextSpeed;
-        _currentDialogBox++;
+        ResetAfterBox();
 
-        if (_currentDialogBox < _currentScriptableObject.DialogBoxes.Length)
-            StartCoroutine(DoDialogBox(_currentScriptableObject.DialogBoxes[_currentDialogBox]));
+        if (!StartNextDialogBox())
+        {
+            _dialogPlaying = false;
+
+            if (DialogOverEvent != null)
+                DialogOverEvent.Invoke();
+        }
+    }
+
+    private void SetBoxSettings(DialogBoxObject boxObject)
+    {
+        _dialogText.font = boxObject.Font;
+        _leftImage.sprite = boxObject.LeftSprite;
+        _rightImage.sprite = boxObject.RightSprite;
+
+        if (boxObject.RightTalking)
+            TintSprites(_tintColorWhenNotTalking, Color.white);
+        else
+            TintSprites(Color.white, _tintColorWhenNotTalking);
+
+        if (boxObject.AudioClip != null)
+        {
+            _audioSource.clip = boxObject.AudioClip;
+            _audioSource.Play();
+        }
+    }
+
+    private void TintSprites(Color left, Color right)
+    {
+        _leftImage.color = left;
+        _rightImage.color = right;
+    }
+
+    private void ResetAfterBox()
+    {
+        _timesPressedSkip = 0;
+        SetSpeed(_normalTextSpeed);
+        _currentDialogBox++;
+    }
+
+    private void SetSpeed(float speed)
+    {
+        _textSpeedTimer.Duration = 1 / speed;
     }
 }
