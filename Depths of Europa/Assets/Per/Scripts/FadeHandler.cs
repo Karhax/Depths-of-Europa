@@ -4,6 +4,9 @@ using UnityEngine;
 
 public class FadeHandler : MonoBehaviour {
 
+    public delegate void DelegateFadeEnded();
+    public event DelegateFadeEnded FadeEnded;
+
     [SerializeField] private GameObject _fadeObject = null;
     [SerializeField] private float _fadeDuration = 1f;
 
@@ -45,7 +48,10 @@ public class FadeHandler : MonoBehaviour {
         if (_fadeSpriteRenderer.color.a >= 1)
         {
             _fadeStarted = false;
-            // Send event to GameManager to indicate end of fade.
+            if (FadeEnded != null)
+            {
+                FadeEnded();
+            }
         }
     }
 

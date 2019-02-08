@@ -4,13 +4,13 @@ using UnityEngine;
 using UnityEngine.SceneManagement;
 
 public class GameManager : MonoBehaviour {
-
-    [SerializeField] private string _nextScene;
-
+    
     private static GameManager singletonGameManager = null;
     private FadeHandler _fadeHandler = null;
     private LevelEndingScript _levelEnder = null;
     private MoveShip _shipMovement = null;
+
+    private string _nextScene = "Main Menu";
 
     private void Awake()
     {
@@ -31,7 +31,7 @@ public class GameManager : MonoBehaviour {
         {
             throw new System.Exception("The GameManager could not find any object that has a FadeHandler");
         }
-        // subscribe the function BeginningFadeDone to the fade end event in _fadeHandler
+        _fadeHandler.FadeEnded += BeginningFadeDone;
         _fadeHandler.StartFadeIn();
 
         _levelEnder = FindObjectOfType<LevelEndingScript>();
@@ -39,7 +39,7 @@ public class GameManager : MonoBehaviour {
         {
             throw new System.Exception("The GameManager could not find any object that has a LevelEndingScript");
         }
-        // subscribe the function LevelEndReached to the Level End Reached event in _levelEnder
+        _levelEnder.LevelEndingDetected += LevelEndReached;
 
         _shipMovement = FindObjectOfType<MoveShip>();
         if(_shipMovement == null)
@@ -48,19 +48,27 @@ public class GameManager : MonoBehaviour {
         }
 	}
 
-    public void LevelEndReached()
+    public void LevelEndReached(string sceneName)
     {
+        _nextScene = sceneName;
+        _fadeHandler.FadeEnded += FadeOutDone;
         _fadeHandler.StartFadeOut();
     }
 
     public void FadeOutDone()
     {
+        _fadeHandler.FadeEnded -= FadeOutDone;
         SceneManager.LoadScene(_nextScene);
     }
 
     public void BeginningFadeDone()
     {
-        // This function is called from the _fadeHandler when the fade-in that beginns a level has finnished.
+        _fadeHandler.FadeEnded -= BeginningFadeDone;
         // _shipMovement.EnableInput(); NOT IMPLEMENTED
+    }
+
+    private void OnDestroy()
+    {
+        _levelEnder.LevelEndingDetected -= LevelEndReached;
     }
 }

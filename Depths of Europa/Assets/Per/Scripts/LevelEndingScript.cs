@@ -3,6 +3,9 @@ using System.Collections.Generic;
 using UnityEngine;
 
 public class LevelEndingScript : MonoBehaviour {
+
+    public delegate void DelegateLevelEnding(string sceneName);
+    public event DelegateLevelEnding LevelEndingDetected;
     
     [SerializeField] private string _nextScene;
 
@@ -23,6 +26,10 @@ public class LevelEndingScript : MonoBehaviour {
     {
         // Function that the connected dialog system should call to end the level.
         // Call the GameManager and tell it to end the level.
+        if (LevelEndingDetected != null)
+        {
+            LevelEndingDetected(_nextScene);
+        }
     }
 
     private void OnTriggerEnter2D(Collider2D other)
