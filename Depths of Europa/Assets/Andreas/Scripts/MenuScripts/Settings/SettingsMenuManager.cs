@@ -18,9 +18,13 @@ public class SettingsMenuManager : MonoBehaviour {
 	}
     public void BackToMenu()
     {
-        if (_menuSceneName != "" && SceneManager.GetSceneByName(_menuSceneName) != null)
+        try
+        {
             SceneManager.LoadScene(_menuSceneName);
-        else
-            Debug.LogWarning("No scene with that name exists, please ensure that you have entered the scene name correctly");
+        }
+        catch (System.Exception)
+        {
+            Debug.LogError("No scene with that name exists, please ensure that you have entered the scene name correctly");
+        }
     }
 }

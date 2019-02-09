@@ -1487,6 +1487,10 @@ MonoBehaviour:
     width: 3
     height: 2
   _numberOfLineSegments: 100
+  _debugLineModifier: 0
+  _frequencyModifier: 10
+  _magnitudeModifier: 1
+  _traversalSpeed: 0.2
 --- !u!120 &1014996585
 LineRenderer:
   m_ObjectHideFlags: 0
@@ -1526,7 +1530,7 @@ LineRenderer:
   - {x: 0, y: 0, z: 1}
   m_Parameters:
     serializedVersion: 2
-    widthMultiplier: 0.4
+    widthMultiplier: 0.2
     widthCurve:
       serializedVersion: 2
       m_Curve:
@@ -1568,7 +1572,7 @@ LineRenderer:
       m_Mode: 0
       m_NumColorKeys: 2
       m_NumAlphaKeys: 2
-    numCornerVertices: 0
+    numCornerVertices: 5
     numCapVertices: 0
     alignment: 0
     textureMode: 0
