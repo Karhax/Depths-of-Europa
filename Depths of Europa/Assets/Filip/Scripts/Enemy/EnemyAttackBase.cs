@@ -50,7 +50,7 @@ public class EnemyAttackBase : EnemyStateAttackEscapeBase
         {
             _attackTimer.Time += Time.deltaTime;
 
-            if (_attackTimer.Expired())
+            if (_attackTimer.Expired() && !_playerInRange)
                 return EnemyStates.IDLE;
         }
 
