@@ -51,13 +51,15 @@ public class GameManager : MonoBehaviour {
     public void LevelEndReached(string sceneName)
     {
         _nextScene = sceneName;
-        _fadeHandler.FadeEnded += FadeOutDone;
+        _fadeHandler.FadeEnded += EndingFadeOutDone;
+        _fadeHandler.FadeEnded -= RestartFadeOutDone;
+        _fadeHandler.FadeEnded -= BeginningFadeDone;
         _fadeHandler.StartFadeOut();
     }
 
-    public void FadeOutDone()
+    public void EndingFadeOutDone()
     {
-        _fadeHandler.FadeEnded -= FadeOutDone;
+        _fadeHandler.FadeEnded -= EndingFadeOutDone;
         SceneManager.LoadScene(_nextScene);
     }
 
@@ -67,11 +69,29 @@ public class GameManager : MonoBehaviour {
         // _shipMovement.EnableInput(); NOT IMPLEMENTED
     }
 
+    public void LevelRestartRequested()
+    {
+        _fadeHandler.FadeEnded += RestartFadeOutDone;
+        _fadeHandler.FadeEnded -= BeginningFadeDone;
+        _fadeHandler.FadeEnded -= EndingFadeOutDone;
+        // _shipMovement.DisableInput(); NOT IMPLEMENTED
+        _fadeHandler.StartFadeOut();
+    }
+
+    public void RestartFadeOutDone()
+    {
+        _fadeHandler.FadeEnded -= RestartFadeOutDone;
+        SceneManager.LoadScene(SceneManager.GetActiveScene().name);
+    }
+
     private void OnDisable()
     {
         if (_levelEnder != null)
         {
             _levelEnder.LevelEndingDetected -= LevelEndReached;
+            _fadeHandler.FadeEnded -= BeginningFadeDone;
+            _fadeHandler.FadeEnded -= RestartFadeOutDone;
+            _fadeHandler.FadeEnded -= EndingFadeOutDone;
         }
     }
 }
