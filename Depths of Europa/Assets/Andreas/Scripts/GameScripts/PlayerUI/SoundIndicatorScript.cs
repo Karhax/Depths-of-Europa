@@ -66,11 +66,11 @@ public class SoundIndicatorScript : MonoBehaviour {
 
                 Mathf.PingPong(_yCenterInterpolator, 0.5f);
 
-                float xPositionBase = transform.position.x + _indicatorBounds.x;
+                float xPositionBase = _rectTransform.position.x + _indicatorBounds.x;
 
                 float xPointPosition = Mathf.Lerp(xPositionBase - _indicatorBounds.width, xPositionBase + _indicatorBounds.width, curveProgression);
 
-                float yPositionBase = transform.position.y + _indicatorBounds.y;
+                float yPositionBase = _rectTransform.position.y + _indicatorBounds.y;
 
                 float yPointCalc = (Mathf.Sin(_yCenterInterpolator * _debugLineModifier * Mathf.PI) * _magnitudeModifier * Mathf.Sin((_frequencyModifier * Mathf.PI) + (_traversal * Mathf.PI)));
 
