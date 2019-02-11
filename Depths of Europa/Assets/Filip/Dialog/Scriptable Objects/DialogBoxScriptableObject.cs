@@ -21,7 +21,7 @@ public class DialogBoxObject
     [SerializeField] AudioClip _textAudio;
     [SerializeField] AudioClip _voiceAudio;
 
-    public bool RightTalking { get { return _rightTalking; } set { _rightTalking = value; } }
+    public bool RightTalking { get { return _rightTalking; } private set { _rightTalking = value; } }
     public string DialogText { get { return _dialogText; } private set { _dialogText = value; } }
     public Sprite LeftSprite { get { return _leftSprite; } private set { _leftSprite = value; } }
     public Sprite RightSprite { get { return _rightSprite; } private set { _rightSprite = value; } }

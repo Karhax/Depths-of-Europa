@@ -9,32 +9,30 @@ public class GameManager : MonoBehaviour {
     private FadeHandler _fadeHandler = null;
     private LevelEndingScript _levelEnder = null;
     private static GameObject _shipObject = null;
+    private static GameObject _camera = null;
 
     private string _nextScene = "Main Menu";
 
-    public static GameObject ShipObject
-    {
-        get
-        {
-            return _shipObject;
-        }
-    }
+    public static GameObject ShipObject { get { return _shipObject; } }
+    public static GameObject CameraObject { get { return _camera; } }
 
     private void Awake()
     {
         if (singletonGameManager == null)
         {
             singletonGameManager = this;
+
+            _shipObject = GameObject.FindGameObjectWithTag(Statics.Tags.PLAYER_OUTSIDE);
+            if (_shipObject == null)
+                Debug.LogWarning("Game Manager could not find any object with tag " + Statics.Tags.PLAYER_OUTSIDE);
+
+            _camera = Camera.main.gameObject;
+            if (_camera == null)
+                Debug.LogWarning("Game Manager could not find camera!");
         }
         else
         {
             Destroy(this.gameObject);
-        }
-
-        _shipObject = GameObject.FindGameObjectWithTag(Statics.Tags.PLAYER_OUTSIDE);
-        if (_shipObject == null)
-        {
-            Debug.LogWarning("Game Manager could not find any object with tag " + Statics.Tags.PLAYER_OUTSIDE);
         }
     }
 

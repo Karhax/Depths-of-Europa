@@ -15,7 +15,6 @@ public class BasicEnemy0 : MonoBehaviour
     [SerializeField] EnemyEscapeBase _escapeState;
 
     EnemyStateBase _currentState;
-    Transform _playerShip;
 
     private void Awake()
     {

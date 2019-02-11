@@ -26,6 +26,9 @@ public class Waypoint : MonoBehaviour
     Image _waypointImage;
     bool _wayPointOn = false;
     bool _fadingIn = true;
+    bool _isPaused = false;
+
+    PauseMenuScript _pauseMenuScript;
 
     private void Awake()
     {
@@ -35,25 +38,47 @@ public class Waypoint : MonoBehaviour
         _waypointImage = _waypointRectTransform.GetComponent<Image>();
         _waypointRectTransform.gameObject.SetActive(false);
         _waypointImage.color = new Color(1, 1, 1, 0);
+
+        _pauseMenuScript = GameManager.CameraObject.GetComponentInChildren<PauseMenuScript>();
+    }
+
+    private void OnEnable()
+    {
+        if (_pauseMenuScript != null)
+            _pauseMenuScript.PauseState += Paused;
+    }
+
+    private void OnDisable()
+    {
+        if (_pauseMenuScript != null)
+            _pauseMenuScript.PauseState -= Paused;
+    }
+
+    private void Paused(bool paused)
+    {
+        _isPaused = paused;
     }
 
     private void Update()
     {
-        _waitToStartTimer.Time += Time.deltaTime;
-
-        bool action = Input.GetButtonDown(GameInput.SKIP_AND_SONAR);
-
-        if (!_wayPointOn && action)
-            StartPulse();
-        else if (_wayPointOn && _waitToStartTimer.Expired())
+        if (!_isPaused)
         {
-            _timerActive.Time += Time.deltaTime;
-            SetWaypoint();
+            _waitToStartTimer.Time += Time.deltaTime;
 
-            if (_fadingIn)
-                FadeIn();
-            else if (!_fadingIn && _timerActive.Expired())
-                FadeOut();
+            bool action = Input.GetButtonDown(GameInput.SKIP_AND_SONAR);
+
+            if (!_wayPointOn && action)
+                StartPulse();
+            else if (_wayPointOn && _waitToStartTimer.Expired())
+            {
+                _timerActive.Time += Time.deltaTime;
+                SetWaypoint();
+
+                if (_fadingIn)
+                    FadeIn();
+                else if (!_fadingIn && _timerActive.Expired())
+                    FadeOut();
+            }
         }
     }
 

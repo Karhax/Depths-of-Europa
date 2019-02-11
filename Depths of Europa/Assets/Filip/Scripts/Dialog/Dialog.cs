@@ -136,11 +136,23 @@ public class Dialog : MonoBehaviour
         }
     }
 
+    private void SetSprite(Sprite newSprite, Image image)
+    {
+        if (newSprite != null)
+        {
+            image.gameObject.SetActive(true);
+            image.sprite = newSprite;
+        }
+        else
+            image.gameObject.SetActive(false);
+    }
+
     private void SetBoxSettings(DialogBoxObject boxObject)
     {
         _dialogText.font = boxObject.Font;
-        _leftImage.sprite = boxObject.LeftSprite;
-        _rightImage.sprite = boxObject.RightSprite;
+
+        SetSprite(boxObject.LeftSprite, _leftImage);
+        SetSprite(boxObject.RightSprite, _rightImage);
 
         if (boxObject.RightTalking)
             TintSprites(_tintColorWhenNotTalking, Color.white);

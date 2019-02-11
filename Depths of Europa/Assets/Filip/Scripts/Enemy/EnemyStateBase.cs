@@ -64,8 +64,12 @@ public abstract class EnemyStateAttackEscapeBase : EnemyStateBase
     [SerializeField, Range(0, 15)] protected float _dodgeSpeed;
 
     protected Transform _playerShip;
-    protected int _divertDirection;
+    static protected int _divertDirection;
 
+    public override void SetUp(BasicEnemy0 script, bool noticeByHighSpeed)
+    {
+        base.SetUp(script, noticeByHighSpeed);
+    }
 
     public override void EnterState()
     {
@@ -74,8 +78,7 @@ public abstract class EnemyStateAttackEscapeBase : EnemyStateBase
             _divertDirection = 1;
 
         if (_playerShip == null)
-            _playerShip = GameObject.FindGameObjectWithTag(Tags.PLAYER_OUTSIDE).transform;
-
+            _playerShip = GameManager.ShipObject.transform;
     }
 
     protected void Divert()

@@ -15,7 +15,6 @@ public class PlayerGUIScript : MonoBehaviour {
     DamageShip _damageShipScript;
     LightShip _lightShipScript;
 
-    // Use this for initialization
     void Start()
     {
         _damageShipScript = GameManager.ShipObject.GetComponent<DamageShip>();
@@ -48,8 +47,6 @@ public class PlayerGUIScript : MonoBehaviour {
 
     private void OnFlare(int amountOfFlares)
     {
-        Debug.Log(amountOfFlares);
-
         int tempFlareArrayCount = FlareCountCalc(amountOfFlares);
         if(tempFlareArrayCount < _arrayCount)
         {
