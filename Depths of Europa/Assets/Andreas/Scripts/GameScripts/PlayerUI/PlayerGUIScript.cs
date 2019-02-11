@@ -17,33 +17,46 @@ public class PlayerGUIScript : MonoBehaviour {
     [SerializeField] int _debugAmmountOfFlares = 5;
     int _arrayCount = 0;
     [SerializeField] GameObject ArrayInstance;
-	// Use this for initialization
-	void Start () {
-		
-	}
-	
-	// Update is called once per frame
-	void Update () {
-		if(_debugHPChangeCall)
-        {
-            OnHealthChange(_debugCurrentHP / _debugMaxHP);
-            _debugHPChangeCall = false;
-        }
-        if (_debugFlareArray)
-        {
-            OnFlare();
-            _debugFlareArray = false;
-        }
+
+    DamageShip _damageShipScript;
+    LightShip _lightShipScript;
+
+    // Use this for initialization
+    void Start()
+    {
+        _damageShipScript = GameManager.ShipObject.GetComponent<DamageShip>();
+        _lightShipScript = GameManager.ShipObject.GetComponent<LightShip>();
+        _damageShipScript.ShipTakeDamageEvent += OnHealthChange;
+        _lightShipScript.ShipUsedFlareEvent += OnFlare;
     }
+
+    private void OnEnable()
+    {
+        if (_damageShipScript != null)
+            _damageShipScript.ShipTakeDamageEvent += OnHealthChange;
+        if (_lightShipScript != null)
+            _lightShipScript.ShipUsedFlareEvent += OnFlare;
+    }
+
+    private void OnDisable()
+    {
+        if (_damageShipScript != null)
+            _damageShipScript.ShipTakeDamageEvent -= OnHealthChange;
+        if (_lightShipScript != null)
+            _lightShipScript.ShipUsedFlareEvent -= OnFlare;
+    }
+	
 
     private void OnHealthChange(float HPRatio)
     {
         _healthBarImage.fillAmount = HPRatio;
     }
 
-    private void OnFlare()
+    private void OnFlare(int amountOfFlares)
     {
-        int tempFlareArrayCount = FlareCountCalc();
+        Debug.Log(amountOfFlares);
+
+        int tempFlareArrayCount = FlareCountCalc(amountOfFlares);
         if(tempFlareArrayCount < _arrayCount)
         {
             _arrayCount -= _arrayCount - tempFlareArrayCount;
@@ -67,16 +80,15 @@ public class PlayerGUIScript : MonoBehaviour {
                 }
             }
         }
-        Debug.Log(tempFlareArrayCount);
 
-        FlareAmmountChange(_debugAmmountOfFlares);
+        FlareAmmountChange(amountOfFlares);
     }
 
-    private int FlareCountCalc()
+    private int FlareCountCalc(int amountOfFlares)
     {
-        if (_debugAmmountOfFlares > 0)
-            return (_debugAmmountOfFlares - 1) / 5;
-        else if (_debugAmmountOfFlares <= 0)
+        if (amountOfFlares > 0)
+            return (amountOfFlares - 1) / 5;
+        else if (amountOfFlares <= 0)
             return 0;
         else
             return 0;

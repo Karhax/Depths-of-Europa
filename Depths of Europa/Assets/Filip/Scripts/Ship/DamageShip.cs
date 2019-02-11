@@ -5,6 +5,9 @@ using UnityEngine.UI;
 
 public class DamageShip : MonoBehaviour
 {
+    public delegate void ShipTakeDamage(float value);
+    public event ShipTakeDamage ShipTakeDamageEvent;
+
     [Header("Settings")]
 
     [SerializeField, Range(0, 250)] int _maxHp;
@@ -37,6 +40,10 @@ public class DamageShip : MonoBehaviour
 
         _healthBar.gameObject.SetActive(true);
         _healthBar.value = _currentHp;
+
+        if (ShipTakeDamageEvent != null)
+            ShipTakeDamageEvent.Invoke((float)_currentHp / _maxHp);
+
         StartCoroutine(RemoveHealthBar());
 
         CheckIfDead();
