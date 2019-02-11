@@ -4,26 +4,24 @@ using UnityEngine;
 
 public class FishEvent : MonoBehaviour {
 
-    private GameObject player;
-    public GameObject BigFish;
-    private bool hasSpawnedBigFish; 
-	void Start ()
+    
+    [SerializeField, ] GameObject bigFish;
+    
+
+    GameObject player;
+    bool hasSpawnedBigFish;
+    void Start ()
     {
         hasSpawnedBigFish = false;
-       player = FindObjectOfType<MoveShip>().gameObject;
-	}
-	
-	// Update is called once per frame
-	void Update () {
-		
+        player = FindObjectOfType<MoveShip>().gameObject;
 	}
 
     private void OnTriggerEnter2D(Collider2D collision)
     {
-        if(collision.gameObject ==player && !hasSpawnedBigFish)
+        if(collision.gameObject == player && !hasSpawnedBigFish)
         {
-            hasSpawnedBigFish = true; ;
-            BigFish = Instantiate(BigFish, transform.position + new Vector3(0,-10), Quaternion.identity) as GameObject;
+            hasSpawnedBigFish = true; 
+            bigFish = Instantiate(bigFish, transform.position + new Vector3(0,-10), Quaternion.identity) as GameObject;
 
         }
     }
