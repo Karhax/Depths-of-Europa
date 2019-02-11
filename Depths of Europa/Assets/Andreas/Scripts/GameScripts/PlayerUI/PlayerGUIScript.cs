@@ -7,14 +7,8 @@ using UnityEngine.UI;
 public class PlayerGUIScript : MonoBehaviour {
 
     [SerializeField] Image _healthBarImage;
-    [SerializeField] float _debugCurrentHP = 100;
-    float _debugMaxHP = 100;
-    [SerializeField] bool _debugHPChangeCall = false;
-
-    [SerializeField] bool _debugFlareArray = false;
     public delegate void FlareAmmountChnageHandler(int ammountOFFlares);
     public event FlareAmmountChnageHandler FlareAmmountChange;
-    [SerializeField] int _debugAmmountOfFlares = 5;
     int _arrayCount = 0;
     [SerializeField] GameObject ArrayInstance;
 
