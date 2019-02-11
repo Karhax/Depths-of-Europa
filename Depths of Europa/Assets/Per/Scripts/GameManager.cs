@@ -34,7 +34,15 @@ public class GameManager : MonoBehaviour {
         _shipObject = GameObject.FindGameObjectWithTag(Statics.Tags.PLAYER_OUTSIDE);
         if (_shipObject == null)
         {
-            throw new System.Exception("Game Manager could not find any object with tag " + Statics.Tags.PLAYER_OUTSIDE);
+            Debug.LogWarning("Game Manager could not find any object with tag " + Statics.Tags.PLAYER_OUTSIDE);
+        }
+    }
+
+    private void OnEnable()
+    {
+        if (_levelEnder != null)
+        {
+            _levelEnder.LevelEndingDetected += LevelEndReached;
         }
     }
 
@@ -43,7 +51,7 @@ public class GameManager : MonoBehaviour {
         _fadeHandler = FindObjectOfType<FadeHandler>();
         if (_fadeHandler == null)
         {
-            throw new System.Exception("The GameManager could not find any object that has a FadeHandler");
+            Debug.LogWarning("The GameManager could not find any object that has a FadeHandler");
         }
         _fadeHandler.FadeEnded += BeginningFadeDone;
         _fadeHandler.StartFadeIn();
@@ -51,7 +59,7 @@ public class GameManager : MonoBehaviour {
         _levelEnder = FindObjectOfType<LevelEndingScript>();
         if (_levelEnder == null)
         {
-            throw new System.Exception("The GameManager could not find any object that has a LevelEndingScript");
+            Debug.LogWarning("The GameManager could not find any object that has a LevelEndingScript");
         }
         _levelEnder.LevelEndingDetected += LevelEndReached;
 	}
@@ -95,6 +103,9 @@ public class GameManager : MonoBehaviour {
         if (_levelEnder != null)
         {
             _levelEnder.LevelEndingDetected -= LevelEndReached;
+        }
+        if (_fadeHandler != null)
+        {
             _fadeHandler.FadeEnded -= BeginningFadeDone;
             _fadeHandler.FadeEnded -= RestartFadeOutDone;
             _fadeHandler.FadeEnded -= EndingFadeOutDone;
