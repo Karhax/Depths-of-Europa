@@ -22,9 +22,11 @@ public class MoveShip : MonoBehaviour
     [SerializeField, Range(0, 3)] float _baseBackWardSpeed = 0.25f;
     [SerializeField, Range(0, 3)] float _slowdownBackwardSpeed = 0.25f;
     [SerializeField, Range(0, 3)] float _accelerationModifier = 0.55f;
+    [SerializeField, Range(0, 5)] float _hitWallSoundModifier;
+    [SerializeField, Range(0.25f, 2)] float _hitWallSoundDuration;
 
-    [SerializeField] float _highSpeedTriggerModifier;
-    [SerializeField] float _lowSpeedTriggerModifier;
+    [SerializeField, Range(0, 5)] float _highSpeedTriggerModifier;
+    [SerializeField, Range(0, 5)] float _lowSpeedTriggerModifier;
 
     [Header("Drop")]
 
@@ -34,6 +36,8 @@ public class MoveShip : MonoBehaviour
     Rigidbody2D _thisRigidbody;
     float _highSpeedTriggerNormalRadius;
     float _lowSpeedTriggerNormalRadius;
+
+    bool _otherSoundAffectingTriggers = false;
 
     private void Awake()
     {
@@ -60,7 +64,29 @@ public class MoveShip : MonoBehaviour
                 SetNewSpeed(move, _baseBackWardSpeed, _slowdownBackwardSpeed, dotProduct);
         }
 
-        ChangeSpeedTriggers();
+        if (!_otherSoundAffectingTriggers)
+            ChangeSpeedTriggers();
+    }
+
+    private void OnCollisionEnter2D(Collision2D collision)
+    {
+        TryMakeSound(collision.relativeVelocity.magnitude, _hitWallSoundModifier);
+    }
+
+    public void TryMakeSound(float soundStrenght, float modifier = 1f, bool makeSoundEvenIfOtherSoundPlaying = false)
+    {
+        if (!_otherSoundAffectingTriggers || makeSoundEvenIfOtherSoundPlaying)
+            StartCoroutine(MakeSound(soundStrenght, modifier));
+    }
+
+    IEnumerator MakeSound(float soundStrenght, float modifier)
+    {
+        _otherSoundAffectingTriggers = true;
+
+        _highSpeedTrigger.radius = _highSpeedTrigger.radius + soundStrenght * modifier;
+        yield return new WaitForSeconds(_hitWallSoundDuration);
+
+        _otherSoundAffectingTriggers = false;
     }
 
     private void Turn(float turn, float dotProduct)

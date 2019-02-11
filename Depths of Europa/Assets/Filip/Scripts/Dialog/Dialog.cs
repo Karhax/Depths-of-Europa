@@ -46,7 +46,7 @@ public class Dialog : MonoBehaviour
     {
         if (_dialogPlaying)
         {
-            _pressedDown = Input.GetButtonDown(GameInput.TEXT_SKIP);
+            _pressedDown = Input.GetButtonDown(GameInput.SKIP_AND_SONAR);
 
             if (_pressedDown)
                 _timesPressedSkip++;

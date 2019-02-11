@@ -52,13 +52,9 @@ public class EnemyIdleBase : EnemyStateBase
         if (other.CompareTag(Tags.LIGHT))
             return EnemyStates.ESCAPE;
         else if (other.CompareTag(Tags.NOTICE_HIGH_SPEED) && _noticeByHighSpeed)
-        {
             return ShouldAttack(other.transform.position);
-        }
         else if (other.CompareTag(Tags.NOTICE_LOW_SPEED) && !_noticeByHighSpeed)
-        {
             return ShouldAttack(other.transform.position);
-        }
         else if (other.CompareTag(Tags.WALL))
             BackUp(thisTransform.position - other.transform.position);
         return EnemyStates.STAY;

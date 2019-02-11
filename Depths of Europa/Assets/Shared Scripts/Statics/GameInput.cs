@@ -21,6 +21,6 @@ namespace Statics
         public static readonly string CANCEL = "Cancel";
         public static readonly string ENTER_SUBMARINE = "EnterSubmarine";
         public static readonly string HEADLIGHT = "Headlight";
-        public static readonly string TEXT_SKIP = "TextSkip";
+        public static readonly string SKIP_AND_SONAR = "SkipAndSonar";
     }
 }
