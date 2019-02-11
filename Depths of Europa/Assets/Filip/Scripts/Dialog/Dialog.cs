@@ -21,7 +21,8 @@ public class Dialog : MonoBehaviour
     [SerializeField] Text _dialogText;
     [SerializeField] Image _leftImage;
     [SerializeField] Image _rightImage;
-    [SerializeField] AudioSource _audioSource;
+    [SerializeField] AudioSource _textAudioSource;
+    [SerializeField] AudioSource _voiceAudioSource;
 
     bool _dialogPlaying = false;
 
@@ -29,10 +30,12 @@ public class Dialog : MonoBehaviour
     int _currentDialogBox = 0;
 
     Timer _textSpeedTimer;
+    Timer _minPlayTimer = new Timer(MIN_BOX_TIME);
 
     bool _pressedDown = false;
-    bool _buttonUp = false;
     int _timesPressedSkip = 0;
+
+    const float MIN_BOX_TIME = 0.2f;
 
     private void Awake()
     {
@@ -44,7 +47,6 @@ public class Dialog : MonoBehaviour
         if (_dialogPlaying)
         {
             _pressedDown = Input.GetButtonDown(GameInput.TEXT_SKIP);
-            _buttonUp = Input.GetButtonUp(GameInput.TEXT_SKIP);
 
             if (_pressedDown)
                 _timesPressedSkip++;
@@ -85,12 +87,13 @@ public class Dialog : MonoBehaviour
         while (!canSkip)
         {
             _textSpeedTimer.Time += Time.deltaTime;
+            _minPlayTimer.Time += Time.deltaTime;
 
             if (_pressedDown)
             {
                 if (placeInText < text.Length)
                     SetSpeed(_fastTextSpeed);
-                else
+                else if (_minPlayTimer.Expired())
                     canSkip = true;
             }
 
@@ -102,7 +105,7 @@ public class Dialog : MonoBehaviour
                     stringBuilder.Append(text[placeInText++].ToString());
 
                     if (placeInText >= text.Length)
-                        _audioSource.Stop();
+                        _textAudioSource.Stop();
                 }
             }
 
@@ -144,10 +147,23 @@ public class Dialog : MonoBehaviour
         else
             TintSprites(Color.white, _tintColorWhenNotTalking);
 
-        if (boxObject.AudioClip != null)
+        PlayAudioClip(_textAudioSource, boxObject.TextAudio);
+        PlayAudioClip(_voiceAudioSource, boxObject.VoiceAudio);
+
+        _minPlayTimer.Reset();
+
+        if (boxObject.VoiceAudio != null)
+            _minPlayTimer.Duration = _voiceAudioSource.clip.length;
+        else
+            _minPlayTimer.Duration = MIN_BOX_TIME;
+    }
+
+    private void PlayAudioClip(AudioSource source, AudioClip clip)
+    {
+        if (clip != null)
         {
-            _audioSource.clip = boxObject.AudioClip;
-            _audioSource.Play();
+            source.clip = clip;
+            source.Play();
         }
     }
 

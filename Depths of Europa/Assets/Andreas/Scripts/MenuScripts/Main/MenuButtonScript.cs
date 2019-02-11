@@ -20,17 +20,26 @@ public class MenuButtonScript : MonoBehaviour {
 
     public void StartGame()
     {
-        if (_gameStartSceneName != "" && SceneManager.GetSceneByName(_gameStartSceneName) != null)
+        try
+        {
             SceneManager.LoadScene(_gameStartSceneName);
-        else
-            Debug.LogWarning("No scene with that name exists, please ensure that you have entered the scene name correctly");
+        }
+        catch (System.Exception)
+        {
+            Debug.LogError("No scene with that name exists, please ensure that you have entered the scene name correctly");
+        }
+
     }
     public void Settings()
     {
-        if (_settingMenuSceneName != "" && SceneManager.GetSceneByName(_settingMenuSceneName) != null)
+        try
+        {
             SceneManager.LoadScene(_settingMenuSceneName);
-        else
-            Debug.LogWarning("No scene with that name exists, please ensure that you have entered the scene name correctly");
+        }
+        catch (System.Exception)
+        {
+            Debug.LogError("No scene with that name exists, please ensure that you have entered the scene name correctly");
+        }
     }
     public void ExitToDesktop()
     {

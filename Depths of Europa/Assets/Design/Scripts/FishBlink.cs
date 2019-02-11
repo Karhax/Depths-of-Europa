@@ -14,7 +14,8 @@ public class FishBlink : MonoBehaviour {
 		Renderer renderer = GetComponent<Renderer> ();
 		Material mat = renderer.material;
 
-		float emission = Mathf.PingPong (Time.time, 1.0f);
+		//float emission = Mathf.PingPong (Time.time, 1.0f);
+		float emission = Random.Range(Mathf.Sin(Time.time)+1,1);
 
 		Color baseColor = Color.white; //Replace this with whatever you want for your base color at emission level '1'
 
