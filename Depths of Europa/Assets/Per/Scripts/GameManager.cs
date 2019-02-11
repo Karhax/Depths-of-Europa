@@ -67,8 +67,11 @@ public class GameManager : MonoBehaviour {
         // _shipMovement.EnableInput(); NOT IMPLEMENTED
     }
 
-    private void OnDestroy()
+    private void OnDisable()
     {
-        _levelEnder.LevelEndingDetected -= LevelEndReached;
+        if (_levelEnder != null)
+        {
+            _levelEnder.LevelEndingDetected -= LevelEndReached;
+        }
     }
 }

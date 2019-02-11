@@ -35,7 +35,7 @@ public class LevelEndingScript : MonoBehaviour {
     {
         if (other.CompareTag(Statics.Tags.PLAYER_OUTSIDE))
         {
-            MoveShip shipMovement = other.GetComponent<MoveShip>();
+            // MoveShip shipMovement = other.GetComponent<MoveShip>();
             // shipMovement.DisableInput(); NOT IMPLEMENTED
 
             // Call function in the base object that plays the docking animation
