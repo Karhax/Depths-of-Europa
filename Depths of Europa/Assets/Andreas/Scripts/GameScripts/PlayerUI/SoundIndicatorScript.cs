@@ -47,7 +47,6 @@ public class SoundIndicatorScript : MonoBehaviour {
 
     private IEnumerator LineRender()
     {
-        float yMax = 0;
         while (true)
         {
             _lineUpdateTarget = Mathf.FloorToInt(_numberOfLineSegments * _lineUpdateFraction);
@@ -74,12 +73,7 @@ public class SoundIndicatorScript : MonoBehaviour {
 
                 float yPointCalc = (Mathf.Sin(_yCenterInterpolator * _debugLineModifier * Mathf.PI) * _magnitudeModifier * Mathf.Sin((_frequencyModifier * Mathf.PI) + (_traversal * Mathf.PI)));
 
-                /*if(Mathf.Abs(yPointCalc) > yMax)
-                {
-                    yMax = Mathf.Abs(yPointCalc);
-                    Debug.Log(yMax);
 
-                }*/
 
 
                 float normalizedYPoint = Mathf.InverseLerp(yPositionBase - _indicatorBounds.height, yPositionBase + _indicatorBounds.height, yPointCalc);
