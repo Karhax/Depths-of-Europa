@@ -8,9 +8,17 @@ public class GameManager : MonoBehaviour {
     private static GameManager singletonGameManager = null;
     private FadeHandler _fadeHandler = null;
     private LevelEndingScript _levelEnder = null;
-    private MoveShip _shipMovement = null;
+    private static GameObject _shipObject = null;
 
     private string _nextScene = "Main Menu";
+
+    public static GameObject ShipObject
+    {
+        get
+        {
+            return _shipObject;
+        }
+    }
 
     private void Awake()
     {
@@ -21,6 +29,12 @@ public class GameManager : MonoBehaviour {
         else
         {
             Destroy(this.gameObject);
+        }
+
+        _shipObject = GameObject.FindGameObjectWithTag(Statics.Tags.PLAYER_OUTSIDE);
+        if (_shipObject == null)
+        {
+            throw new System.Exception("Game Manager could not find any object with tag " + Statics.Tags.PLAYER_OUTSIDE);
         }
     }
 
@@ -40,12 +54,6 @@ public class GameManager : MonoBehaviour {
             throw new System.Exception("The GameManager could not find any object that has a LevelEndingScript");
         }
         _levelEnder.LevelEndingDetected += LevelEndReached;
-
-        _shipMovement = FindObjectOfType<MoveShip>();
-        if(_shipMovement == null)
-        {
-            throw new System.Exception("The GameManager could not find any object that has a MoveShip component");
-        }
 	}
 
     public void LevelEndReached(string sceneName)
@@ -66,7 +74,6 @@ public class GameManager : MonoBehaviour {
     public void BeginningFadeDone()
     {
         _fadeHandler.FadeEnded -= BeginningFadeDone;
-        // _shipMovement.EnableInput(); NOT IMPLEMENTED
     }
 
     public void LevelRestartRequested()
@@ -74,7 +81,6 @@ public class GameManager : MonoBehaviour {
         _fadeHandler.FadeEnded += RestartFadeOutDone;
         _fadeHandler.FadeEnded -= BeginningFadeDone;
         _fadeHandler.FadeEnded -= EndingFadeOutDone;
-        // _shipMovement.DisableInput(); NOT IMPLEMENTED
         _fadeHandler.StartFadeOut();
     }
 
