@@ -14,6 +14,11 @@ public class PauseMenuScript : MonoBehaviour {
 
     public event PauseStateHandler PauseState;
 
+    private void Awake()
+    {
+        _pauseMenuBackdrop.SetActive(false);
+    }
+
     void Update () {
 		if(Input.GetButtonDown(GameInput.CANCEL))
         {
