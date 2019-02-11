@@ -5,6 +5,9 @@ using Statics;
 
 public class LightShip : MonoBehaviour
 {
+    public delegate void ShipUsedFlare(int flare);
+    public event ShipUsedFlare ShipUsedFlareEvent;
+
     [Header("Settings")]
 
     [SerializeField, Range(0, 15)] int _maxAmountFlares;
@@ -86,5 +89,8 @@ public class LightShip : MonoBehaviour
         newFlare.GetComponent<Rigidbody2D>().velocity = thisRigidbody.velocity + direction * _flareOutSpeed;
 
         _currentFlareCount -= 1;
+
+        if (ShipUsedFlareEvent != null)
+            ShipUsedFlareEvent.Invoke(_currentFlareCount);
     }
 }
