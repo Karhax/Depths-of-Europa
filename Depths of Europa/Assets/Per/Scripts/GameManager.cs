@@ -53,15 +53,21 @@ public class GameManager : MonoBehaviour {
         {
             Debug.LogWarning("The GameManager could not find any object that has a FadeHandler");
         }
-        _fadeHandler.FadeEnded += BeginningFadeDone;
-        _fadeHandler.StartFadeIn();
+        else
+        {
+            _fadeHandler.FadeEnded += BeginningFadeDone;
+            _fadeHandler.StartFadeIn();
+        }
 
         _levelEnder = FindObjectOfType<LevelEndingScript>();
         if (_levelEnder == null)
         {
             Debug.LogWarning("The GameManager could not find any object that has a LevelEndingScript");
         }
-        _levelEnder.LevelEndingDetected += LevelEndReached;
+        else
+        {
+            _levelEnder.LevelEndingDetected += LevelEndReached;
+        }
 	}
 
     public void LevelEndReached(string sceneName)
