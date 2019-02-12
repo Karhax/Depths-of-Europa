@@ -40,7 +40,10 @@ public class LightShip : MonoBehaviour
         _currentFlareCount = _maxAmountFlares;
 
         _floorMask = LayerMask.GetMask(Layers.CLICKABLE);
+    }
 
+    private void Start()
+    {
         _pauseMenuScript = GameManager.CameraObject.GetComponentInChildren<PauseMenuScript>();
     }
 
