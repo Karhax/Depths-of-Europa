@@ -149,6 +149,11 @@ public class Dialog : MonoBehaviour
 
     private void SetBoxSettings(DialogBoxObject boxObject)
     {
+       /* if (boxObject.RightTalking)
+        {
+            SetCharacterFontAudio();
+        }
+
         _dialogText.font = boxObject.Font;
 
         SetSprite(boxObject.LeftSprite, _leftImage);
@@ -167,7 +172,13 @@ public class Dialog : MonoBehaviour
         if (boxObject.VoiceAudio != null)
             _minPlayTimer.Duration = _voiceAudioSource.clip.length;
         else
-            _minPlayTimer.Duration = MIN_BOX_TIME;
+            _minPlayTimer.Duration = MIN_BOX_TIME;*/
+    }
+
+    private void SetCharacterFontAudio(CharacterScriptableObject characterObject)
+    {
+        _dialogText.font = characterObject.Font;
+
     }
 
     private void PlayAudioClip(AudioSource source, AudioClip clip)
