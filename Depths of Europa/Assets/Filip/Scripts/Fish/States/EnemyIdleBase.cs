@@ -20,7 +20,7 @@ public class EnemyIdleBase : EnemyStateBase
 
     LayerMask _lookForPlayerLayer;
 
-    public override void SetUp(BasicEnemy0 script, bool noticeByHighSpeed)
+    public override void SetUp(EnemyBase script, bool noticeByHighSpeed)
     {
         base.SetUp(script, noticeByHighSpeed);
         _lookForPlayerLayer = LayerMask.GetMask(Layers.PLAYER_SHIP) | LayerMask.GetMask(Layers.DEFAULT);

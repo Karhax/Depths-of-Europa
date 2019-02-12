@@ -18,7 +18,7 @@ public abstract class EnemyStateBase
     [SerializeField, Range(0, 10)] protected float _turnSpeed;
     [SerializeField, Range(0, 5)] protected float _turnSmootheness;
 
-    protected BasicEnemy0 _script;
+    protected EnemyBase _script;
     protected Transform thisTransform;
     protected Rigidbody2D _thisRigidbody;
 
@@ -26,7 +26,7 @@ public abstract class EnemyStateBase
     protected bool _noticeByHighSpeed;
 
     protected readonly Vector2 BOX_CAST_BOX = new Vector2(1, 1);
-    public virtual void SetUp(BasicEnemy0 script, bool noticeByHighSpeed)
+    public virtual void SetUp(EnemyBase script, bool noticeByHighSpeed)
     {
         _noticeByHighSpeed = noticeByHighSpeed;
         _script = script;
@@ -66,7 +66,7 @@ public abstract class EnemyStateAttackEscapeBase : EnemyStateBase
     protected Transform _playerShip;
     static protected int _divertDirection;
 
-    public override void SetUp(BasicEnemy0 script, bool noticeByHighSpeed)
+    public override void SetUp(EnemyBase script, bool noticeByHighSpeed)
     {
         base.SetUp(script, noticeByHighSpeed);
     }

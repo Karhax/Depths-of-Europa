@@ -16,7 +16,7 @@ public class EnemyAttackBase : EnemyStateAttackEscapeBase
     bool _doTimer = false;
     bool _playerInRange = false;
 
-    public override void SetUp(BasicEnemy0 script, bool noticeByHighSpeed)
+    public override void SetUp(EnemyBase script, bool noticeByHighSpeed)
     {
         _attackTimer = new Timer(_durationToAttackOutOfSight);
         base.SetUp(script, noticeByHighSpeed);

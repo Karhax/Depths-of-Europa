@@ -13,7 +13,7 @@ public class EnemyEscapeBase : EnemyStateAttackEscapeBase
 
     bool _doTimer = false;
 
-    public override void SetUp(BasicEnemy0 script, bool noticeByHighSpeed)
+    public override void SetUp(EnemyBase script, bool noticeByHighSpeed)
     {
         _escapedTimer = new Timer(_durationToEscapePastLight);
         base.SetUp(script, noticeByHighSpeed);
