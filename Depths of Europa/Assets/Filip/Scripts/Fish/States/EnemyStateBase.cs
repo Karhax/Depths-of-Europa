@@ -15,11 +15,12 @@ public enum EnemyStates
 public abstract class EnemyStateBase
 {
     [SerializeField, Range(0, 50)] protected float _stateSpeed;
+    [SerializeField, Range(0, 10)] protected float _stateSpeedModifier;
     [SerializeField, Range(0, 10)] protected float _turnSpeed;
     [SerializeField, Range(0, 5)] protected float _turnSmootheness;
 
     protected EnemyBase _script;
-    protected Transform thisTransform;
+    protected Transform _thisTransform;
     protected Rigidbody2D _thisRigidbody;
 
     protected Vector2 _direction;
@@ -30,8 +31,15 @@ public abstract class EnemyStateBase
     {
         _noticeByHighSpeed = noticeByHighSpeed;
         _script = script;
-        thisTransform = _script.transform;
+        _thisTransform = _script.transform;
         _thisRigidbody = _script.GetComponent<Rigidbody2D>();
+
+        float newSpeed = _stateSpeed + Random.Range(-_stateSpeedModifier, _stateSpeedModifier);
+
+        if (newSpeed <= 0)
+            Debug.LogWarning("The settings make the speed negative! Change SpeedStateModifier!", _thisTransform.gameObject);
+        else
+            _stateSpeed = newSpeed;
     }
 
     public abstract void EnterState();
@@ -43,8 +51,8 @@ public abstract class EnemyStateBase
 
     protected void TurnTowardsTravelDistance(float turnSpeed)
     {
-        if (_direction != (Vector2)thisTransform.right)
-            thisTransform.right = Vector2.MoveTowards(thisTransform.right, _thisRigidbody.velocity, Time.deltaTime * turnSpeed);
+        if (_direction != (Vector2)_thisTransform.right)
+            _thisTransform.right = Vector2.MoveTowards(_thisTransform.right, _thisRigidbody.velocity, Time.deltaTime * turnSpeed);
     }
 
     protected void SetNewDirection(Vector2 newDirection)
@@ -83,6 +91,6 @@ public abstract class EnemyStateAttackEscapeBase : EnemyStateBase
 
     protected void Divert()
     {
-        _direction = (_direction + _divertDirection * (Vector2)thisTransform.up * Time.deltaTime * _dodgeSpeed).normalized * _stateSpeed;
+        _direction = (_direction + _divertDirection * (Vector2)_thisTransform.up * Time.deltaTime * _dodgeSpeed).normalized * _stateSpeed;
     }
 }

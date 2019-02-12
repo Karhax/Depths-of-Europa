@@ -10,7 +10,7 @@ public abstract class EnemyBase : MonoBehaviour
 
     protected EnemyStateBase _currentState;
 
-    private void Awake()
+    private void Start()
     {
         GetComponent<SpriteRenderer>().sortingOrder = _currentMaxSortOrder++;
     }

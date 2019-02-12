@@ -179,7 +179,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _noticeByHighSpeed: 0
   _idleState:
-    _stateSpeed: 1
+    _stateSpeed: 0.8
+    _stateSpeedModifier: 0.4
     _turnSpeed: 4
     _turnSmootheness: 0.5
     _idleRadius: 6
@@ -187,6 +188,7 @@ MonoBehaviour:
     _maxBackUpDistance: 6
   _escapeState:
     _stateSpeed: 3
+    _stateSpeedModifier: 0
     _turnSpeed: 4
     _turnSmootheness: 0.5
     _dodgeSpeed: 15

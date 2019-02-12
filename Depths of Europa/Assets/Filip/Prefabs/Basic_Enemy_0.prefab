@@ -180,6 +180,7 @@ MonoBehaviour:
   _noticeByHighSpeed: 1
   _idleState:
     _stateSpeed: 1
+    _stateSpeedModifier: 0.2
     _turnSpeed: 4
     _turnSmootheness: 0.5
     _idleRadius: 6
@@ -187,6 +188,7 @@ MonoBehaviour:
     _maxBackUpDistance: 6
   _attackState:
     _stateSpeed: 2.5
+    _stateSpeedModifier: 0
     _turnSpeed: 4
     _turnSmootheness: 0.5
     _dodgeSpeed: 25
@@ -196,6 +198,7 @@ MonoBehaviour:
     _damage: 5
   _escapeState:
     _stateSpeed: 3
+    _stateSpeedModifier: 0
     _turnSpeed: 4
     _turnSmootheness: 0.5
     _dodgeSpeed: 25
