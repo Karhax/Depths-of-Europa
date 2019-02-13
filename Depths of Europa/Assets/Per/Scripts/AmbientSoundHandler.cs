@@ -4,7 +4,6 @@ using UnityEngine;
 
 public class AmbientSoundHandler : MonoBehaviour
 {
-
     [SerializeField] private AudioClip[] _audioArray;// A list of all ambient audio clips
     [SerializeField] [Range(1, 100)] private int[] _audioRandomWeight;// Used to determine how likely it is that the corresponding clip is played.
 
@@ -14,6 +13,9 @@ public class AmbientSoundHandler : MonoBehaviour
 
     [SerializeField] [Range(1, 59)] private float _minCooldownTime;
     [SerializeField] [Range(2, 60)] private float _maxCooldownTime;
+
+    [SerializeField] [Range(3f, 99f)] private float _minDistance = 3;
+    [SerializeField] [Range(4f, 100f)] private float _maxDistance = 4;
 
     private AudioSource _audioSource;
 
@@ -43,6 +45,11 @@ public class AmbientSoundHandler : MonoBehaviour
         }
         _audioCooldownTimer = new Timer(Random.Range(_minCooldownTime, _maxCooldownTime));
 
+        if (_minDistance >= _maxDistance)
+        {
+            _maxDistance = _minDistance + 1;
+        }
+
         if (_audioArray.Length != _audioRandomWeight.Length)
         {
             Debug.LogWarning("The Ambient Sound Handler has detected that the amount of audio clips differ from the amount of weight values. Randomisation will not be accurate.");
@@ -68,6 +75,7 @@ public class AmbientSoundHandler : MonoBehaviour
                 }
                 else
                 {
+                    RandomiseLocationOffset();
                     RandomiseSound();
                     _audioSource.Play();
                     RandomiseCooldown();
@@ -106,5 +114,17 @@ public class AmbientSoundHandler : MonoBehaviour
     {
         float randomValue = Random.Range(_minCooldownTime, _maxCooldownTime);
         _audioCooldownTimer.Duration = randomValue;
+    }
+
+    private void RandomiseLocationOffset()
+    {
+        // Note that this will rotate the parent. Make sure that the parent can be rotated without issues!
+        float randomValue = Random.Range(_minDistance, _maxDistance);
+
+        transform.localPosition = new Vector3(randomValue, transform.localPosition.y, transform.localPosition.z);
+
+        randomValue = Random.Range(0, 360);
+
+        transform.parent.localRotation = Quaternion.AngleAxis(randomValue, Vector3.forward);
     }
 }
