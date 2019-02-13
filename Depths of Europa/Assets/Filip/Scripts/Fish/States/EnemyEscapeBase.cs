@@ -13,7 +13,7 @@ public class EnemyEscapeBase : EnemyStateAttackEscapeBase
 
     bool _doTimer = false;
 
-    public override void SetUp(BasicEnemy0 script, bool noticeByHighSpeed)
+    public override void SetUp(EnemyBase script, bool noticeByHighSpeed)
     {
         _escapedTimer = new Timer(_durationToEscapePastLight);
         base.SetUp(script, noticeByHighSpeed);
@@ -35,7 +35,7 @@ public class EnemyEscapeBase : EnemyStateAttackEscapeBase
         TurnTowardsTravelDistance(_turnSpeed);
         SetVelocity();
 
-        RaycastHit2D hit = Physics2D.BoxCast(thisTransform.position, BOX_CAST_BOX, 0, thisTransform.right, _lookRange, LayerMask.GetMask(Layers.DEFAULT));
+        RaycastHit2D hit = Physics2D.BoxCast(_thisTransform.position, BOX_CAST_BOX, 0, _thisTransform.right, _lookRange, LayerMask.GetMask(Layers.DEFAULT));
 
         if (hit.collider != null)
             Divert();
@@ -80,7 +80,7 @@ public class EnemyEscapeBase : EnemyStateAttackEscapeBase
         contactFilter.SetLayerMask(LayerMask.GetMask(Layers.FLARE));
         contactFilter.SetLayerMask(LayerMask.GetMask(Layers.ENEMY));
 
-        thisTransform.GetComponent<Collider2D>().OverlapCollider(contactFilter, colliders);
+        _thisTransform.GetComponent<Collider2D>().OverlapCollider(contactFilter, colliders);
 
         bool isFlare = false;
         Vector2 flarePosition = Vector2.zero;
@@ -99,8 +99,8 @@ public class EnemyEscapeBase : EnemyStateAttackEscapeBase
         }
 
         if (isFlare)
-            SetNewDirection((Vector2)thisTransform.position - flarePosition);
+            SetNewDirection((Vector2)_thisTransform.position - flarePosition);
         else
-            SetNewDirection(thisTransform.position - _playerShip.position);
+            SetNewDirection(_thisTransform.position - _playerShip.position);
     }
 }

@@ -39,6 +39,15 @@ public class Waypoint : MonoBehaviour
         _waypointRectTransform.gameObject.SetActive(false);
         _waypointImage.color = new Color(1, 1, 1, 0);
 
+        if (_waypointTransform == null)
+        {
+            Debug.LogWarning("Waypoint is not pointing at something!", gameObject);
+            _waypointTransform = transform;
+        }
+    }
+
+    private void Start()
+    {
         _pauseMenuScript = GameManager.CameraObject.GetComponentInChildren<PauseMenuScript>();
     }
 

@@ -6,6 +6,9 @@ using UnityEngine.UI;
 
 public class StartDialog : MonoBehaviour
 {
+    public delegate void DialogOverDel();
+    public event DialogOverDel DialogOverEvent;
+
     [SerializeField] DialogBoxScriptableObject _thisDialogBoxScriptableObject;
     [SerializeField] GameObject _dialog;
 
@@ -16,11 +19,7 @@ public class StartDialog : MonoBehaviour
     private void Awake()
     {
         _dialogScript = _dialog.GetComponent<Dialog>();
-    }
-
-    private void Start()
-    {
-        StartDialogs();
+        _dialog.SetActive(false);
     }
 
     private void OnDisable()
@@ -48,6 +47,7 @@ public class StartDialog : MonoBehaviour
         _dialog.SetActive(false);
         _dialogPlaying = false;
 
-        //LINK WITH STATION SCRIPT
+        if (DialogOverEvent != null)
+            DialogOverEvent.Invoke();
     }
 }
