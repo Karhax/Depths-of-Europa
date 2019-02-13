@@ -141,6 +141,11 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 6
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!4 &77879449 stripped
+Transform:
+  m_PrefabParentObject: {fileID: 4499081794013014, guid: 46ce3d6545a460e41877738f06f5d2c1,
+    type: 2}
+  m_PrefabInternal: {fileID: 1646815052}
 --- !u!1 &159477511
 GameObject:
   m_ObjectHideFlags: 0
@@ -343,7 +348,7 @@ Prefab:
         type: 2}
       propertyPath: _waypointTransform
       value: 
-      objectReference: {fileID: 10758247}
+      objectReference: {fileID: 77879449}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: cf6bfa4f89233a4478d1bd961872fb1f, type: 2}
   m_IsPrefabParent: 0
@@ -741,18 +746,6 @@ Prefab:
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: 46ce3d6545a460e41877738f06f5d2c1, type: 2}
   m_IsPrefabParent: 0
---- !u!1 &1873205463 stripped
-GameObject:
-  m_PrefabParentObject: {fileID: 1729473754362544, guid: cf6bfa4f89233a4478d1bd961872fb1f,
-    type: 2}
-  m_PrefabInternal: {fileID: 495755074}
---- !u!81 &1873205464
-AudioListener:
-  m_ObjectHideFlags: 0
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 0}
-  m_GameObject: {fileID: 1873205463}
-  m_Enabled: 1
 --- !u!1001 &2088286540
 Prefab:
   m_ObjectHideFlags: 0

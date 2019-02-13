@@ -40,18 +40,24 @@ public class LevelEndingScript : MonoBehaviour {
     private void OnTriggerEnter2D(Collider2D other)
     {
         if (other.CompareTag(Statics.Tags.PLAYER_OUTSIDE))
-        {
-            MoveShip shipMovement = other.GetComponent<MoveShip>();
-            LightShip shipLight = other.GetComponent<LightShip>();
+            ShipInBase(other);
+    }
 
-            // Call function in the base object that plays the docking animation
+    private void ShipInBase(Collider2D other)
+    {
+        ShipInBase shipInBaseScript = other.GetComponent<ShipInBase>();
+        shipInBaseScript.InBase(true);
 
-            // Play sound here, or perhaps in the function EndLevel()
+        PlayerGUIScript playerUI = GameManager.CameraObject.GetComponentInChildren<PlayerGUIScript>();
+        playerUI.gameObject.SetActive(false);
 
-            if (_hasDialog)
-                BeginEndingDialog();
-            else
-                EndLevel();
-        }
+        // Call function in the base object that plays the docking animation
+
+        // Play sound here, or perhaps in the function EndLevel()
+
+        if (_hasDialog)
+            BeginEndingDialog();
+        else
+            EndLevel();
     }
 }
