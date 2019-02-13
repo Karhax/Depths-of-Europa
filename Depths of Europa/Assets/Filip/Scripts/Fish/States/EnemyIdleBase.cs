@@ -8,19 +8,19 @@ public class EnemyIdleBase : EnemyStateBase
 {
     [SerializeField, Range(0, 15)] protected float _idleRadius;
 
-    [SerializeField, Range(0, 10)] float _minBackUpDistance;
-    [SerializeField, Range(0, 15)] float _maxBackUpDistance;
+    [SerializeField, Range(0, 10)] protected float _minBackUpDistance;
+    [SerializeField, Range(0, 15)] protected float _maxBackUpDistance;
 
-    Vector2 _centerPosition = Vector2.zero;
-    Vector2 _currentDestination;
+    protected Vector2 _centerPosition = Vector2.zero;
+    protected Vector2 _currentDestination;
 
-    float _currentTurnSpeed;
-    readonly float MIDDLE_ANGLE = 90f;
-    readonly float RAY_CAST_LENGTH = 15f;
-    readonly int NUMBER_OF_TRIES_FIND_NEW_PATH = 5;
-    readonly int TRY_ANGLE = 60;
+    protected float _currentTurnSpeed;
+    protected readonly float MIDDLE_ANGLE = 90f;
+    protected readonly float RAY_CAST_LENGTH = 15f;
+    protected readonly int NUMBER_OF_TRIES_FIND_NEW_PATH = 5;
+    protected readonly int TRY_ANGLE = 60;
 
-    LayerMask _lookForPlayerLayer;
+    protected LayerMask _lookForPlayerLayer;
 
     public override void SetUp(EnemyBase script, bool noticeByHighSpeed)
     {
@@ -67,13 +67,13 @@ public class EnemyIdleBase : EnemyStateBase
         return EnemyStates.STAY;
     }
 
-    private void BackUp(Vector2 direction)
+    protected void BackUp(Vector2 direction)
     {
         SetNewDirection((direction * Random.Range(_minBackUpDistance, _maxBackUpDistance)) - (Vector2)_thisTransform.position);
         SetTurnSpeed();
     }
 
-    private void PickNewDestination()
+    protected virtual void PickNewDestination()
     {
         int tries = 0;
         bool doAgain = true;
@@ -91,13 +91,13 @@ public class EnemyIdleBase : EnemyStateBase
         SetTurnSpeed();
     }
 
-    private void SetTurnSpeed()
+    protected void SetTurnSpeed()
     {
         _currentTurnSpeed = _turnSpeed * Vector2.Angle(_thisTransform.right, _direction) / MIDDLE_ANGLE;
     }
 
 
-    private bool ReachedPoint()
+    protected bool ReachedPoint()
     {
         float TOLERANCE = 0.25f;
 
