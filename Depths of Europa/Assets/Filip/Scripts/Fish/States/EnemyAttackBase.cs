@@ -16,7 +16,7 @@ public class EnemyAttackBase : EnemyStateAttackEscapeBase
     bool _doTimer = false;
     bool _playerInRange = false;
 
-    public override void SetUp(BasicEnemy0 script, bool noticeByHighSpeed)
+    public override void SetUp(EnemyBase script, bool noticeByHighSpeed)
     {
         _attackTimer = new Timer(_durationToAttackOutOfSight);
         base.SetUp(script, noticeByHighSpeed);
@@ -39,7 +39,7 @@ public class EnemyAttackBase : EnemyStateAttackEscapeBase
         TurnTowardsTravelDistance(_turnSpeed);
         SetVelocity();
 
-        RaycastHit2D hit = Physics2D.BoxCast(thisTransform.position, BOX_CAST_BOX, 0, thisTransform.right, _avoidRange, LayerMask.GetMask(Layers.DEFAULT));
+        RaycastHit2D hit = Physics2D.BoxCast(_thisTransform.position, BOX_CAST_BOX, 0, _thisTransform.right, _avoidRange, LayerMask.GetMask(Layers.DEFAULT));
 
         if (hit.collider != null)
             Divert();
@@ -82,8 +82,8 @@ public class EnemyAttackBase : EnemyStateAttackEscapeBase
 
     private void Attack()
     {
-        RaycastHit2D hit = Physics2D.BoxCast(thisTransform.position, BOX_CAST_BOX, 0, thisTransform.right, _attackRange, LayerMask.GetMask(Layers.PLAYER_SHIP));
-        Debug.DrawRay(thisTransform.position, thisTransform.right * _attackRange, Color.red, 0.1f);
+        RaycastHit2D hit = Physics2D.BoxCast(_thisTransform.position, BOX_CAST_BOX, 0, _thisTransform.right, _attackRange, LayerMask.GetMask(Layers.PLAYER_SHIP));
+        Debug.DrawRay(_thisTransform.position, _thisTransform.right * _attackRange, Color.red, 0.1f);
 
         if (hit)
         {
@@ -93,7 +93,7 @@ public class EnemyAttackBase : EnemyStateAttackEscapeBase
         else
             _doTimer = true;
 
-        SetNewDirection(_playerShip.position - thisTransform.position);
+        SetNewDirection(_playerShip.position - _thisTransform.position);
     }
 
     private void HitPlayer()

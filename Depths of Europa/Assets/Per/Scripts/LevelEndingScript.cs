@@ -9,22 +9,28 @@ public class LevelEndingScript : MonoBehaviour {
     
     [SerializeField] private string _nextScene;
 
-    // [SerializeField] private DialogSystem _dialogToUse = null;
+    private StartDialog _dialogScript = null;
+    bool _hasDialog = false;
     // [SerializeField] private SoundObject _goalReachedSound = null;
-    
-	private void Start () {
-        
-	}
+
+    private void Awake()
+    {
+        _dialogScript = GetComponent<StartDialog>();
+
+        if (_dialogScript != null)
+            _hasDialog = true;
+    }
 
     private void BeginEndingDialog()
     {
-        // Call the beginning of the connected dialog system
-        // For testing purposes:
-        EndLevel();
+        _dialogScript.DialogOverEvent += EndLevel;
+        _dialogScript.StartDialogs();
     }
     public void EndLevel()
     {
-        // Function that the connected dialog system should call to end the level.
+        if (_hasDialog)
+            _dialogScript.DialogOverEvent -= EndLevel;
+
         if (LevelEndingDetected != null)
         {
             LevelEndingDetected(_nextScene);
@@ -42,7 +48,10 @@ public class LevelEndingScript : MonoBehaviour {
 
             // Play sound here, or perhaps in the function EndLevel()
 
-            BeginEndingDialog();
+            if (_hasDialog)
+                BeginEndingDialog();
+            else
+                EndLevel();
         }
     }
 }

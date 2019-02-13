@@ -24,6 +24,11 @@ public class Dialog : MonoBehaviour
     [SerializeField] AudioSource _textAudioSource;
     [SerializeField] AudioSource _voiceAudioSource;
 
+    [SerializeField] Image _rightNameBox;
+    [SerializeField] Image _leftNameBox;
+    [SerializeField] Text _rigthNameText;
+    [SerializeField] Text _leftNameText;
+
     bool _dialogPlaying = false;
 
     DialogBoxScriptableObject _currentScriptableObject;
@@ -149,36 +154,41 @@ public class Dialog : MonoBehaviour
 
     private void SetBoxSettings(DialogBoxObject boxObject)
     {
-       /* if (boxObject.RightTalking)
-        {
-            SetCharacterFontAudio();
-        }
+        SetCharacterSettings(boxObject.RightCharacter, _rightImage, boxObject.RightTalking, _rightNameBox, _rigthNameText);
+        SetCharacterSettings(boxObject.LeftCharacter, _leftImage, !boxObject.RightTalking, _leftNameBox, _leftNameText);
 
-        _dialogText.font = boxObject.Font;
-
-        SetSprite(boxObject.LeftSprite, _leftImage);
-        SetSprite(boxObject.RightSprite, _rightImage);
-
-        if (boxObject.RightTalking)
-            TintSprites(_tintColorWhenNotTalking, Color.white);
-        else
-            TintSprites(Color.white, _tintColorWhenNotTalking);
-
-        PlayAudioClip(_textAudioSource, boxObject.TextAudio);
-        PlayAudioClip(_voiceAudioSource, boxObject.VoiceAudio);
-
-        _minPlayTimer.Reset();
-
-        if (boxObject.VoiceAudio != null)
-            _minPlayTimer.Duration = _voiceAudioSource.clip.length;
-        else
-            _minPlayTimer.Duration = MIN_BOX_TIME;*/
+        PlayAudioClip(_textAudioSource, boxObject.TextAudio);     
     }
 
-    private void SetCharacterFontAudio(CharacterScriptableObject characterObject)
+    private void SetCharacterSettings(CharacterScriptableObject characterObject, Image characterImage, bool talking, Image nameBoxImage, Text nameText)
     {
-        _dialogText.font = characterObject.Font;
+        SetSprite(characterObject.Sprite, characterImage);
 
+        if (talking)
+        {
+            nameBoxImage.gameObject.SetActive(true);
+            nameText.font = characterObject.Font;
+            nameText.text = characterObject.Name;
+
+            TintSprite(characterImage, Color.white);
+            _dialogText.font = characterObject.Font;
+
+            if (characterObject.VoiceAudio != null)
+            {
+                PlayAudioClip(_voiceAudioSource, characterObject.VoiceAudio);
+                _minPlayTimer.Duration = _voiceAudioSource.clip.length;
+            }
+            else
+                _minPlayTimer.Duration = MIN_BOX_TIME;
+
+            _minPlayTimer.Reset();
+        }
+        else
+        {
+            nameBoxImage.gameObject.SetActive(false);
+            TintSprite(characterImage, _tintColorWhenNotTalking);
+        }
+            
     }
 
     private void PlayAudioClip(AudioSource source, AudioClip clip)
@@ -190,10 +200,9 @@ public class Dialog : MonoBehaviour
         }
     }
 
-    private void TintSprites(Color left, Color right)
+    private void TintSprite(Image image, Color color)
     {
-        _leftImage.color = left;
-        _rightImage.color = right;
+        image.color = color;
     }
 
     private void ResetAfterBox()

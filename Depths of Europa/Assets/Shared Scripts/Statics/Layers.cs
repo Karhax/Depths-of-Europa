@@ -16,5 +16,6 @@ namespace Statics
         public static readonly string PLAYER_SHIP = "PlayerShip";
         public static readonly string CLICKABLE = "Clickable";
         public static readonly string ENEMY = "Enemy";
+        public static readonly string FISH_UNDER = "FishUnder";
     }
 }
