@@ -19,6 +19,7 @@ GameObject:
   serializedVersion: 5
   m_Component:
   - component: {fileID: 4084024213043320}
+  - component: {fileID: 114228695325475398}
   m_Layer: 0
   m_Name: AmbientSoundParent
   m_TagString: Untagged
@@ -81,18 +82,18 @@ AudioSource:
   OutputAudioMixerGroup: {fileID: 0}
   m_audioClip: {fileID: 8300000, guid: 59a384287a6c60a4497a77de276c411c, type: 3}
   m_PlayOnAwake: 0
-  m_Volume: 1
+  m_Volume: 0.75
   m_Pitch: 1
   Loop: 0
   Mute: 0
   Spatialize: 0
   SpatializePostEffects: 0
   Priority: 179
-  DopplerLevel: 0.6
+  DopplerLevel: 0
   MinDistance: 1
   MaxDistance: 500
   Pan2D: 0
-  rolloffMode: 0
+  rolloffMode: 2
   BypassEffects: 0
   BypassListenerEffects: 0
   BypassReverbZones: 0
@@ -102,18 +103,30 @@ AudioSource:
     - serializedVersion: 2
       time: 0
       value: 1
-      inSlope: 0
-      outSlope: 0
+      inSlope: -2.7142894
+      outSlope: -2.7142894
+      tangentMode: 0
+    - serializedVersion: 2
+      time: 0.0059366673
+      value: 0.500028
+      inSlope: -4.223557
+      outSlope: -4.223557
+      tangentMode: 0
+    - serializedVersion: 2
+      time: 0.19605002
+      value: 0.12027085
+      inSlope: -0.51321155
+      outSlope: -0.51321155
       tangentMode: 0
     - serializedVersion: 2
       time: 1
       value: 0
-      inSlope: 0
-      outSlope: 0
+      inSlope: -0.060113367
+      outSlope: -0.060113367
       tangentMode: 0
     m_PreInfinity: 2
     m_PostInfinity: 2
-    m_RotationOrder: 4
+    m_RotationOrder: 0
   panLevelCustomCurve:
     serializedVersion: 2
     m_Curve:
@@ -171,3 +184,16 @@ MonoBehaviour:
   _maxCooldownTime: 7.9
   _minDistance: 3
   _maxDistance: 28.5
+--- !u!114 &114228695325475398
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1095598286229094}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 54b2cedf81289b147aebd14ce350eda4, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _offset: {x: 0, y: 0}
+  _player: {fileID: 0}
