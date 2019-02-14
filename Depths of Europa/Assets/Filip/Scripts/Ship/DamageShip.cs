@@ -1,7 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-using UnityEngine.UI;
+using Statics;
 
 public class DamageShip : MonoBehaviour
 {
@@ -23,7 +23,8 @@ public class DamageShip : MonoBehaviour
 
     private void OnCollisionEnter2D(Collision2D collision)
     {
-        TakeDamage(collision.relativeVelocity.magnitude);
+        if (!collision.transform.CompareTag(Tags.ENEMY))
+            TakeDamage(collision.relativeVelocity.magnitude);
     }
 
     public void Hit(int damage)

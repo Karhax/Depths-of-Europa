@@ -55,7 +55,7 @@ Transform:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1007087164518454}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 5.28, y: 3.87, z: 0}
+  m_LocalPosition: {x: 1.3852677, y: -1.5844102, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 4403478602482232}
@@ -165,7 +165,7 @@ CircleCollider2D:
   m_UsedByComposite: 0
   m_Offset: {x: 0, y: 0}
   serializedVersion: 2
-  m_Radius: 0.5
+  m_Radius: 0.35
 --- !u!114 &114646360108956198
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -193,7 +193,7 @@ MonoBehaviour:
     _turnSmootheness: 0.5
     _dodgeSpeed: 15
     _durationToAttackOutOfSight: 10
-    _avoidRange: 0.5
+    _avoidRange: 0.1
     _attackRange: 4
     _damage: 10
   _escapeState:
@@ -238,7 +238,7 @@ SpriteRenderer:
   m_SortingLayerID: -1211141719
   m_SortingLayer: 3
   m_SortingOrder: 0
-  m_Sprite: {fileID: 21300000, guid: 4a918a6274009d542abcc73de15b68bb, type: 3}
+  m_Sprite: {fileID: 21300000, guid: ace00d2eb1ef102418c788ba564ff641, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
   m_FlipY: 0

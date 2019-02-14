@@ -8,6 +8,7 @@ public class Waypoint : MonoBehaviour
 {
     [Header("Settings")]
 
+    [SerializeField, Range(0, 15)] float _affectGetPulseSoundStrength;
     [SerializeField, Range(0, 1)] float _rangeAffectTimeBetweenSounds;
     [SerializeField, Range(0, 1)] float _minGetPulseVolume;
     [SerializeField, Range(0, 1)] float _maxGetPulseVolume;
@@ -106,7 +107,7 @@ public class Waypoint : MonoBehaviour
         _shootSonarAudio.Play();
 
         float distance = Vector2.Distance(_waypointTransform.position, transform.position);
-        float newSound = 4 / distance;
+        float newSound = _affectGetPulseSoundStrength / distance;
 
         if (newSound < _minGetPulseVolume)
             newSound = _minGetPulseVolume;

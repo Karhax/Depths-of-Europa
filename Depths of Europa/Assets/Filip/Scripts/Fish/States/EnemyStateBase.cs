@@ -26,7 +26,7 @@ public abstract class EnemyStateBase
     protected Vector2 _direction;
     protected bool _noticeByHighSpeed;
 
-    protected readonly Vector2 BOX_CAST_BOX = new Vector2(1, 1);
+    protected readonly Vector2 BOX_CAST_BOX = new Vector2(0.25f, 0.25f);
     public virtual void SetUp(EnemyBase script, bool noticeByHighSpeed)
     {
         _noticeByHighSpeed = noticeByHighSpeed;

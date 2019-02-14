@@ -21,7 +21,6 @@ GameObject:
   - component: {fileID: 4518162761985522}
   - component: {fileID: 212194933006035494}
   - component: {fileID: 58026758972868614}
-  - component: {fileID: 58753949047249992}
   - component: {fileID: 114022271832794336}
   m_Layer: 12
   m_Name: Chaser_Enemy_0_Spawn
@@ -36,8 +35,8 @@ Transform:
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1347676673646514}
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 3.858, y: 1.715, z: 0}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: 0.5, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
@@ -58,21 +57,6 @@ CircleCollider2D:
   m_Offset: {x: 0, y: 0}
   serializedVersion: 2
   m_Radius: 0.25
---- !u!58 &58753949047249992
-CircleCollider2D:
-  m_ObjectHideFlags: 1
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 1347676673646514}
-  m_Enabled: 1
-  m_Density: 1
-  m_Material: {fileID: 0}
-  m_IsTrigger: 0
-  m_UsedByEffector: 0
-  m_UsedByComposite: 0
-  m_Offset: {x: 0, y: 0}
-  serializedVersion: 2
-  m_Radius: 0.25
 --- !u!114 &114022271832794336
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -84,7 +68,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 368f6b6f7a3a6dc4a84dd27beca6acb7, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _timeInLightBeforeAggro: 1
+  _timeInLightBeforeAggro: 2.5
   _chaserFish: {fileID: 1007087164518454, guid: 781baf439b1d1ed46ae0db5fbcba5441,
     type: 2}
 --- !u!212 &212194933006035494
@@ -121,8 +105,8 @@ SpriteRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 0
-  m_Sprite: {fileID: 21300000, guid: 4a918a6274009d542abcc73de15b68bb, type: 3}
-  m_Color: {r: 1, g: 0, b: 0, a: 1}
+  m_Sprite: {fileID: 21300000, guid: ace00d2eb1ef102418c788ba564ff641, type: 3}
+  m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
   m_FlipY: 0
   m_DrawMode: 0
