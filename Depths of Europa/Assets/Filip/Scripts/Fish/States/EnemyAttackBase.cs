@@ -14,7 +14,7 @@ public class EnemyAttackBase : EnemyStateAttackEscapeBase
     Timer _attackTimer;
 
     bool _doTimer = false;
-    bool _playerInRange = false;
+    protected bool _playerInRange = false;
 
     public override void SetUp(EnemyBase script, bool noticeByHighSpeed)
     {
@@ -96,7 +96,7 @@ public class EnemyAttackBase : EnemyStateAttackEscapeBase
         SetNewDirection(_playerShip.position - _thisTransform.position);
     }
 
-    private void HitPlayer()
+    protected void HitPlayer()
     {
         _playerShip.GetComponent<DamageShip>().Hit(_damage);
     }

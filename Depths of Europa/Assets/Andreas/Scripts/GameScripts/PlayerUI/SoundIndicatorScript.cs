@@ -9,13 +9,17 @@ public class SoundIndicatorScript : MonoBehaviour {
     [SerializeField, Range(0,1)] float _debugLineModifier;
     [SerializeField] float _frequencyModifier = 10,  _traversalSpeed = 0.2f;
     [SerializeField, Range(0.05f,1),Tooltip("The percent of line point to be updates each frame (minumum of one)")] float _lineUpdateFraction = 0.1f;
+    [SerializeField, Range(1, 200), Tooltip("The ammount of line point to be updates in 1 frame")] int _lineUpdateAmmount = 10;
+    [SerializeField, Tooltip("Should update fraction or update ammount be used, set true for ammount")] bool isUpdateAmmount = true;
     Camera SoundIndicatorCapture;
+
+    [SerializeField, Range(0,1)] float _noise;
 
     readonly float SIN_BOUNDS = 1;
 
     Vector3[] _lineData;
 
-    int _oldLineCount, _linePointUpdateCounter, _lineUpdateTarget;
+    int _oldLineCount, _linePointUpdateCounter, _lineUpdateTarget, _shortLinePointUpdateCounter, _shortLineUpdateTarget;
     private IEnumerator _lineUpdate;
     float _yCenterInterpolator = 0, _traversal, _oldUpdateFrequency;
 
@@ -60,6 +64,7 @@ public class SoundIndicatorScript : MonoBehaviour {
 
     private void GenerateLineData()
     {
+
         _lineData = new Vector3[_numberOfLineSegments];
         float curveFraction = (float)1 / _numberOfLineSegments;
         for (int i = 0; i < _numberOfLineSegments; i++)
@@ -68,7 +73,7 @@ public class SoundIndicatorScript : MonoBehaviour {
 
 
 
-            _yCenterInterpolator += 1 * curveFraction;
+            _yCenterInterpolator += 10 * curveFraction;
 
             Mathf.PingPong(_yCenterInterpolator, 0.5f);
 
@@ -81,14 +86,12 @@ public class SoundIndicatorScript : MonoBehaviour {
 
             float yPositionBase = transform.position.y + _indicatorBounds.y;
 
-            float yPointCalc = (Mathf.Sin(_yCenterInterpolator * _debugLineModifier * Mathf.PI) * Mathf.Sin((_frequencyModifier * Mathf.PI) + (curveProgression * _traversal * Mathf.PI)));
 
-
-
+            float yPointCalc = ( Mathf.Sin((_frequencyModifier * Mathf.PI) + (curveProgression * _traversal *    Mathf.PI * Mathf.Sin(_yCenterInterpolator * _debugLineModifier * Mathf.PI) * Mathf.Cos(_traversal * _debugLineModifier * Mathf.PI))));
 
             float normalizedYPoint = Mathf.InverseLerp(-SIN_BOUNDS, SIN_BOUNDS, yPointCalc);
 
-            float realYPos = Mathf.Lerp(yPositionBase - _indicatorBounds.height, yPositionBase + _indicatorBounds.height, normalizedYPoint);
+            float realYPos = Mathf.Lerp(yPositionBase - (_indicatorBounds.height * _noise), yPositionBase + (_indicatorBounds.height * _noise), normalizedYPoint);
 
             _lineData[i] = new Vector3(xPointPosition, realYPos, normalizedYPoint);
         }
@@ -100,7 +103,14 @@ public class SoundIndicatorScript : MonoBehaviour {
         while (true)
         {
             GenerateLineData();
-            _lineUpdateTarget = Mathf.FloorToInt(_numberOfLineSegments * _lineUpdateFraction);
+            if (!isUpdateAmmount)
+            {
+                _lineUpdateTarget = Mathf.FloorToInt(_numberOfLineSegments * _lineUpdateFraction);
+            }
+            else if(isUpdateAmmount)
+            {
+                _lineUpdateTarget = _lineUpdateAmmount;
+            }
             _linePointUpdateCounter = 0;
             float curveFraction = (float)1 / _numberOfLineSegments;
             for (int i = 0; i < _numberOfLineSegments; i++)
@@ -123,12 +133,19 @@ public class SoundIndicatorScript : MonoBehaviour {
                 if (_linePointUpdateCounter >= _lineUpdateTarget || _lineUpdateTarget < 1)
                 {
                     yield return new WaitForEndOfFrame();
-                    _lineUpdateTarget = Mathf.FloorToInt(_numberOfLineSegments * _lineUpdateFraction);
+                    if (!isUpdateAmmount)
+                    {
+                        _lineUpdateTarget = Mathf.FloorToInt(_numberOfLineSegments * _lineUpdateFraction);
+                    }
+                    else if (isUpdateAmmount)
+                    {
+                        _lineUpdateTarget = _lineUpdateAmmount;
+                    }
                     _linePointUpdateCounter = 0;
 
                 }
             }
-            //yield return new WaitForSeconds(0.05f);
+            yield return new WaitForEndOfFrame();
         }
     }
 }
