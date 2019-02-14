@@ -8,11 +8,13 @@ public class Waypoint : MonoBehaviour
 {
     [Header("Settings")]
 
+    [SerializeField, Range(0, 1)] float _rangeAffectTimeBetweenSounds;
+    [SerializeField, Range(0, 1)] float _minGetPulseVolume;
+    [SerializeField, Range(0, 1)] float _maxGetPulseVolume;
     [SerializeField, Range(0, 500)] float _radius;
     [SerializeField, Range(0, 15)] float _fadeInSpeed;
     [SerializeField, Range(0, 15)] float _fadeOutSpeed;
     [SerializeField, Range(0, 15)] float _timeActive;
-    [SerializeField, Range(0, 5)] float _waitTimeToStart;
     [SerializeField, Range(0, 20)] float _soundStrength;
 
     [Header("Drop")]
@@ -20,19 +22,21 @@ public class Waypoint : MonoBehaviour
     [SerializeField] MoveShip _moveShipScript;
     [SerializeField] RectTransform _waypointRectTransform;
     [SerializeField] Transform _waypointTransform;
+    [SerializeField] AudioSource _shootSonarAudio;
+    [SerializeField] AudioSource _getSonarAudio;
 
-    Timer _waitToStartTimer;
+    Timer _waitToStartTimer = new Timer(1);
     Timer _timerActive;
     Image _waypointImage;
     bool _wayPointOn = false;
     bool _fadingIn = true;
     bool _isPaused = false;
+    bool _playedGetPulse = false;
 
     PauseMenuScript _pauseMenuScript;
 
     private void Awake()
     {
-        _waitToStartTimer = new Timer(_waitTimeToStart);
         _timerActive = new Timer(_timeActive);
 
         _waypointImage = _waypointRectTransform.GetComponent<Image>();
@@ -80,6 +84,12 @@ public class Waypoint : MonoBehaviour
                 StartPulse();
             else if (_wayPointOn && _waitToStartTimer.Expired())
             {
+                if (!_playedGetPulse)
+                {
+                    _playedGetPulse = true;
+                    _getSonarAudio.Play();
+                }
+
                 _timerActive.Time += Time.deltaTime;
                 SetWaypoint();
 
@@ -93,6 +103,21 @@ public class Waypoint : MonoBehaviour
 
     private void StartPulse()
     {
+        _shootSonarAudio.Play();
+
+        float distance = Vector2.Distance(_waypointTransform.position, transform.position);
+        float newSound = 4 / distance;
+
+        if (newSound < _minGetPulseVolume)
+            newSound = _minGetPulseVolume;
+        else if (newSound > _maxGetPulseVolume)
+            newSound = _maxGetPulseVolume;
+
+        float newDuration = distance * _rangeAffectTimeBetweenSounds;
+
+        _getSonarAudio.volume = newSound;
+
+        _waitToStartTimer.Duration = newDuration;
         _waitToStartTimer.Reset();
         _waypointRectTransform.gameObject.SetActive(true);
         _wayPointOn = true;
@@ -124,6 +149,7 @@ public class Waypoint : MonoBehaviour
 
     private void Stop()
     {
+        _playedGetPulse = false;
         _fadingIn = true;
         _wayPointOn = false;
         _waypointRectTransform.gameObject.SetActive(false);

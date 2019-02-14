@@ -15,6 +15,8 @@ public class EnemyChaserAttack : EnemyAttackBase
         }
         else if ((other.CompareTag(Tags.NOTICE_HIGH_SPEED) && _noticeByHighSpeed) || (other.CompareTag(Tags.NOTICE_LOW_SPEED) && !_noticeByHighSpeed))
             _playerInRange = true;
+        else if (other.CompareTag(Tags.BASE))
+            return EnemyStates.ESCAPE;
 
         return EnemyStates.STAY;
     }

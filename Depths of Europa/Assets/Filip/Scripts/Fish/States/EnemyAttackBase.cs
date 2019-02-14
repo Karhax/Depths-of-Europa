@@ -69,7 +69,7 @@ public class EnemyAttackBase : EnemyStateAttackEscapeBase
         else if ((other.CompareTag(Tags.NOTICE_HIGH_SPEED) && _noticeByHighSpeed) || (other.CompareTag(Tags.NOTICE_LOW_SPEED) && !_noticeByHighSpeed))
             _playerInRange = true;
 
-        return EnemyStates.STAY;
+        return base.OnTriggerEnter(other);
     }
 
     public override EnemyStates OnTriggerExit(Collider2D other)

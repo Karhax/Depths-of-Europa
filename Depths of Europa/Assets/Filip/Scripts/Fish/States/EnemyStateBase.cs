@@ -46,7 +46,13 @@ public abstract class EnemyStateBase
     public abstract EnemyStates FixedUpdate();
     public abstract void ExitState();
 
-    public abstract EnemyStates OnTriggerEnter(Collider2D other);
+    public virtual EnemyStates OnTriggerEnter(Collider2D other)
+    {
+        if (other.CompareTag(Tags.BASE))
+            return EnemyStates.ESCAPE;
+
+        return EnemyStates.STAY;
+    }
     public abstract EnemyStates OnTriggerExit(Collider2D other);
 
     protected void TurnTowardsTravelDistance(float turnSpeed)
@@ -63,6 +69,16 @@ public abstract class EnemyStateBase
     protected void SetVelocity()
     {
         _thisRigidbody.velocity = Vector2.Lerp(_thisRigidbody.velocity, _direction, Time.deltaTime * _turnSmootheness);
+    }
+
+    protected EnemyStates ShouldEscape(Vector3 escapeFrom)
+    {
+        RaycastHit2D hit = Physics2D.Raycast(_thisTransform.position, escapeFrom - _thisTransform.position, Vector2.Distance(_thisTransform.position, escapeFrom), LayerMask.GetMask(Layers.DEFAULT));
+
+        if (hit.collider == null)
+            return EnemyStates.ESCAPE;
+
+        return EnemyStates.STAY;
     }
 }
 

@@ -60,8 +60,8 @@ public class EnemyEscapeBase : EnemyStateAttackEscapeBase
             _doTimer = false;
             _escapedTimer.Reset();
         }
-            
-        return EnemyStates.STAY;
+
+        return base.OnTriggerEnter(other);
     }
 
     public override EnemyStates OnTriggerExit(Collider2D other)

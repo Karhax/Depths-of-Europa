@@ -7,57 +7,30 @@ public class BasicChaserFish0 : EnemyBase
     public delegate void FishOffScreen();
     public event FishOffScreen FishOffScreenEvent;
 
-    [SerializeField, Range(0.1f, 15f)] float _timeOutsideScreenRespawn;
-
     [Space]
 
     [SerializeField] EnemyIdleBase _idleState;
     [SerializeField] EnemyChaserAttack _attackState;
     [SerializeField] EnemyEscapeBase _escapeState;
 
-    Camera _camera;
-    Timer _offScreenTimer;
-
-    readonly float OFF_SCREEN_LOW = 0f;
-    readonly float OFF_SCREEN_HIGH = 1f;
-
     private void Awake()
     {
-        _offScreenTimer = new Timer(_timeOutsideScreenRespawn);
-
         _idleState.SetUp(this, _noticeByHighSpeed);
         _attackState.SetUp(this, _noticeByHighSpeed);
         _escapeState.SetUp(this, _noticeByHighSpeed);
-
-        ChangeState(_idleState);
     }
 
     private void Start()
     {
-        _camera = GameManager.CameraObject.GetComponent<Camera>();
+        ChangeState(_attackState);
     }
 
-    private void Update()
+    protected override void OnTriggerExit2D(Collider2D other)
     {
-        IsOutsideScreen();
-    }
+        base.OnTriggerExit2D(other);
 
-    private void IsOutsideScreen()
-    {
-        Vector3 screenSpacePosition = _camera.WorldToViewportPoint(transform.position);
-        
-        if (!(screenSpacePosition.x > OFF_SCREEN_LOW && screenSpacePosition.x < OFF_SCREEN_HIGH && screenSpacePosition.y > OFF_SCREEN_LOW && screenSpacePosition.y < OFF_SCREEN_HIGH))
-        {
-            _offScreenTimer.Time += Time.deltaTime;
-
-            if (_offScreenTimer.Expired())
-                Debug.Log("HERE");
-
-            if (_offScreenTimer.Expired() && FishOffScreenEvent != null)
-                FishOffScreenEvent.Invoke();
-        }
-        else
-            _offScreenTimer.Reset();
+        if (!_shouldMove && FishOffScreenEvent != null)
+            FishOffScreenEvent.Invoke();
     }
 
     protected override void ChangeState(EnemyStates state)

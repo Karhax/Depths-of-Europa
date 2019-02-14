@@ -1,9 +1,12 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using Statics;
 
 public abstract class EnemyBase : MonoBehaviour
 {
+    protected bool _shouldMove = false;
+
     protected static int _currentMaxSortOrder = 0;
 
     [SerializeField] protected bool _noticeByHighSpeed;
@@ -15,18 +18,25 @@ public abstract class EnemyBase : MonoBehaviour
         GetComponent<SpriteRenderer>().sortingOrder = _currentMaxSortOrder++;
     }
 
-    private void FixedUpdate()
+    protected virtual void FixedUpdate()
     {
-        ChangeState(_currentState.FixedUpdate());
+        if (_shouldMove)
+            ChangeState(_currentState.FixedUpdate());
     }
 
-    private void OnTriggerEnter2D(Collider2D other)
+    protected virtual void OnTriggerEnter2D(Collider2D other)
     {
+        if (other.CompareTag(Tags.IN_CAMERA_TRIGGER))
+            _shouldMove = true;
+
         ChangeState(_currentState.OnTriggerEnter(other));
     }
 
-    private void OnTriggerExit2D(Collider2D other)
+    protected virtual void OnTriggerExit2D(Collider2D other)
     {
+        if (other.CompareTag(Tags.IN_CAMERA_TRIGGER))
+            TurnOfMovement();
+
         ChangeState(_currentState.OnTriggerExit(other));
     }
 
@@ -40,5 +50,11 @@ public abstract class EnemyBase : MonoBehaviour
         _currentState = state;
 
         _currentState.EnterState();
+    }
+
+    protected void TurnOfMovement()
+    {
+        _shouldMove = false;
+        GetComponent<Rigidbody2D>().velocity = Vector2.zero;
     }
 }

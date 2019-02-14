@@ -9,67 +9,61 @@ Prefab:
     m_Modifications: []
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 0}
-  m_RootGameObject: {fileID: 1786326038982564}
+  m_RootGameObject: {fileID: 1347676673646514}
   m_IsPrefabParent: 1
---- !u!1 &1786326038982564
+--- !u!1 &1347676673646514
 GameObject:
   m_ObjectHideFlags: 0
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
   serializedVersion: 5
   m_Component:
-  - component: {fileID: 4943879566035964}
-  - component: {fileID: 212124441454038154}
-  - component: {fileID: 58232824173526756}
-  - component: {fileID: 50870032528031154}
-  - component: {fileID: 58358345146824828}
-  - component: {fileID: 114884665183533664}
-  m_Layer: 13
-  m_Name: Basic_Background_Fish_0
-  m_TagString: Enemy
+  - component: {fileID: 4518162761985522}
+  - component: {fileID: 212194933006035494}
+  - component: {fileID: 58026758972868614}
+  - component: {fileID: 58753949047249992}
+  - component: {fileID: 114022271832794336}
+  m_Layer: 12
+  m_Name: Chaser_Enemy_0_Spawn
+  m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
---- !u!4 &4943879566035964
+--- !u!4 &4518162761985522
 Transform:
   m_ObjectHideFlags: 1
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 1786326038982564}
+  m_GameObject: {fileID: 1347676673646514}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -1.12, y: 7.68, z: 0}
+  m_LocalPosition: {x: 3.858, y: 1.715, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!50 &50870032528031154
-Rigidbody2D:
-  serializedVersion: 4
-  m_ObjectHideFlags: 1
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 1786326038982564}
-  m_BodyType: 0
-  m_Simulated: 1
-  m_UseFullKinematicContacts: 0
-  m_UseAutoMass: 0
-  m_Mass: 0.15
-  m_LinearDrag: 0.3
-  m_AngularDrag: 0.15
-  m_GravityScale: 0
-  m_Material: {fileID: 0}
-  m_Interpolate: 0
-  m_SleepingMode: 1
-  m_CollisionDetection: 0
-  m_Constraints: 0
---- !u!58 &58232824173526756
+--- !u!58 &58026758972868614
 CircleCollider2D:
   m_ObjectHideFlags: 1
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 1786326038982564}
+  m_GameObject: {fileID: 1347676673646514}
+  m_Enabled: 1
+  m_Density: 1
+  m_Material: {fileID: 0}
+  m_IsTrigger: 1
+  m_UsedByEffector: 0
+  m_UsedByComposite: 0
+  m_Offset: {x: 0, y: 0}
+  serializedVersion: 2
+  m_Radius: 0.25
+--- !u!58 &58753949047249992
+CircleCollider2D:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1347676673646514}
   m_Enabled: 1
   m_Density: 1
   m_Material: {fileID: 0}
@@ -79,47 +73,26 @@ CircleCollider2D:
   m_Offset: {x: 0, y: 0}
   serializedVersion: 2
   m_Radius: 0.25
---- !u!58 &58358345146824828
-CircleCollider2D:
-  m_ObjectHideFlags: 1
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 1786326038982564}
-  m_Enabled: 1
-  m_Density: 1
-  m_Material: {fileID: 0}
-  m_IsTrigger: 1
-  m_UsedByEffector: 0
-  m_UsedByComposite: 0
-  m_Offset: {x: 0, y: 0}
-  serializedVersion: 2
-  m_Radius: 0.5
---- !u!114 &114884665183533664
+--- !u!114 &114022271832794336
 MonoBehaviour:
   m_ObjectHideFlags: 1
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 1786326038982564}
+  m_GameObject: {fileID: 1347676673646514}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: eb26277af62e0a54cb30ee3a622452b6, type: 3}
+  m_Script: {fileID: 11500000, guid: 368f6b6f7a3a6dc4a84dd27beca6acb7, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _noticeByHighSpeed: 0
-  _idleState:
-    _stateSpeed: 0.5
-    _stateSpeedModifier: 0.35
-    _turnSpeed: 4
-    _turnSmootheness: 0.5
-    _idleRadius: 6
-    _minBackUpDistance: 1
-    _maxBackUpDistance: 6
---- !u!212 &212124441454038154
+  _timeInLightBeforeAggro: 1
+  _chaserFish: {fileID: 1007087164518454, guid: 781baf439b1d1ed46ae0db5fbcba5441,
+    type: 2}
+--- !u!212 &212194933006035494
 SpriteRenderer:
   m_ObjectHideFlags: 1
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 1786326038982564}
+  m_GameObject: {fileID: 1347676673646514}
   m_Enabled: 1
   m_CastShadows: 0
   m_ReceiveShadows: 0
@@ -145,15 +118,15 @@ SpriteRenderer:
   m_AutoUVMaxDistance: 0.5
   m_AutoUVMaxAngle: 89
   m_LightmapParameters: {fileID: 0}
-  m_SortingLayerID: 78163125
-  m_SortingLayer: 1
+  m_SortingLayerID: 0
+  m_SortingLayer: 0
   m_SortingOrder: 0
-  m_Sprite: {fileID: 21300000, guid: 33fecb69cb51777439e1ededdda2cdf4, type: 3}
-  m_Color: {r: 0.30882353, g: 0.30882353, b: 0.30882353, a: 1}
+  m_Sprite: {fileID: 21300000, guid: 4a918a6274009d542abcc73de15b68bb, type: 3}
+  m_Color: {r: 1, g: 0, b: 0, a: 1}
   m_FlipX: 0
   m_FlipY: 0
   m_DrawMode: 0
-  m_Size: {x: 0.16, y: 0.16}
+  m_Size: {x: 0.32, y: 0.32}
   m_AdaptiveModeThreshold: 0.5
   m_SpriteTileMode: 0
   m_WasSpriteAssigned: 1

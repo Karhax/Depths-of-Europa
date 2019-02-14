@@ -59,17 +59,8 @@ public class EnemyIdleBase : EnemyStateBase
             return ShouldAttack(other.transform.position);
         else if (other.CompareTag(Tags.WALL))
             BackUp(_thisTransform.position - other.transform.position);
-        return EnemyStates.STAY;
-    }
 
-    private EnemyStates ShouldEscape(Vector3 escapeFrom)
-    {
-        RaycastHit2D hit = Physics2D.Raycast(_thisTransform.position, escapeFrom - _thisTransform.position, Vector2.Distance(_thisTransform.position, escapeFrom), LayerMask.GetMask(Layers.DEFAULT));
-
-        if (hit.collider == null)
-            return EnemyStates.ESCAPE;
-
-        return EnemyStates.STAY;
+        return base.OnTriggerEnter(other);
     }
 
     public override EnemyStates OnTriggerExit(Collider2D other)

@@ -24,5 +24,8 @@ namespace Statics
         public static readonly string NOTICE_HIGH_SPEED = "NoticeHighSpeed";
         public static readonly string NOTICE_LOW_SPEED = "NoticeLowSpeed";
         public static readonly string WALL = "Wall";
+
+        public static readonly string IN_CAMERA_TRIGGER = "InCameraTrigger";
+        public static readonly string BASE = "Base";
     }
 }
