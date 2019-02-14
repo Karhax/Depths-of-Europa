@@ -52,13 +52,23 @@ public class EnemyIdleBase : EnemyStateBase
     public override EnemyStates OnTriggerEnter(Collider2D other)
     {
         if (other.CompareTag(Tags.LIGHT) || other.CompareTag(Tags.PLAYER_OUTSIDE))
-            return EnemyStates.ESCAPE;
+            return ShouldEscape(other.transform.position);
         else if (other.CompareTag(Tags.NOTICE_HIGH_SPEED) && _noticeByHighSpeed)
             return ShouldAttack(other.transform.position);
         else if (other.CompareTag(Tags.NOTICE_LOW_SPEED) && !_noticeByHighSpeed)
             return ShouldAttack(other.transform.position);
         else if (other.CompareTag(Tags.WALL))
             BackUp(_thisTransform.position - other.transform.position);
+        return EnemyStates.STAY;
+    }
+
+    private EnemyStates ShouldEscape(Vector3 escapeFrom)
+    {
+        RaycastHit2D hit = Physics2D.Raycast(_thisTransform.position, escapeFrom - _thisTransform.position, Vector2.Distance(_thisTransform.position, escapeFrom), LayerMask.GetMask(Layers.DEFAULT));
+
+        if (hit.collider == null)
+            return EnemyStates.ESCAPE;
+
         return EnemyStates.STAY;
     }
 
@@ -107,9 +117,9 @@ public class EnemyIdleBase : EnemyStateBase
 
     private EnemyStates ShouldAttack(Vector2 _playerPosition)
     {
-        RaycastHit2D hit = Physics2D.BoxCast(_thisTransform.position, BOX_CAST_BOX, 0, _playerPosition - (Vector2)_thisTransform.position, RAY_CAST_LENGTH, _lookForPlayerLayer);
+        RaycastHit2D hit = Physics2D.Raycast(_thisTransform.position, _playerPosition - (Vector2)_thisTransform.position, Vector2.Distance(_thisTransform.position, _playerPosition), LayerMask.GetMask(Layers.DEFAULT));
 
-        if (hit.collider != null)
+        if (hit.collider == null)
             return EnemyStates.ATTACK;
 
         return EnemyStates.STAY;
