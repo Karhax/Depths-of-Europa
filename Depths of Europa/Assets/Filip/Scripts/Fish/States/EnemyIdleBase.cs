@@ -8,19 +8,19 @@ public class EnemyIdleBase : EnemyStateBase
 {
     [SerializeField, Range(0, 15)] protected float _idleRadius;
 
-    [SerializeField, Range(0, 10)] float _minBackUpDistance;
-    [SerializeField, Range(0, 15)] float _maxBackUpDistance;
+    [SerializeField, Range(0, 10)] protected float _minBackUpDistance;
+    [SerializeField, Range(0, 15)] protected float _maxBackUpDistance;
 
-    Vector2 _centerPosition = Vector2.zero;
-    Vector2 _currentDestination;
+    protected Vector2 _centerPosition = Vector2.zero;
+    protected Vector2 _currentDestination;
 
-    float _currentTurnSpeed;
-    readonly float MIDDLE_ANGLE = 90f;
-    readonly float RAY_CAST_LENGTH = 15f;
-    readonly int NUMBER_OF_TRIES_FIND_NEW_PATH = 5;
-    readonly int TRY_ANGLE = 60;
+    protected float _currentTurnSpeed;
+    protected readonly float MIDDLE_ANGLE = 90f;
+    protected readonly float RAY_CAST_LENGTH = 15f;
+    protected readonly int NUMBER_OF_TRIES_FIND_NEW_PATH = 5;
+    protected readonly int TRY_ANGLE = 60;
 
-    LayerMask _lookForPlayerLayer;
+    protected LayerMask _lookForPlayerLayer;
 
     public override void SetUp(EnemyBase script, bool noticeByHighSpeed)
     {
@@ -52,7 +52,7 @@ public class EnemyIdleBase : EnemyStateBase
     public override EnemyStates OnTriggerEnter(Collider2D other)
     {
         if (other.CompareTag(Tags.LIGHT) || other.CompareTag(Tags.PLAYER_OUTSIDE))
-            return EnemyStates.ESCAPE;
+            return ShouldEscape(other.transform.position);
         else if (other.CompareTag(Tags.NOTICE_HIGH_SPEED) && _noticeByHighSpeed)
             return ShouldAttack(other.transform.position);
         else if (other.CompareTag(Tags.NOTICE_LOW_SPEED) && !_noticeByHighSpeed)
@@ -62,18 +62,28 @@ public class EnemyIdleBase : EnemyStateBase
         return EnemyStates.STAY;
     }
 
+    private EnemyStates ShouldEscape(Vector3 escapeFrom)
+    {
+        RaycastHit2D hit = Physics2D.Raycast(_thisTransform.position, escapeFrom - _thisTransform.position, Vector2.Distance(_thisTransform.position, escapeFrom), LayerMask.GetMask(Layers.DEFAULT));
+
+        if (hit.collider == null)
+            return EnemyStates.ESCAPE;
+
+        return EnemyStates.STAY;
+    }
+
     public override EnemyStates OnTriggerExit(Collider2D other)
     {
         return EnemyStates.STAY;
     }
 
-    private void BackUp(Vector2 direction)
+    protected void BackUp(Vector2 direction)
     {
         SetNewDirection((direction * Random.Range(_minBackUpDistance, _maxBackUpDistance)) - (Vector2)_thisTransform.position);
         SetTurnSpeed();
     }
 
-    private void PickNewDestination()
+    protected virtual void PickNewDestination()
     {
         int tries = 0;
         bool doAgain = true;
@@ -91,13 +101,13 @@ public class EnemyIdleBase : EnemyStateBase
         SetTurnSpeed();
     }
 
-    private void SetTurnSpeed()
+    protected void SetTurnSpeed()
     {
         _currentTurnSpeed = _turnSpeed * Vector2.Angle(_thisTransform.right, _direction) / MIDDLE_ANGLE;
     }
 
 
-    private bool ReachedPoint()
+    protected bool ReachedPoint()
     {
         float TOLERANCE = 0.25f;
 
@@ -107,9 +117,9 @@ public class EnemyIdleBase : EnemyStateBase
 
     private EnemyStates ShouldAttack(Vector2 _playerPosition)
     {
-        RaycastHit2D hit = Physics2D.BoxCast(_thisTransform.position, BOX_CAST_BOX, 0, _playerPosition - (Vector2)_thisTransform.position, RAY_CAST_LENGTH, _lookForPlayerLayer);
+        RaycastHit2D hit = Physics2D.Raycast(_thisTransform.position, _playerPosition - (Vector2)_thisTransform.position, Vector2.Distance(_thisTransform.position, _playerPosition), LayerMask.GetMask(Layers.DEFAULT));
 
-        if (hit.collider != null)
+        if (hit.collider == null)
             return EnemyStates.ATTACK;
 
         return EnemyStates.STAY;
