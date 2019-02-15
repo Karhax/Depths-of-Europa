@@ -22,6 +22,7 @@ public class SpawnChaser : MonoBehaviour
     Vector3 _startPosition;
 
     bool _spawned = false;
+    bool _fishHasLeft = false;
 
     private void Awake()
     {
@@ -48,6 +49,8 @@ public class SpawnChaser : MonoBehaviour
 
     private void Update()
     {
+        _sprite.localPosition = _startPosition + new Vector3(_currentAggroTime / _timeInLightBeforeAggro * _startPositionBack, 0, 0);
+
         if (_inLight && !_spawned)
         {
             RaycastHit2D hit = Physics2D.Raycast(transform.position, _player.position - transform.position, Vector2.Distance(transform.position, _player.position), LayerMask.GetMask(Layers.DEFAULT));
@@ -55,8 +58,6 @@ public class SpawnChaser : MonoBehaviour
             if (hit.collider == null)
             {
                 _currentAggroTime += Time.deltaTime;
-
-                _sprite.localPosition = _startPosition + new Vector3(_currentAggroTime / _timeInLightBeforeAggro * _startPositionBack, 0, 0);
 
                 if (_currentAggroTime >= _timeInLightBeforeAggro)
                     SpawnFish();
@@ -70,12 +71,21 @@ public class SpawnChaser : MonoBehaviour
     {
         if (other.CompareTag(Tags.LIGHT))
             _inLight = true;
+        else
+        {
+            BasicChaserFish0 fish = other.GetComponent<BasicChaserFish0>();
+
+            if (fish != null && _fishHasLeft)
+                ResetSpawn();
+        }
     }
 
     private void OnTriggerExit2D(Collider2D other)
     {
         if (other.CompareTag(Tags.LIGHT))
             _inLight = false;
+        else if (!_fishHasLeft && other.GetComponent<BasicChaserFish0>() != null)
+            _fishHasLeft = true;
     }
 
     private void SpawnFish()
@@ -84,13 +94,18 @@ public class SpawnChaser : MonoBehaviour
 
         _fish = (Instantiate(_chaserFish, transform.position, Quaternion.identity) as GameObject).transform;
         _fish.right = GameManager.ShipObject.transform.position - _fish.position;
-        _fish.GetComponent<BasicChaserFish0>().FishOffScreenEvent += ResetSpawn;
 
+        BasicChaserFish0 script = _fish.GetComponent<BasicChaserFish0>();
+        script.FishOffScreenEvent += ResetSpawn;
+        script.SetSpawn(transform.position);
+
+        _fish.gameObject.SetActive(true);
         _sprite.gameObject.SetActive(false);
     }
 
     private void ResetSpawn()
     {
+        _fishHasLeft = false;
         _sprite.gameObject.SetActive(true);
         Destroy(_fish.gameObject);
         _spawned = false;

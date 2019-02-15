@@ -11,7 +11,9 @@ public class BasicChaserFish0 : EnemyBase
 
     [SerializeField] EnemyIdleBase _idleState;
     [SerializeField] EnemyChaserAttack _attackState;
-    [SerializeField] EnemyEscapeBase _escapeState;
+    [SerializeField] EnemyChaserEscape _escapeState;
+
+    Vector2 _spawnPosition;
 
     private void Awake()
     {
@@ -23,6 +25,16 @@ public class BasicChaserFish0 : EnemyBase
     private void Start()
     {
         ChangeState(_attackState);
+    }
+
+    public void SetSpawn(Vector2 spawn)
+    {
+        _spawnPosition = spawn;
+    }
+
+    public Vector2 GetSpawn()
+    {
+        return _spawnPosition;
     }
 
     protected override void OnTriggerExit2D(Collider2D other)
