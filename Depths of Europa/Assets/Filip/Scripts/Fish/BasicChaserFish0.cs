@@ -9,7 +9,6 @@ public class BasicChaserFish0 : EnemyBase
 
     [Space]
 
-    [SerializeField] EnemyIdleBase _idleState;
     [SerializeField] EnemyChaserAttack _attackState;
     [SerializeField] EnemyChaserEscape _escapeState;
 
@@ -17,7 +16,6 @@ public class BasicChaserFish0 : EnemyBase
 
     private void Awake()
     {
-        _idleState.SetUp(this, _noticeByHighSpeed);
         _attackState.SetUp(this, _noticeByHighSpeed);
         _escapeState.SetUp(this, _noticeByHighSpeed);
     }
@@ -47,14 +45,12 @@ public class BasicChaserFish0 : EnemyBase
 
     protected override void ChangeState(EnemyStates state)
     {
-        if (state == EnemyStates.ESCAPE && _currentState == _idleState)
-            return;
 
         switch (state)
         {
+            case (EnemyStates.IDLE):
             case (EnemyStates.STAY): { return; }
             case (EnemyStates.ESCAPE): { ChangeState(_escapeState); break; }
-            case (EnemyStates.IDLE): { ChangeState(_idleState); break; }
             case (EnemyStates.ATTACK): { ChangeState(_attackState); break; }
 
             default: { throw new System.Exception("This enemy state is not fully implemented! " + this + " " + gameObject.name); }

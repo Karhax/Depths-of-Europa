@@ -6,14 +6,14 @@ using Statics;
 [System.Serializable]
 public class EnemyAttackBase : EnemyStateAttackEscapeBase
 {
-    [SerializeField, Range(0, 10)] float _durationToAttackOutOfSight;    
-    [SerializeField, Range(0, 15)] float _avoidRange;
-    [SerializeField, Range(0, 15)] float _attackRange;
-    [SerializeField, Range(0, 50)] int _damage;
+    [SerializeField, Range(0, 10)] protected float _durationToAttackOutOfSight;    
+    [SerializeField, Range(0, 15)] protected float _avoidRange;
+    [SerializeField, Range(0, 15)] protected float _attackRange;
+    [SerializeField, Range(0, 50)] protected int _damage;
 
-    Timer _attackTimer;
+    protected Timer _attackTimer;
 
-    bool _doTimer = false;
+    protected bool _doTimer = false;
     protected bool _playerInRange = false;
 
     public override void SetUp(EnemyBase script, bool noticeByHighSpeed)
@@ -80,7 +80,7 @@ public class EnemyAttackBase : EnemyStateAttackEscapeBase
         return EnemyStates.STAY;
     }
 
-    private void Attack()
+    protected void Attack()
     {
         RaycastHit2D hit = Physics2D.BoxCast(_thisTransform.position, BOX_CAST_BOX, 0, _thisTransform.right, _attackRange, LayerMask.GetMask(Layers.PLAYER_SHIP));
         Debug.DrawRay(_thisTransform.position, _thisTransform.right * _attackRange, Color.red, 0.1f);
