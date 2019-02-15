@@ -8,7 +8,7 @@ public class EnemyChaserEscape : EnemyStateAttackEscapeBase
 {
     [SerializeField, Range(0, 15)] float _lookRange;
 
-    Vector2 _spawn;
+    Transform _spawn;
 
     public override void SetUp(EnemyBase script, bool noticeByHighSpeed)
     {
@@ -52,6 +52,6 @@ public class EnemyChaserEscape : EnemyStateAttackEscapeBase
 
     private void Flee()
     {
-        SetNewDirection(_spawn - (Vector2)_thisTransform.position);
+        SetNewDirection((Vector2)_spawn.position - (Vector2)_thisTransform.position);
     }
 }

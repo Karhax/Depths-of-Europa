@@ -36,7 +36,7 @@ public class EnemyChaserAttack : EnemyAttackBase
 
         _huntTimer.Time += Time.deltaTime;
 
-        if (_huntTimer.Expired() && !_playerInRange)
+        if (_huntTimer.Expired())
             return EnemyStates.ESCAPE;
 
         return EnemyStates.STAY;

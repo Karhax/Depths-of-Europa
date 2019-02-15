@@ -69,7 +69,7 @@ public class SpawnChaser : MonoBehaviour
 
     private void OnTriggerEnter2D(Collider2D other)
     {
-        if (other.CompareTag(Tags.LIGHT))
+        if (other.CompareTag(Tags.LIGHT) || other.CompareTag(Tags.FLARE))
             _inLight = true;
         else
         {
@@ -82,7 +82,7 @@ public class SpawnChaser : MonoBehaviour
 
     private void OnTriggerExit2D(Collider2D other)
     {
-        if (other.CompareTag(Tags.LIGHT))
+        if (other.CompareTag(Tags.LIGHT) || other.CompareTag(Tags.FLARE))
             _inLight = false;
         else if (!_fishHasLeft && other.GetComponent<BasicChaserFish0>() != null)
             _fishHasLeft = true;
@@ -97,7 +97,7 @@ public class SpawnChaser : MonoBehaviour
 
         BasicChaserFish0 script = _fish.GetComponent<BasicChaserFish0>();
         script.FishOffScreenEvent += ResetSpawn;
-        script.SetSpawn(transform.position);
+        script.SetSpawn(transform);
 
         _fish.gameObject.SetActive(true);
         _sprite.gameObject.SetActive(false);
