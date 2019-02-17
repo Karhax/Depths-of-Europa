@@ -46,13 +46,8 @@ public abstract class EnemyStateBase
     public abstract EnemyStates FixedUpdate();
     public abstract void ExitState();
 
-    public virtual EnemyStates OnTriggerEnter(Collider2D other)
-    {
-        if (other.CompareTag(Tags.BASE))
-            return EnemyStates.ESCAPE;
+    public abstract EnemyStates OnTriggerEnter(Collider2D other);
 
-        return EnemyStates.STAY;
-    }
     public abstract EnemyStates OnTriggerExit(Collider2D other);
 
     protected void TurnTowardsTravelDistance(float turnSpeed)
@@ -79,6 +74,11 @@ public abstract class EnemyStateBase
             return EnemyStates.ESCAPE;
 
         return EnemyStates.STAY;
+    }
+
+    protected bool EnteredBase(Collider2D other)
+    {
+        return other.CompareTag(Tags.BASE);
     }
 }
 

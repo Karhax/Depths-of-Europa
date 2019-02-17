@@ -59,8 +59,10 @@ public class EnemyIdleBase : EnemyStateBase
             return ShouldAttack(other.transform.position);
         else if (other.CompareTag(Tags.WALL))
             BackUp(_thisTransform.position - other.transform.position);
+        else if (EnteredBase(other))
+            return EnemyStates.ESCAPE;
 
-        return base.OnTriggerEnter(other);
+        return EnemyStates.STAY;
     }
 
     public override EnemyStates OnTriggerExit(Collider2D other)

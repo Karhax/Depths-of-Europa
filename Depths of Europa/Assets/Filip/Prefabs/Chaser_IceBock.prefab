@@ -55,7 +55,7 @@ GameObject:
   - component: {fileID: 212862157178562976}
   - component: {fileID: 61598037870479322}
   - component: {fileID: 50941552590373066}
-  m_Layer: 0
+  m_Layer: 14
   m_Name: Chaser_IceBock
   m_TagString: Wall
   m_Icon: {fileID: 0}
@@ -249,6 +249,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _timeInLightBeforeAggro: 2.5
   _startPositionBack: 0.5
+  _timeToWaitAfterReturning: 3
   _chaserFish: {fileID: 1007087164518454, guid: 781baf439b1d1ed46ae0db5fbcba5441,
     type: 2}
   _sprite: {fileID: 4390783944855240}

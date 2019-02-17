@@ -5,33 +5,34 @@ using Statics;
 
 [System.Serializable]
 public class EnemyAttackBase : EnemyStateAttackEscapeBase
-{
-    [SerializeField, Range(0, 10)] protected float _durationToAttackOutOfSight;    
+{ 
     [SerializeField, Range(0, 15)] protected float _avoidRange;
     [SerializeField, Range(0, 15)] protected float _attackRange;
     [SerializeField, Range(0, 50)] protected int _damage;
+    [SerializeField, Range(0.1f, 50)] protected float _timeToHunt;
+    [SerializeField, Range(1, 50)] protected float _maxDistanceFromPlayerToStopAttack;
 
-    protected Timer _attackTimer;
+    protected Timer _huntTimer;
 
     protected bool _doTimer = false;
-    protected bool _playerInRange = false;
+    protected LayerMask _avoidLayer;
 
     public override void SetUp(EnemyBase script, bool noticeByHighSpeed)
     {
-        _attackTimer = new Timer(_durationToAttackOutOfSight);
+        _avoidLayer = LayerMask.GetMask(Layers.DEFAULT, Layers.CHASER_SPAWN);
+
+        _huntTimer = new Timer(_timeToHunt);
         base.SetUp(script, noticeByHighSpeed);
     }
 
     public override void EnterState()
     {
         base.EnterState();
-        Attack();
-        _playerInRange = true;
     }
 
     public override void ExitState()
     {
-        _attackTimer.Reset();
+        _huntTimer.Reset();
     }
 
     public override EnemyStates FixedUpdate()
@@ -39,20 +40,37 @@ public class EnemyAttackBase : EnemyStateAttackEscapeBase
         TurnTowardsTravelDistance(_turnSpeed);
         SetVelocity();
 
+        EnemyStates lostPlayer = EnemyStates.STAY;
+
         RaycastHit2D hit = Physics2D.BoxCast(_thisTransform.position, BOX_CAST_BOX, 0, _thisTransform.right, _avoidRange, LayerMask.GetMask(Layers.DEFAULT));
 
         if (hit.collider != null)
             Divert();
         else
-            Attack();
+            lostPlayer = Attack();
 
-        if (_doTimer)
-        {
-            _attackTimer.Time += Time.deltaTime;
+        if (lostPlayer != EnemyStates.STAY)
+            return lostPlayer;
 
-            if (_attackTimer.Expired() && !_playerInRange)
-                return EnemyStates.IDLE;
-        }
+        return HuntTimer();
+    }
+
+    protected virtual EnemyStates Attack()
+    {
+        if (Vector2.Distance(_thisTransform.position, _playerShip.position) > _maxDistanceFromPlayerToStopAttack)
+            return EnemyStates.IDLE;
+
+        SetNewDirection(_playerShip.position - _thisTransform.position);
+
+        return EnemyStates.STAY;
+    }
+
+    protected virtual EnemyStates HuntTimer()
+    {
+        _huntTimer.Time += Time.deltaTime;
+
+        if (_huntTimer.Expired())
+            return EnemyStates.IDLE;
 
         return EnemyStates.STAY;
     }
@@ -65,35 +83,16 @@ public class EnemyAttackBase : EnemyStateAttackEscapeBase
         {
             HitPlayer();
             return EnemyStates.ESCAPE;
-        }    
-        else if ((other.CompareTag(Tags.NOTICE_HIGH_SPEED) && _noticeByHighSpeed) || (other.CompareTag(Tags.NOTICE_LOW_SPEED) && !_noticeByHighSpeed))
-            _playerInRange = true;
-
-        return base.OnTriggerEnter(other);
-    }
-
-    public override EnemyStates OnTriggerExit(Collider2D other)
-    {
-        if ((other.CompareTag(Tags.NOTICE_HIGH_SPEED) && _noticeByHighSpeed) || (other.CompareTag(Tags.NOTICE_LOW_SPEED) && !_noticeByHighSpeed))
-            _playerInRange = false;
+        }
+        else if (EnteredBase(other))
+            return EnemyStates.ESCAPE;
 
         return EnemyStates.STAY;
     }
 
-    protected void Attack()
+    public override EnemyStates OnTriggerExit(Collider2D other)
     {
-        RaycastHit2D hit = Physics2D.BoxCast(_thisTransform.position, BOX_CAST_BOX, 0, _thisTransform.right, _attackRange, LayerMask.GetMask(Layers.PLAYER_SHIP));
-        Debug.DrawRay(_thisTransform.position, _thisTransform.right * _attackRange, Color.red, 0.1f);
-
-        if (hit)
-        {
-            _doTimer = false;
-            _attackTimer.Reset();
-        }    
-        else
-            _doTimer = true;
-
-        SetNewDirection(_playerShip.position - _thisTransform.position);
+        return EnemyStates.STAY;
     }
 
     protected void HitPlayer()

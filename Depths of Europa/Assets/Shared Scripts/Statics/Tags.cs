@@ -18,6 +18,7 @@ namespace Statics
 
         public static readonly string GAME_CONTROLLER = "GameController";
         public static readonly string FLARE = "Flare";
+        public static readonly string FLARE_TRIGGER = "FlareTrigger";
         public static readonly string LADDER = "Ladder";
         public static readonly string LIGHT = "Light";
         public static readonly string ENEMY = "Enemy";

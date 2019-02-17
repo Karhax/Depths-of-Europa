@@ -6,34 +6,30 @@ using Statics;
 [System.Serializable]
 public class EnemyChaserAttack : EnemyAttackBase
 {
-    [SerializeField, Range(0.1f, 15)] float _timeToHunt;
-
-    Timer _huntTimer;
-
     public override void SetUp(EnemyBase script, bool noticeByHighSpeed)
     {
         base.SetUp(script, noticeByHighSpeed);
-        _huntTimer = new Timer(_timeToHunt);
+
+        _avoidLayer = LayerMask.GetMask(Layers.DEFAULT);
     }
 
     public override void EnterState()
     {
         base.EnterState();
-        _huntTimer.Reset();
     }
 
-    public override EnemyStates FixedUpdate()
+    protected override EnemyStates Attack()
     {
-        TurnTowardsTravelDistance(_turnSpeed);
-        SetVelocity();
+        if (Vector2.Distance(_thisTransform.position, _playerShip.position) > _maxDistanceFromPlayerToStopAttack)
+            return EnemyStates.ESCAPE;
 
-        RaycastHit2D hit = Physics2D.BoxCast(_thisTransform.position, BOX_CAST_BOX, 0, _thisTransform.right, _avoidRange, LayerMask.GetMask(Layers.DEFAULT));
+        SetNewDirection(_playerShip.position - _thisTransform.position);
 
-        if (hit.collider != null)
-            Divert();
-        else
-            Attack();
+        return EnemyStates.STAY;
+    }
 
+    protected override EnemyStates HuntTimer()
+    {
         _huntTimer.Time += Time.deltaTime;
 
         if (_huntTimer.Expired())
@@ -49,9 +45,7 @@ public class EnemyChaserAttack : EnemyAttackBase
             HitPlayer();
             return EnemyStates.ESCAPE;
         }
-        else if ((other.CompareTag(Tags.NOTICE_HIGH_SPEED) && _noticeByHighSpeed) || (other.CompareTag(Tags.NOTICE_LOW_SPEED) && !_noticeByHighSpeed))
-            _playerInRange = true;
-        else if (other.CompareTag(Tags.BASE))
+        else if (EnteredBase(other))
             return EnemyStates.ESCAPE;
 
         return EnemyStates.STAY;

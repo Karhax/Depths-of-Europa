@@ -9,12 +9,13 @@ public class SpawnChaser : MonoBehaviour
 
     [SerializeField, Range(0.1f, 10f)] float _timeInLightBeforeAggro;
     [SerializeField, Range(0, 5)] float _startPositionBack;
+    [SerializeField, Range(0.1f, 10)] float _timeToWaitAfterReturning;
 
     [Header("Drop")]
 
     [SerializeField] GameObject _chaserFish;
     [SerializeField] Transform _sprite;
-   
+
     Transform _fish;
     Transform _player;
     float _currentAggroTime = 0f;
@@ -23,6 +24,9 @@ public class SpawnChaser : MonoBehaviour
 
     bool _spawned = false;
     bool _fishHasLeft = false;
+
+    bool _canSpawn = true;
+
 
     private void Awake()
     {
@@ -49,27 +53,33 @@ public class SpawnChaser : MonoBehaviour
 
     private void Update()
     {
-        _sprite.localPosition = _startPosition + new Vector3(_currentAggroTime / _timeInLightBeforeAggro * _startPositionBack, 0, 0);
-
-        if (_inLight && !_spawned)
+        if (_canSpawn)
         {
-            RaycastHit2D hit = Physics2D.Raycast(transform.position, _player.position - transform.position, Vector2.Distance(transform.position, _player.position), LayerMask.GetMask(Layers.DEFAULT));
+            _sprite.localPosition = _startPosition + new Vector3(_currentAggroTime / _timeInLightBeforeAggro * _startPositionBack, 0, 0);
 
-            if (hit.collider == null)
+            if (_inLight && !_spawned)
             {
-                _currentAggroTime += Time.deltaTime;
+                RaycastHit2D hit = Physics2D.Raycast(transform.position, _player.position - transform.position, Vector2.Distance(transform.position, _player.position), LayerMask.GetMask(Layers.DEFAULT, Layers.CHASER_SPAWN));
+                
+                Debug.Log(hit.collider);
 
-                if (_currentAggroTime >= _timeInLightBeforeAggro)
-                    SpawnFish();
-            }   
+
+                if (hit.collider == null)
+                {
+                    _currentAggroTime += Time.deltaTime;
+
+                    if (_currentAggroTime >= _timeInLightBeforeAggro)
+                        SpawnFish();
+                }
+            }
+            else if (_currentAggroTime > 0)
+                _currentAggroTime -= Time.deltaTime;
         }
-        else if (_currentAggroTime > 0)
-            _currentAggroTime -= Time.deltaTime;
     }
 
     private void OnTriggerEnter2D(Collider2D other)
     {
-        if (other.CompareTag(Tags.LIGHT) || other.CompareTag(Tags.FLARE))
+        if (other.CompareTag(Tags.LIGHT) || other.CompareTag(Tags.FLARE_TRIGGER))
             _inLight = true;
         else
         {
@@ -82,7 +92,7 @@ public class SpawnChaser : MonoBehaviour
 
     private void OnTriggerExit2D(Collider2D other)
     {
-        if (other.CompareTag(Tags.LIGHT) || other.CompareTag(Tags.FLARE))
+        if (other.CompareTag(Tags.LIGHT) || other.CompareTag(Tags.FLARE_TRIGGER))
             _inLight = false;
         else if (!_fishHasLeft && other.GetComponent<BasicChaserFish0>() != null)
             _fishHasLeft = true;
@@ -90,6 +100,9 @@ public class SpawnChaser : MonoBehaviour
 
     private void SpawnFish()
     {
+        _sprite.localPosition = _startPosition;
+
+        _canSpawn = false;
         _spawned = true;
 
         _fish = (Instantiate(_chaserFish, transform.position, Quaternion.identity) as GameObject).transform;
@@ -110,5 +123,13 @@ public class SpawnChaser : MonoBehaviour
         Destroy(_fish.gameObject);
         _spawned = false;
         _currentAggroTime = 0;
+
+        StartCoroutine(WaitForNextSpawn());
+    }
+
+    IEnumerator WaitForNextSpawn()
+    {
+        yield return new WaitForSeconds(_timeToWaitAfterReturning);
+        _canSpawn = true;
     }
 }
