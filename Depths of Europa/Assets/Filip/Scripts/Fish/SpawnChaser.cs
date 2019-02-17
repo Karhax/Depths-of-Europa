@@ -61,9 +61,6 @@ public class SpawnChaser : MonoBehaviour
             {
                 RaycastHit2D hit = Physics2D.Raycast(transform.position, _player.position - transform.position, Vector2.Distance(transform.position, _player.position), LayerMask.GetMask(Layers.DEFAULT, Layers.CHASER_SPAWN));
                 
-                Debug.Log(hit.collider);
-
-
                 if (hit.collider == null)
                 {
                     _currentAggroTime += Time.deltaTime;

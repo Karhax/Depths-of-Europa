@@ -12,6 +12,7 @@ public class EnemyEscapeBase : EnemyStateAttackEscapeBase
     Timer _escapedTimer;
 
     bool _doTimer = false;
+    Transform _escapeFrom;
 
     public override void SetUp(EnemyBase script, bool noticeByHighSpeed)
     {
@@ -22,11 +23,13 @@ public class EnemyEscapeBase : EnemyStateAttackEscapeBase
     public override void EnterState()
     {
         base.EnterState();
+        _escapeFrom = _playerShip;
         Flee();
     }
 
     public override void ExitState()
     {
+        _doTimer = false;
         _escapedTimer.Reset();
     }
 
@@ -35,7 +38,7 @@ public class EnemyEscapeBase : EnemyStateAttackEscapeBase
         TurnTowardsTravelDistance(_turnSpeed);
         SetVelocity();
 
-        RaycastHit2D hit = Physics2D.BoxCast(_thisTransform.position, BOX_CAST_BOX, 0, _thisTransform.right, _lookRange, LayerMask.GetMask(Layers.DEFAULT));
+        RaycastHit2D hit = Physics2D.BoxCast(_thisTransform.position, BOX_CAST_BOX, 0, _thisTransform.right, _lookRange, LayerMask.GetMask(Layers.DEFAULT, Layers.CHASER_SPAWN));
 
         if (hit.collider != null)
             Divert();
@@ -59,9 +62,10 @@ public class EnemyEscapeBase : EnemyStateAttackEscapeBase
         {
             _doTimer = false;
             _escapedTimer.Reset();
+            _escapeFrom = _playerShip;
         }
-        else if (EnteredBase(other))
-            return EnemyStates.ESCAPE;
+        else if ((_doTimer && other.CompareTag(Tags.FLARE_TRIGGER)) || (EnteredBase(other)))
+            _escapeFrom = other.transform;
 
         return EnemyStates.STAY;
     }
@@ -76,33 +80,6 @@ public class EnemyEscapeBase : EnemyStateAttackEscapeBase
 
     private void Flee()
     {
-        Collider2D[] colliders = new Collider2D[1];
-
-        ContactFilter2D contactFilter = new ContactFilter2D();
-        contactFilter.SetLayerMask(LayerMask.GetMask(Layers.FLARE));
-        contactFilter.SetLayerMask(LayerMask.GetMask(Layers.ENEMY));
-
-        _thisTransform.GetComponent<Collider2D>().OverlapCollider(contactFilter, colliders);
-
-        bool isFlare = false;
-        Vector2 flarePosition = Vector2.zero;
-
-        if (colliders[0] != null)
-        {
-            for (int i = 0; i < colliders.Length; i++)
-            {
-                if (colliders[i].CompareTag(Tags.FLARE))
-                {
-                    isFlare = true;
-                    flarePosition = colliders[i].transform.position;
-                    break;
-                }
-            }
-        }
-
-        if (isFlare)
-            SetNewDirection((Vector2)_thisTransform.position - flarePosition);
-        else
-            SetNewDirection(_thisTransform.position - _playerShip.position);
+        SetNewDirection(_thisTransform.position - _escapeFrom.position);
     }
 }

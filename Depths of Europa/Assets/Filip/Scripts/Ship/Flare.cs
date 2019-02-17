@@ -6,19 +6,23 @@ public class Flare : MonoBehaviour
 {
     [Header("Settings")]
 
-    [SerializeField] float _flareTime;
+    [SerializeField, Range(1, 50)] float _flareTime;
     [Header("Ration between flareTime and toDestroy should be about 0.75")]
-    [SerializeField] float _timeToDestroy;
+    [SerializeField, Range(1, 45)] float _timeToDestroy;
 
     [Header("Drop")]
 
+    [SerializeField] CircleCollider2D _detection;
     [SerializeField] Light[] _lights;
 
     Timer _flareTimer;
     float[] _lightsMaxRanges;
+    float _standardDetection;
 
     private void Awake()
     {
+        _standardDetection = _detection.radius;
+
         _flareTimer = new Timer(_flareTime);
 
         _lightsMaxRanges = new float[_lights.Length];
@@ -44,6 +48,7 @@ public class Flare : MonoBehaviour
         for (int i = 0; i < _lights.Length; i++)
         {
             _lights[i].range = (1 - _flareTimer.Ratio()) * _lightsMaxRanges[i];
+            _detection.radius = _standardDetection * (1 - _flareTimer.Ratio());
         }
     }
 
