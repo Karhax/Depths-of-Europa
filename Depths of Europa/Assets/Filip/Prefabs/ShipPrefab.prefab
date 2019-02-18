@@ -132,6 +132,7 @@ GameObject:
   - component: {fileID: 4500547816314488}
   - component: {fileID: 212790796026257000}
   - component: {fileID: 95234027768424574}
+  - component: {fileID: 60043465332895356}
   m_Layer: 10
   m_Name: Texture
   m_TagString: Untagged
@@ -165,7 +166,7 @@ GameObject:
   m_Component:
   - component: {fileID: 4710787988828578}
   - component: {fileID: 50682859019127408}
-  - component: {fileID: 60352552358625058}
+  - component: {fileID: 60555190397238210}
   - component: {fileID: 114759706500815724}
   - component: {fileID: 114473593790976888}
   - component: {fileID: 114166532245899178}
@@ -439,7 +440,7 @@ Transform:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1142425153704028}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalPosition: {x: 0, y: -0.14, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 4598127615521470}
@@ -478,7 +479,7 @@ Transform:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1526019385218530}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0.284, z: 0}
+  m_LocalPosition: {x: 0, y: 0.584, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 4962564630676022}
@@ -520,7 +521,7 @@ Transform:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1240573200360220}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalPosition: {x: 0, y: 0.3, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 4710787988828578}
@@ -546,7 +547,7 @@ Transform:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1007348130207520}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalPosition: {x: 0, y: 0.51, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 4772827216075690}
@@ -646,7 +647,7 @@ Transform:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1722625136199472}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0.58, z: -0.85}
+  m_LocalPosition: {x: 0, y: 0.299, z: -0.85}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 4710787988828578}
@@ -741,12 +742,12 @@ CircleCollider2D:
   m_Offset: {x: 0, y: 0}
   serializedVersion: 2
   m_Radius: 1
---- !u!60 &60352552358625058
+--- !u!60 &60043465332895356
 PolygonCollider2D:
   m_ObjectHideFlags: 1
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 1525962020150546}
+  m_GameObject: {fileID: 1240573200360220}
   m_Enabled: 1
   m_Density: 1
   m_Material: {fileID: 0}
@@ -756,10 +757,10 @@ PolygonCollider2D:
   m_Offset: {x: 0, y: 0}
   m_SpriteTilingProperty:
     border: {x: 0, y: 0, z: 0, w: 0}
-    pivot: {x: 0, y: 0}
-    oldSize: {x: 0, y: 0}
-    newSize: {x: 0, y: 0}
-    adaptiveTilingThreshold: 0
+    pivot: {x: 0.5, y: 0.5}
+    oldSize: {x: 0.7714286, y: 1.3714286}
+    newSize: {x: 0.32, y: 0.32}
+    adaptiveTilingThreshold: 0.5
     drawMode: 0
     adaptiveTiling: 0
   m_AutoTiling: 0
@@ -779,6 +780,44 @@ PolygonCollider2D:
       - {x: 0.19, y: 0.13}
       - {x: 0.14, y: 0.39}
       - {x: 0.08, y: 0.55}
+--- !u!60 &60555190397238210
+PolygonCollider2D:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1525962020150546}
+  m_Enabled: 1
+  m_Density: 1
+  m_Material: {fileID: 0}
+  m_IsTrigger: 1
+  m_UsedByEffector: 0
+  m_UsedByComposite: 0
+  m_Offset: {x: 0, y: 0.3}
+  m_SpriteTilingProperty:
+    border: {x: 0, y: 0, z: 0, w: 0}
+    pivot: {x: 0.5, y: 0.5}
+    oldSize: {x: 0.7714286, y: 1.3714286}
+    newSize: {x: 0.32, y: 0.32}
+    adaptiveTilingThreshold: 0.5
+    drawMode: 0
+    adaptiveTiling: 0
+  m_AutoTiling: 0
+  m_Points:
+    m_Paths:
+    - - {x: 0, y: 0.685}
+      - {x: -0.105, y: 0.55}
+      - {x: -0.165, y: 0.39}
+      - {x: -0.215, y: 0.13}
+      - {x: -0.215, y: -0.09}
+      - {x: -0.145, y: -0.43}
+      - {x: -0.145, y: -0.43}
+      - {x: 0, y: -0.695}
+      - {x: 0.145, y: -0.43}
+      - {x: 0.145, y: -0.43}
+      - {x: 0.215, y: -0.09}
+      - {x: 0.215, y: 0.13}
+      - {x: 0.165, y: 0.39}
+      - {x: 0.105, y: 0.55}
 --- !u!60 &60708237732567902
 PolygonCollider2D:
   m_ObjectHideFlags: 1
