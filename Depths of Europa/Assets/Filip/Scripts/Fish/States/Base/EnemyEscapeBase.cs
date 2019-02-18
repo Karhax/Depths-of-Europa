@@ -11,7 +11,7 @@ public class EnemyEscapeBase : EnemyStateAttackEscapeBase
 
     protected Timer _escapedTimer;
 
-    protected bool _doTimer = false;
+    protected bool _doTimer = true;
     protected Transform _escapeFrom;
 
     public override void SetUp(EnemyBase script, bool noticeByHighSpeed)
@@ -29,7 +29,7 @@ public class EnemyEscapeBase : EnemyStateAttackEscapeBase
 
     public override void ExitState()
     {
-        _doTimer = false;
+        _doTimer = true;
         _escapedTimer.Reset();
     }
 
@@ -38,13 +38,6 @@ public class EnemyEscapeBase : EnemyStateAttackEscapeBase
         TurnTowardsTravelDistance(_turnSpeed);
         SetVelocity();
 
-        RaycastHit2D hit = Physics2D.BoxCast(_thisTransform.position, BOX_CAST_BOX, 0, _thisTransform.right, _lookRange, LayerMask.GetMask(Layers.DEFAULT, Layers.CHASER_SPAWN));
-
-        if (hit.collider != null)
-            Divert();
-        else
-            return Flee();
-
         if (_doTimer)
         {
             _escapedTimer.Time += Time.deltaTime;
@@ -52,6 +45,13 @@ public class EnemyEscapeBase : EnemyStateAttackEscapeBase
             if (_escapedTimer.Expired())
                 return EnemyStates.IDLE;
         }
+
+        RaycastHit2D hit = Physics2D.BoxCast(_thisTransform.position, BOX_CAST_BOX, 0, _thisTransform.right, _lookRange, LayerMask.GetMask(Layers.DEFAULT, Layers.CHASER_SPAWN));
+
+        if (hit.collider != null)
+            Divert();
+        else
+            return Flee();
 
         return EnemyStates.STAY;
     }
@@ -72,7 +72,7 @@ public class EnemyEscapeBase : EnemyStateAttackEscapeBase
 
     public override EnemyStates OnTriggerExit(Collider2D other)
     {
-        if (other.CompareTag(Tags.LIGHT))
+        if (other.CompareTag(Tags.LIGHT) || other.CompareTag(Tags.FLARE_TRIGGER) || other.CompareTag(Tags.BASE))
             _doTimer = true;
 
         return EnemyStates.STAY;
