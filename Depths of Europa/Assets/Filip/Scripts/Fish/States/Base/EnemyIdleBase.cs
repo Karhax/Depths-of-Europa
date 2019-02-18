@@ -108,9 +108,9 @@ public class EnemyIdleBase : EnemyStateBase
                  _thisTransform.position.y > _currentDestination.y - TOLERANCE && _thisTransform.position.y < _currentDestination.y + TOLERANCE);
     }
 
-    private EnemyStates ShouldAttack(Vector2 _playerPosition)
+    protected virtual EnemyStates ShouldAttack(Vector2 attackPosition)
     {
-        RaycastHit2D hit = Physics2D.Raycast(_thisTransform.position, _playerPosition - (Vector2)_thisTransform.position, Vector2.Distance(_thisTransform.position, _playerPosition), LayerMask.GetMask(Layers.DEFAULT));
+        RaycastHit2D hit = Physics2D.Raycast(_thisTransform.position, attackPosition - (Vector2)_thisTransform.position, Vector2.Distance(_thisTransform.position, attackPosition), LayerMask.GetMask(Layers.DEFAULT));
 
         if (hit.collider == null)
             return EnemyStates.ATTACK;

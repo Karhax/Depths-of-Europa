@@ -25,11 +25,6 @@ public class EnemyAttackBase : EnemyStateAttackEscapeBase
         base.SetUp(script, noticeByHighSpeed);
     }
 
-    public override void EnterState()
-    {
-        base.EnterState();
-    }
-
     public override void ExitState()
     {
         _huntTimer.Reset();
@@ -77,7 +72,7 @@ public class EnemyAttackBase : EnemyStateAttackEscapeBase
 
     public override EnemyStates OnTriggerEnter(Collider2D other)
     {
-        if (other.CompareTag(Tags.LIGHT))
+        if (other.CompareTag(Tags.LIGHT) || other.CompareTag(Tags.FLARE_TRIGGER))
             return EnemyStates.ESCAPE;
         else if (other.CompareTag(Tags.PLAYER_OUTSIDE))
         {

@@ -37,12 +37,12 @@ public class FadeHandler : MonoBehaviour {
         {
             if (_fadeDuration <= 0)
             {
-                _fadeSpriteRenderer.color = new Color(1, 1, 1, _directionMultiplier);
+                _fadeSpriteRenderer.color = new Color(0, 0, 0, _directionMultiplier);
             }
             else
             {
                 float nextAlpha = _fadeSpriteRenderer.color.a + (_directionMultiplier / _fadeDuration * Time.deltaTime);
-                _fadeSpriteRenderer.color = new Color(1, 1, 1, nextAlpha);
+                _fadeSpriteRenderer.color = new Color(0, 0, 0, nextAlpha);
             }
 
             if (_fadeSpriteRenderer.color.a >= 1 && _directionMultiplier > 0)
@@ -68,12 +68,12 @@ public class FadeHandler : MonoBehaviour {
     {
         _fadeStarted = true;
         _directionMultiplier = -1;
-        _fadeSpriteRenderer.color = new Color(1, 1, 1, 1);
+        _fadeSpriteRenderer.color = new Color(0, 0, 0, 1);
     }
     public void StartFadeOut()
     {
         _fadeStarted = true;
         _directionMultiplier = 1;
-        _fadeSpriteRenderer.color = new Color(1, 1, 1, 0);
+        _fadeSpriteRenderer.color = new Color(0, 0, 0, 0);
     }
 }

@@ -10,8 +10,10 @@ public class BasicEnemy0 : EnemyBase
     [SerializeField] EnemyAttackBase _attackState;
     [SerializeField] EnemyEscapeBase _escapeState;
 
-    private void Awake()
+    protected override void Awake()
     {
+        base.Awake();
+
         _idleState.SetUp(this, _noticeByHighSpeed);
         _attackState.SetUp(this, _noticeByHighSpeed);
         _escapeState.SetUp(this, _noticeByHighSpeed);

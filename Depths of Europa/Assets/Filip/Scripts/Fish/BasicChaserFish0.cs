@@ -14,8 +14,10 @@ public class BasicChaserFish0 : EnemyBase
 
     Transform _spawn;
 
-    private void Awake()
+    protected override void Awake()
     {
+        base.Awake();
+
         _attackState.SetUp(this, _noticeByHighSpeed);
         _escapeState.SetUp(this, _noticeByHighSpeed);
     }

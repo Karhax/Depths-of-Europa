@@ -6,13 +6,13 @@ using Statics;
 [System.Serializable]
 public class EnemyEscapeBase : EnemyStateAttackEscapeBase
 {
-    [SerializeField, Range(0, 10)] float _durationToEscapePastLight;
-    [SerializeField, Range(0, 15)] float _lookRange;
+    [SerializeField, Range(0, 10)] protected float _durationToEscapePastLight;
+    [SerializeField, Range(0, 15)] protected float _lookRange;
 
-    Timer _escapedTimer;
+    protected Timer _escapedTimer;
 
-    bool _doTimer = false;
-    Transform _escapeFrom;
+    protected bool _doTimer = false;
+    protected Transform _escapeFrom;
 
     public override void SetUp(EnemyBase script, bool noticeByHighSpeed)
     {
@@ -64,7 +64,7 @@ public class EnemyEscapeBase : EnemyStateAttackEscapeBase
             _escapedTimer.Reset();
             _escapeFrom = _playerShip;
         }
-        else if ((_doTimer && other.CompareTag(Tags.FLARE_TRIGGER)) || (EnteredBase(other)))
+        else if ((other.CompareTag(Tags.FLARE_TRIGGER)) || (EnteredBase(other)))
             _escapeFrom = other.transform;
 
         return EnemyStates.STAY;

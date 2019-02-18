@@ -8,8 +8,10 @@ public class BasicUnderPlayerFish0 : EnemyBase
 
     [SerializeField] EnemyIdleBase _idleState;
 
-    private void Awake()
+    protected override void Awake()
     {
+        base.Awake();
+
         _idleState.SetUp(this, _noticeByHighSpeed);
 
         ChangeState(_idleState);

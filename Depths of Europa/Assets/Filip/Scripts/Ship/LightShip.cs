@@ -45,6 +45,9 @@ public class LightShip : MonoBehaviour
     private void Start()
     {
         _pauseMenuScript = GameManager.CameraObject.GetComponentInChildren<PauseMenuScript>();
+
+        if (ShipUsedFlareEvent != null)
+            ShipUsedFlareEvent.Invoke(_currentFlareCount);
     }
 
     private void OnEnable()

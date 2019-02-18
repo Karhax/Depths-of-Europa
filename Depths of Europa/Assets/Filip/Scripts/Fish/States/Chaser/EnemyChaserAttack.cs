@@ -13,11 +13,6 @@ public class EnemyChaserAttack : EnemyAttackBase
         _avoidLayer = LayerMask.GetMask(Layers.DEFAULT);
     }
 
-    public override void EnterState()
-    {
-        base.EnterState();
-    }
-
     protected override EnemyStates Attack()
     {
         if (Vector2.Distance(_thisTransform.position, _playerShip.position) > _maxDistanceFromPlayerToStopAttack)

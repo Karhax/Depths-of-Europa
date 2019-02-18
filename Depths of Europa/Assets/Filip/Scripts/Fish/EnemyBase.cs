@@ -13,6 +13,13 @@ public abstract class EnemyBase : MonoBehaviour
 
     protected EnemyStateBase _currentState;
 
+    Collider2D[] _colliders;
+
+    protected virtual void Awake()
+    {
+        _colliders = GetComponents<Collider2D>();
+    }
+
     private void Start()
     {
         GetComponent<SpriteRenderer>().sortingOrder = _currentMaxSortOrder++;
@@ -42,7 +49,7 @@ public abstract class EnemyBase : MonoBehaviour
 
     protected abstract void ChangeState(EnemyStates state);
 
-    protected  void ChangeState(EnemyStateBase state)
+    protected void ChangeState(EnemyStateBase state)
     {
         if (_currentState != null)
             _currentState.ExitState();
@@ -56,5 +63,13 @@ public abstract class EnemyBase : MonoBehaviour
     {
         _shouldMove = false;
         GetComponent<Rigidbody2D>().velocity = Vector2.zero;
+    }
+    
+    private void OnOfColliders(bool state)
+    {
+        for (int i = 0; i < _colliders.Length; i++)
+        {
+            _colliders[i].enabled = state;
+        }
     }
 }
