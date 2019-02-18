@@ -18,6 +18,7 @@ public class AmbientSoundHandler : MonoBehaviour
     [SerializeField] [Range(3f, 99f)] private float _minDistance = 3;
     [SerializeField] [Range(4f, 100f)] private float _maxDistance = 4;
 
+    [SerializeField] private bool _playing = true;
     private AudioSource _audioSource;
 
     private bool _noFatalErrors = true;
@@ -66,7 +67,7 @@ public class AmbientSoundHandler : MonoBehaviour
 
     void Update()
     {
-        if (_noFatalErrors)
+        if (_noFatalErrors && _playing)
         {
             if (!_audioSource.isPlaying)
             {
@@ -127,5 +128,10 @@ public class AmbientSoundHandler : MonoBehaviour
         randomValue = Random.Range(0, 360);
 
         transform.parent.localRotation = Quaternion.AngleAxis(randomValue, Vector3.forward);
+    }
+
+    public void ToggleAmbientSound()
+    {
+        _playing = !_playing;
     }
 }
