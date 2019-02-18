@@ -28,8 +28,14 @@ public class MoveShip : MonoBehaviour
     [SerializeField, Range(0, 5)] float _highSpeedTriggerModifier;
     [SerializeField, Range(0, 5)] float _lowSpeedTriggerModifier;
 
+    [Header("Animation")]
+
+    [SerializeField, Range(0, 5)] float _minAnimationSpeed = 0.75f;
+    [SerializeField, Range(0, 5)] float _maxAnimationSpeed = 2.5f;
+
     [Header("Drop")]
 
+    [SerializeField] Animator _animator;
     [SerializeField] CircleCollider2D _highSpeedTrigger;
     [SerializeField] CircleCollider2D _lowSpeedTrigger;
 
@@ -114,6 +120,9 @@ public class MoveShip : MonoBehaviour
             newVelocity *= backwardSpeedType;
 
         _thisRigidbody.velocity += newVelocity;
+
+        float ratio = _thisRigidbody.velocity.magnitude / _maxSpeedMagnitude;
+        _animator.speed = (_maxAnimationSpeed * ratio) > _minAnimationSpeed ? _maxAnimationSpeed * ratio : _minAnimationSpeed;
     }
 
     private void ChangeSpeedTriggers()
