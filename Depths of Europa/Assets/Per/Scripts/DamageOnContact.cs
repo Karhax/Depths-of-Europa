@@ -32,7 +32,6 @@ public class DamageOnContact : MonoBehaviour {
         if (other.gameObject.CompareTag(Statics.Tags.PLAYER_OUTSIDE))
         {
             _shipHealth = other.gameObject.GetComponent<DamageShip>();
-            Debug.Log("Player Detected by EnemyAnemone");
         }
     }
 
@@ -41,7 +40,6 @@ public class DamageOnContact : MonoBehaviour {
         if (other.gameObject.CompareTag(Statics.Tags.PLAYER_OUTSIDE))
         {
             _shipHealth = null;
-            Debug.Log("Player has left the EnemyAnemone");
         }
     }
 
