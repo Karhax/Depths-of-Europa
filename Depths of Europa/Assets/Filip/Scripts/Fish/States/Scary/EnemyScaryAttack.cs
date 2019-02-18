@@ -10,7 +10,7 @@ public class EnemyScaryAttack : EnemyAttackBase
 
     public override void EnterState()
     {
-        _attackTarget = _thisTransform;
+        _attackTarget = _playerShip;
         base.EnterState();
     }
 

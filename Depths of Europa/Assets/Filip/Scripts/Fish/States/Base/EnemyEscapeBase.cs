@@ -43,7 +43,7 @@ public class EnemyEscapeBase : EnemyStateAttackEscapeBase
         if (hit.collider != null)
             Divert();
         else
-            Flee();
+            return Flee();
 
         if (_doTimer)
         {
@@ -78,8 +78,13 @@ public class EnemyEscapeBase : EnemyStateAttackEscapeBase
         return EnemyStates.STAY;
     }
 
-    private void Flee()
+    private EnemyStates Flee()
     {
+        if (_escapeFrom == null)
+            return EnemyStates.IDLE; 
+
         SetNewDirection(_thisTransform.position - _escapeFrom.position);
+
+        return EnemyStates.STAY;
     }
 }
