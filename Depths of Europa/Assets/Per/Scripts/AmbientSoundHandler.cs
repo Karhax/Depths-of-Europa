@@ -4,6 +4,7 @@ using UnityEngine;
 
 public class AmbientSoundHandler : MonoBehaviour
 {
+    [Header("One list for the sounds, and one list for how probable they are")]
     [SerializeField] private AudioClip[] _audioArray;// A list of all ambient audio clips
     [SerializeField] [Range(1, 100)] private int[] _audioRandomWeight;// Used to determine how likely it is that the corresponding clip is played.
 
