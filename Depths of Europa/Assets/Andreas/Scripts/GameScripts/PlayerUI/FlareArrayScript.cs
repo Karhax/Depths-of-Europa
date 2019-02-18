@@ -33,7 +33,7 @@ public class FlareArrayScript : MonoBehaviour {
     private void OnFlareAmmountChange(int ammountOfFlares)
     {
         int showAmmount = FlareCalc(ammountOfFlares);
-        if(_arrayID != FIRST_ARRAY && showAmmount < 0)
+        if(showAmmount < 0 && _arrayID != FIRST_ARRAY)
         {
             DeletThis();
         }
