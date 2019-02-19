@@ -18,7 +18,7 @@ public class SoundIndicatorScript : MonoBehaviour {
 
     #region private variables
 
-    Camera _soundIndicatorCapture;
+    //Camera _soundIndicatorCapture;
 
     private LineRenderer _lineRenderer;
 
@@ -26,15 +26,15 @@ public class SoundIndicatorScript : MonoBehaviour {
 
     bool _firstLineRenderPass = true;
 
-    int _consistentIndex;
+    //int _consistentIndex, _currentWriteKey = 0;
 
     Vector4[] _lineData;
 
-    int _oldLineCount, _linePointUpdateCounter, _lineUpdateTarget, _shortLinePointUpdateCounter, _shortLineUpdateTarget, _currentWriteKey = 0;
+    int _oldLineCount, _linePointUpdateCounter, _lineUpdateTarget, _shortLinePointUpdateCounter, _shortLineUpdateTarget;
 
     private IEnumerator _lineUpdate;
 
-    float _yCenterInterpolator = 0, _traversal, _oldUpdateFrequency;
+    float _yCenterInterpolator = 0, _traversal, _oldUpdateFrequency, _lineUpdateFraction, _lastColourIndex, _lastColourIndexLoudestVolume;
 
     Gradient _internalColourGradient = new Gradient();
 
@@ -44,7 +44,7 @@ public class SoundIndicatorScript : MonoBehaviour {
 
     bool _gradientFirstGeneratePass = true;
 
-    float _colourUpdateFraction, _lineUpdateFraction, _lastColourIndex, _lastColourIndexLoudestVolume;
+    //float _colourUpdateFraction;
 
 
     #endregion
@@ -69,14 +69,14 @@ public class SoundIndicatorScript : MonoBehaviour {
     private void Awake()
     {
         _lineRenderer = GetComponent<LineRenderer>();
-        _soundIndicatorCapture = GetComponentInChildren<Camera>();
+        //_soundIndicatorCapture = GetComponentInChildren<Camera>();
         _lineRenderer.positionCount = _numberOfLineSegments;
         _oldLineCount = _numberOfLineSegments;
         _lineWidth = _lineRenderer.widthMultiplier;
         _lineRenderer.widthMultiplier = 0;
         GenerateLineData();
         _lineUpdate = LineRender();
-        _colourUpdateFraction = Mathf.InverseLerp(0, MAX_GRADIENT_INDEX, 1);
+        //_colourUpdateFraction = Mathf.InverseLerp(0, MAX_GRADIENT_INDEX, 1);
     }
 
     private void OnValidate()
@@ -170,7 +170,6 @@ public class SoundIndicatorScript : MonoBehaviour {
                 
 
             
-            _consistentIndex = _consistentIndex.AddAndRepeatInt(MAX_GRADIENT_INDEX);
             
         }
         //Debug.Log(_internalColourKeys[0].time);
@@ -228,7 +227,7 @@ public class SoundIndicatorScript : MonoBehaviour {
             for (int i = 0; i < _numberOfLineSegments; i++)
             {
                 _linePointUpdateCounter++;
-                float curveProgression = (float)i / _numberOfLineSegments;
+                //float curveProgression = (float)i / _numberOfLineSegments;
 
 
                 _yCenterInterpolator += 1 * curveFraction;
@@ -247,7 +246,7 @@ public class SoundIndicatorScript : MonoBehaviour {
                 {
                     //_noise = Random.value;
                     volumeEvaluate = Mathf.Clamp01(_soundCurve.Evaluate(_noise));
-                    int nextPos = i.ModifyAndRepeatInt(_lineUpdateAmmount, _numberOfLineSegments);
+
                     GenerateColourProfile(volumeEvaluate, _lineData[i].w);
 
                     yield return new WaitForEndOfFrame();
