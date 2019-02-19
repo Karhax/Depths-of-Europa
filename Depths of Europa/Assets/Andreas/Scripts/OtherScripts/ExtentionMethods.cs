@@ -8,6 +8,15 @@ public static class ExtentionMethods {
     {
         adder++;
         return adder = Mathf.FloorToInt(Mathf.Repeat(adder, roof));
-
+    }
+    public static int ModifyAndRepeatInt(this int adder, int ammount, int roof)
+    {
+        adder += ammount;
+        return adder = Mathf.FloorToInt(Mathf.Repeat(adder, roof));
+    }
+    public static float ModifyAndRepeatInt(this float adder, float ammount, float roof)
+    {
+        adder += ammount;
+        return adder = Mathf.Repeat(adder, roof);
     }
 }
