@@ -64,7 +64,7 @@ public class EnemyEscapeBase : EnemyStateAttackEscapeBase
             _escapedTimer.Reset();
             _escapeFrom = _playerShip;
         }
-        else if ((other.CompareTag(Tags.FLARE_TRIGGER)) || (EnteredBase(other)))
+        else if (other.CompareTag(Tags.FLARE_TRIGGER) || EnteredBase(other) || other.CompareTag(Tags.ENEMY_LIGHT))
             _escapeFrom = other.transform;
 
         return EnemyStates.STAY;
@@ -72,7 +72,7 @@ public class EnemyEscapeBase : EnemyStateAttackEscapeBase
 
     public override EnemyStates OnTriggerExit(Collider2D other)
     {
-        if (other.CompareTag(Tags.LIGHT) || other.CompareTag(Tags.FLARE_TRIGGER) || other.CompareTag(Tags.BASE))
+        if (other.CompareTag(Tags.LIGHT) || other.CompareTag(Tags.FLARE_TRIGGER) || other.CompareTag(Tags.BASE) || other.CompareTag(Tags.ENEMY_LIGHT))
             _doTimer = true;
 
         return EnemyStates.STAY;
