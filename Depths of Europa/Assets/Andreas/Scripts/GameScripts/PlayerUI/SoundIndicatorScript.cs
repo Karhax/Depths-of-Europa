@@ -47,7 +47,9 @@ public class SoundIndicatorScript : MonoBehaviour {
 
     float _colourUpdateFraction;
 
+    float _noise = 0.2f;
 
+    PlayerGUIScript PGUIS;
     #endregion
 
     #region Read Only Variables
@@ -60,7 +62,6 @@ public class SoundIndicatorScript : MonoBehaviour {
 
     #region Debug Variables
 
-    [SerializeField, Range(0,1)] float _noise;
 
 
     #endregion
@@ -71,6 +72,8 @@ public class SoundIndicatorScript : MonoBehaviour {
     {
         _lineRenderer = GetComponent<LineRenderer>();
         //_soundIndicatorCapture = GetComponentInChildren<Camera>();
+        PGUIS = FindObjectOfType<PlayerGUIScript>();
+        PGUIS.NoiseAmmountChange += OnNoiseChange;
         _lineRenderer.positionCount = _numberOfLineSegments;
         _oldLineCount = _numberOfLineSegments;
         _lineWidth = _lineRenderer.widthMultiplier;
@@ -89,6 +92,11 @@ public class SoundIndicatorScript : MonoBehaviour {
         }
         GenerateLineData();
         _lineUpdateFraction = _lineUpdateAmmount / _numberOfLineSegments;
+    }
+
+    private void OnNoiseChange(float newNoise)
+    {
+        _noise = newNoise;
     }
 
     void Start () {

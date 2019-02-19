@@ -7,8 +7,10 @@ using UnityEngine.UI;
 public class PlayerGUIScript : MonoBehaviour {
 
     [SerializeField] Image _healthBarImage;
-    public delegate void FlareAmmountChnageHandler(int ammountOFFlares);
-    public event FlareAmmountChnageHandler FlareAmmountChange;
+    public delegate void FlareAmmountChangeHandler(int ammountOFFlares);
+    public event FlareAmmountChangeHandler FlareAmmountChange;
+    public delegate void NoiseChangeHandler(float noiseAmmount);
+    public event NoiseChangeHandler NoiseAmmountChange;
     int _arrayCount = 0;
     [SerializeField] GameObject ArrayInstance;
 
@@ -43,6 +45,11 @@ public class PlayerGUIScript : MonoBehaviour {
     private void OnHealthChange(float HPRatio)
     {
         _healthBarImage.fillAmount = HPRatio;
+    }
+
+    private void OnNoiseChange(float noise)
+    {
+        NoiseAmmountChange(noise);
     }
 
     private void OnFlare(int amountOfFlares)
