@@ -7,7 +7,7 @@ using Statics;
 public class EnemyIdleBase : EnemyStateBase
 {
     [SerializeField, Range(0, 15)] protected float _idleRadius;
-
+    [SerializeField, Range(0.1f, 10)] protected float _maxTimeOneDirection;
     [SerializeField, Range(0, 10)] protected float _minBackUpDistance;
     [SerializeField, Range(0, 15)] protected float _maxBackUpDistance;
 
@@ -17,19 +17,23 @@ public class EnemyIdleBase : EnemyStateBase
     protected float _currentTurnSpeed;
     protected readonly float MIDDLE_ANGLE = 90f;
     protected readonly float RAY_CAST_LENGTH = 15f;
-    protected readonly int NUMBER_OF_TRIES_FIND_NEW_PATH = 5;
+    protected readonly int NUMBER_OF_TRIES_FIND_NEW_PATH = 3;
     protected readonly int TRY_ANGLE = 60;
 
-    protected LayerMask _lookForPlayerLayer;
+    protected LayerMask _avoidLayer;
+    protected Timer _idleTimer;
 
     public override void SetUp(EnemyBase script, bool noticeByHighSpeed)
     {
+        _idleTimer = new Timer(_maxTimeOneDirection);
+
         base.SetUp(script, noticeByHighSpeed);
-        _lookForPlayerLayer = LayerMask.GetMask(Layers.PLAYER_SHIP) | LayerMask.GetMask(Layers.DEFAULT);
+        _avoidLayer = LayerMask.GetMask(Layers.CHASER_SPAWN, Layers.DEFAULT, Layers.BASE);
     }
 
     public override void EnterState()
     {
+        _idleTimer.Reset();
         _centerPosition = _thisTransform.position;
         PickNewDestination();
     }
@@ -39,12 +43,17 @@ public class EnemyIdleBase : EnemyStateBase
 
     public override EnemyStates FixedUpdate()
     {
+        _idleTimer.Time += Time.deltaTime;
+
         TurnTowardsTravelDistance(_currentTurnSpeed);
 
-        if (ReachedPoint())
-            SetVelocity();
-        else
+        if (ReachedPoint() || _idleTimer.Expired())
+        {
+            _idleTimer.Reset();
             PickNewDestination();
+        }
+        else
+            SetVelocity();
 
         return EnemyStates.STAY;
     }
@@ -57,10 +66,8 @@ public class EnemyIdleBase : EnemyStateBase
             return ShouldAttack(other.transform.position);
         else if (other.CompareTag(Tags.NOTICE_LOW_SPEED) && !_noticeByHighSpeed)
             return ShouldAttack(other.transform.position);
-        else if (other.CompareTag(Tags.WALL) || other.CompareTag(Tags.BASE))
+        else if (other.CompareTag(Tags.WALL))
             BackUp(_thisTransform.position - other.transform.position);
-        else if (EnteredBase(other))
-            return EnemyStates.ESCAPE;
 
         return EnemyStates.STAY;
     }
@@ -104,13 +111,13 @@ public class EnemyIdleBase : EnemyStateBase
     {
         float TOLERANCE = 0.25f;
 
-        return !(_thisTransform.position.x > _currentDestination.x - TOLERANCE && _thisTransform.position.x < _currentDestination.x + TOLERANCE &&
+        return (_thisTransform.position.x > _currentDestination.x - TOLERANCE && _thisTransform.position.x < _currentDestination.x + TOLERANCE &&
                  _thisTransform.position.y > _currentDestination.y - TOLERANCE && _thisTransform.position.y < _currentDestination.y + TOLERANCE);
     }
 
     protected virtual EnemyStates ShouldAttack(Vector2 attackPosition)
     {
-        RaycastHit2D hit = Physics2D.Raycast(_thisTransform.position, attackPosition - (Vector2)_thisTransform.position, Vector2.Distance(_thisTransform.position, attackPosition), LayerMask.GetMask(Layers.DEFAULT));
+        RaycastHit2D hit = Physics2D.Raycast(_thisTransform.position, attackPosition - (Vector2)_thisTransform.position, Vector2.Distance(_thisTransform.position, attackPosition), _avoidLayer);
 
         if (hit.collider == null)
             return EnemyStates.ATTACK;

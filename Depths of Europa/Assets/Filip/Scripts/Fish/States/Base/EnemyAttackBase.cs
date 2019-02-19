@@ -19,7 +19,7 @@ public class EnemyAttackBase : EnemyStateAttackEscapeBase
 
     public override void SetUp(EnemyBase script, bool noticeByHighSpeed)
     {
-        _avoidLayer = LayerMask.GetMask(Layers.DEFAULT, Layers.CHASER_SPAWN);
+        _avoidLayer = LayerMask.GetMask(Layers.DEFAULT, Layers.CHASER_SPAWN, Layers.BASE);
 
         _huntTimer = new Timer(_timeToHunt);
         base.SetUp(script, noticeByHighSpeed);
@@ -37,10 +37,15 @@ public class EnemyAttackBase : EnemyStateAttackEscapeBase
 
         EnemyStates lostPlayer = EnemyStates.STAY;
 
-        RaycastHit2D hit = Physics2D.BoxCast(_thisTransform.position, BOX_CAST_BOX, 0, _thisTransform.right, _avoidRange, LayerMask.GetMask(Layers.DEFAULT));
+        RaycastHit2D hit = Physics2D.BoxCast(_thisTransform.position, BOX_CAST_BOX, 0, _thisTransform.right, _avoidRange, _avoidLayer);
 
         if (hit.collider != null)
+        {
+            if (hit.transform.gameObject.layer == LayerMask.NameToLayer(Layers.BASE))
+                return EnemyStates.ESCAPE;
+
             Divert();
+        }       
         else
             lostPlayer = Attack();
 
@@ -79,8 +84,6 @@ public class EnemyAttackBase : EnemyStateAttackEscapeBase
             HitPlayer();
             return EnemyStates.ESCAPE;
         }
-        else if (EnteredBase(other))
-            return EnemyStates.ESCAPE;
 
         return EnemyStates.STAY;
     }

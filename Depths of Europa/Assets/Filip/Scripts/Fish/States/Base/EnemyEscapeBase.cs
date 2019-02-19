@@ -14,8 +14,12 @@ public class EnemyEscapeBase : EnemyStateAttackEscapeBase
     protected bool _doTimer = true;
     protected Transform _escapeFrom;
 
+    protected LayerMask _avoidLayer;
+
     public override void SetUp(EnemyBase script, bool noticeByHighSpeed)
     {
+        _avoidLayer = LayerMask.GetMask(Layers.DEFAULT, Layers.CHASER_SPAWN, Layers.BASE);
+
         _escapedTimer = new Timer(_durationToEscapePastLight);
         base.SetUp(script, noticeByHighSpeed);
     }
@@ -46,7 +50,7 @@ public class EnemyEscapeBase : EnemyStateAttackEscapeBase
                 return EnemyStates.IDLE;
         }
 
-        RaycastHit2D hit = Physics2D.BoxCast(_thisTransform.position, BOX_CAST_BOX, 0, _thisTransform.right, _lookRange, LayerMask.GetMask(Layers.DEFAULT, Layers.CHASER_SPAWN));
+        RaycastHit2D hit = Physics2D.BoxCast(_thisTransform.position, BOX_CAST_BOX, 0, _thisTransform.right, _lookRange, _avoidLayer);
 
         if (hit.collider != null)
             Divert();
@@ -64,7 +68,7 @@ public class EnemyEscapeBase : EnemyStateAttackEscapeBase
             _escapedTimer.Reset();
             _escapeFrom = _playerShip;
         }
-        else if (other.CompareTag(Tags.FLARE_TRIGGER) || EnteredBase(other) || other.CompareTag(Tags.ENEMY_LIGHT))
+        else if (other.CompareTag(Tags.FLARE_TRIGGER) || other.CompareTag(Tags.ENEMY_LIGHT))
             _escapeFrom = other.transform;
 
         return EnemyStates.STAY;
@@ -72,7 +76,7 @@ public class EnemyEscapeBase : EnemyStateAttackEscapeBase
 
     public override EnemyStates OnTriggerExit(Collider2D other)
     {
-        if (other.CompareTag(Tags.LIGHT) || other.CompareTag(Tags.FLARE_TRIGGER) || other.CompareTag(Tags.BASE) || other.CompareTag(Tags.ENEMY_LIGHT))
+        if (other.CompareTag(Tags.LIGHT) || other.CompareTag(Tags.FLARE_TRIGGER) || other.CompareTag(Tags.ENEMY_LIGHT))
             _doTimer = true;
 
         return EnemyStates.STAY;

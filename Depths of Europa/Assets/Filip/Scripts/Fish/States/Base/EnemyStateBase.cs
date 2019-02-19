@@ -75,11 +75,6 @@ public abstract class EnemyStateBase
 
         return EnemyStates.STAY;
     }
-
-    protected bool EnteredBase(Collider2D other)
-    {
-        return other.CompareTag(Tags.BASE);
-    }
 }
 
 [System.Serializable]

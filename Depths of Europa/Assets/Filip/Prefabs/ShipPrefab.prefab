@@ -801,7 +801,7 @@ CircleCollider2D:
   m_UsedByComposite: 0
   m_Offset: {x: 0, y: 0}
   serializedVersion: 2
-  m_Radius: 1
+  m_Radius: 1.5
 --- !u!60 &60360884892754234
 PolygonCollider2D:
   m_ObjectHideFlags: 1
@@ -1697,8 +1697,9 @@ MonoBehaviour:
   _hitWallSoundDuration: 0.3
   _highSpeedTriggerModifier: 2.25
   _lowSpeedTriggerModifier: 1.25
-  _minAnimationSpeed: 0.75
-  _maxAnimationSpeed: 2.5
+  _animationSpeedModifier: 1
+  _minAnimationSpeed: 0.5
+  _maxAnimationSpeed: 5
   _animator: {fileID: 95234027768424574}
   _highSpeedTrigger: {fileID: 58892618296129826}
   _lowSpeedTrigger: {fileID: 58042560805076852}

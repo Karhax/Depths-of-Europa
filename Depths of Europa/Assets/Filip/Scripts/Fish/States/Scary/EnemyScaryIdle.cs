@@ -16,7 +16,7 @@ public class EnemyScaryIdle : EnemyIdleBase
             return ShouldAttack(other.transform.position);
         else if (other.CompareTag(Tags.WALL))
             BackUp(_thisTransform.position - other.transform.position);
-        else if (EnteredBase(other) || other.CompareTag(Tags.PLAYER_OUTSIDE))
+        else if (other.CompareTag(Tags.PLAYER_OUTSIDE))
             return EnemyStates.ESCAPE;
 
         return EnemyStates.STAY;

@@ -18,5 +18,6 @@ namespace Statics
         public static readonly string ENEMY = "Enemy";
         public static readonly string FISH_UNDER = "FishUnder";
         public static readonly string CHASER_SPAWN = "ChaserSpawn";
+        public static readonly string BASE = "Base";
     }
 }

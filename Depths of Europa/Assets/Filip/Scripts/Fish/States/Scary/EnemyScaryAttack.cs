@@ -37,8 +37,6 @@ public class EnemyScaryAttack : EnemyAttackBase
             HitPlayer();
             return EnemyStates.ESCAPE;
         }
-        else if (EnteredBase(other))
-            return EnemyStates.ESCAPE;
 
         return EnemyStates.STAY;
     }

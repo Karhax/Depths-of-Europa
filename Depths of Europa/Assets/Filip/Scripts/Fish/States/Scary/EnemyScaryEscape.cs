@@ -8,13 +8,6 @@ public class EnemyScaryEscape : EnemyEscapeBase
 {
     public override EnemyStates OnTriggerEnter(Collider2D other)
     {
-        if (EnteredBase(other))
-        {
-            _doTimer = true;
-            _escapedTimer.Reset();
-            _escapeFrom = other.transform;
-        }     
-
         return EnemyStates.STAY;
     }
 
