@@ -12,7 +12,8 @@ public class SoundIndicatorScript : MonoBehaviour {
     [SerializeField] float _frequencyModifier = 10,  _traversalSpeed = 0.2f;
     [SerializeField, Range(1, 200), Tooltip("The ammount of line point to be updates in 1 frame")] int _lineUpdateAmmount = 10;
     [SerializeField, Tooltip("Evaluates the curve at a position based on the noise value (on the x-axis) and returns the value from the y-axis(plase ensure that the value is between 0 and 1))")] AnimationCurve _soundCurve;
-    [SerializeField] Gradient _volumeColourGradient, _darknessAndAlphaGradient;
+    [SerializeField, Tooltip("The Colour the line should take on based on current volume, 0.0 for minimum volume and 1.0 for maximum volume")] Gradient _volumeColourGradient;
+    [SerializeField, Tooltip("The alpha value the line should take on based on when it was last updated, 0.0 for most recently updated and 1.0 for least recently updated")] Gradient _alphaGradient;
 
     #endregion
 
@@ -44,7 +45,7 @@ public class SoundIndicatorScript : MonoBehaviour {
 
     bool _gradientFirstGeneratePass = true;
 
-    //float _colourUpdateFraction;
+    float _colourUpdateFraction;
 
 
     #endregion
@@ -76,7 +77,7 @@ public class SoundIndicatorScript : MonoBehaviour {
         _lineRenderer.widthMultiplier = 0;
         GenerateLineData();
         _lineUpdate = LineRender();
-        //_colourUpdateFraction = Mathf.InverseLerp(0, MAX_GRADIENT_INDEX, 1);
+        _colourUpdateFraction = Mathf.InverseLerp(0, MAX_GRADIENT_INDEX, 1);
     }
 
     private void OnValidate()
@@ -162,15 +163,13 @@ public class SoundIndicatorScript : MonoBehaviour {
             SetGradientTime(headerIndex, assignedPos);
             _internalColourKeys[headerIndex].color = GetVolymeColour(volume);
         }
-
+        int alphaIndex = headerIndex;
+        float alphaFalloff = 0;
         for (int i = 0; i < MAX_GRADIENT_KEYS; i++)
         {
-
-
-                
-
-            
-            
+            _internalAlphaKeys[alphaIndex].alpha = GetAlphaKey(alphaFalloff);
+            alphaFalloff += _colourUpdateFraction;
+            alphaIndex.ModifyAndRepeatInt(-1, MAX_GRADIENT_INDEX);
         }
         //Debug.Log(_internalColourKeys[0].time);
 
@@ -205,9 +204,9 @@ public class SoundIndicatorScript : MonoBehaviour {
         return _volumeColourGradient.Evaluate(volume);
     }
 
-    private void GenerateBrightnessKey()
+    private float GetAlphaKey(float pos)
     {
-
+        return _alphaGradient.Evaluate(pos).a;
     }
 
     private IEnumerator LineRender()
