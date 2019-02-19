@@ -27,16 +27,17 @@ public class MusicManagement : MonoBehaviour {
         {
             throw new System.Exception("The MusicManager " + gameObject.ToString() + " does not have the same amount of AudioSources as it's SourceVolumes.");
         }
-        _targetVolumes = _sourceVolumes;
-        _changePerFrame = _sourceVolumes;
+        _targetVolumes = new float[_sourceVolumes.Length];
+        _sourceVolumes.CopyTo(_targetVolumes, 0);
+        _changePerFrame = new float[_sourceVolumes.Length];
 
         // Set the current volume to 0 and calculate the change per frame for the initiating fade
         for (int i = 0; i < _sources.Length; i++)
         {
             _sources[i].volume = 0;
-            if (_targetVolumes[i] != _sources[i].volume)
+            if (_targetVolumes[i] != 0)
             {
-                _changePerFrame[i] = (_sources[i].volume - _targetVolumes[i]) / _levelStartFade;
+                _changePerFrame[i] = _targetVolumes[i] / _levelStartFade;
             }
             else
             {
@@ -84,7 +85,7 @@ public class MusicManagement : MonoBehaviour {
                     _targetVolumes[i] = volumes[i];
                     if (_targetVolumes[i] != _sources[i].volume)
                     {
-                        _changePerFrame[i] = (_sources[i].volume - _targetVolumes[i]) / _levelStartFade;
+                        _changePerFrame[i] = (_targetVolumes[i] - _sources[i].volume) / _levelStartFade;
                     }
                     else
                     {
@@ -112,6 +113,7 @@ public class MusicManagement : MonoBehaviour {
 
     public void EndMusic()
     {
+        // This function should be called when this music player is supposed to stop playing. No further input will be accepted.
         float[] zeroVolume = new float[1];
         zeroVolume[0] = 0;
         AdjustVolumes(zeroVolume);
