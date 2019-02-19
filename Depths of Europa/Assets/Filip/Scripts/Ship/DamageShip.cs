@@ -8,6 +8,9 @@ public class DamageShip : MonoBehaviour
     public delegate void ShipTakeDamage(float value);
     public event ShipTakeDamage ShipTakeDamageEvent;
 
+    public delegate void ShipDied();
+    public event ShipDied DieEvent;
+
     [Header("Settings")]
 
     [SerializeField, Range(0, 250)] int _maxHp;
@@ -15,6 +18,8 @@ public class DamageShip : MonoBehaviour
     [SerializeField, Range(0, 100)] float _collisionDamageModifier;
 
     int _currentHp;
+
+    bool _isDead = false;
 
     private void Awake()
     {
@@ -47,12 +52,16 @@ public class DamageShip : MonoBehaviour
 
     private void CheckIfDead()
     {
-        if (_currentHp <= 0)
+        if (_currentHp <= 0 && !_isDead)
             Die();
     }
 
     private void Die()
     {
-        Debug.Log("Dead");
+        if (!_isDead)
+            _isDead = true;
+
+        if (DieEvent != null)
+            DieEvent.Invoke();
     }
 }

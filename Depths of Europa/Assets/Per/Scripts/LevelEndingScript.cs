@@ -13,6 +13,8 @@ public class LevelEndingScript : MonoBehaviour {
     bool _hasDialog = false;
     // [SerializeField] private SoundObject _goalReachedSound = null;
 
+    bool _shipInBase = false;
+
     private void Awake()
     {
         _dialogScript = GetComponent<StartDialog>();
@@ -39,12 +41,14 @@ public class LevelEndingScript : MonoBehaviour {
 
     private void OnTriggerEnter2D(Collider2D other)
     {
-        if (other.CompareTag(Statics.Tags.PLAYER_OUTSIDE))
+        if (other.CompareTag(Statics.Tags.PLAYER_OUTSIDE) && !_shipInBase)
             ShipInBase(other);
     }
 
     private void ShipInBase(Collider2D other)
     {
+        _shipInBase = true;
+
         ShipInBase shipInBaseScript = other.GetComponent<ShipInBase>();
         shipInBaseScript.InBase(true);
 

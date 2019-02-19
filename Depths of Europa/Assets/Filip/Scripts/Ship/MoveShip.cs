@@ -30,8 +30,9 @@ public class MoveShip : MonoBehaviour
 
     [Header("Animation")]
 
-    [SerializeField, Range(0, 5)] float _minAnimationSpeed = 0.75f;
-    [SerializeField, Range(0, 5)] float _maxAnimationSpeed = 2.5f;
+    [SerializeField, Range(0, 10)] float _animationSpeedModifier;
+    [SerializeField, Range(0, 10)] float _minAnimationSpeed;
+    [SerializeField, Range(0, 10)] float _maxAnimationSpeed;
 
     [Header("Drop")]
 
@@ -72,6 +73,8 @@ public class MoveShip : MonoBehaviour
 
         if (!_otherSoundAffectingTriggers)
             ChangeSpeedTriggers();
+
+        SetAnimation();
     }
 
     private void OnCollisionEnter2D(Collision2D collision)
@@ -93,6 +96,12 @@ public class MoveShip : MonoBehaviour
         yield return new WaitForSeconds(_hitWallSoundDuration);
 
         _otherSoundAffectingTriggers = false;
+    }
+
+    private void SetAnimation()
+    {
+        float currentAnimationSpeed = _thisRigidbody.velocity.magnitude * _animationSpeedModifier;
+        _animator.speed = currentAnimationSpeed > _minAnimationSpeed ? currentAnimationSpeed : _minAnimationSpeed;
     }
 
     private void Turn(float turn, float dotProduct)
@@ -120,9 +129,6 @@ public class MoveShip : MonoBehaviour
             newVelocity *= backwardSpeedType;
 
         _thisRigidbody.velocity += newVelocity;
-
-        float ratio = _thisRigidbody.velocity.magnitude / _maxSpeedMagnitude;
-        _animator.speed = (_maxAnimationSpeed * ratio) > _minAnimationSpeed ? _maxAnimationSpeed * ratio : _minAnimationSpeed;
     }
 
     private void ChangeSpeedTriggers()
