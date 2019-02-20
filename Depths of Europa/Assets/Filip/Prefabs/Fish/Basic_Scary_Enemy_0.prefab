@@ -87,7 +87,7 @@ Transform:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1380123772127524}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -4.03, y: -5.67, z: 0}
+  m_LocalPosition: {x: -3.62, y: -7.89, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 4491033354309904}
@@ -295,6 +295,7 @@ MonoBehaviour:
     _turnSpeed: 4
     _turnSmootheness: 0.5
     _idleRadius: 6
+    _maxTimeOneDirection: 3
     _minBackUpDistance: 1
     _maxBackUpDistance: 6
   _attackState:
@@ -307,7 +308,7 @@ MonoBehaviour:
     _attackRange: 4
     _damage: 5
     _timeToHunt: 8
-    _maxDistanceFromPlayerToStopAttack: 10
+    _maxDistanceFromPlayerToStopAttack: 15
   _escapeState:
     _stateSpeed: 3
     _stateSpeedModifier: 0

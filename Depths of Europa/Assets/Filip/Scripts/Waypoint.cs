@@ -54,6 +54,7 @@ public class Waypoint : MonoBehaviour
     private void Start()
     {
         _pauseMenuScript = GameManager.CameraObject.GetComponentInChildren<PauseMenuScript>();
+        _pauseMenuScript.PauseState += Paused;
     }
 
     private void OnEnable()
