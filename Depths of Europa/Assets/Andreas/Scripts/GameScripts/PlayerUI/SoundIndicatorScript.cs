@@ -13,7 +13,7 @@ public class SoundIndicatorScript : MonoBehaviour {
     [SerializeField, Range(1, 200), Tooltip("The ammount of line point to be updates in 1 frame")] int _lineUpdateAmmount = 10;
     [SerializeField, Tooltip("Evaluates the curve at a position based on the noise value (on the x-axis) and returns the value from the y-axis(plase ensure that the value is between 0 and 1))")] AnimationCurve _soundCurve;
     [SerializeField, Tooltip("The Colour the line should take on based on current volume, 0.0 for minimum volume and 1.0 for maximum volume")] Gradient _volumeColourGradient;
-    [SerializeField, Tooltip("The alpha value the line should take on based on when it was last updated, 0.0 for most recently updated and 1.0 for least recently updated")] Gradient _alphaGradient;
+    //[SerializeField, Tooltip("The alpha value the line should take on based on when it was last updated, 0.0 for most recently updated and 1.0 for least recently updated")] Gradient _alphaGradient;
 
     #endregion
 
@@ -60,12 +60,6 @@ public class SoundIndicatorScript : MonoBehaviour {
 
     #endregion
 
-    #region Debug Variables
-
-
-
-    #endregion
-
 
 
     private void Awake()
@@ -94,15 +88,24 @@ public class SoundIndicatorScript : MonoBehaviour {
         _lineUpdateFraction = _lineUpdateAmmount / _numberOfLineSegments;
     }
 
+    /// <summary>
+    /// Function called by event to update the nois level
+    /// </summary>
+    /// <param name="newNoise">The new noise level to be set</param>
     private void OnNoiseChange(float newNoise)
     {
         _noise = newNoise;
     }
 
+    // Start function used to initialise the coroutine
     void Start () {
         StartCoroutine(_lineUpdate);
 	}
 	
+
+    /// <summary>
+    /// Function for generating a vecto 4 containing all relevant information regarding line positions
+    /// </summary>
     private void GenerateLineData()
     {
 
@@ -136,6 +139,11 @@ public class SoundIndicatorScript : MonoBehaviour {
         }
     }
 
+    /// <summary>
+    /// Call to update the color graient of the line with a new colour corresponding to the volume
+    /// </summary>
+    /// <param name="volume">The volume value from the volume anim curve</param>
+    /// <param name="drawHeadPos">Value between 0 and 1 corresponding to the draw points current position (_lineData[i].w)</param>
     private void GenerateColourProfile(float volume, float drawHeadPos)
     {
         float assignedPos;
@@ -155,23 +163,13 @@ public class SoundIndicatorScript : MonoBehaviour {
             {
                 headerIndex = MAX_GRADIENT_INDEX;
             }
-            if (drawHeadPos <= 0.75f * _lineUpdateFraction)
-            {
-                assignedPos = 0;
-            }
-            else if (drawHeadPos >= 1 - (0.75f * _lineUpdateFraction))
-            {
-                assignedPos = 1;
-            }
-            else
-            {
-                assignedPos = drawHeadPos;
-            }
-            //Debug.Log("HeadePos: " + drawHeadPos + " \nHeader Index: " + headerIndex);
+
+            assignedPos = drawHeadPos;
+            
             SetGradientTime(headerIndex, assignedPos);
             _internalColourKeys[headerIndex].color = GetVolymeColour(volume);
         }
-        int alphaIndex = headerIndex;
+        /*int alphaIndex = headerIndex;
         float alphaFalloff = 0;
         for (int i = 0; i < MAX_GRADIENT_KEYS; i++)
         {
@@ -179,22 +177,27 @@ public class SoundIndicatorScript : MonoBehaviour {
             alphaFalloff += _colourUpdateFraction;
             alphaIndex.ModifyAndRepeatInt(-1, MAX_GRADIENT_INDEX);
         }
-        //Debug.Log(_internalColourKeys[0].time);
-
-        //_currentWriteKey = _currentWriteKey.AddAndRepeatInt(MAX_GRADIENT_INDEX);
-
-
-
+        */
+        
+        //_lineRenderer.colorGradient.colorKeys = _internalColourKeys;
         _internalColourGradient.SetKeys(_internalColourKeys, _internalAlphaKeys);
         _lineRenderer.colorGradient = _internalColourGradient;
     }
 
+    /// <summary>
+    /// Positions out a given key on the given position in the gradient
+    /// </summary>
+    /// <param name="i">The Position of the key in the array</param>
+    /// <param name="time">The "time" position that the key should be placed on</param>
     private void SetGradientTime(int i,float time)
     {
         _internalColourKeys[i].time = time;
-        _internalAlphaKeys[i].time = time;
+        //_internalAlphaKeys[i].time = time;
     }
 
+    /// <summary>
+    /// Generates valid colour gradient components
+    /// </summary>
     private void GradientSetUp()
     {
         _internalColourKeys = new GradientColorKey[MAX_GRADIENT_KEYS];
@@ -207,21 +210,29 @@ public class SoundIndicatorScript : MonoBehaviour {
         }
     }
 
+    /// <summary>
+    /// Fetches the colour corresponding to the current volume level
+    /// </summary>
+    /// <param name="volume">The current volume value from the voule anim curve</param>
+    /// <returns></returns>
     private Color GetVolymeColour(float volume)
     {
         return _volumeColourGradient.Evaluate(volume);
     }
 
-    private float GetAlphaKey(float pos)
+    /*private float GetAlphaKey(float pos)
     {
         return _alphaGradient.Evaluate(pos).a;
-    }
+    }*/
 
+    /// <summary>
+    /// Running coroutine that draws out the line
+    /// </summary>
+    /// <returns></returns>
     private IEnumerator LineRender()
     {
         float volumeEvaluate;
         volumeEvaluate = Mathf.Clamp01(_soundCurve.Evaluate(_noise));
-        float curveFraction = (float)1 / _numberOfLineSegments;
         GenerateColourProfile(volumeEvaluate, 0);
         while (true)
         {
@@ -229,19 +240,10 @@ public class SoundIndicatorScript : MonoBehaviour {
             _lineUpdateTarget = _lineUpdateAmmount;
             _linePointUpdateCounter = 0;
             volumeEvaluate = Mathf.Clamp01(_soundCurve.Evaluate(_noise));
-            curveFraction = (float)1 / _numberOfLineSegments;
 
             for (int i = 0; i < _numberOfLineSegments; i++)
             {
                 _linePointUpdateCounter++;
-                //float curveProgression = (float)i / _numberOfLineSegments;
-
-
-                _yCenterInterpolator += 1 * curveFraction;
-
-                Mathf.PingPong(_yCenterInterpolator, 0.5f);
-
-                _traversal += _traversalSpeed * Time.deltaTime;
 
                 float normalYPoint = _lineData[i].z;
 
@@ -251,7 +253,6 @@ public class SoundIndicatorScript : MonoBehaviour {
 
                 if (_linePointUpdateCounter >= _lineUpdateTarget)
                 {
-                    //_noise = Random.value;
                     volumeEvaluate = Mathf.Clamp01(_soundCurve.Evaluate(_noise));
 
                     GenerateColourProfile(volumeEvaluate, _lineData[i].w);
