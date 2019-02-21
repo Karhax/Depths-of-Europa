@@ -47,7 +47,7 @@ public class SoundIndicatorScript : MonoBehaviour {
 
     float _colourUpdateFraction;
 
-    float _noise = 0.2f;
+    [SerializeField,Range(0,1)] float _noise = 0.2f;
 
     PlayerGUIScript PGUIS;
     #endregion

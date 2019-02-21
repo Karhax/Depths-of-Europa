@@ -38,7 +38,7 @@ public class PauseMenuScript : MonoBehaviour {
             Time.timeScale = 0;
 
             if (PauseState != null)
-                PauseState(_isPaused);
+                PauseState.Invoke(_isPaused);
         }
         else if(!_isPaused)
         {
@@ -48,7 +48,7 @@ public class PauseMenuScript : MonoBehaviour {
             Time.timeScale = 1;
 
             if (PauseState != null)
-                PauseState(_isPaused);
+                PauseState.Invoke(_isPaused);
         }
     }
 

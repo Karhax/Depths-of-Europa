@@ -5,8 +5,8 @@ using UnityEngine;
 public class MusicChangeTrigger : MonoBehaviour {
 
     [SerializeField] private MusicManagement _musicManager = null;
-    [SerializeField] [Range(0, 1)] private float[] _targetVolumes;
-    [SerializeField] private bool _resetOnExit = false;
+    [SerializeField] private bool[] _stemsToBeActive;
+    [SerializeField] private bool _resetOnExit = true;
 
     private void OnTriggerEnter2D(Collider2D other)
     {
@@ -18,7 +18,7 @@ public class MusicChangeTrigger : MonoBehaviour {
             }
             else
             {
-                _musicManager.AdjustVolumes(_targetVolumes);
+                _musicManager.AdjustVolumes(_stemsToBeActive);
             }
         }
     }

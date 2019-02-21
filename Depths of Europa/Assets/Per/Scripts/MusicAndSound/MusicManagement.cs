@@ -6,8 +6,8 @@ public class MusicManagement : MonoBehaviour {
 
     [Header("The sources playing music and the volume that they should have when the level starts")]
     [SerializeField] private AudioSource[] _sources;
-    [SerializeField] [Range(0, 1)] private float[] _sourceVolumes;
-    private float[] _targetVolumes;
+    [SerializeField] private bool[] _standardActiveStems;
+    private bool[] _currentActiveStems;
 
     [Header("The time in seconds it takes for the music to fade in/out")]
     [SerializeField] [Range(0.1f, 5f)] private float _levelStartFade;
@@ -23,21 +23,22 @@ public class MusicManagement : MonoBehaviour {
     private void Awake()
     {
         // Make sure all array have the same length
-        if (_sources.Length != _sourceVolumes.Length)
+        if (_sources.Length != _standardActiveStems.Length)
         {
-            throw new System.Exception("The MusicManager " + gameObject.ToString() + " does not have the same amount of AudioSources as it's SourceVolumes.");
+            throw new System.Exception("The MusicManager " + gameObject.ToString() + " have too few/many active stems compared to the number of connected audio sources.");
         }
-        _targetVolumes = new float[_sourceVolumes.Length];
-        _sourceVolumes.CopyTo(_targetVolumes, 0);
-        _changePerFrame = new float[_sourceVolumes.Length];
+        _currentActiveStems = new bool[_sources.Length];
+        _changePerFrame = new float[_sources.Length];
 
         // Set the current volume to 0 and calculate the change per frame for the initiating fade
         for (int i = 0; i < _sources.Length; i++)
         {
             _sources[i].volume = 0;
-            if (_targetVolumes[i] != 0)
+            _currentActiveStems[i] = _standardActiveStems[i];
+
+            if (_currentActiveStems[i])
             {
-                _changePerFrame[i] = _targetVolumes[i] / _levelStartFade;
+                _changePerFrame[i] = 1 / _levelStartFade;
             }
             else
             {
@@ -56,10 +57,17 @@ public class MusicManagement : MonoBehaviour {
             _fadeTimer.Time += Time.deltaTime;
             if (_fadeTimer.Expired())
             {
-                // Set the volume to the exakt target
+                // Set the volume to the exact target
                 for (int i = 0; i < _sources.Length; i++)
                 {
-                    _sources[i].volume = _targetVolumes[i];
+                    if (_currentActiveStems[i])
+                    {
+                        _sources[i].volume = 1;
+                    }
+                    else
+                    {
+                        _sources[i].volume = 0;
+                    }
                 }
             }
             else
@@ -73,30 +81,26 @@ public class MusicManagement : MonoBehaviour {
         }
     }
 
-    public void AdjustVolumes(float[] volumes)
+    public void AdjustVolumes(bool[] activeStems)
     {
         if (!_ignoreNewTasks)
         {
-            for (int i = 0; i < _targetVolumes.Length; i++)
+            for (int i = 0; i < _currentActiveStems.Length; i++)
             {
-                if (i < volumes.Length)
+                if (i < activeStems.Length)
                 {
-                    // Specified volumes are set as target volumes
-                    _targetVolumes[i] = volumes[i];
-                    if (_targetVolumes[i] != _sources[i].volume)
+                    // This stem has a designated bool value. If it is active, change volume towards 1. Else, change towards 0;
+                    _currentActiveStems[i] = activeStems[i];
+                    if (_currentActiveStems[i])
                     {
-                        _changePerFrame[i] = (_targetVolumes[i] - _sources[i].volume) / _levelStartFade;
+                        _changePerFrame[i] = (1 - _sources[i].volume) / _midLevelTransitionFade;
                     }
                     else
                     {
-                        _changePerFrame[i] = 0;
+                        _changePerFrame[i] = (0 - _sources[i].volume) / _midLevelTransitionFade;
                     }
                 }
-                else
-                {
-                    // Unspecified volumes are set to 0
-                    _targetVolumes[i] = 0;
-                }
+                // Stems with no designated bool value will not be altered in any way
             }
             _fadeTimer.Duration = _midLevelTransitionFade;
             _fadeTimer.Reset();
@@ -107,17 +111,23 @@ public class MusicManagement : MonoBehaviour {
     {
         if (!_ignoreNewTasks)
         {
-            AdjustVolumes(_sourceVolumes);
+            AdjustVolumes(_standardActiveStems);
         }
     }
 
     public void EndMusic()
     {
-        // This function should be called when this music player is supposed to stop playing. No further input will be accepted.
-        float[] zeroVolume = new float[1];
-        zeroVolume[0] = 0;
+        // This function should be called when this music player is supposed to stop playing.
+        // Have all stems transition towards 0 volume.
+        bool[] zeroVolume = new bool[_standardActiveStems.Length];
+        for (int i = 0; i < zeroVolume.Length; i++)
+        {
+            zeroVolume[i] = false;
+        }
         AdjustVolumes(zeroVolume);
         _fadeTimer.Duration = _levelEndFade;
+
+        // All further calls to this manager will be ignored.
         _ignoreNewTasks = true;
     }
 }
