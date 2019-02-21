@@ -15,6 +15,8 @@ public class Dialog : MonoBehaviour
     [SerializeField, Range(1, 300)] float _normalTextSpeed;
     [SerializeField, Range(1, 300)] float _fastTextSpeed;
     [SerializeField] Color _tintColorWhenNotTalking;
+    [SerializeField] Color _tintColorWhenTalking;
+    [SerializeField, Range(0.1f, 10f)] float _timeToForceSkip;
 
     [Header("Drop")]
 
@@ -34,6 +36,7 @@ public class Dialog : MonoBehaviour
     DialogBoxScriptableObject _currentScriptableObject;
     int _currentDialogBox = 0;
 
+    Timer _forceSkipTimer;
     Timer _textSpeedTimer;
     Timer _minPlayTimer = new Timer(MIN_BOX_TIME);
 
@@ -41,17 +44,43 @@ public class Dialog : MonoBehaviour
     int _timesPressedSkip = 0;
 
     const float MIN_BOX_TIME = 0.2f;
+    bool _isPaused = false;
+    PauseMenuScript _pauseMenuScript;
 
     private void Awake()
     {
+        _forceSkipTimer = new Timer(_timeToForceSkip);
         _textSpeedTimer = new Timer( 1 / _normalTextSpeed);
+    }
+
+    private void Start()
+    {
+        _pauseMenuScript = GameManager.CameraObject.GetComponentInChildren<PauseMenuScript>();
+        _pauseMenuScript.PauseState += Paused;
+    }
+
+    private void OnEnable()
+    {
+        if (_pauseMenuScript != null)
+            _pauseMenuScript.PauseState += Paused;
+    }
+
+    private void OnDisable()
+    {
+        if (_pauseMenuScript != null)
+            _pauseMenuScript.PauseState -= Paused;
+    }
+
+    private void Paused(bool state)
+    {
+        _isPaused = state;
     }
 
     private void Update()
     {
-        if (_dialogPlaying)
+        if (_dialogPlaying && !_isPaused)
         {
-            _pressedDown = Input.GetButtonDown(GameInput.SKIP_AND_SONAR);
+            _pressedDown = Input.GetButtonDown(GameInput.SKIP_DIALOG);
 
             if (_pressedDown)
                 _timesPressedSkip++;
@@ -94,7 +123,10 @@ public class Dialog : MonoBehaviour
             _textSpeedTimer.Time += Time.deltaTime;
             _minPlayTimer.Time += Time.deltaTime;
 
-            if (_pressedDown)
+            if (placeInText >= text.Length)
+                _forceSkipTimer.Time += Time.deltaTime;
+
+            if (_pressedDown || _forceSkipTimer.Expired())
             {
                 if (placeInText < text.Length)
                     SetSpeed(_fastTextSpeed);
@@ -170,7 +202,7 @@ public class Dialog : MonoBehaviour
             nameText.font = characterObject.Font;
             nameText.text = characterObject.Name;
 
-            TintSprite(characterImage, Color.white);
+            TintSprite(characterImage, _tintColorWhenTalking);
             _dialogText.font = characterObject.Font;
 
             if (characterObject.VoiceAudio != null)
@@ -207,6 +239,7 @@ public class Dialog : MonoBehaviour
 
     private void ResetAfterBox()
     {
+        _forceSkipTimer.Reset();
         _timesPressedSkip = 0;
         SetSpeed(_normalTextSpeed);
         _currentDialogBox++;

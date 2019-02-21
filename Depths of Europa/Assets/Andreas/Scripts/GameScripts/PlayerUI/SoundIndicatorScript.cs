@@ -49,7 +49,10 @@ public class SoundIndicatorScript : MonoBehaviour {
 
     [SerializeField,Range(0,1)] float _noise = 0.2f;
 
-    PlayerGUIScript PGUIS;
+    bool _isPaused = false;
+
+    PlayerGUIScript _playerGUIScript;
+    PauseMenuScript _pauseMenuScript;
     #endregion
 
     #region Read Only Variables
@@ -60,14 +63,24 @@ public class SoundIndicatorScript : MonoBehaviour {
 
     #endregion
 
+    private void OnPause(bool pauseState)
+    {
+        _isPaused = pauseState;
+    }
 
+    private bool IsPaused()
+    {
+        return _isPaused;
+    }
 
     private void Awake()
     {
         _lineRenderer = GetComponent<LineRenderer>();
         //_soundIndicatorCapture = GetComponentInChildren<Camera>();
-        PGUIS = FindObjectOfType<PlayerGUIScript>();
-        PGUIS.NoiseAmmountChange += OnNoiseChange;
+        _playerGUIScript = FindObjectOfType<PlayerGUIScript>();
+        _playerGUIScript.NoiseAmmountChange += OnNoiseChange;
+        _pauseMenuScript = FindObjectOfType<PauseMenuScript>();
+        _pauseMenuScript.PauseState += OnPause;
         _lineRenderer.positionCount = _numberOfLineSegments;
         _oldLineCount = _numberOfLineSegments;
         _lineWidth = _lineRenderer.widthMultiplier;
@@ -101,7 +114,23 @@ public class SoundIndicatorScript : MonoBehaviour {
     void Start () {
         StartCoroutine(_lineUpdate);
 	}
-	
+
+    private void OnEnable()
+    {
+        if (_playerGUIScript != null)
+            _playerGUIScript.NoiseAmmountChange += OnNoiseChange;
+        if (_pauseMenuScript != null)
+            _pauseMenuScript.PauseState += OnPause;
+    }
+
+    private void OnDisable()
+    {
+        if (_playerGUIScript != null)
+            _playerGUIScript.NoiseAmmountChange -= OnNoiseChange;
+        if (_pauseMenuScript != null)
+            _pauseMenuScript.PauseState -= OnPause;
+    }
+
 
     /// <summary>
     /// Function for generating a vecto 4 containing all relevant information regarding line positions
@@ -243,6 +272,10 @@ public class SoundIndicatorScript : MonoBehaviour {
 
             for (int i = 0; i < _numberOfLineSegments; i++)
             {
+                if(_isPaused)
+                {
+                    yield return new WaitWhile(IsPaused);
+                }
                 _linePointUpdateCounter++;
 
                 float normalYPoint = _lineData[i].z;

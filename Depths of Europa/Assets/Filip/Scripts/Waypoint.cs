@@ -80,7 +80,7 @@ public class Waypoint : MonoBehaviour
         {
             _waitToStartTimer.Time += Time.deltaTime;
 
-            bool action = Input.GetButtonDown(GameInput.SKIP_AND_SONAR);
+            bool action = Input.GetButtonDown(GameInput.SONAR);
 
             if (!_wayPointOn && action)
                 StartPulse();
