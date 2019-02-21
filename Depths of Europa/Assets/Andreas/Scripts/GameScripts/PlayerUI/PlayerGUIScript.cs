@@ -14,6 +14,8 @@ public class PlayerGUIScript : MonoBehaviour {
     int _arrayCount = 0;
     [SerializeField] GameObject ArrayInstance;
 
+    readonly int FLARE_ARRAY_LENGHT;
+
     DamageShip _damageShipScript;
     LightShip _lightShipScript;
 
@@ -52,6 +54,10 @@ public class PlayerGUIScript : MonoBehaviour {
         NoiseAmmountChange(noise);
     }
 
+    /// <summary>
+    /// Calculates the ammount of flare array object that should exist
+    /// </summary>
+    /// <param name="amountOfFlares">The ammount of flares</param>
     private void OnFlare(int amountOfFlares)
     {
         int tempFlareArrayCount = FlareCountCalc(amountOfFlares);
@@ -82,10 +88,15 @@ public class PlayerGUIScript : MonoBehaviour {
         FlareAmmountChange(amountOfFlares);
     }
 
+    /// <summary>
+    /// Calculates the ammount of Flare Array object that should exist
+    /// </summary>
+    /// <param name="amountOfFlares">Ammount of flares</param>
+    /// <returns></returns>
     private int FlareCountCalc(int amountOfFlares)
     {
         if (amountOfFlares > 0)
-            return (amountOfFlares - 1) / 5;
+            return (amountOfFlares - 1) / FLARE_ARRAY_LENGHT;
         else if (amountOfFlares <= 0)
             return 0;
         else

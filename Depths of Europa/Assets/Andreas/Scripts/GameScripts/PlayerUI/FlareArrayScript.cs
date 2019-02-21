@@ -19,6 +19,17 @@ public class FlareArrayScript : MonoBehaviour {
         
     }
 
+    private void OnEnable()
+    {
+        if (Parent != null)
+            Parent.FlareAmmountChange += OnFlareAmmountChange;
+    }
+
+    private void OnDisable()
+    {
+        if (Parent != null)
+            Parent.FlareAmmountChange -= OnFlareAmmountChange;
+    }
     // Use this for initialization
     void Start ()
     {
@@ -29,7 +40,10 @@ public class FlareArrayScript : MonoBehaviour {
 	void Update () {
 		
 	}
-
+    /// <summary>
+    /// Code that checks ammount of flares that is apropriate to be displayed by this object and if less than 0 and isnt base object then delete it self
+    /// </summary>
+    /// <param name="ammountOfFlares">Ammount of current flares</param>
     private void OnFlareAmmountChange(int ammountOfFlares)
     {
         int showAmmount = FlareCalc(ammountOfFlares);
@@ -51,17 +65,29 @@ public class FlareArrayScript : MonoBehaviour {
         }
     }
 
+    /// <summary>
+    /// Checks the ammount of flares apropriate for this object to display
+    /// </summary>
+    /// <param name="ammountOfFlares">Ammount of flares</param>
+    /// <returns></returns>
     private int FlareCalc(int ammountOfFlares)
     {
         return ammountOfFlares - (_arrayID * _imageArray.Length);
     }
 
+    /// <summary>
+    /// Handles object destruction
+    /// </summary>
     private void DeletThis()
     {
         Parent.FlareAmmountChange -= OnFlareAmmountChange;
         Destroy(gameObject);
     }
 
+    /// <summary>
+    /// Public function for setting object ArrayID at creation
+    /// </summary>
+    /// <param name="newArrayID">Array ID to be assigned to this object</param>
     public void SetArrayID(int newArrayID)
     {
         _arrayID = newArrayID;
