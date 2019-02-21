@@ -234,6 +234,11 @@ Prefab:
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: 46ce3d6545a460e41877738f06f5d2c1, type: 2}
   m_IsPrefabParent: 0
+--- !u!4 &32900098 stripped
+Transform:
+  m_PrefabParentObject: {fileID: 4948887824354002, guid: 46ce3d6545a460e41877738f06f5d2c1,
+    type: 2}
+  m_PrefabInternal: {fileID: 32900097}
 --- !u!1001 &70575218
 Prefab:
   m_ObjectHideFlags: 0
@@ -1395,6 +1400,11 @@ Prefab:
       propertyPath: m_RootOrder
       value: 2
       objectReference: {fileID: 0}
+    - target: {fileID: 114552126873397090, guid: cf6bfa4f89233a4478d1bd961872fb1f,
+        type: 2}
+      propertyPath: _waypointTransform
+      value: 
+      objectReference: {fileID: 32900098}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: cf6bfa4f89233a4478d1bd961872fb1f, type: 2}
   m_IsPrefabParent: 0
