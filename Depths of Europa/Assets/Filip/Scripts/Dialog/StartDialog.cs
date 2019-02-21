@@ -32,7 +32,7 @@ public class StartDialog : MonoBehaviour
         _dialogScript.DialogOverEvent += DialogOver;
     }
 
-    public void StartDialogs(DialogBoxScriptableObject dialog = null)
+    public bool StartDialogs(DialogBoxScriptableObject dialog = null)
     {
         if (dialog != null)
             _thisDialogBoxScriptableObject = dialog;
@@ -42,7 +42,11 @@ public class StartDialog : MonoBehaviour
             _dialogPlaying = true;
             _dialog.SetActive(true);
             _dialogScript.StartAllDialogs(_thisDialogBoxScriptableObject);
+
+            return true;
         }
+
+        return false;
     }
 
     private void DialogOver()

@@ -651,7 +651,7 @@ Transform:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1111445617526158}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 21.32, y: -10.71, z: -0.25}
+  m_LocalPosition: {x: 0, y: 0, z: -0.25}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 4142588805641138}
@@ -2318,6 +2318,8 @@ MonoBehaviour:
   _hitWallSoundDuration: 0.3
   _highSpeedTriggerModifier: 2.25
   _lowSpeedTriggerModifier: 1.25
+  _soundAmountModifier: 10
+  _maxSoundRatioCap: 0.75
   _animationSpeedModifier: 1
   _minAnimationSpeed: 0.5
   _maxAnimationSpeed: 5
@@ -2411,7 +2413,7 @@ MonoBehaviour:
   _normalTextSpeed: 30
   _fastTextSpeed: 300
   _tintColorWhenNotTalking: {r: 0.49019608, g: 0.49019608, b: 0.49019608, a: 1}
-  _tintColorWhenTalking: {r: 0, g: 0, b: 0, a: 0}
+  _tintColorWhenTalking: {r: 1, g: 1, b: 1, a: 0.78431374}
   _timeToForceSkip: 3
   _dialogText: {fileID: 114389119508839966}
   _leftImage: {fileID: 114378620732342136}

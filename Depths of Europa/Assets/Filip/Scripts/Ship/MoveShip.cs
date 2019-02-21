@@ -39,12 +39,17 @@ public class MoveShip : MonoBehaviour
     [SerializeField, Range(0, 10)] float _minAnimationSpeed;
     [SerializeField, Range(0, 10)] float _maxAnimationSpeed;
 
+    [SerializeField, Range(0, 500)] float _amountOfParticlesModifier = 35f;
+    [SerializeField, Range(0, 50)] float _minAmountOfParticles = 1f;
+
     [Header("Drop")]
 
+    [SerializeField] ParticleSystem _bubblesParticleSystem;
     [SerializeField] Animator _animator;
     [SerializeField] CircleCollider2D _highSpeedTrigger;
     [SerializeField] CircleCollider2D _lowSpeedTrigger;
 
+    ParticleSystem.EmissionModule _particleSystemEmission;
     Rigidbody2D _thisRigidbody;
     float _highSpeedTriggerNormalRadius;
     float _lowSpeedTriggerNormalRadius;
@@ -57,6 +62,7 @@ public class MoveShip : MonoBehaviour
         _lowSpeedTriggerNormalRadius = _lowSpeedTrigger.radius;
 
         _thisRigidbody = GetComponent<Rigidbody2D>();
+        _particleSystemEmission = _bubblesParticleSystem.emission;
     }
 
     private void FixedUpdate()
@@ -80,18 +86,33 @@ public class MoveShip : MonoBehaviour
             ChangeSpeedTriggers();
 
         SetAnimation();
+        CallSoundMeter();
+        AmountOfBubbles(dotProduct);
+    }
+
+    private void OnCollisionEnter2D(Collision2D collision)
+    {
+        TryMakeSound(collision.relativeVelocity.magnitude, _hitWallSoundModifier);
+    }
+
+    private void AmountOfBubbles(float dotProduct)
+    {
+        if (dotProduct >= 0)
+        {
+            float amount = _thisRigidbody.velocity.magnitude * 35f;
+            amount = amount < 1 ? 1 : amount;
+            _particleSystemEmission.rateOverTime = new ParticleSystem.MinMaxCurve(amount, amount);
+        }
+    }
+
+    private void CallSoundMeter()
+    {
         if (ShipSoundEvent != null)
         {
             float ratio = (_highSpeedTrigger.radius - _highSpeedTriggerNormalRadius) / _soundAmountModifier;
             ratio = ratio > 1 ? _maxSoundRatioCap : ratio;
             ShipSoundEvent.Invoke(ratio);
         }
-        
-    }
-
-    private void OnCollisionEnter2D(Collision2D collision)
-    {
-        TryMakeSound(collision.relativeVelocity.magnitude, _hitWallSoundModifier);
     }
 
     public void TryMakeSound(float soundStrenght, float modifier = 1f, bool makeSoundEvenIfOtherSoundPlaying = false)

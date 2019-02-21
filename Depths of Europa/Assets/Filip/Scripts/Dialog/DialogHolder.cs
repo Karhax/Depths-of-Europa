@@ -11,6 +11,10 @@ public class DialogHolder : MonoBehaviour
         StartDialog dialogScript = other.GetComponent<StartDialog>();
 
         if (dialogScript != null)
-            dialogScript.StartDialogs(_dialogObject);
+        {
+            if (dialogScript.StartDialogs(_dialogObject))
+                Destroy(gameObject);
+        }
+            
     }
 }

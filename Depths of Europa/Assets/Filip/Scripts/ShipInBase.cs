@@ -13,5 +13,10 @@ public class ShipInBase : MonoBehaviour
         _moveShipScript.enabled = !state;
         _waypointScript.enabled = !state;
         _lightShipScript.enabled = !state;
+
+        Dialog dialog = GetComponentInChildren<Dialog>();
+
+        if (dialog != null)
+            Destroy(dialog.gameObject);
     }
 }
