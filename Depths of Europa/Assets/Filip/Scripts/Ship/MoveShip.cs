@@ -5,6 +5,9 @@ using Statics;
 
 public class MoveShip : MonoBehaviour
 {
+    public delegate void SoundChange(float ratio);
+    public event SoundChange ShipSoundEvent;
+
     [Header("Turn speed behaves differently by collider size! Big range to make work"), Space]
     [SerializeField, Range(0, 250)] float _slowTurnSpeed = 60f;
     [SerializeField, Range(0, 250)] float _mediumTurnSpeed = 60f;
@@ -27,6 +30,8 @@ public class MoveShip : MonoBehaviour
 
     [SerializeField, Range(0, 5)] float _highSpeedTriggerModifier;
     [SerializeField, Range(0, 5)] float _lowSpeedTriggerModifier;
+    [SerializeField, Range(0, 100)] float _soundAmountModifier = 10f;
+    [SerializeField, Range(0, 1)] float _maxSoundRatioCap = 0.75f;
 
     [Header("Animation")]
 
@@ -75,6 +80,13 @@ public class MoveShip : MonoBehaviour
             ChangeSpeedTriggers();
 
         SetAnimation();
+        if (ShipSoundEvent != null)
+        {
+            float ratio = (_highSpeedTrigger.radius - _highSpeedTriggerNormalRadius) / _soundAmountModifier;
+            ratio = ratio > 1 ? _maxSoundRatioCap : ratio;
+            ShipSoundEvent.Invoke(ratio);
+        }
+        
     }
 
     private void OnCollisionEnter2D(Collision2D collision)

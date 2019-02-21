@@ -14,17 +14,20 @@ public class PlayerGUIScript : MonoBehaviour {
     int _arrayCount = 0;
     [SerializeField] GameObject ArrayInstance;
 
-    readonly int FLARE_ARRAY_LENGHT;
+    readonly int FLARE_ARRAY_LENGHT = 5;
 
     DamageShip _damageShipScript;
     LightShip _lightShipScript;
+    MoveShip _moveShipScript;
 
     void Start()
     {
         _damageShipScript = GameManager.ShipObject.GetComponent<DamageShip>();
         _lightShipScript = GameManager.ShipObject.GetComponent<LightShip>();
+        _moveShipScript = GameManager.ShipObject.GetComponent<MoveShip>();
         _damageShipScript.ShipTakeDamageEvent += OnHealthChange;
         _lightShipScript.ShipUsedFlareEvent += OnFlare;
+        _moveShipScript.ShipSoundEvent += OnNoiseChange;
     }
 
     private void OnEnable()
@@ -33,6 +36,8 @@ public class PlayerGUIScript : MonoBehaviour {
             _damageShipScript.ShipTakeDamageEvent += OnHealthChange;
         if (_lightShipScript != null)
             _lightShipScript.ShipUsedFlareEvent += OnFlare;
+        if (_moveShipScript != null)
+            _moveShipScript.ShipSoundEvent += OnNoiseChange;
     }
 
     private void OnDisable()
@@ -41,6 +46,8 @@ public class PlayerGUIScript : MonoBehaviour {
             _damageShipScript.ShipTakeDamageEvent -= OnHealthChange;
         if (_lightShipScript != null)
             _lightShipScript.ShipUsedFlareEvent -= OnFlare;
+        if (_moveShipScript != null)
+            _moveShipScript.ShipSoundEvent -= OnNoiseChange;
     }
 	
 

@@ -133,7 +133,7 @@ public class SoundIndicatorScript : MonoBehaviour {
 
 
     /// <summary>
-    /// Function for generating a vecto 4 containing all relevant information regarding line positions
+    /// Function for generating a vector 4 containing all relevant information regarding line positions
     /// </summary>
     private void GenerateLineData()
     {
