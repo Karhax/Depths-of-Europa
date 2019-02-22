@@ -99,8 +99,8 @@ public class MoveShip : MonoBehaviour
     {
         if (dotProduct >= 0)
         {
-            float amount = _thisRigidbody.velocity.magnitude * 35f;
-            amount = amount < 1 ? 1 : amount;
+            float amount = _thisRigidbody.velocity.magnitude * _amountOfParticlesModifier;
+            amount = amount < _minAmountOfParticles ? _minAmountOfParticles : amount;
             _particleSystemEmission.rateOverTime = new ParticleSystem.MinMaxCurve(amount, amount);
         }
     }
