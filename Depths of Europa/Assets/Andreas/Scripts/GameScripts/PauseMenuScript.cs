@@ -27,6 +27,10 @@ public class PauseMenuScript : MonoBehaviour {
 	}
     //TODO: Probably better to store the start tiem scale somewhere instead of assuming 1
     
+
+        /// <summary>
+        /// Sets the game to paused
+        /// </summary>
     private void SetPause()
     {
         _isPaused = !_isPaused;
@@ -51,17 +55,27 @@ public class PauseMenuScript : MonoBehaviour {
                 PauseState.Invoke(_isPaused);
         }
     }
-
+    /// <summary>
+    /// Function for resuming the game via the UI
+    /// </summary>
     public void ResumeFromGUI()
     {
         SetPause();
     }
     //TODO: Impliment setting menu and settings menu trasition
+
+        /// <summary>
+        /// Open settings
+        /// </summary>
     public void OpenSettings()
     {
         Debug.Log("Settings menu and settings menu opening not implimented");
     }
     //TODO: Impliment main menu and main menu transition
+
+        /// <summary>
+        /// Exiy to menu
+        /// </summary>
     public void ExitToMenu()
     {
         try
@@ -86,5 +100,10 @@ public class PauseMenuScript : MonoBehaviour {
         {
             Application.Quit();
         }
+    }
+    public void RestartLevel()
+    {
+        
+        ResumeFromGUI();
     }
 }
