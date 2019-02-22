@@ -30,6 +30,8 @@ public class CameraFollowPlayer : MonoBehaviour
         _playerRigidBody = _player.GetComponent<Rigidbody2D>();
 
         _originalCameraSize = _thisCamera.orthographicSize;
+
+        transform.position = _player.position + new Vector3(0, 0, transform.position.z);
     }
 
     private void LateUpdate()

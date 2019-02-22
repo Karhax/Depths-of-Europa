@@ -342,6 +342,7 @@ GameObject:
   - component: {fileID: 114166532245899178}
   - component: {fileID: 114588079667150822}
   - component: {fileID: 114334414676791350}
+  - component: {fileID: 114088520725777722}
   m_Layer: 10
   m_Name: Ship
   m_TagString: PlayerOutside
@@ -651,7 +652,7 @@ Transform:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1111445617526158}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 21.32, y: -10.71, z: -0.25}
+  m_LocalPosition: {x: 0, y: 0, z: -0.25}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 4142588805641138}
@@ -1925,6 +1926,24 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _offset: {x: 0, y: 0}
   _player: {fileID: 4710787988828578}
+--- !u!114 &114088520725777722
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1525962020150546}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d00be7914f2c6554e8299621c33b4087, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _animationSpeedModifier: 1
+  _minAnimationSpeed: 0.35
+  _maxAnimationSpeed: 4
+  _amountOfParticlesModifier: 35
+  _minAmountOfParticles: 1
+  _bubblesParticleSystem: {fileID: 198763042141436944}
+  _animator: {fileID: 95234027768424574}
 --- !u!114 &114155994360252284
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -2320,13 +2339,6 @@ MonoBehaviour:
   _lowSpeedTriggerModifier: 1.25
   _soundAmountModifier: 10
   _maxSoundRatioCap: 0.75
-  _animationSpeedModifier: 1
-  _minAnimationSpeed: 0.5
-  _maxAnimationSpeed: 5
-  _amountOfParticlesModifier: 35
-  _minAmountOfParticles: 1
-  _bubblesParticleSystem: {fileID: 198763042141436944}
-  _animator: {fileID: 95234027768424574}
   _highSpeedTrigger: {fileID: 58892618296129826}
   _lowSpeedTrigger: {fileID: 58042560805076852}
 --- !u!114 &114790900473242204
@@ -2487,7 +2499,7 @@ ParticleSystem:
   moveWithTransform: 1
   moveWithCustomTransform: {fileID: 0}
   scalingMode: 1
-  randomSeed: -1559968646
+  randomSeed: -274003567
   InitialModule:
     serializedVersion: 3
     enabled: 1
@@ -2883,7 +2895,7 @@ ParticleSystem:
         m_PostInfinity: 2
         m_RotationOrder: 4
     randomizeRotationDirection: 0
-    maxNumParticles: 1000
+    maxNumParticles: 100000
     size3D: 0
     rotation3D: 0
     gravityModifier:
@@ -5828,7 +5840,7 @@ ParticleSystemRenderer:
   m_AutoUVMaxAngle: 89
   m_LightmapParameters: {fileID: 0}
   m_SortingLayerID: 78163125
-  m_SortingLayer: 1
+  m_SortingLayer: 2
   m_SortingOrder: 0
   m_RenderMode: 0
   m_SortMode: 2
@@ -5880,7 +5892,7 @@ SpriteRenderer:
   m_AutoUVMaxAngle: 89
   m_LightmapParameters: {fileID: 0}
   m_SortingLayerID: -1993631265
-  m_SortingLayer: 4
+  m_SortingLayer: 5
   m_SortingOrder: 0
   m_Sprite: {fileID: 21300000, guid: 2e2245772e64fdb42be1285ddb1df7cc, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
