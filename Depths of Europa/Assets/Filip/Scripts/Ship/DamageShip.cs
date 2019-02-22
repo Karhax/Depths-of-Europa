@@ -8,9 +8,6 @@ public class DamageShip : MonoBehaviour
     public delegate void ShipTakeDamage(float value);
     public event ShipTakeDamage ShipTakeDamageEvent;
 
-    public delegate void ShipDied();
-    public event ShipDied DieEvent;
-
     [Header("Settings")]
 
     [SerializeField, Range(0, 250)] int _maxHp;
@@ -61,7 +58,6 @@ public class DamageShip : MonoBehaviour
         if (!_isDead)
             _isDead = true;
 
-        if (DieEvent != null)
-            DieEvent.Invoke();
+        GameManager.LevelRestartRequested();
     }
 }

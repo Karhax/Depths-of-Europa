@@ -105,5 +105,6 @@ public class PauseMenuScript : MonoBehaviour {
     {
         
         ResumeFromGUI();
+        GameManager.LevelRestartRequested();
     }
 }
