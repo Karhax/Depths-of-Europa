@@ -651,7 +651,7 @@ Transform:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1111445617526158}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: -0.25}
+  m_LocalPosition: {x: 21.32, y: -10.71, z: -0.25}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 4142588805641138}
@@ -2323,6 +2323,9 @@ MonoBehaviour:
   _animationSpeedModifier: 1
   _minAnimationSpeed: 0.5
   _maxAnimationSpeed: 5
+  _amountOfParticlesModifier: 35
+  _minAmountOfParticles: 1
+  _bubblesParticleSystem: {fileID: 198763042141436944}
   _animator: {fileID: 95234027768424574}
   _highSpeedTrigger: {fileID: 58892618296129826}
   _lowSpeedTrigger: {fileID: 58042560805076852}
@@ -2880,7 +2883,7 @@ ParticleSystem:
         m_PostInfinity: 2
         m_RotationOrder: 4
     randomizeRotationDirection: 0
-    maxNumParticles: 100
+    maxNumParticles: 1000
     size3D: 0
     rotation3D: 0
     gravityModifier:
