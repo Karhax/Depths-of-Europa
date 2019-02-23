@@ -872,7 +872,7 @@ Transform:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1525962020150546}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalPosition: {x: 6.26, y: 0.91, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 4480746267301486}
@@ -2328,10 +2328,10 @@ MonoBehaviour:
   _slowSpeedMagnitude: 0.75
   _mediumSpeedMagnitude: 1.5
   _maxSpeedMagnitude: 2.25
+  _maxReverseSpeedMagnitude: 1
   _baseForwardSpeed: 0.6
   _slowdownForwardSpeed: 0.35
-  _baseBackWardSpeed: 0.25
-  _slowdownBackwardSpeed: 0.25
+  _baseBackWardSpeed: 0.75
   _accelerationModifier: 0.5
   _hitWallSoundModifier: 1
   _hitWallSoundDuration: 0.3

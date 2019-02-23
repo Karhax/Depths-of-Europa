@@ -19,11 +19,11 @@ public class MoveShip : MonoBehaviour
     [SerializeField, Range(0, 4)] float _slowSpeedMagnitude = 0.75f;
     [SerializeField, Range(0, 4)] float _mediumSpeedMagnitude = 1.5f;
     [SerializeField, Range(0, 4)] float _maxSpeedMagnitude = 2.25f;
+    [SerializeField, Range(0, 4)] float _maxReverseSpeedMagnitude = 1f;
 
     [SerializeField, Range(0, 3)] float _baseForwardSpeed = 0.55f;
     [SerializeField, Range(0, 3)] float _slowdownForwardSpeed = 0.25f;
     [SerializeField, Range(0, 3)] float _baseBackWardSpeed = 0.25f;
-    [SerializeField, Range(0, 3)] float _slowdownBackwardSpeed = 0.25f;
     [SerializeField, Range(0, 3)] float _accelerationModifier = 0.55f;
     [SerializeField, Range(0, 5)] float _hitWallSoundModifier;
     [SerializeField, Range(0.25f, 2)] float _hitWallSoundDuration;
@@ -65,8 +65,8 @@ public class MoveShip : MonoBehaviour
         {
             if (move > 0)
                 SetNewSpeed(move, _baseForwardSpeed, _slowdownForwardSpeed, dotProduct);
-            else
-                SetNewSpeed(move, _baseBackWardSpeed, _slowdownBackwardSpeed, dotProduct);
+            else if (_thisRigidbody.velocity.magnitude < _maxReverseSpeedMagnitude)
+                SetNewSpeed(move, 0, _baseBackWardSpeed, dotProduct);
         }
 
         if (!_otherSoundAffectingTriggers)
