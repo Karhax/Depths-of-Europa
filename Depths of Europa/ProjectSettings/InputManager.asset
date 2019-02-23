@@ -39,7 +39,7 @@ InputManager:
     joyNum: 0
   - serializedVersion: 3
     m_Name: Action
-    descriptiveName: 
+    descriptiveName: Headlights
     descriptiveNegativeName: 
     negativeButton: 
     positiveButton: 
@@ -55,7 +55,7 @@ InputManager:
     joyNum: 0
   - serializedVersion: 3
     m_Name: Action2
-    descriptiveName: 
+    descriptiveName: Shoot Flare
     descriptiveNegativeName: 
     negativeButton: 
     positiveButton: 
@@ -71,7 +71,7 @@ InputManager:
     joyNum: 0
   - serializedVersion: 3
     m_Name: Action3
-    descriptiveName: 
+    descriptiveName: Turn Lights On/Off
     descriptiveNegativeName: 
     negativeButton: 
     positiveButton: 
@@ -87,12 +87,12 @@ InputManager:
     joyNum: 0
   - serializedVersion: 3
     m_Name: SkipDialog
-    descriptiveName: 
+    descriptiveName: Skip Dialog
     descriptiveNegativeName: 
     negativeButton: 
-    positiveButton: space
+    positiveButton: 
     altNegativeButton: 
-    altPositiveButton: 
+    altPositiveButton: space
     gravity: 1000
     dead: 0.001
     sensitivity: 1000
@@ -311,10 +311,42 @@ InputManager:
     joyNum: 0
   - serializedVersion: 3
     m_Name: Sonar
-    descriptiveName: 
+    descriptiveName: Shoot Sonar
     descriptiveNegativeName: 
     negativeButton: 
     positiveButton: f
+    altNegativeButton: 
+    altPositiveButton: 
+    gravity: 1000
+    dead: 0.001
+    sensitivity: 1000
+    snap: 0
+    invert: 0
+    type: 0
+    axis: 0
+    joyNum: 0
+  - serializedVersion: 3
+    m_Name: SideStrafeLeft
+    descriptiveName: Side Strafe Left
+    descriptiveNegativeName: 
+    negativeButton: 
+    positiveButton: q
+    altNegativeButton: 
+    altPositiveButton: 
+    gravity: 1000
+    dead: 0.001
+    sensitivity: 1000
+    snap: 0
+    invert: 0
+    type: 0
+    axis: 0
+    joyNum: 0
+  - serializedVersion: 3
+    m_Name: SideStrafeRight
+    descriptiveName: Side Strafe Right
+    descriptiveNegativeName: 
+    negativeButton: 
+    positiveButton: e
     altNegativeButton: 
     altPositiveButton: 
     gravity: 1000

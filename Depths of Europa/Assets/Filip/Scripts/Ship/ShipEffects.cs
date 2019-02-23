@@ -30,7 +30,6 @@ public class ShipEffects : MonoBehaviour
     private void Update()
     {
         float dotProduct = Vector3.Dot(_thisRigidbody.velocity, transform.up);
-
         SetAnimation();
         AmountOfBubbles(dotProduct);
     }
@@ -47,9 +46,8 @@ public class ShipEffects : MonoBehaviour
 
         if (dotProduct >= 0)
         {
-            amount = _thisRigidbody.velocity.magnitude * _amountOfParticlesModifier;
+            amount = transform.InverseTransformVector(_thisRigidbody.velocity).y * _amountOfParticlesModifier;
             amount = amount < _minAmountOfParticles ? _minAmountOfParticles : amount;
-           
         }
 
         _particleSystemEmission.rateOverTime = new ParticleSystem.MinMaxCurve(amount, amount);

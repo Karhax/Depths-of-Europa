@@ -23,5 +23,7 @@ namespace Statics
         public static readonly string HEADLIGHT = "Headlight";
         public static readonly string SONAR = "Sonar";
         public static readonly string SKIP_DIALOG = "SkipDialog";
+        public static readonly string SIDE_STRAFE_LEFT = "SideStrafeLeft";
+        public static readonly string SIDE_STRAFE_RIGHT = "SideStrafeRight";
     }
 }
