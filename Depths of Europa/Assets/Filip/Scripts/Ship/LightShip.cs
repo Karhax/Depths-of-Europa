@@ -26,6 +26,7 @@ public class LightShip : MonoBehaviour
     int _floorMask;
     float _camRayLength = 100f;
     bool _isPaused = false;
+    readonly Vector3 SPAWN_Y_POSITION = new Vector3(0, 0, 0.1f);
 
     Rigidbody2D thisRigidbody;
 
@@ -120,10 +121,10 @@ public class LightShip : MonoBehaviour
         if (direction.magnitude > _maxFlareSpeed)
             direction = direction.normalized * _maxFlareSpeed;
 
-        GameObject newFlare = Instantiate(_flarePrefab, transform.position, Quaternion.identity) as GameObject;
+        GameObject newFlare = Instantiate(_flarePrefab, transform.position + SPAWN_Y_POSITION, Quaternion.identity) as GameObject;
         newFlare.GetComponent<Rigidbody2D>().velocity = thisRigidbody.velocity + direction * _flareOutSpeed;
 
-        _currentFlareCount -= 1;
+        _currentFlareCount--;
 
         if (ShipUsedFlareEvent != null)
             ShipUsedFlareEvent.Invoke(_currentFlareCount);
