@@ -7,7 +7,8 @@ public class ShipSideStrafing : MonoBehaviour
 {
     [Header("Settings")]
 
-    [SerializeField, Range(0, 5)] float _strafeForce;
+    [SerializeField] bool _usePowerUp = true;
+    [SerializeField, Range(0, 5)] float _strafeForce = 0.5f;
 
     [Header("Drop")]
 
@@ -19,6 +20,9 @@ public class ShipSideStrafing : MonoBehaviour
 
     private void Awake()
     {
+        if (!_usePowerUp)
+            Destroy(this);
+
         _thisRigidbody = GetComponent<Rigidbody2D>();
     }
 
