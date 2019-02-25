@@ -7,9 +7,6 @@ public class FadeHandler : MonoBehaviour {
     public delegate void DelegateFadeEnded();
     public event DelegateFadeEnded FadeEnded;
 
-    public delegate void DelegateFadeBegun();
-    public event DelegateFadeBegun FadeBegun;
-
     [SerializeField] private GameObject _fadeObject = null;
     [SerializeField] private float _fadeDuration = 1f;
 
@@ -72,19 +69,11 @@ public class FadeHandler : MonoBehaviour {
         _fadeStarted = true;
         _directionMultiplier = -1;
         _fadeSpriteRenderer.color = new Color(0, 0, 0, 1);
-        if (FadeBegun != null)
-        {
-            FadeBegun();
-        }
     }
     public void StartFadeOut()
     {
         _fadeStarted = true;
         _directionMultiplier = 1;
         _fadeSpriteRenderer.color = new Color(0, 0, 0, 0);
-        if (FadeBegun != null)
-        {
-            FadeBegun();
-        }
     }
 }

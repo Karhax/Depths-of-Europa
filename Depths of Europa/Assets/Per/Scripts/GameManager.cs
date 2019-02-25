@@ -4,7 +4,10 @@ using UnityEngine;
 using UnityEngine.SceneManagement;
 
 public class GameManager : MonoBehaviour {
-    
+
+    public delegate void DelegateFading(bool isEnd);
+    public static event DelegateFading Fading;
+
     private static GameManager singletonGameManager = null;
     private static FadeHandler _fadeHandler = null;
     private static GameObject _shipObject = null;
@@ -46,6 +49,10 @@ public class GameManager : MonoBehaviour {
         {
             _fadeHandler.FadeEnded += BeginningFadeDone;
             _fadeHandler.StartFadeIn();
+            if (Fading != null)
+            {
+                Fading(false);
+            }
         }
     }
 
@@ -56,6 +63,10 @@ public class GameManager : MonoBehaviour {
         _fadeHandler.FadeEnded -= RestartFadeOutDone;
         _fadeHandler.FadeEnded -= BeginningFadeDone;
         _fadeHandler.StartFadeOut();
+        if (Fading != null)
+        {
+            Fading(true);
+        }
     }
 
     private static void EndingFadeOutDone()
@@ -75,6 +86,10 @@ public class GameManager : MonoBehaviour {
         _fadeHandler.FadeEnded -= BeginningFadeDone;
         _fadeHandler.FadeEnded -= EndingFadeOutDone;
         _fadeHandler.StartFadeOut();
+        if (Fading != null)
+        {
+            Fading(true);
+        }
     }
 
     private static void RestartFadeOutDone()
