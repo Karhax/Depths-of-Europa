@@ -60,7 +60,7 @@ public class EnemyIdleBase : EnemyStateBase
 
     public override EnemyStates OnTriggerEnter(Collider2D other)
     {
-        if (other.CompareTag(Tags.LIGHT) || other.CompareTag(Tags.PLAYER_OUTSIDE) || other.CompareTag(Tags.FLARE_TRIGGER) || other.CompareTag(Tags.ENEMY_LIGHT))
+        if (other.CompareTag(Tags.LIGHT) || other.CompareTag(Tags.PLAYER_OUTSIDE) || other.CompareTag(Tags.FLARE_TRIGGER) || other.CompareTag(Tags.ENEMY_LIGHT) || other.CompareTag(Tags.ALL_FISH_ESCAPE))
             return ShouldEscape(other.transform.position);
         else if (other.CompareTag(Tags.NOTICE_HIGH_SPEED) && _noticeByHighSpeed)
             return ShouldAttack(other.transform.position);

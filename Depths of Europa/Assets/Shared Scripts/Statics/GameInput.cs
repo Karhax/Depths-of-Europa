@@ -25,5 +25,6 @@ namespace Statics
         public static readonly string SKIP_DIALOG = "SkipDialog";
         public static readonly string SIDE_STRAFE_LEFT = "SideStrafeLeft";
         public static readonly string SIDE_STRAFE_RIGHT = "SideStrafeRight";
+        public static readonly string BUBBLE_BLAST = "BubbleBlast";
     }
 }

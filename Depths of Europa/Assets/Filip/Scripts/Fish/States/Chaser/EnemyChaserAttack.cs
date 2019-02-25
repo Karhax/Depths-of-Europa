@@ -40,6 +40,8 @@ public class EnemyChaserAttack : EnemyAttackBase
             HitPlayer();
             return EnemyStates.ESCAPE;
         }
+        else if (other.CompareTag(Tags.ALL_FISH_ESCAPE))
+            return EnemyStates.ESCAPE;
 
         return EnemyStates.STAY;
     }
