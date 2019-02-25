@@ -47,10 +47,14 @@ public class Dialog : MonoBehaviour
     bool _isPaused = false;
     PauseMenuScript _pauseMenuScript;
 
+    float _dialogParentWidth;
+    readonly char SPACE = ' ';
     readonly int AMOUNT_TIMES_PRESSED_TO_SKIP = 2;
 
     private void Awake()
     {
+        _dialogParentWidth = _dialogText.rectTransform.rect.width;
+
         _forceSkipTimer = new Timer(_timeToForceSkip);
         _textSpeedTimer = new Timer( 1 / _normalTextSpeed);
     }
@@ -116,11 +120,9 @@ public class Dialog : MonoBehaviour
         string text = boxObject.DialogText;
         int placeInText = 0;
 
-        text = FixTextLineBreaks(text);
-
-        StringBuilder stringBuilder = new StringBuilder();
-
         SetBoxSettings(boxObject);
+        text = FixTextLineBreaks(text);
+        StringBuilder stringBuilder = new StringBuilder();
 
         while (!canSkip)
         {
@@ -142,12 +144,6 @@ public class Dialog : MonoBehaviour
             {
                 if (_textSpeedTimer.Expired())
                 {
-                    float textWidth = LayoutUtility.GetPreferredWidth(_dialogText.rectTransform);
-                    float parentWidth = _dialogText.rectTransform.rect.width;
-
-                    if (textWidth > parentWidth)
-                        Debug.Log(text[placeInText]);
-
                      _textSpeedTimer.Reset();
                     stringBuilder.Append(text[placeInText++].ToString());
 
@@ -262,8 +258,25 @@ public class Dialog : MonoBehaviour
 
     private string FixTextLineBreaks(string text)
     {
-        text = text.Replace("<BREAK>", "\n");
+        StringBuilder stringBuilder = new StringBuilder();
+        int lastSpaceIndex = 0;
 
-        return text;
+        for (int i = 0; i < text.Length; i++)
+        {
+            if (text[i] == SPACE)
+                lastSpaceIndex = i;
+
+            stringBuilder.Append(text[i].ToString());
+            _dialogText.text = stringBuilder.ToString();
+
+            float textWidth = LayoutUtility.GetPreferredWidth(_dialogText.rectTransform);
+
+            if (textWidth > _dialogParentWidth && text[i] != SPACE)
+                stringBuilder.Replace(SPACE.ToString(), System.Environment.NewLine, lastSpaceIndex, i - lastSpaceIndex);
+        }
+
+        _dialogText.text = string.Empty;
+
+        return stringBuilder.ToString();
     }
 }
