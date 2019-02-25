@@ -116,6 +116,8 @@ public class Dialog : MonoBehaviour
         string text = boxObject.DialogText;
         int placeInText = 0;
 
+        text = FixTextLineBreaks(text);
+
         StringBuilder stringBuilder = new StringBuilder();
 
         SetBoxSettings(boxObject);
@@ -140,15 +142,13 @@ public class Dialog : MonoBehaviour
             {
                 if (_textSpeedTimer.Expired())
                 {
-                    /*float textWidth = LayoutUtility.GetPreferredWidth(_dialogText.rectTransform);
+                    float textWidth = LayoutUtility.GetPreferredWidth(_dialogText.rectTransform);
                     float parentWidth = _dialogText.rectTransform.rect.width;
 
                     if (textWidth > parentWidth)
-                        Debug.Log(text[placeInText]);*/ 
+                        Debug.Log(text[placeInText]);
 
-                    //ANVÄND DETTA!!!
-
-                    _textSpeedTimer.Reset();
+                     _textSpeedTimer.Reset();
                     stringBuilder.Append(text[placeInText++].ToString());
 
                     if (placeInText >= text.Length)
@@ -258,5 +258,12 @@ public class Dialog : MonoBehaviour
     private void SetSpeed(float speed)
     {
         _textSpeedTimer.Duration = 1 / speed;
+    }
+
+    private string FixTextLineBreaks(string text)
+    {
+        text = text.Replace("<BREAK>", "\n");
+
+        return text;
     }
 }
