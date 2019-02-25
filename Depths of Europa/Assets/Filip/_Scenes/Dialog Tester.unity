@@ -194,16 +194,6 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!1 &1222412226 stripped
-GameObject:
-  m_PrefabParentObject: {fileID: 1788304913618166, guid: 324be45244091e84ebd33cdac5e58f4f,
-    type: 2}
-  m_PrefabInternal: {fileID: 1667883166}
---- !u!224 &1222412231 stripped
-RectTransform:
-  m_PrefabParentObject: {fileID: 224382528120312702, guid: 324be45244091e84ebd33cdac5e58f4f,
-    type: 2}
-  m_PrefabInternal: {fileID: 1667883166}
 --- !u!1 &1353623794
 GameObject:
   m_ObjectHideFlags: 0
@@ -233,7 +223,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _thisDialogBoxScriptableObject: {fileID: 11400000, guid: e6de2e08a45ba634db411c8c851d124c,
     type: 2}
-  _dialog: {fileID: 1222412226}
+  _dialog: {fileID: 0}
 --- !u!4 &1353623796
 Transform:
   m_ObjectHideFlags: 0
@@ -244,7 +234,7 @@ Transform:
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
-  - {fileID: 1222412231}
+  - {fileID: 1667883167}
   m_Father: {fileID: 0}
   m_RootOrder: 1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -348,3 +338,8 @@ Prefab:
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: 324be45244091e84ebd33cdac5e58f4f, type: 2}
   m_IsPrefabParent: 0
+--- !u!224 &1667883167 stripped
+RectTransform:
+  m_PrefabParentObject: {fileID: 224189818694072956, guid: 324be45244091e84ebd33cdac5e58f4f,
+    type: 2}
+  m_PrefabInternal: {fileID: 1667883166}

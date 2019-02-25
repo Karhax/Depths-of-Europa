@@ -38,14 +38,16 @@ public class Dialog : MonoBehaviour
 
     Timer _forceSkipTimer;
     Timer _textSpeedTimer;
+    const float MIN_BOX_TIME = 0.2f;
     Timer _minPlayTimer = new Timer(MIN_BOX_TIME);
 
     bool _pressedDown = false;
     int _timesPressedSkip = 0;
-
-    const float MIN_BOX_TIME = 0.2f;
+    
     bool _isPaused = false;
     PauseMenuScript _pauseMenuScript;
+
+    readonly int AMOUNT_TIMES_PRESSED_TO_SKIP = 2;
 
     private void Awake()
     {
@@ -138,6 +140,14 @@ public class Dialog : MonoBehaviour
             {
                 if (_textSpeedTimer.Expired())
                 {
+                    /*float textWidth = LayoutUtility.GetPreferredWidth(_dialogText.rectTransform);
+                    float parentWidth = _dialogText.rectTransform.rect.width;
+
+                    if (textWidth > parentWidth)
+                        Debug.Log(text[placeInText]);*/ 
+
+                    //ANVÄND DETTA!!!
+
                     _textSpeedTimer.Reset();
                     stringBuilder.Append(text[placeInText++].ToString());
 
@@ -148,7 +158,7 @@ public class Dialog : MonoBehaviour
 
             _dialogText.text = stringBuilder.ToString();
 
-            if (_timesPressedSkip >= 2)
+            if (_timesPressedSkip >= AMOUNT_TIMES_PRESSED_TO_SKIP)
             {
                 placeInText = text.Length;
                 _dialogText.text = text;
