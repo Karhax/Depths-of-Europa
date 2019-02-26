@@ -5,8 +5,8 @@ using UnityEngine.SceneManagement;
 
 public class GameManager : MonoBehaviour {
 
-    public delegate void StartingFadeDelegate(bool isEnd);
-    public static event StartingFadeDelegate StartingFadeEvent;
+    public delegate void FadeDelegate(bool startingFade);
+    public static event FadeDelegate FadeEvent;
     
     private static GameManager singletonGameManager = null;
     private static FadeHandler _fadeHandler = null;
@@ -49,9 +49,9 @@ public class GameManager : MonoBehaviour {
         {
             _fadeHandler.FadeEnded += BeginningFadeDone;
             _fadeHandler.StartFadeIn();
-            if (StartingFadeEvent != null)
+            if (FadeEvent != null)
             {
-                StartingFadeEvent(false);
+                FadeEvent(true);
             }
         }
     }
@@ -63,9 +63,9 @@ public class GameManager : MonoBehaviour {
         _fadeHandler.FadeEnded -= RestartFadeOutDone;
         _fadeHandler.FadeEnded -= BeginningFadeDone;
         _fadeHandler.StartFadeOut();
-        if (StartingFadeEvent != null)
+        if (FadeEvent != null)
         {
-            StartingFadeEvent(true);
+            FadeEvent(true);
         }
     }
 
@@ -78,6 +78,10 @@ public class GameManager : MonoBehaviour {
     private static void BeginningFadeDone()
     {
         _fadeHandler.FadeEnded -= BeginningFadeDone;
+        if (FadeEvent != null)
+        {
+            FadeEvent(false);
+        }
     }
 
     public static void LevelRestartRequested()
@@ -86,9 +90,9 @@ public class GameManager : MonoBehaviour {
         _fadeHandler.FadeEnded -= BeginningFadeDone;
         _fadeHandler.FadeEnded -= EndingFadeOutDone;
         _fadeHandler.StartFadeOut();
-        if (StartingFadeEvent != null)
+        if (FadeEvent != null)
         {
-            StartingFadeEvent(true);
+            FadeEvent(true);
         }
     }
 
