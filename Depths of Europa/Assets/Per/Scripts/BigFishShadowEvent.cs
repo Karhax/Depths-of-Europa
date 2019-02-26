@@ -13,11 +13,12 @@ public class BigFishShadowEvent : MonoBehaviour {
     [SerializeField] [Range(-64, 64)] private float _offsetY = 0;
 
     private GameObject _bigFishShadow = null;
-    private bool _moving = false;
+    private BigFishRemovalDetection _detectorScript = null;
 
     private void Update()
     {
-        if (_moving && _bigFishShadow != null)
+        // If a BigFish exists, it should move according to the settings
+        if (_bigFishShadow != null)
         {
             _bigFishShadow.transform.Rotate(Vector3.forward, _turnSpeed * Time.deltaTime * -1);
 
@@ -32,16 +33,22 @@ public class BigFishShadowEvent : MonoBehaviour {
 
     private void OnTriggerEnter2D(Collider2D other)
     {
+        // Event is only triggered by the player, and it can only create one BigFish
         if (other.gameObject.CompareTag(Statics.Tags.PLAYER_OUTSIDE) && _bigFishShadow == null)
         {
-            _moving = true;
             Vector3 location = new Vector3(other.transform.position.x + _offsetX, other.transform.position.y + _offsetY, this.transform.position.z);
             _bigFishShadow = Instantiate(_bigFishPrefab, location, Quaternion.Euler(0, 0, _startingAngle));
+
+            _detectorScript = _bigFishShadow.GetComponent<BigFishRemovalDetection>();
+            _detectorScript.ActiveAreaExit += RemoveEvent;
         }
     }
 
     private void RemoveEvent()
     {
-
+        // Removes the BigFish and this object
+        _detectorScript.ActiveAreaExit -= RemoveEvent;
+        Destroy(_bigFishShadow);
+        Destroy(this.gameObject);
     }
 }
