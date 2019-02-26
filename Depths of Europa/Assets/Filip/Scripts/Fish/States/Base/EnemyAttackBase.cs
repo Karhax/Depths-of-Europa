@@ -77,7 +77,7 @@ public class EnemyAttackBase : EnemyStateAttackEscapeBase
 
     public override EnemyStates OnTriggerEnter(Collider2D other)
     {
-        if (other.CompareTag(Tags.LIGHT) || other.CompareTag(Tags.FLARE_TRIGGER) || other.CompareTag(Tags.ENEMY_LIGHT))
+        if (other.CompareTag(Tags.LIGHT) || other.CompareTag(Tags.FLARE_TRIGGER) || other.CompareTag(Tags.ENEMY_LIGHT) || other.CompareTag(Tags.ALL_FISH_ESCAPE))
             return EnemyStates.ESCAPE;
         else if (other.CompareTag(Tags.PLAYER_OUTSIDE))
         {

@@ -29,5 +29,6 @@ namespace Statics
         public static readonly string IN_CAMERA_TRIGGER = "InCameraTrigger";
         public static readonly string BASE = "Base";
         public static readonly string ENEMY_LIGHT = "EnemyLight";
+        public static readonly string ALL_FISH_ESCAPE = "AllFishEscape";
     }
 }

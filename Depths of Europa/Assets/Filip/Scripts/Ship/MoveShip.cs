@@ -32,6 +32,7 @@ public class MoveShip : MonoBehaviour
     [SerializeField, Range(0, 5)] float _lowSpeedTriggerModifier;
     [SerializeField, Range(0, 100)] float _soundAmountModifier = 10f;
     [SerializeField, Range(0, 1)] float _maxSoundRatioCap = 0.75f;
+    [SerializeField, Range(0, 1)] float _minSoundRatioCap = 0.1f;
 
     [Header("Drop")]
 
@@ -85,7 +86,12 @@ public class MoveShip : MonoBehaviour
         if (ShipSoundEvent != null)
         {
             float ratio = (_highSpeedTrigger.radius - _highSpeedTriggerNormalRadius) / _soundAmountModifier;
-            ratio = ratio > 1 ? _maxSoundRatioCap : ratio;
+
+            if (ratio < _minSoundRatioCap)
+                ratio = _minSoundRatioCap;
+            else if (ratio > 1)
+                ratio = _maxSoundRatioCap;
+
             ShipSoundEvent.Invoke(ratio);
         }
     }
