@@ -395,8 +395,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _flareTime: 35
-  _flareParticleDecreaseSpeed: 0.35
-  _bubbleParticleDecreaseSpeed: 0.35
   _bubbleParticleSystem: {fileID: 198353530191676410}
   _flareParticleSystem: {fileID: 198561291680169454}
   _detection: {fileID: 58375508040837302}
@@ -7284,7 +7282,7 @@ SpriteRenderer:
   m_LightProbeUsage: 1
   m_ReflectionProbeUsage: 1
   m_Materials:
-  - {fileID: 10754, guid: 0000000000000000f000000000000000, type: 0}
+  - {fileID: 2100000, guid: ae2cf1d6953af2440b3430b12993395a, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -7305,7 +7303,7 @@ SpriteRenderer:
   m_SortingLayer: 0
   m_SortingOrder: 0
   m_Sprite: {fileID: 21300000, guid: 296648c0468d3454bb1c04ad3ff17777, type: 3}
-  m_Color: {r: 1, g: 1, b: 1, a: 1}
+  m_Color: {r: 0.07352942, g: 0.07352942, b: 0.07352942, a: 1}
   m_FlipX: 0
   m_FlipY: 0
   m_DrawMode: 0

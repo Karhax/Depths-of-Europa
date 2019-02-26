@@ -7,8 +7,6 @@ public class Flare : MonoBehaviour
     [Header("Settings")]
 
     [SerializeField, Range(1, 50)] float _flareTime;
-    [SerializeField, Range(0, 10)] float _flareParticleDecreaseSpeed = 1;
-    [SerializeField, Range(0, 10)] float _bubbleParticleDecreaseSpeed = 1;
 
     [Header("Drop")]
 
