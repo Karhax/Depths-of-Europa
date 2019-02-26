@@ -17,11 +17,11 @@ public class PauseMenuScript : MonoBehaviour {
     private void Awake()
     {
         _pauseMenuBackdrop.SetActive(false);
-        
+        GameManager.FadeEvent += OnFade;
     }
 
     void Update () {
-		if(Input.GetButtonDown(GameInput.CANCEL) || _isFading)
+		if(Input.GetButtonDown(GameInput.CANCEL) && !_isFading)
         {
             SetPause();
         }
