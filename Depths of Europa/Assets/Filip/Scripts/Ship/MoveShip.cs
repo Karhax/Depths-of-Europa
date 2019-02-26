@@ -89,7 +89,7 @@ public class MoveShip : MonoBehaviour
 
             if (ratio < _minSoundRatioCap)
                 ratio = _minSoundRatioCap;
-            else if (ratio > 1)
+            else if (ratio > _maxSoundRatioCap)
                 ratio = _maxSoundRatioCap;
 
             ShipSoundEvent.Invoke(ratio);

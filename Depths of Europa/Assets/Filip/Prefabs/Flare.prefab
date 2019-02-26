@@ -395,11 +395,16 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _flareTime: 35
-  _timeToDestroy: 25.9
+  _timeToDestroy: 35
+  _flareParticleDecreaseSpeed: 0.35
+  _bubbleParticleDecreaseSpeed: 0.35
+  _bubbleParticleSystem: {fileID: 198353530191676410}
+  _flareParticleSystem: {fileID: 198561291680169454}
   _detection: {fileID: 58375508040837302}
   _lights:
   - {fileID: 108777528536674796}
   - {fileID: 108869911878326736}
+  - {fileID: 108637272747987968}
 --- !u!198 &198353530191676410
 ParticleSystem:
   m_ObjectHideFlags: 1
@@ -460,7 +465,7 @@ ParticleSystem:
   moveWithTransform: 1
   moveWithCustomTransform: {fileID: 0}
   scalingMode: 1
-  randomSeed: -1313892799
+  randomSeed: 1472768913
   InitialModule:
     serializedVersion: 3
     enabled: 1
