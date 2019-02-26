@@ -5,7 +5,7 @@ using UnityEngine.SceneManagement;
 
 public class GameManager : MonoBehaviour {
 
-    public delegate bool StartingFadeDelegate(bool isEnd);
+    public delegate void StartingFadeDelegate(bool isEnd);
     public static event StartingFadeDelegate StartingFadeEvent;
     
     private static GameManager singletonGameManager = null;
