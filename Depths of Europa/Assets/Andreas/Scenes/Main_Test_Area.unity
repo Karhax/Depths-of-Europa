@@ -309,7 +309,7 @@ SpriteRenderer:
   m_AutoUVMaxAngle: 89
   m_LightmapParameters: {fileID: 0}
   m_SortingLayerID: 1560591631
-  m_SortingLayer: 5
+  m_SortingLayer: 6
   m_SortingOrder: 0
   m_Sprite: {fileID: 21300000, guid: 9378bf5495fde9f49974668b1ce972ed, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
@@ -700,7 +700,7 @@ SpriteRenderer:
   m_AutoUVMaxAngle: 89
   m_LightmapParameters: {fileID: 0}
   m_SortingLayerID: 1560591631
-  m_SortingLayer: 5
+  m_SortingLayer: 6
   m_SortingOrder: 0
   m_Sprite: {fileID: 21300000, guid: 9378bf5495fde9f49974668b1ce972ed, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
@@ -856,7 +856,7 @@ SpriteRenderer:
   m_AutoUVMaxAngle: 89
   m_LightmapParameters: {fileID: 0}
   m_SortingLayerID: 1560591631
-  m_SortingLayer: 5
+  m_SortingLayer: 6
   m_SortingOrder: 0
   m_Sprite: {fileID: 21300000, guid: 9378bf5495fde9f49974668b1ce972ed, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
@@ -1147,7 +1147,7 @@ SpriteRenderer:
   m_AutoUVMaxAngle: 89
   m_LightmapParameters: {fileID: 0}
   m_SortingLayerID: 1560591631
-  m_SortingLayer: 5
+  m_SortingLayer: 6
   m_SortingOrder: 0
   m_Sprite: {fileID: 21300000, guid: 9378bf5495fde9f49974668b1ce972ed, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
@@ -1604,7 +1604,7 @@ SpriteRenderer:
   m_AutoUVMaxAngle: 89
   m_LightmapParameters: {fileID: 0}
   m_SortingLayerID: 1560591631
-  m_SortingLayer: 5
+  m_SortingLayer: 6
   m_SortingOrder: 0
   m_Sprite: {fileID: 21300000, guid: 9378bf5495fde9f49974668b1ce972ed, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
@@ -1674,6 +1674,51 @@ Prefab:
       propertyPath: _player
       value: 
       objectReference: {fileID: 540498065}
+    - target: {fileID: 114944000509558400, guid: ba9e0054a37e2ea448671c00b39c453e,
+        type: 2}
+      propertyPath: _volumeColourGradient.key0.r
+      value: 0.32413793
+      objectReference: {fileID: 0}
+    - target: {fileID: 114944000509558400, guid: ba9e0054a37e2ea448671c00b39c453e,
+        type: 2}
+      propertyPath: _volumeColourGradient.key0.b
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 114944000509558400, guid: ba9e0054a37e2ea448671c00b39c453e,
+        type: 2}
+      propertyPath: _volumeColourGradient.key1.b
+      value: 0.93103456
+      objectReference: {fileID: 0}
+    - target: {fileID: 114944000509558400, guid: ba9e0054a37e2ea448671c00b39c453e,
+        type: 2}
+      propertyPath: _soundCurve.m_Curve.Array.data[0].value
+      value: 0.013427734
+      objectReference: {fileID: 0}
+    - target: {fileID: 114944000509558400, guid: ba9e0054a37e2ea448671c00b39c453e,
+        type: 2}
+      propertyPath: _soundCurve.m_Curve.Array.data[1].value
+      value: 0.5127778
+      objectReference: {fileID: 0}
+    - target: {fileID: 114944000509558400, guid: ba9e0054a37e2ea448671c00b39c453e,
+        type: 2}
+      propertyPath: _soundCurve.m_Curve.Array.data[2].value
+      value: 0.6272436
+      objectReference: {fileID: 0}
+    - target: {fileID: 114944000509558400, guid: ba9e0054a37e2ea448671c00b39c453e,
+        type: 2}
+      propertyPath: _soundCurve.m_Curve.Array.data[3].value
+      value: 1.0134277
+      objectReference: {fileID: 0}
+    - target: {fileID: 114944000509558400, guid: ba9e0054a37e2ea448671c00b39c453e,
+        type: 2}
+      propertyPath: _soundCurve.m_Curve.Array.data[0].inSlope
+      value: 0.023575788
+      objectReference: {fileID: 0}
+    - target: {fileID: 114944000509558400, guid: ba9e0054a37e2ea448671c00b39c453e,
+        type: 2}
+      propertyPath: _soundCurve.m_Curve.Array.data[0].outSlope
+      value: 0.023575788
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: ba9e0054a37e2ea448671c00b39c453e, type: 2}
   m_IsPrefabParent: 0
