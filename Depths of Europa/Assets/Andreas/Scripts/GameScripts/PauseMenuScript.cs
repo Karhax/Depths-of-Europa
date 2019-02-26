@@ -6,7 +6,7 @@ using UnityEngine.SceneManagement;
 
 public class PauseMenuScript : MonoBehaviour {
 
-    bool _isPaused = false;
+    bool _isPaused = false, _isFading = false;
     [SerializeField] GameObject _pauseMenuBackdrop;
     [SerializeField] string _mainMenuName;
 
@@ -17,16 +17,22 @@ public class PauseMenuScript : MonoBehaviour {
     private void Awake()
     {
         _pauseMenuBackdrop.SetActive(false);
+        
     }
 
     void Update () {
-		if(Input.GetButtonDown(GameInput.CANCEL))
+		if(Input.GetButtonDown(GameInput.CANCEL) || _isFading)
         {
             SetPause();
         }
 	}
     //TODO: Probably better to store the start tiem scale somewhere instead of assuming 1
     
+
+    private void OnFade(bool fadeState)
+    {
+        _isFading = fadeState;
+    }
 
         /// <summary>
         /// Sets the game to paused
