@@ -51,11 +51,11 @@ public class ShipTrackerScript : MonoBehaviour
                 }
                 if (_fileCreated)
 
-                    using (StreamWriter ActionWriter = new StreamWriter(_fileName,true))
+                   /* using (StreamWriter ActionWriter = new StreamWriter(_fileName,true))
                     {
                        // ActionWriter.Write(_lastPosition.x + "," + _lastPosition.y + "," + timeThiccness + "|");
                         ActionWriter.Close();
-                    }
+                    }*/
                 
                 _lastPosition = transform.position;
                 _lastTime = Time.time;
