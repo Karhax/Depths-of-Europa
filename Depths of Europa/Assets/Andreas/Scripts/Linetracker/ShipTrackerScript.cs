@@ -85,12 +85,12 @@ public class ShipTrackerScript : MonoBehaviour
             _directoryInfo.Create();
         }
 
-        if (!File.Exists(_fileName))
+        /*if (!File.Exists(_fileName))
         {
             FileInfo file = new FileInfo(_fileName);
             file.CreateText();
             
-        }
+        }*/
         _fileCreated = true;
     }
 }
