@@ -16,6 +16,9 @@ public class ShipTrackerScript : MonoBehaviour
     Vector2 _lastPosition;
     DirectoryInfo _directoryInfo;
     //StreamWriter ActionWriter;
+
+    int i = 0;
+
     bool _fileCreated = false;
     // Use this for initialization
     void Start()
@@ -56,6 +59,7 @@ public class ShipTrackerScript : MonoBehaviour
                     {
                         TextWriter.Synchronized(ActionWriter);
                         ActionWriter.Write(_lastPosition.x + "," + _lastPosition.y + "," + timeThiccness + "|");
+                        i++;
                         ActionWriter.Close();
                         ActionWriter.Dispose();
                     }
@@ -72,10 +76,9 @@ public class ShipTrackerScript : MonoBehaviour
         string basePath = Environment.GetFolderPath(Environment.SpecialFolder.MyDocuments).ToString();
         //string basePath = Application.persistentDataPath;
 
-        Debug.Log(basePath);
-        _fileName = basePath + @"\DOEPositionLogs\" + DateTime.Now.Year + "" 
-            + "" + DateTime.Now.Month + "" + DateTime.Now.Day + "" + DateTime.Now.Hour + "" 
-            + DateTime.Now.Minute + "" + DateTime.Now.Second + "" + DateTime.Now.Millisecond + ".BB";
+        _fileName = basePath + @"\DOEPositionLogs\Position_log_on " + DateTime.Now.Year + "" 
+            + ((DateTime.Now.Month > 10)?"":"0") + DateTime.Now.Month + "" + DateTime.Now.Day + " at " + DateTime.Now.Hour + "："
+            + DateTime.Now.Minute + "：" + DateTime.Now.Second + ".DOEPLF";
 
         _path = basePath + @"\DOEPositionLogs\";
         if (!Directory.Exists(_path))
@@ -84,13 +87,6 @@ public class ShipTrackerScript : MonoBehaviour
             _directoryInfo = new DirectoryInfo(_path);
             _directoryInfo.Create();
         }
-
-        /*if (!File.Exists(_fileName))
-        {
-            FileInfo file = new FileInfo(_fileName);
-            file.CreateText();
-            
-        }*/
         _fileCreated = true;
     }
 }
