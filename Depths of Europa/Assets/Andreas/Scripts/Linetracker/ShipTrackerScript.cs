@@ -63,11 +63,12 @@ public class ShipTrackerScript : MonoBehaviour
     }
    public void FileCreation()
     {
-        _fileName = @"C:\Users\" + Environment.UserName + @"\Documents\DepthsofEuropaPositionLogs\" + DateTime.Now.Year + "" 
+        Debug.Log(Environment.GetFolderPath(Environment.SpecialFolder.MyDocuments));
+        _fileName = Environment.SpecialFolder.MyDocuments + @"\DepthsofEuropaPositionLogs\" + DateTime.Now.Year + "" 
             + "" + DateTime.Now.Month + "" + DateTime.Now.Day + "" + DateTime.Now.Hour + "" 
             + DateTime.Now.Minute + "" + DateTime.Now.Second + "" + DateTime.Now.Millisecond + ".BB";
 
-        _path = @"C:\Users\" + Environment.UserName + @"\Documents\DepthsofEuropaPositionLogs\";
+        _path = Environment.SpecialFolder.MyDocuments + @"\DepthsofEuropaPositionLogs\";
         if (!Directory.Exists(_path))
         {
 
