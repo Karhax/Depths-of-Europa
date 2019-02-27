@@ -41,26 +41,29 @@ public class ShipTrackerScript : MonoBehaviour
                 {
                     timeThiccness = _maxLineWidth;
                 }
-                else if(timeThiccness < _minimumLineWidth)
+                else if (timeThiccness < _minimumLineWidth)
                 {
                     timeThiccness = _minimumLineWidth;
                 }
-                else if(float.IsNaN(timeThiccness))
+                else if (float.IsNaN(timeThiccness))
                 {
                     timeThiccness = _minimumLineWidth;
                 }
                 if (_fileCreated)
+                {
 
-                   /* using (StreamWriter ActionWriter = new StreamWriter(_fileName,true))
+                    using (StreamWriter ActionWriter = new StreamWriter(_fileName, true))
                     {
-                       // ActionWriter.Write(_lastPosition.x + "," + _lastPosition.y + "," + timeThiccness + "|");
+                        ActionWriter.Write(_lastPosition.x + "," + _lastPosition.y + "," + timeThiccness + "|");
                         ActionWriter.Close();
-                    }*/
-                
+                        ActionWriter.Dispose();
+                    }
+                }
                 _lastPosition = transform.position;
                 _lastTime = Time.time;
-            }
 
+
+            }
         }
     }
    public void FileCreation()
