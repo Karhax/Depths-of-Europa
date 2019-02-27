@@ -50,11 +50,13 @@ public class ShipTrackerScript : MonoBehaviour
                     timeThiccness = _minimumLineWidth;
                 }
                 if (_fileCreated)
-                {
-                    ActionWriter = new StreamWriter(_fileName, true);
-                    ActionWriter.Write(_lastPosition.x +","+_lastPosition.y+","+timeThiccness+"|");
-                    ActionWriter.Close();
-                }
+
+                    using (ActionWriter = new StreamWriter(_fileName,true))
+                    {
+                        ActionWriter.Write(_lastPosition.x + "," + _lastPosition.y + "," + timeThiccness + "|");
+                        ActionWriter.Close();
+                    }
+                
                 _lastPosition = transform.position;
                 _lastTime = Time.time;
             }
@@ -64,12 +66,12 @@ public class ShipTrackerScript : MonoBehaviour
    public void FileCreation()
     {
         string basePath = Environment.GetFolderPath(Environment.SpecialFolder.MyDocuments).ToString();
-        Debug.Log(basePath);
-        _fileName = Environment.GetFolderPath(Environment.SpecialFolder.MyDocuments) + @"\DOEPositionLogs\" + DateTime.Now.Year + "" 
+        //Debug.Log(basePath);
+        _fileName = basePath + @"\DOEPositionLogs\" + DateTime.Now.Year + "" 
             + "" + DateTime.Now.Month + "" + DateTime.Now.Day + "" + DateTime.Now.Hour + "" 
             + DateTime.Now.Minute + "" + DateTime.Now.Second + "" + DateTime.Now.Millisecond + ".BB";
 
-        _path = Environment.GetFolderPath(Environment.SpecialFolder.MyDocuments) + @"\DOEPositionLogs\";
+        _path = basePath + @"\DOEPositionLogs\";
         if (!Directory.Exists(_path))
         {
 
@@ -81,7 +83,7 @@ public class ShipTrackerScript : MonoBehaviour
         {
             FileInfo file = new FileInfo(_fileName);
             file.CreateText();
-
+            
         }
         _fileCreated = true;
     }
