@@ -102,22 +102,27 @@ MonoBehaviour:
   _noticeByHighSpeed: 0
   _idleState:
     _stateSpeed: 2.9
+    _stateSpeedModifier: 0
     _turnSpeed: 0.58
     _turnSmootheness: 0.34
     _idleRadius: 1.02
+    _maxTimeOneDirection: 0
     _minBackUpDistance: 0.94
     _maxBackUpDistance: 1.16
   _attackState:
     _stateSpeed: 12.1
+    _stateSpeedModifier: 0
     _turnSpeed: 3.34
     _turnSmootheness: 1.07
     _dodgeSpeed: 1.67
-    _durationToAttackOutOfSight: 1.26
     _avoidRange: 0
     _attackRange: 0
     _damage: 2
+    _timeToHunt: 0
+    _maxDistanceFromPlayerToStopAttack: 0
   _escapeState:
     _stateSpeed: 0
+    _stateSpeedModifier: 0
     _turnSpeed: 0
     _turnSmootheness: 0
     _dodgeSpeed: 0
@@ -155,7 +160,7 @@ SpriteRenderer:
   m_AutoUVMaxAngle: 89
   m_LightmapParameters: {fileID: 0}
   m_SortingLayerID: -1993631265
-  m_SortingLayer: 4
+  m_SortingLayer: 5
   m_SortingOrder: 0
   m_Sprite: {fileID: 21300000, guid: 79e0dbc587fda424982069eb1c4065ae, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
