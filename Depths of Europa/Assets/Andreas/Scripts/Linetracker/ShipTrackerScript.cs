@@ -53,7 +53,7 @@ public class ShipTrackerScript : MonoBehaviour
 
                     using (StreamWriter ActionWriter = new StreamWriter(_fileName,true))
                     {
-                        ActionWriter.Write(_lastPosition.x + "," + _lastPosition.y + "," + timeThiccness + "|");
+                       // ActionWriter.Write(_lastPosition.x + "," + _lastPosition.y + "," + timeThiccness + "|");
                         ActionWriter.Close();
                     }
                 
