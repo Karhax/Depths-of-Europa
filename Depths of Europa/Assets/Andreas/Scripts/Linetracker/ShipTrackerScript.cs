@@ -15,7 +15,7 @@ public class ShipTrackerScript : MonoBehaviour
     string _fileName, _path;
     Vector2 _lastPosition;
     DirectoryInfo _directoryInfo;
-    StreamWriter ActionWriter;
+    //StreamWriter ActionWriter;
     bool _fileCreated = false;
     // Use this for initialization
     void Start()
@@ -51,7 +51,7 @@ public class ShipTrackerScript : MonoBehaviour
                 }
                 if (_fileCreated)
 
-                    using (ActionWriter = new StreamWriter(_fileName,true))
+                    using (StreamWriter ActionWriter = new StreamWriter(_fileName,true))
                     {
                         ActionWriter.Write(_lastPosition.x + "," + _lastPosition.y + "," + timeThiccness + "|");
                         ActionWriter.Close();
