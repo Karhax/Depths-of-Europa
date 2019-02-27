@@ -15,7 +15,7 @@ public class ShipTrackerScript : MonoBehaviour
     string _fileName, _path;
     Vector2 _lastPosition;
     DirectoryInfo _directoryInfo;
-    StreamWriter ActionWriter;
+    //StreamWriter ActionWriter;
     bool _fileCreated = false;
     // Use this for initialization
     void Start()
@@ -41,33 +41,43 @@ public class ShipTrackerScript : MonoBehaviour
                 {
                     timeThiccness = _maxLineWidth;
                 }
-                else if(timeThiccness < _minimumLineWidth)
+                else if (timeThiccness < _minimumLineWidth)
                 {
                     timeThiccness = _minimumLineWidth;
                 }
-                else if(float.IsNaN(timeThiccness))
+                else if (float.IsNaN(timeThiccness))
                 {
                     timeThiccness = _minimumLineWidth;
                 }
                 if (_fileCreated)
                 {
-                    ActionWriter = new StreamWriter(_fileName, true);
-                    ActionWriter.Write(_lastPosition.x +","+_lastPosition.y+","+timeThiccness+"|");
-                    ActionWriter.Close();
+
+                    using (TextWriter ActionWriter = new StreamWriter(_fileName, true))
+                    {
+                        TextWriter.Synchronized(ActionWriter);
+                        ActionWriter.Write(_lastPosition.x + "," + _lastPosition.y + "," + timeThiccness + "|");
+                        ActionWriter.Close();
+                        ActionWriter.Dispose();
+                    }
                 }
                 _lastPosition = transform.position;
                 _lastTime = Time.time;
-            }
 
+
+            }
         }
     }
    public void FileCreation()
     {
-        _fileName = @"C:\Users\" + Environment.UserName + @"\Documents\DepthsofEuropaPositionLogs\" + DateTime.Now.Year + "" 
+        string basePath = Environment.GetFolderPath(Environment.SpecialFolder.MyDocuments).ToString();
+        //string basePath = Application.persistentDataPath;
+
+        Debug.Log(basePath);
+        _fileName = basePath + @"\DOEPositionLogs\" + DateTime.Now.Year + "" 
             + "" + DateTime.Now.Month + "" + DateTime.Now.Day + "" + DateTime.Now.Hour + "" 
             + DateTime.Now.Minute + "" + DateTime.Now.Second + "" + DateTime.Now.Millisecond + ".BB";
 
-        _path = @"C:\Users\" + Environment.UserName + @"\Documents\DepthsofEuropaPositionLogs\";
+        _path = basePath + @"\DOEPositionLogs\";
         if (!Directory.Exists(_path))
         {
 
@@ -75,12 +85,12 @@ public class ShipTrackerScript : MonoBehaviour
             _directoryInfo.Create();
         }
 
-        if (!File.Exists(_fileName))
+        /*if (!File.Exists(_fileName))
         {
             FileInfo file = new FileInfo(_fileName);
             file.CreateText();
-
-        }
+            
+        }*/
         _fileCreated = true;
     }
 }
