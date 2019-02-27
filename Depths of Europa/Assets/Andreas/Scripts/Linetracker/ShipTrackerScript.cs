@@ -69,8 +69,8 @@ public class ShipTrackerScript : MonoBehaviour
     }
    public void FileCreation()
     {
-        //string basePath = Environment.GetFolderPath(Environment.SpecialFolder.MyDocuments).ToString();
-        string basePath = Application.persistentDataPath;
+        string basePath = Environment.GetFolderPath(Environment.SpecialFolder.MyDocuments).ToString();
+        //string basePath = Application.persistentDataPath;
 
         Debug.Log(basePath);
         _fileName = basePath + @"\DOEPositionLogs\" + DateTime.Now.Year + "" 
