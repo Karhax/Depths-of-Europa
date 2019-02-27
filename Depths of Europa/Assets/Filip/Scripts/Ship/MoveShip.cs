@@ -147,4 +147,9 @@ public class MoveShip : MonoBehaviour
         _lowSpeedTrigger.radius = _lowSpeedTriggerNormalRadius - velocityMagnitude * _lowSpeedTriggerModifier;
 
     }
+
+    public float GetMaxShipSpeed()
+    {
+        return _maxSpeedMagnitude;
+    }
 }
