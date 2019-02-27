@@ -13,9 +13,10 @@ public class FlareArrayScript : MonoBehaviour {
 
     private void Awake()
     {
+        
         RectTransform = GetComponent<RectTransform>();
 
-        if(_arrayID == 0 && BASE_POSITION.x == 0)
+        if (_arrayID == 0 && BASE_POSITION.x == 0)
         {
             BASE_POSITION = RectTransform.anchoredPosition;
         }
