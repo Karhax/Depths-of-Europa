@@ -18,7 +18,7 @@ public class EnemyEscapeBase : EnemyStateAttackEscapeBase
 
     public override void SetUp(EnemyBase script, bool noticeByHighSpeed)
     {
-        _avoidLayer = LayerMask.GetMask(Layers.DEFAULT, Layers.CHASER_SPAWN, Layers.BASE);
+        _avoidLayer = LayerMask.GetMask(Layers.DEFAULT, Layers.CHASER_SPAWN, Layers.BASE, Layers.FLOATING_OBJECT);
 
         _escapedTimer = new Timer(_durationToEscapePastLight);
         base.SetUp(script, noticeByHighSpeed);

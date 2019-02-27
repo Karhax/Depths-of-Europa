@@ -28,7 +28,7 @@ public class EnemyIdleBase : EnemyStateBase
         _idleTimer = new Timer(_maxTimeOneDirection);
 
         base.SetUp(script, noticeByHighSpeed);
-        _avoidLayer = LayerMask.GetMask(Layers.CHASER_SPAWN, Layers.DEFAULT, Layers.BASE);
+        _avoidLayer = LayerMask.GetMask(Layers.CHASER_SPAWN, Layers.DEFAULT, Layers.BASE, Layers.FLOATING_OBJECT);
     }
 
     public override void EnterState()
@@ -66,7 +66,7 @@ public class EnemyIdleBase : EnemyStateBase
             return ShouldAttack(other.transform.position);
         else if (other.CompareTag(Tags.NOTICE_LOW_SPEED) && !_noticeByHighSpeed)
             return ShouldAttack(other.transform.position);
-        else if (other.CompareTag(Tags.WALL))
+        else if (other.CompareTag(Tags.WALL) || other.CompareTag(Tags.FLOATING_OBJECT))
             BackUp(_thisTransform.position - other.transform.position);
 
         return EnemyStates.STAY;

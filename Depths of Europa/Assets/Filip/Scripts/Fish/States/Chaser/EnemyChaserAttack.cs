@@ -10,7 +10,7 @@ public class EnemyChaserAttack : EnemyAttackBase
     {
         base.SetUp(script, noticeByHighSpeed);
 
-        _avoidLayer = LayerMask.GetMask(Layers.DEFAULT);
+        _avoidLayer = LayerMask.GetMask(Layers.DEFAULT, Layers.BASE, Layers.FLOATING_OBJECT);
     }
 
     protected override EnemyStates Attack()
