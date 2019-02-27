@@ -1114,7 +1114,7 @@ Transform:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1111445617526158}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 0, y: 3.27, z: -0.25}
+  m_LocalPosition: {x: 0, y: -2.29, z: -0.25}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 4142588805641138}
@@ -1951,14 +1951,14 @@ PolygonCollider2D:
     m_Paths:
     - - {x: 0, y: 0.3}
       - {x: -0.25, y: 0.35}
-      - {x: -0.6, y: 0.9}
-      - {x: -0.8, y: 1.5}
-      - {x: -1, y: 2.5}
-      - {x: -1.5, y: 9}
-      - {x: 1.5, y: 9}
-      - {x: 1, y: 2.5}
-      - {x: 0.8, y: 1.5}
-      - {x: 0.6, y: 0.9}
+      - {x: -0.75, y: 0.9}
+      - {x: -1, y: 1.5}
+      - {x: -1.3, y: 2.5}
+      - {x: -2.07, y: 9}
+      - {x: 2.07, y: 9}
+      - {x: 1.3, y: 2.5}
+      - {x: 1, y: 1.5}
+      - {x: 0.75, y: 0.9}
       - {x: 0.25, y: 0.35}
 --- !u!64 &64797261927568298
 MeshCollider:
@@ -2792,9 +2792,9 @@ Light:
   serializedVersion: 8
   m_Type: 0
   m_Color: {r: 1, g: 1, b: 1, a: 1}
-  m_Intensity: 5
+  m_Intensity: 8
   m_Range: 100
-  m_SpotAngle: 70
+  m_SpotAngle: 80
   m_CookieSize: 10
   m_Shadows:
     m_Type: 1
@@ -3150,10 +3150,10 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _dynamicSoundModifier: 1
-  _stressedSoundModifier: 0.75
+  _stressedSoundModifier: 0.5
   _maxEngineDynamicVolume: 1
   _maxEngineStressedVolume: 1
-  _stressedSoundStart: 0.5
+  _stressedSoundStart: 0.75
   _engineDynamic: {fileID: 82481744754237464}
   _engineStressed: {fileID: 82221867542031502}
 --- !u!114 &114303371218890008
