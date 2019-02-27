@@ -14,7 +14,7 @@ public class EnemyScaryIdle : EnemyIdleBase
             return ShouldAttack(other.transform.position);
         else if (other.CompareTag(Tags.NOTICE_LOW_SPEED) && !_noticeByHighSpeed)
             return ShouldAttack(other.transform.position);
-        else if (other.CompareTag(Tags.WALL) || other.CompareTag(Tags.FLOATING_OBJECT))
+        else if (other.CompareTag(Tags.WALL))
             BackUp(_thisTransform.position - other.transform.position);
         else if (other.CompareTag(Tags.PLAYER_OUTSIDE) || other.CompareTag(Tags.ALL_FISH_ESCAPE))
             return EnemyStates.ESCAPE;

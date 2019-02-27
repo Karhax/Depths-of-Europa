@@ -21,5 +21,6 @@ namespace Statics
         public static readonly string BASE = "Base";
         public static readonly string DARK_SHADOW_LAYER = "DarkShadowLayer";
         public static readonly string FLOATING_OBJECT = "FloatingObject";
+        public static readonly string GO_THROUGH_WALL = "GoThroughWall";
     }
 }
