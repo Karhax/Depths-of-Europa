@@ -10,6 +10,7 @@ public class Flare : MonoBehaviour
 
     [Header("Drop")]
 
+    [SerializeField] AudioSource _loopAudio;
     [SerializeField] ParticleSystem _bubbleParticleSystem;
     [SerializeField] ParticleSystem _flareParticleSystem;
     [SerializeField] CircleCollider2D _detection;
@@ -59,6 +60,7 @@ public class Flare : MonoBehaviour
             _lights[i].range = ratio * _lightsMaxRanges[i];
         }
 
+        _loopAudio.volume = ratio;
         transform.localScale = Vector3.one * ratio;
         _flareEmission.rateOverTime = new ParticleSystem.MinMaxCurve(_flareParticleStartEmission * ratio, _flareParticleStartEmission * ratio);
         _bubbleEmission.rateOverTime = new ParticleSystem.MinMaxCurve(_bubbleParticlesStartEmission * ratio, _bubbleParticlesStartEmission * ratio);

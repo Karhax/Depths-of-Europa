@@ -66,7 +66,7 @@ public class EnemyIdleBase : EnemyStateBase
             return ShouldAttack(other.transform.position);
         else if (other.CompareTag(Tags.NOTICE_LOW_SPEED) && !_noticeByHighSpeed)
             return ShouldAttack(other.transform.position);
-        else if (other.CompareTag(Tags.WALL))
+        else if (other.CompareTag(Tags.WALL) || other.CompareTag(Tags.ICE))
             BackUp(_thisTransform.position - other.transform.position);
 
         return EnemyStates.STAY;
