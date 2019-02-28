@@ -1,6 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using Statics;
 
 public class ShipSound : MonoBehaviour
 {
@@ -13,10 +14,16 @@ public class ShipSound : MonoBehaviour
     [SerializeField, Range(0, 1)] float _maxEngineStressedVolume = 1;
     [SerializeField, Range(0, 1)] float _stressedSoundStart = 0.5f;
 
+    [SerializeField, Range(1, 10)] float _collisionSoundStrengthModifier = 3f;
+
     [Header("Drop")]
 
     [SerializeField] AudioSource _engineDynamic;
     [SerializeField] AudioSource _engineStressed;
+
+    [SerializeField] AudioSource _hitMetalAudio;
+    [SerializeField] AudioSource _hitIceAudio;
+    [SerializeField] AudioSource _hitFishAudio;
 
     Rigidbody2D _thisRigidBody;
     float _shipMaxSpeed;
@@ -41,5 +48,23 @@ public class ShipSound : MonoBehaviour
         }
         else
             _engineStressed.volume = 0;
+    }
+
+    private void OnCollisionEnter2D(Collision2D other)
+    {
+        float collisionStrength = other.relativeVelocity.magnitude;
+
+        if (other.transform.CompareTag(Tags.BASE))
+            StartCollisionAudio(_hitMetalAudio, collisionStrength);
+        else if (other.transform.CompareTag(Tags.ENEMY))
+            StartCollisionAudio(_hitFishAudio, collisionStrength);
+        else if (other.transform.CompareTag(Tags.ICE))
+            StartCollisionAudio(_hitIceAudio, collisionStrength);
+    }
+
+    private void StartCollisionAudio(AudioSource source, float strength)
+    {
+        source.volume = strength / _collisionSoundStrengthModifier;
+        source.Play();
     }
 }

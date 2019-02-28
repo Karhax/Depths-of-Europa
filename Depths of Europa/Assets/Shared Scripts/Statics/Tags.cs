@@ -30,5 +30,6 @@ namespace Statics
         public static readonly string BASE = "Base";
         public static readonly string ENEMY_LIGHT = "EnemyLight";
         public static readonly string ALL_FISH_ESCAPE = "AllFishEscape";
+        public static readonly string ICE = "Ice";
     }
 }
