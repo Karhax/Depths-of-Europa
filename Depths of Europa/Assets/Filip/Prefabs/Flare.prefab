@@ -236,7 +236,7 @@ Rigidbody2D:
   m_Simulated: 1
   m_UseFullKinematicContacts: 0
   m_UseAutoMass: 0
-  m_Mass: 0.01
+  m_Mass: 0.35
   m_LinearDrag: 0.75
   m_AngularDrag: 0.75
   m_GravityScale: 0
@@ -259,7 +259,7 @@ CircleCollider2D:
   m_UsedByComposite: 0
   m_Offset: {x: 0, y: 0}
   serializedVersion: 2
-  m_Radius: 0.3
+  m_Radius: 0.25
 --- !u!58 &58375508040837302
 CircleCollider2D:
   m_ObjectHideFlags: 1
@@ -339,7 +339,7 @@ Light:
   m_RenderMode: 0
   m_CullingMask:
     serializedVersion: 2
-    m_Bits: 256
+    m_Bits: 65792
   m_Lightmapping: 4
   m_AreaSize: {x: 1, y: 1}
   m_BounceIntensity: 1
@@ -375,7 +375,7 @@ Light:
   m_RenderMode: 0
   m_CullingMask:
     serializedVersion: 2
-    m_Bits: 30209
+    m_Bits: 226817
   m_Lightmapping: 4
   m_AreaSize: {x: 1, y: 1}
   m_BounceIntensity: 1
@@ -395,11 +395,13 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _flareTime: 35
-  _timeToDestroy: 25.9
+  _bubbleParticleSystem: {fileID: 198353530191676410}
+  _flareParticleSystem: {fileID: 198561291680169454}
   _detection: {fileID: 58375508040837302}
   _lights:
   - {fileID: 108777528536674796}
   - {fileID: 108869911878326736}
+  - {fileID: 108637272747987968}
 --- !u!198 &198353530191676410
 ParticleSystem:
   m_ObjectHideFlags: 1
@@ -460,7 +462,7 @@ ParticleSystem:
   moveWithTransform: 1
   moveWithCustomTransform: {fileID: 0}
   scalingMode: 1
-  randomSeed: -1313892799
+  randomSeed: -1927445816
   InitialModule:
     serializedVersion: 3
     enabled: 1
@@ -3839,7 +3841,7 @@ ParticleSystem:
   moveWithTransform: 1
   moveWithCustomTransform: {fileID: 0}
   scalingMode: 1
-  randomSeed: 1071634860
+  randomSeed: -1809242880
   InitialModule:
     serializedVersion: 3
     enabled: 1
@@ -7280,7 +7282,7 @@ SpriteRenderer:
   m_LightProbeUsage: 1
   m_ReflectionProbeUsage: 1
   m_Materials:
-  - {fileID: 10754, guid: 0000000000000000f000000000000000, type: 0}
+  - {fileID: 2100000, guid: ae2cf1d6953af2440b3430b12993395a, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -7300,8 +7302,8 @@ SpriteRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 0
-  m_Sprite: {fileID: 10913, guid: 0000000000000000f000000000000000, type: 0}
-  m_Color: {r: 0.18382353, g: 0.18382353, b: 0.18382353, a: 1}
+  m_Sprite: {fileID: 21300000, guid: 296648c0468d3454bb1c04ad3ff17777, type: 3}
+  m_Color: {r: 0.07352942, g: 0.07352942, b: 0.07352942, a: 1}
   m_FlipX: 0
   m_FlipY: 0
   m_DrawMode: 0

@@ -7,22 +7,29 @@ public class Flare : MonoBehaviour
     [Header("Settings")]
 
     [SerializeField, Range(1, 50)] float _flareTime;
-    [Header("Ration between flareTime and toDestroy should be about 0.75")]
-    [SerializeField, Range(1, 45)] float _timeToDestroy;
 
     [Header("Drop")]
 
+    [SerializeField] ParticleSystem _bubbleParticleSystem;
+    [SerializeField] ParticleSystem _flareParticleSystem;
     [SerializeField] CircleCollider2D _detection;
     [SerializeField] Light[] _lights;
 
+    ParticleSystem.EmissionModule _bubbleEmission;
+    ParticleSystem.EmissionModule _flareEmission;
+
     Timer _flareTimer;
     float[] _lightsMaxRanges;
-    float _standardDetection;
+    float _bubbleParticlesStartEmission;
+    float _flareParticleStartEmission;
 
     private void Awake()
     {
-        _standardDetection = _detection.radius;
+        _bubbleEmission = _bubbleParticleSystem.emission;
+        _flareEmission = _flareParticleSystem.emission;
 
+        _bubbleParticlesStartEmission = _bubbleEmission.rateOverTimeMultiplier;
+        _flareParticleStartEmission = _flareEmission.rateOverTimeMultiplier;
         _flareTimer = new Timer(_flareTime);
 
         _lightsMaxRanges = new float[_lights.Length];
@@ -37,7 +44,7 @@ public class Flare : MonoBehaviour
     {
         _flareTimer.Time += Time.deltaTime;
 
-        if (_flareTimer.Expired() || _flareTimer.Time >= _timeToDestroy)
+        if (_flareTimer.Expired())
             RemoveFlare();
         else
             ChangeHue();
@@ -45,11 +52,16 @@ public class Flare : MonoBehaviour
 
     private void ChangeHue()
     {
+        float ratio = 1 - _flareTimer.Ratio();
+
         for (int i = 0; i < _lights.Length; i++)
         {
-            _lights[i].range = (1 - _flareTimer.Ratio()) * _lightsMaxRanges[i];
-            _detection.radius = _standardDetection * (1 - _flareTimer.Ratio());
+            _lights[i].range = ratio * _lightsMaxRanges[i];
         }
+
+        transform.localScale = Vector3.one * ratio;
+        _flareEmission.rateOverTime = new ParticleSystem.MinMaxCurve(_flareParticleStartEmission * ratio, _flareParticleStartEmission * ratio);
+        _bubbleEmission.rateOverTime = new ParticleSystem.MinMaxCurve(_bubbleParticlesStartEmission * ratio, _bubbleParticlesStartEmission * ratio);
     }
 
     private void RemoveFlare()

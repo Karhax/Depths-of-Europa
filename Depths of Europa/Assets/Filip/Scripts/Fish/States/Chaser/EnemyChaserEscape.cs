@@ -10,8 +10,12 @@ public class EnemyChaserEscape : EnemyStateAttackEscapeBase
 
     Transform _spawn;
 
+    protected LayerMask _avoidLayer;
+
     public override void SetUp(EnemyBase script, bool noticeByHighSpeed)
     {
+        _avoidLayer = LayerMask.GetMask(Layers.DEFAULT, Layers.BASE, Layers.FLOATING_OBJECT, Layers.GO_THROUGH_WALL);
+
         base.SetUp(script, noticeByHighSpeed);
         _spawn = ((BasicChaserFish0)script).GetSpawn();
     }
@@ -30,7 +34,7 @@ public class EnemyChaserEscape : EnemyStateAttackEscapeBase
         TurnTowardsTravelDistance(_turnSpeed);
         SetVelocity();
 
-        RaycastHit2D hit = Physics2D.BoxCast(_thisTransform.position, BOX_CAST_BOX, 0, _thisTransform.right, _lookRange, LayerMask.GetMask(Layers.DEFAULT));
+        RaycastHit2D hit = Physics2D.BoxCast(_thisTransform.position, BOX_CAST_BOX, 0, _thisTransform.right, _lookRange, _avoidLayer);
 
         if (hit.collider != null)
             Divert();

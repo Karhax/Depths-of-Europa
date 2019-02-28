@@ -89,7 +89,7 @@ public class MoveShip : MonoBehaviour
 
             if (ratio < _minSoundRatioCap)
                 ratio = _minSoundRatioCap;
-            else if (ratio > 1)
+            else if (ratio > _maxSoundRatioCap)
                 ratio = _maxSoundRatioCap;
 
             ShipSoundEvent.Invoke(ratio);
@@ -146,5 +146,10 @@ public class MoveShip : MonoBehaviour
         _highSpeedTrigger.radius = _highSpeedTriggerNormalRadius + velocityMagnitude * _highSpeedTriggerModifier;
         _lowSpeedTrigger.radius = _lowSpeedTriggerNormalRadius - velocityMagnitude * _lowSpeedTriggerModifier;
 
+    }
+
+    public float GetMaxShipSpeed()
+    {
+        return _maxSpeedMagnitude;
     }
 }

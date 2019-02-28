@@ -28,7 +28,7 @@ public class EnemyIdleBase : EnemyStateBase
         _idleTimer = new Timer(_maxTimeOneDirection);
 
         base.SetUp(script, noticeByHighSpeed);
-        _avoidLayer = LayerMask.GetMask(Layers.CHASER_SPAWN, Layers.DEFAULT, Layers.BASE);
+        _avoidLayer = LayerMask.GetMask(Layers.CHASER_SPAWN, Layers.DEFAULT, Layers.BASE, Layers.FLOATING_OBJECT, Layers.GO_THROUGH_WALL);
     }
 
     public override void EnterState()

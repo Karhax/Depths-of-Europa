@@ -8,12 +8,18 @@ public class FlareArrayScript : MonoBehaviour {
     PlayerGUIScript Parent;
     readonly int FIRST_ARRAY = 0;
     private RectTransform RectTransform;
-    readonly Vector2 BASE_POSITION = new Vector2(25, 20);
+    protected static Vector2 BASE_POSITION = new Vector2(0,0);
     readonly float X_POSITION_INCREMENT = 25f;
 
     private void Awake()
     {
+        
         RectTransform = GetComponent<RectTransform>();
+
+        if (_arrayID == 0 && BASE_POSITION.x == 0)
+        {
+            BASE_POSITION = RectTransform.anchoredPosition;
+        }
         Parent = GetComponentInParent<PlayerGUIScript>();
         Parent.FlareAmmountChange += OnFlareAmmountChange;
         
