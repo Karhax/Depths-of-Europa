@@ -1733,3 +1733,23 @@ GameObject:
   m_PrefabParentObject: {fileID: 1945585633494184, guid: cf6bfa4f89233a4478d1bd961872fb1f,
     type: 2}
   m_PrefabInternal: {fileID: 1097784718}
+--- !u!1 &2032863562 stripped
+GameObject:
+  m_PrefabParentObject: {fileID: 1418066222517276, guid: 00be6c745b6800e4798a6f9c3ab21f7a,
+    type: 2}
+  m_PrefabInternal: {fileID: 916572202}
+--- !u!114 &2032863563
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 2032863562}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 5a1690e792c2447449042bc93eafaece, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _pollingIntervall: 0.5
+  _distanceThreashold: 1
+  _maxLineWidth: 10
+  _minimumLineWidth: 0.1
