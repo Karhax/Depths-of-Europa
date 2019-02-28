@@ -1,0 +1,44 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 2bb4ce3b2ac54964d965eb195c679405, type: 3}
+  m_Name: Trailer Base
+  m_EditorClassIdentifier: 
+  _dialogBoxes:
+  - _rightTalking: 1
+    _rightCharacter: {fileID: 11400000, guid: f2790b81f27f32a43a4d216bf995b946, type: 2}
+    _leftCharacter: {fileID: 11400000, guid: aaad767b8b144f74b8c00af973d781de, type: 2}
+    _dialogText: "Ah! Lykke, welcome welcome. I did not recognize you at first because
+      of the helmet\u2026 welcome to Pontos."
+    _textAudio: {fileID: 8300000, guid: 0a2524da3fb7c404a908c6da49993cb7, type: 3}
+  - _rightTalking: 1
+    _rightCharacter: {fileID: 11400000, guid: f2790b81f27f32a43a4d216bf995b946, type: 2}
+    _leftCharacter: {fileID: 11400000, guid: aaad767b8b144f74b8c00af973d781de, type: 2}
+    _dialogText: "As you are well aware of, I\u2019m the project manager here. How
+      do you feel?"
+    _textAudio: {fileID: 8300000, guid: 0a2524da3fb7c404a908c6da49993cb7, type: 3}
+  - _rightTalking: 0
+    _rightCharacter: {fileID: 11400000, guid: f2790b81f27f32a43a4d216bf995b946, type: 2}
+    _leftCharacter: {fileID: 11400000, guid: aaad767b8b144f74b8c00af973d781de, type: 2}
+    _dialogText: "Great. Absolutely fantastic. The depths of Europa sure is an inviting
+      place. Dark, deep\u2026 and cold. At least Hermes is well equipped."
+    _textAudio: {fileID: 8300000, guid: 0a2524da3fb7c404a908c6da49993cb7, type: 3}
+  - _rightTalking: 1
+    _rightCharacter: {fileID: 11400000, guid: f2790b81f27f32a43a4d216bf995b946, type: 2}
+    _leftCharacter: {fileID: 11400000, guid: aaad767b8b144f74b8c00af973d781de, type: 2}
+    _dialogText: "Ahahah! You get used to it after a while. The waters are safe to
+      navigate. The creatures shouldn\u2019t be all to violent."
+    _textAudio: {fileID: 8300000, guid: 0a2524da3fb7c404a908c6da49993cb7, type: 3}
+  - _rightTalking: 1
+    _rightCharacter: {fileID: 11400000, guid: f2790b81f27f32a43a4d216bf995b946, type: 2}
+    _leftCharacter: {fileID: 11400000, guid: aaad767b8b144f74b8c00af973d781de, type: 2}
+    _dialogText: So, here you have your journal, detailing the routes and what is
+      to be delivered so far this month.
+    _textAudio: {fileID: 8300000, guid: 0a2524da3fb7c404a908c6da49993cb7, type: 3}

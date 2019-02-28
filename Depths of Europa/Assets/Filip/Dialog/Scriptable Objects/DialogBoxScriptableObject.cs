@@ -13,7 +13,7 @@ public class DialogBoxScriptableObject : ScriptableObject
 [System.Serializable]
 public class DialogBoxObject
 {
-    [SerializeField] bool _rightTalking;
+    [SerializeField] bool _rightTalking = true;
     [SerializeField] CharacterScriptableObject _rightCharacter;
     [SerializeField] CharacterScriptableObject _leftCharacter;
     [SerializeField, TextAreaAttribute(3, 3)] string _dialogText;
