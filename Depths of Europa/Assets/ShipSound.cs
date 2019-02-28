@@ -64,7 +64,10 @@ public class ShipSound : MonoBehaviour
 
     private void StartCollisionAudio(AudioSource source, float strength)
     {
-        source.volume = strength / _collisionSoundStrengthModifier;
-        source.Play();
+        if (!source.isPlaying)
+        {
+            source.volume = strength / _collisionSoundStrengthModifier;
+            source.Play();
+        }
     }
 }
