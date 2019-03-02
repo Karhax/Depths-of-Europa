@@ -10,12 +10,8 @@ public class EnemyChaserEscape : EnemyStateAttackEscapeBase
 
     Transform _spawn;
 
-    protected LayerMask _avoidLayer;
-
     public override void SetUp(EnemyBase script, bool noticeByHighSpeed)
     {
-        _avoidLayer = LayerMask.GetMask(Layers.DEFAULT, Layers.BASE, Layers.FLOATING_OBJECT, Layers.GO_THROUGH_WALL);
-
         base.SetUp(script, noticeByHighSpeed);
         _spawn = ((BasicChaserFish0)script).GetSpawn();
     }

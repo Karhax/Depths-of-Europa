@@ -9,8 +9,6 @@ public class EnemyChaserAttack : EnemyAttackBase
     public override void SetUp(EnemyBase script, bool noticeByHighSpeed)
     {
         base.SetUp(script, noticeByHighSpeed);
-
-        _avoidLayer = LayerMask.GetMask(Layers.DEFAULT, Layers.BASE, Layers.FLOATING_OBJECT, Layers.GO_THROUGH_WALL);
     }
 
     protected override EnemyStates Attack()

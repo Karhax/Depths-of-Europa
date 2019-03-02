@@ -15,12 +15,9 @@ public class EnemyAttackBase : EnemyStateAttackEscapeBase
     protected Timer _huntTimer;
 
     protected bool _doTimer = false;
-    protected LayerMask _avoidLayer;
 
     public override void SetUp(EnemyBase script, bool noticeByHighSpeed)
     {
-        _avoidLayer = LayerMask.GetMask(Layers.DEFAULT, Layers.CHASER_SPAWN, Layers.BASE, Layers.FLOATING_OBJECT, Layers.GO_THROUGH_WALL);
-
         _huntTimer = new Timer(_timeToHunt);
         base.SetUp(script, noticeByHighSpeed);
     }
