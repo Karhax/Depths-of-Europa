@@ -28,7 +28,7 @@ public abstract class EnemyStateBase
 
     protected LayerMask _avoidLayer;
 
-    protected readonly Vector2 BOX_CAST_BOX = new Vector2(0.25f, 0.25f);
+    protected readonly Vector2 BOX_CAST_BOX = new Vector2(0.35f, 0.35f);
     public virtual void SetUp(EnemyBase script, bool noticeByHighSpeed)
     {
         _avoidLayer = LayerMask.GetMask(Layers.CHASER_SPAWN, Layers.DEFAULT, Layers.BASE, Layers.FLOATING_OBJECT, Layers.GO_THROUGH_WALL);
@@ -87,7 +87,7 @@ public abstract class EnemyStateAttackEscapeBase : EnemyStateBase
     [SerializeField, Range(0, 20)] int _framesBetweenSideRayShoot = 7; 
     [SerializeField, Range(5, 15)] float _sideViewRayLength = 10f;
     [SerializeField, Range(0, 90)] float _sideLookRotation = 45f;
-    [SerializeField, Range(2, 10)] float _sideLookIgnoreRange = 5f;
+    [SerializeField, Range(2, 10)] float _sideLookIgnoreRange = 8f;
     [SerializeField, Range(0, 15)] protected float _dodgeSpeed;
 
     protected Transform _playerShip;
