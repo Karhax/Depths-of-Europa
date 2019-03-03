@@ -4,6 +4,8 @@ using UnityEngine;
 
 public class BasicNonHostileFish0 : EnemyBase
 {
+    [SerializeField] Transform _faceTransform;
+
     [Space]
 
     [SerializeField] EnemyIdleBase _idleState;
@@ -13,8 +15,8 @@ public class BasicNonHostileFish0 : EnemyBase
     {
         base.Awake();
 
-        _idleState.SetUp(this, _noticeByHighSpeed);
-        _escapeState.SetUp(this, _noticeByHighSpeed);
+        _idleState.SetUp(this, _noticeByHighSpeed, _faceTransform);
+        _escapeState.SetUp(this, _noticeByHighSpeed, _faceTransform);
 
         ChangeState(_idleState);
     }

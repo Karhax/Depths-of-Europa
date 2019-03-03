@@ -48,6 +48,21 @@ GameObject:
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
+--- !u!1 &1514467629604258
+GameObject:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  serializedVersion: 5
+  m_Component:
+  - component: {fileID: 4640860005919456}
+  m_Layer: 12
+  m_Name: Face
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
 --- !u!4 &4262126111392390
 Transform:
   m_ObjectHideFlags: 1
@@ -55,10 +70,11 @@ Transform:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1007087164518454}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 1.3852677, y: -1.5844102, z: 0}
+  m_LocalPosition: {x: -1.2605127, y: -1.2612482, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 4403478602482232}
+  - {fileID: 4640860005919456}
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -74,6 +90,19 @@ Transform:
   m_Children: []
   m_Father: {fileID: 4262126111392390}
   m_RootOrder: 0
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!4 &4640860005919456
+Transform:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1514467629604258}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0.15, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 4262126111392390}
+  m_RootOrder: 1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!23 &23537220118854560
 MeshRenderer:
@@ -178,6 +207,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _noticeByHighSpeed: 1
+  _faceTransform: {fileID: 4640860005919456}
   _attackState:
     _stateSpeed: 2.5
     _stateSpeedModifier: 0
@@ -188,7 +218,7 @@ MonoBehaviour:
     _sideLookRotation: 25
     _sideLookIgnoreRange: 8
     _dodgeSpeed: 15
-    _avoidRange: 1.5
+    _avoidRange: 2
     _attackRange: 4
     _damage: 10
     _timeToHunt: 20
@@ -203,7 +233,7 @@ MonoBehaviour:
     _sideLookRotation: 25
     _sideLookIgnoreRange: 8
     _dodgeSpeed: 15
-    _lookRange: 1.5
+    _lookRange: 2
 --- !u!212 &212268897550006800
 SpriteRenderer:
   m_ObjectHideFlags: 1

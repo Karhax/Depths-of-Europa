@@ -31,6 +31,21 @@ GameObject:
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
+--- !u!1 &1816598530655794
+GameObject:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  serializedVersion: 5
+  m_Component:
+  - component: {fileID: 4939112410485020}
+  m_Layer: 12
+  m_Name: Face
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
 --- !u!1 &1980406299650658
 GameObject:
   m_ObjectHideFlags: 0
@@ -55,10 +70,11 @@ Transform:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1026416048632686}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 2.44, y: -4.32, z: 0}
+  m_LocalPosition: {x: -4.932845, y: -4.777465, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 4745860665231490}
+  - {fileID: 4939112410485020}
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -74,6 +90,19 @@ Transform:
   m_Children: []
   m_Father: {fileID: 4531436335814370}
   m_RootOrder: 0
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!4 &4939112410485020
+Transform:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1816598530655794}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0.155, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 4531436335814370}
+  m_RootOrder: 1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!23 &23579292448831776
 MeshRenderer:
@@ -178,6 +207,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _noticeByHighSpeed: 1
+  _faceTransform: {fileID: 4939112410485020}
   _timeInLightToScared: 1.5
   _idleState:
     _stateSpeed: 1
@@ -198,7 +228,7 @@ MonoBehaviour:
     _sideLookRotation: 25
     _sideLookIgnoreRange: 8
     _dodgeSpeed: 15
-    _avoidRange: 1.5
+    _avoidRange: 2
     _attackRange: 4
     _damage: 5
     _timeToHunt: 5
@@ -214,7 +244,7 @@ MonoBehaviour:
     _sideLookIgnoreRange: 8
     _dodgeSpeed: 15
     _durationToEscapePastLight: 2
-    _lookRange: 1.5
+    _lookRange: 2
 --- !u!212 &212533647306997242
 SpriteRenderer:
   m_ObjectHideFlags: 1

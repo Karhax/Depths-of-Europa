@@ -10,9 +10,9 @@ public class EnemyChaserEscape : EnemyStateAttackEscapeBase
 
     Transform _spawn;
 
-    public override void SetUp(EnemyBase script, bool noticeByHighSpeed)
+    public override void SetUp(EnemyBase script, bool noticeByHighSpeed, Transform faceTransform)
     {
-        base.SetUp(script, noticeByHighSpeed);
+        base.SetUp(script, noticeByHighSpeed, faceTransform);
         _spawn = ((BasicChaserFish0)script).GetSpawn();
     }
 
@@ -30,7 +30,7 @@ public class EnemyChaserEscape : EnemyStateAttackEscapeBase
         TurnTowardsTravelDistance(_turnSpeed);
         SetVelocity();
 
-        RaycastHit2D hit = Physics2D.BoxCast(_thisTransform.position, BOX_CAST_BOX, 0, _thisTransform.right, _lookRange, _avoidLayer);
+        RaycastHit2D hit = Physics2D.BoxCast(_faceTransform.position, BOX_CAST_BOX, 0, _thisTransform.right, _lookRange, _avoidLayer);
 
         if (hit.collider != null)
             Divert();

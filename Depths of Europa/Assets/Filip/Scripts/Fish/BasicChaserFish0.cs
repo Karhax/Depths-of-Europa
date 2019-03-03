@@ -7,6 +7,8 @@ public class BasicChaserFish0 : EnemyBase
     public delegate void FishOffScreen();
     public event FishOffScreen FishOffScreenEvent;
 
+    [SerializeField] Transform _faceTransform;
+
     [Space]
 
     [SerializeField] EnemyChaserAttack _attackState;
@@ -18,8 +20,8 @@ public class BasicChaserFish0 : EnemyBase
     {
         base.Awake();
 
-        _attackState.SetUp(this, _noticeByHighSpeed);
-        _escapeState.SetUp(this, _noticeByHighSpeed);
+        _attackState.SetUp(this, _noticeByHighSpeed, _faceTransform);
+        _escapeState.SetUp(this, _noticeByHighSpeed, _faceTransform);
     }
 
     private void Start()

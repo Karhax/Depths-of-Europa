@@ -27,11 +27,13 @@ public abstract class EnemyStateBase
     protected bool _noticeByHighSpeed;
 
     protected LayerMask _avoidLayer;
-
-    protected readonly Vector2 BOX_CAST_BOX = new Vector2(0.35f, 0.35f);
-    public virtual void SetUp(EnemyBase script, bool noticeByHighSpeed)
+    protected Transform _faceTransform;
+    protected readonly Vector2 BOX_CAST_BOX = new Vector2(0.25f, 0.25f);
+    public virtual void SetUp(EnemyBase script, bool noticeByHighSpeed, Transform faceTransform)
     {
         _avoidLayer = LayerMask.GetMask(Layers.CHASER_SPAWN, Layers.DEFAULT, Layers.BASE, Layers.FLOATING_OBJECT, Layers.GO_THROUGH_WALL);
+
+        _faceTransform = faceTransform;
 
         _noticeByHighSpeed = noticeByHighSpeed;
         _script = script;
@@ -84,6 +86,7 @@ public abstract class EnemyStateBase
 [System.Serializable]
 public abstract class EnemyStateAttackEscapeBase : EnemyStateBase
 {
+    [SerializeField, Range(0, 0.5f)] float _forceTurnDistance = 0.1f;
     [SerializeField, Range(0, 20)] int _framesBetweenSideRayShoot = 7; 
     [SerializeField, Range(5, 15)] float _sideViewRayLength = 10f;
     [SerializeField, Range(0, 90)] float _sideLookRotation = 45f;
@@ -97,9 +100,9 @@ public abstract class EnemyStateAttackEscapeBase : EnemyStateBase
     readonly int LEFT = -1;
     readonly int RIGHT = 1;
 
-    public override void SetUp(EnemyBase script, bool noticeByHighSpeed)
+    public override void SetUp(EnemyBase script, bool noticeByHighSpeed, Transform faceTransform)
     {
-        base.SetUp(script, noticeByHighSpeed);
+        base.SetUp(script, noticeByHighSpeed, faceTransform);
     }
 
     public override void EnterState()
@@ -117,7 +120,7 @@ public abstract class EnemyStateAttackEscapeBase : EnemyStateBase
         if (_currentFrameCounter >= _framesBetweenSideRayShoot)
         {
             RaycastHit2D hitLeft = GetDivertSideRayHit(LEFT);
-
+            
             if (hitLeft.collider == null)
                 _divertDirection = LEFT;
             else if (Vector3.Distance(_thisTransform.position, hitLeft.transform.position) < _sideLookIgnoreRange)
@@ -134,7 +137,6 @@ public abstract class EnemyStateAttackEscapeBase : EnemyStateBase
                         _divertDirection = RIGHT;
                 }
             }
-
             _currentFrameCounter = 0;
         }
 
@@ -144,6 +146,6 @@ public abstract class EnemyStateAttackEscapeBase : EnemyStateBase
     private RaycastHit2D GetDivertSideRayHit(int leftRight)
     {
         Vector3 rayDirection = Quaternion.AngleAxis(_sideLookRotation * -leftRight, Vector3.back) * _thisTransform.right;
-        return Physics2D.Raycast(_thisTransform.position, rayDirection, _sideViewRayLength, _avoidLayer);
+        return Physics2D.Raycast(_faceTransform.position, rayDirection, _sideViewRayLength, _avoidLayer);
     }
 }

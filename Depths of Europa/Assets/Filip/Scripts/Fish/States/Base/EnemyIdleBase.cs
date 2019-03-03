@@ -22,11 +22,11 @@ public class EnemyIdleBase : EnemyStateBase
 
     protected Timer _idleTimer;
 
-    public override void SetUp(EnemyBase script, bool noticeByHighSpeed)
+    public override void SetUp(EnemyBase script, bool noticeByHighSpeed, Transform faceTransform)
     {
         _idleTimer = new Timer(_maxTimeOneDirection);
 
-        base.SetUp(script, noticeByHighSpeed);
+        base.SetUp(script, noticeByHighSpeed, faceTransform);
     }
 
     public override void EnterState()
