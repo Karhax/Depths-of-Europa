@@ -28,9 +28,10 @@ public abstract class EnemyStateBase
 
     protected LayerMask _avoidLayer;
     protected Transform _faceTransform;
-    protected readonly Vector2 BOX_CAST_BOX = new Vector2(0.25f, 0.25f);
-    public virtual void SetUp(EnemyBase script, bool noticeByHighSpeed, Transform faceTransform)
+    protected Vector2 _boxCastBox;
+    public virtual void SetUp(EnemyBase script, bool noticeByHighSpeed, Transform faceTransform, float enemyWidth)
     {
+        _boxCastBox = new Vector2(enemyWidth, enemyWidth);
         _avoidLayer = LayerMask.GetMask(Layers.CHASER_SPAWN, Layers.DEFAULT, Layers.BASE, Layers.FLOATING_OBJECT, Layers.GO_THROUGH_WALL);
 
         _faceTransform = faceTransform;
@@ -100,9 +101,9 @@ public abstract class EnemyStateAttackEscapeBase : EnemyStateBase
     readonly int LEFT = -1;
     readonly int RIGHT = 1;
 
-    public override void SetUp(EnemyBase script, bool noticeByHighSpeed, Transform faceTransform)
+    public override void SetUp(EnemyBase script, bool noticeByHighSpeed, Transform faceTransform, float enemyWidth)
     {
-        base.SetUp(script, noticeByHighSpeed, faceTransform);
+        base.SetUp(script, noticeByHighSpeed, faceTransform, enemyWidth);
     }
 
     public override void EnterState()

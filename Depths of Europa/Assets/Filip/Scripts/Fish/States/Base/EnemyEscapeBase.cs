@@ -14,10 +14,10 @@ public class EnemyEscapeBase : EnemyStateAttackEscapeBase
     protected bool _doTimer = true;
     protected Transform _escapeFrom;
 
-    public override void SetUp(EnemyBase script, bool noticeByHighSpeed, Transform faceTransform)
+    public override void SetUp(EnemyBase script, bool noticeByHighSpeed, Transform faceTransform, float enemyWidth)
     {
         _escapedTimer = new Timer(_durationToEscapePastLight);
-        base.SetUp(script, noticeByHighSpeed, faceTransform);
+        base.SetUp(script, noticeByHighSpeed, faceTransform, enemyWidth);
     }
 
     public override void EnterState()
@@ -46,7 +46,7 @@ public class EnemyEscapeBase : EnemyStateAttackEscapeBase
                 return EnemyStates.IDLE;
         }
 
-        RaycastHit2D hit = Physics2D.BoxCast(_faceTransform.position, BOX_CAST_BOX, 0, _thisTransform.right, _lookRange, _avoidLayer);
+        RaycastHit2D hit = Physics2D.BoxCast(_faceTransform.position, _boxCastBox, 0, _thisTransform.right, _lookRange, _avoidLayer);
 
         if (hit.collider != null)
             Divert();

@@ -16,7 +16,7 @@ public class BasicUnderPlayerFish0 : EnemyBase
     {
         base.Awake();
 
-        _idleState.SetUp(this, _noticeByHighSpeed, _faceTransform);
+        _idleState.SetUp(this, _noticeByHighSpeed, _faceTransform, _enemyRadius);
 
         ChangeState(_idleState);
     }

@@ -5,11 +5,12 @@ using Statics;
 
 public abstract class EnemyBase : MonoBehaviour
 {
+    [SerializeField, Range(0.1f, 50)] protected float _enemyRadius = 0.25f;
+    [SerializeField] protected bool _noticeByHighSpeed;
+
     protected bool _shouldMove = false;
 
     protected static int _currentMaxSortOrder = 0;
-
-    [SerializeField] protected bool _noticeByHighSpeed;
 
     protected EnemyStateBase _currentState;
 

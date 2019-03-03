@@ -20,8 +20,8 @@ public class BasicChaserFish0 : EnemyBase
     {
         base.Awake();
 
-        _attackState.SetUp(this, _noticeByHighSpeed, _faceTransform);
-        _escapeState.SetUp(this, _noticeByHighSpeed, _faceTransform);
+        _attackState.SetUp(this, _noticeByHighSpeed, _faceTransform, _enemyRadius);
+        _escapeState.SetUp(this, _noticeByHighSpeed, _faceTransform, _enemyRadius);
     }
 
     private void Start()

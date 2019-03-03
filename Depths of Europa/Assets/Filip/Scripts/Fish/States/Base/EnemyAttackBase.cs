@@ -16,10 +16,10 @@ public class EnemyAttackBase : EnemyStateAttackEscapeBase
 
     protected bool _doTimer = false;
 
-    public override void SetUp(EnemyBase script, bool noticeByHighSpeed, Transform faceTransform)
+    public override void SetUp(EnemyBase script, bool noticeByHighSpeed, Transform faceTransform, float enemyWidth)
     {
         _huntTimer = new Timer(_timeToHunt);
-        base.SetUp(script, noticeByHighSpeed, faceTransform);
+        base.SetUp(script, noticeByHighSpeed, faceTransform, enemyWidth);
     }
 
     public override void ExitState()
@@ -34,7 +34,7 @@ public class EnemyAttackBase : EnemyStateAttackEscapeBase
 
         EnemyStates lostPlayer = EnemyStates.STAY;
 
-        RaycastHit2D hit = Physics2D.BoxCast(_faceTransform.position, BOX_CAST_BOX, 0, _thisTransform.right, _avoidRange, _avoidLayer);
+        RaycastHit2D hit = Physics2D.BoxCast(_faceTransform.position, _boxCastBox, 0, _thisTransform.right, _avoidRange, _avoidLayer);
 
         if (hit.collider != null)
         {

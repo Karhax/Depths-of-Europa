@@ -6,9 +6,9 @@ using Statics;
 [System.Serializable]
 public class EnemyChaserAttack : EnemyAttackBase
 {
-    public override void SetUp(EnemyBase script, bool noticeByHighSpeed, Transform faceTransform)
+    public override void SetUp(EnemyBase script, bool noticeByHighSpeed, Transform faceTransform, float enemyWidth)
     {
-        base.SetUp(script, noticeByHighSpeed, faceTransform);
+        base.SetUp(script, noticeByHighSpeed, faceTransform, enemyWidth);
     }
 
     protected override EnemyStates Attack()

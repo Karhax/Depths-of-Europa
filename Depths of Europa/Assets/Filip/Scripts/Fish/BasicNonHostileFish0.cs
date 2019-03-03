@@ -15,8 +15,8 @@ public class BasicNonHostileFish0 : EnemyBase
     {
         base.Awake();
 
-        _idleState.SetUp(this, _noticeByHighSpeed, _faceTransform);
-        _escapeState.SetUp(this, _noticeByHighSpeed, _faceTransform);
+        _idleState.SetUp(this, _noticeByHighSpeed, _faceTransform, _enemyRadius);
+        _escapeState.SetUp(this, _noticeByHighSpeed, _faceTransform, _enemyRadius);
 
         ChangeState(_idleState);
     }

@@ -16,9 +16,9 @@ public class BasicScaryFish0 : EnemyBase
     {
         base.Awake();
 
-        _idleState.SetUp(this, _noticeByHighSpeed, _faceTransform);
-        _attackState.SetUp(this, _noticeByHighSpeed, _faceTransform);
-        _escapeState.SetUp(this, _noticeByHighSpeed, _faceTransform);
+        _idleState.SetUp(this, _noticeByHighSpeed, _faceTransform, _enemyRadius);
+        _attackState.SetUp(this, _noticeByHighSpeed, _faceTransform, _enemyRadius);
+        _escapeState.SetUp(this, _noticeByHighSpeed, _faceTransform, _enemyRadius);
 
         ChangeState(_idleState);
     }
