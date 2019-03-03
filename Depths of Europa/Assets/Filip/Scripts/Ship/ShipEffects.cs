@@ -1,6 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using Statics;
 
 public class ShipEffects : MonoBehaviour
 {
@@ -13,10 +14,13 @@ public class ShipEffects : MonoBehaviour
     [SerializeField, Range(0, 500)] float _amountOfParticlesModifier = 35f;
     [SerializeField, Range(0, 50)] float _minAmountOfParticles = 1f;
 
+    [SerializeField, Range(0, 3)] float _minHitForceOnIceToPlayParticles = 0.5f;
+
     [Header("Drop")]
 
     [SerializeField] ParticleSystem _bubblesParticleSystem;
     [SerializeField] Animator _animator;
+    [SerializeField] GameObject _hitIceParticleSystem;
 
     Rigidbody2D _thisRigidbody;
     ParticleSystem.EmissionModule _particleSystemEmission;
@@ -51,5 +55,20 @@ public class ShipEffects : MonoBehaviour
         }
 
         _particleSystemEmission.rateOverTime = new ParticleSystem.MinMaxCurve(amount, amount);
+    }
+
+    private void OnCollisionEnter2D(Collision2D collision)
+    {
+        if (collision.transform.CompareTag(Tags.ICE) && collision.relativeVelocity.magnitude > _minHitForceOnIceToPlayParticles)
+            SpawnIceParticles(collision);
+    }
+
+    private void SpawnIceParticles(Collision2D collision)
+    {
+        ContactPoint2D[] contacts = new ContactPoint2D[1];
+        collision.GetContacts(contacts);
+        Vector3 spawnPoint = contacts[0].point;
+
+        Instantiate(_hitIceParticleSystem, spawnPoint, Quaternion.identity, transform);
     }
 }

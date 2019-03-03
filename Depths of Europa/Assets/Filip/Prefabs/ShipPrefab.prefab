@@ -1176,8 +1176,8 @@ Transform:
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1111445617526158}
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 58.19, y: -47.99, z: 0}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: -2.29, y: -2.86, z: -0.25}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 4142588805641138}
@@ -3397,8 +3397,11 @@ MonoBehaviour:
   _maxAnimationSpeed: 4
   _amountOfParticlesModifier: 35
   _minAmountOfParticles: 1
+  _minHitForceOnIceToPlayParticles: 1.25
   _bubblesParticleSystem: {fileID: 198960162647762256}
   _animator: {fileID: 95234027768424574}
+  _hitIceParticleSystem: {fileID: 1043839991977450, guid: 84233af5055daec41a395b6bbc28ddd4,
+    type: 2}
 --- !u!114 &114093690604268454
 MonoBehaviour:
   m_ObjectHideFlags: 1
