@@ -22,6 +22,7 @@ public class LevelEndingScript : MonoBehaviour {
 
     private void BeginEndingDialog()
     {
+        GameManager.DialogStartedReaction();
         _dialogScript.DialogOverEvent += EndLevel;
         _dialogScript.StartDialogs();
     }
@@ -52,6 +53,7 @@ public class LevelEndingScript : MonoBehaviour {
         // Call function in the base object that plays the docking animation
 
         // Play sound here, or perhaps in the function EndLevel()
+        
 
         if (_hasDialog)
             BeginEndingDialog();

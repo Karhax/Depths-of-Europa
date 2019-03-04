@@ -10,9 +10,9 @@ public class MusicManagement : MonoBehaviour {
     private bool[] _currentActiveStems;
 
     [Header("The time in seconds it takes for the music to fade in/out")]
-    [SerializeField] [Range(0.1f, 5f)] private float _levelStartFade;
-    [SerializeField] [Range(0.1f, 5f)] private float _levelEndFade;
-    [SerializeField] [Range(0.1f, 5f)] private float _midLevelTransitionFade;
+    [SerializeField] [Range(0.1f, 5f)] private float _startFade;
+    [SerializeField] [Range(0.1f, 5f)] private float _endFade;
+    [SerializeField] [Range(0.1f, 5f)] private float _transitionFade;
 
     private float[] _changePerFrame;
 
@@ -38,7 +38,7 @@ public class MusicManagement : MonoBehaviour {
 
             if (_currentActiveStems[i])
             {
-                _changePerFrame[i] = 1 / _levelStartFade;
+                _changePerFrame[i] = 1 / _startFade;
             }
             else
             {
@@ -47,7 +47,7 @@ public class MusicManagement : MonoBehaviour {
         }
 
         // Start the timer
-        _fadeTimer = new Timer(_levelStartFade);
+        _fadeTimer = new Timer(_startFade);
     }
 
     private void Update()
@@ -93,16 +93,16 @@ public class MusicManagement : MonoBehaviour {
                     _currentActiveStems[i] = activeStems[i];
                     if (_currentActiveStems[i])
                     {
-                        _changePerFrame[i] = (1 - _sources[i].volume) / _midLevelTransitionFade;
+                        _changePerFrame[i] = (1 - _sources[i].volume) / _transitionFade;
                     }
                     else
                     {
-                        _changePerFrame[i] = (0 - _sources[i].volume) / _midLevelTransitionFade;
+                        _changePerFrame[i] = (0 - _sources[i].volume) / _transitionFade;
                     }
                 }
                 // Stems with no designated bool value will not be altered in any way
             }
-            _fadeTimer.Duration = _midLevelTransitionFade;
+            _fadeTimer.Duration = _transitionFade;
             _fadeTimer.Reset();
         }
     }
@@ -125,7 +125,7 @@ public class MusicManagement : MonoBehaviour {
             zeroVolume[i] = false;
         }
         AdjustVolumes(zeroVolume);
-        _fadeTimer.Duration = _levelEndFade;
+        _fadeTimer.Duration = _endFade;
 
         // All further calls to this manager will be ignored.
         _ignoreNewTasks = true;

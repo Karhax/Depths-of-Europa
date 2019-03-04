@@ -12,6 +12,7 @@ public class GameManager : MonoBehaviour {
     private static FadeHandler _fadeHandler = null;
     private static GameObject _shipObject = null;
     private static GameObject _camera = null;
+    private static MainMusicParent _mainMusicParent = null;
 
     private static string _nextScene = "Main Menu";
 
@@ -54,6 +55,20 @@ public class GameManager : MonoBehaviour {
                 FadeEvent(true);
             }
         }
+
+        _mainMusicParent = FindObjectOfType<MainMusicParent>();
+        if (_mainMusicParent == null)
+        {
+            Debug.LogWarning("The GameManager could not find any object that has a MainMusicParent");
+        }
+    }
+
+    public static void DialogStartedReaction()
+    {
+        if (_mainMusicParent != null)
+        {
+            _mainMusicParent.ActivateBaseMusic();
+        }
     }
 
     public static void LevelEndReached(string sceneName)
@@ -66,6 +81,10 @@ public class GameManager : MonoBehaviour {
         if (FadeEvent != null)
         {
             FadeEvent(true);
+        }
+        if (_mainMusicParent != null)
+        {
+            _mainMusicParent.EndBaseMusic();
         }
     }
 
