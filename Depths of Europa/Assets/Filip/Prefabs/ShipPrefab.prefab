@@ -3715,6 +3715,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 73518a8122b33754196af41036c9be3f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  _amountOfPulsesPerPulse: 3
+  _pulseStartAlpha: 0.8
+  _pulseAlphaModifier: 0.5
+  _waitBetweenEachPulse: 0.1
   _affectGetPulseSoundStrength: 0.5
   _rangeAffectTimeBetweenSounds: 0.05
   _minGetPulseVolume: 0.01
@@ -3724,6 +3728,9 @@ MonoBehaviour:
   _fadeOutSpeed: 0.25
   _timeActive: 0.5
   _soundStrength: 10
+  _spawnPosition: {fileID: 4500547816314488}
+  _sonarPulsePrefab: {fileID: 1876513566266392, guid: edfe481315aafda4c897e80526ad9fc9,
+    type: 2}
   _moveShipScript: {fileID: 114759706500815724}
   _waypointRectTransform: {fileID: 224855517205630162}
   _waypointTransform: {fileID: 0}

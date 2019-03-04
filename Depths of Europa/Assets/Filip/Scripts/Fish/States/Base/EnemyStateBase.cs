@@ -87,7 +87,6 @@ public abstract class EnemyStateBase
 [System.Serializable]
 public abstract class EnemyStateAttackEscapeBase : EnemyStateBase
 {
-    [SerializeField, Range(0, 0.5f)] float _forceTurnDistance = 0.1f;
     [SerializeField, Range(0, 20)] int _framesBetweenSideRayShoot = 7; 
     [SerializeField, Range(5, 15)] float _sideViewRayLength = 10f;
     [SerializeField, Range(0, 90)] float _sideLookRotation = 45f;
