@@ -109,6 +109,7 @@ public class LineSetup : MonoBehaviour {
     IEnumerator AuthPass()
     {
         yield return new WaitUntil(DeletePassDone);
+        _deletePassFinished = false;
 
         for (int i = 0; i < _lines.Length; i++)
         {
@@ -139,15 +140,10 @@ public class LineSetup : MonoBehaviour {
     IEnumerator SpawnPass()
     {
         yield return new WaitUntil(AuthPassDone);
+        _authPassFinished = false;
 
 
-
-        if (_validObjects != 0)
-        {
-            _pipelineActive = true;
-
-
-            _lineObjects = new GameObject[_validObjects];
+        _lineObjects = new GameObject[_validObjects];
 
 
         for (int i = 0; i < _lineObjects.Length; i++)
@@ -159,19 +155,21 @@ public class LineSetup : MonoBehaviour {
 
 
         }
+
+
             _pipelineActive = false;
             _authPassFinished = false;
             _deletePassFinished = false;
             _hasSpawnedObject = true;
-            _pipelineActive = false;
       
             Recall();
-    }
+    
 
     }
 
     private void Recall()
     {
+        _pipelineActive = false;
         //LateDeletePass();
         StopAllCoroutines();
         if (_triedToSpawnNew)
