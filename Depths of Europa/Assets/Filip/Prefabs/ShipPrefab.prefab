@@ -1176,8 +1176,8 @@ Transform:
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1111445617526158}
-  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: -2.29, y: -2.86, z: -0.25}
+  m_LocalRotation: {x: 0, y: 0, z: 0.38268343, w: 0.92387956}
+  m_LocalPosition: {x: 22, y: -11, z: -0.25}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 4142588805641138}
@@ -1185,7 +1185,7 @@ Transform:
   - {fileID: 224298093682883650}
   m_Father: {fileID: 0}
   m_RootOrder: 0
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 45}
 --- !u!4 &4116428676448348
 Transform:
   m_ObjectHideFlags: 1
@@ -2688,9 +2688,9 @@ AudioSource:
   Priority: 179
   DopplerLevel: 0.6
   MinDistance: 1
-  MaxDistance: 500
+  MaxDistance: 100
   Pan2D: 0
-  rolloffMode: 0
+  rolloffMode: 1
   BypassEffects: 0
   BypassListenerEffects: 0
   BypassReverbZones: 0
@@ -2698,20 +2698,20 @@ AudioSource:
     serializedVersion: 2
     m_Curve:
     - serializedVersion: 2
-      time: 0
+      time: 0.002
       value: 1
       inSlope: 0
       outSlope: 0
       tangentMode: 0
     - serializedVersion: 2
-      time: 1
+      time: 0.6900635
       value: 0
-      inSlope: 0
-      outSlope: 0
+      inSlope: -1.002004
+      outSlope: -1.002004
       tangentMode: 0
     m_PreInfinity: 2
     m_PostInfinity: 2
-    m_RotationOrder: 4
+    m_RotationOrder: 0
   panLevelCustomCurve:
     serializedVersion: 2
     m_Curve:
@@ -3554,6 +3554,8 @@ MonoBehaviour:
   _maxCooldownTime: 7.9
   _minDistance: 3
   _maxDistance: 28.5
+  _minPitch: 0.8
+  _maxPitch: 1.25
   _playing: 1
 --- !u!114 &114334414676791350
 MonoBehaviour:
