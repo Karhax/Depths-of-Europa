@@ -10,9 +10,16 @@ public class DamageOnContact : MonoBehaviour {
     private Timer _cooldownTimer = null;
     [SerializeField] [Range(0.1f, 5f)] private float _damageCooldown = 1;
 
+    private AudioSource _soundPlayer = null;
+
     private void Awake()
     {
         _cooldownTimer = new Timer(_damageCooldown, _damageCooldown);
+        _soundPlayer = gameObject.GetComponent<AudioSource>();
+        if (_soundPlayer == null)
+        {
+            Debug.LogWarning("A DamageOnContact script in object " + gameObject.ToString() + " did not find any AudioSource for the sound effect.");
+        }
     }
 
     private void Update()
@@ -31,6 +38,10 @@ public class DamageOnContact : MonoBehaviour {
     {
         if (other.gameObject.CompareTag(Statics.Tags.PLAYER_OUTSIDE))
         {
+            if (_soundPlayer != null)
+            {
+                _soundPlayer.Play();
+            }
             _shipHealth = other.gameObject.GetComponent<DamageShip>();
         }
     }
