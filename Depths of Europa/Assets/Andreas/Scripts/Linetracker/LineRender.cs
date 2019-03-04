@@ -10,7 +10,7 @@ public class LineRender : MonoBehaviour {
     //Mechanically seperated for yuor pleasure!
     string[] _seperatedData;
     Vector4[] _parsedAndSeperatedData;
-    int _dataReadStart;
+    int _dataReadStart, _failSafe = 0;
     float _minLineWidth, _maxLineWidth;
 	// Use this for initialization
 	void Start () {
@@ -21,6 +21,8 @@ public class LineRender : MonoBehaviour {
 	void Update () {
 		
 	}
+
+
 
     public void SetUp(Object _object, Color colour, string name)
     {
@@ -57,7 +59,9 @@ public class LineRender : MonoBehaviour {
 
     public void DeleteThis()
     {
-        StartCoroutine(DeleteMe());
+        DestroyImmediate(gameObject);
+
+        //StartCoroutine(DeleteMe());
     }
 
     bool Bolians()
@@ -68,5 +72,11 @@ public class LineRender : MonoBehaviour {
     {
         yield return new WaitUntil(Bolians);
         DestroyImmediate(this.gameObject);
+
+
+
+        yield return new WaitForFixedUpdate();
+
+        Destroy(gameObject);
     }
 }
