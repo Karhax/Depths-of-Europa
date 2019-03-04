@@ -11,7 +11,8 @@ public class LineRender : MonoBehaviour {
     string[] _seperatedData;
     Vector4[] _parsedAndSeperatedData;
     int _dataReadStart;
-    float _minLineWidth, _maxLineWidth;
+    float _maxLineWidth;
+    //float _minLineWidth;
     LineRenderer _lineRenderer;
 
 	// Use this for initialization
@@ -45,7 +46,7 @@ public class LineRender : MonoBehaviour {
             Streamread.Close();
         }
         _seperatedData = _unparsedData.Split(new char[] { '|', ',' }, System.StringSplitOptions.RemoveEmptyEntries);
-        _minLineWidth = float.Parse(_seperatedData[0]);
+        //_minLineWidth = float.Parse(_seperatedData[0]);
         _maxLineWidth = float.Parse(_seperatedData[1]);
         _dataReadStart = int.Parse(_seperatedData[2]);
         float trackerLenght = float.Parse(_seperatedData[_seperatedData.Length - 1]);
