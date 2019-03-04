@@ -6,11 +6,9 @@ using Statics;
 [System.Serializable]
 public class EnemyChaserAttack : EnemyAttackBase
 {
-    public override void SetUp(EnemyBase script, bool noticeByHighSpeed)
+    public override void SetUp(EnemyBase script, bool noticeByHighSpeed, Transform faceTransform, float enemyWidth)
     {
-        base.SetUp(script, noticeByHighSpeed);
-
-        _avoidLayer = LayerMask.GetMask(Layers.DEFAULT, Layers.BASE, Layers.FLOATING_OBJECT, Layers.GO_THROUGH_WALL);
+        base.SetUp(script, noticeByHighSpeed, faceTransform, enemyWidth);
     }
 
     protected override EnemyStates Attack()

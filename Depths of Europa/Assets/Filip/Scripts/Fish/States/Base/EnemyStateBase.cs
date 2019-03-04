@@ -26,9 +26,16 @@ public abstract class EnemyStateBase
     protected Vector2 _direction;
     protected bool _noticeByHighSpeed;
 
-    protected readonly Vector2 BOX_CAST_BOX = new Vector2(0.25f, 0.25f);
-    public virtual void SetUp(EnemyBase script, bool noticeByHighSpeed)
+    protected LayerMask _avoidLayer;
+    protected Transform _faceTransform;
+    protected Vector2 _boxCastBox;
+    public virtual void SetUp(EnemyBase script, bool noticeByHighSpeed, Transform faceTransform, float enemyWidth)
     {
+        _boxCastBox = new Vector2(enemyWidth, enemyWidth);
+        _avoidLayer = LayerMask.GetMask(Layers.CHASER_SPAWN, Layers.DEFAULT, Layers.BASE, Layers.FLOATING_OBJECT, Layers.GO_THROUGH_WALL);
+
+        _faceTransform = faceTransform;
+
         _noticeByHighSpeed = noticeByHighSpeed;
         _script = script;
         _thisTransform = _script.transform;
@@ -80,21 +87,28 @@ public abstract class EnemyStateBase
 [System.Serializable]
 public abstract class EnemyStateAttackEscapeBase : EnemyStateBase
 {
+    [SerializeField, Range(0, 0.5f)] float _forceTurnDistance = 0.1f;
+    [SerializeField, Range(0, 20)] int _framesBetweenSideRayShoot = 7; 
+    [SerializeField, Range(5, 15)] float _sideViewRayLength = 10f;
+    [SerializeField, Range(0, 90)] float _sideLookRotation = 45f;
+    [SerializeField, Range(2, 10)] float _sideLookIgnoreRange = 8f;
     [SerializeField, Range(0, 15)] protected float _dodgeSpeed;
 
     protected Transform _playerShip;
-    static protected int _divertDirection;
+    static protected int _divertDirection = 1;
 
-    public override void SetUp(EnemyBase script, bool noticeByHighSpeed)
+    int _currentFrameCounter;
+    readonly int LEFT = -1;
+    readonly int RIGHT = 1;
+
+    public override void SetUp(EnemyBase script, bool noticeByHighSpeed, Transform faceTransform, float enemyWidth)
     {
-        base.SetUp(script, noticeByHighSpeed);
+        base.SetUp(script, noticeByHighSpeed, faceTransform, enemyWidth);
     }
 
     public override void EnterState()
     {
-        _divertDirection = Random.Range(-1, 1);
-        if (_divertDirection == 0)
-            _divertDirection = 1;
+        _currentFrameCounter = _framesBetweenSideRayShoot;
 
         if (_playerShip == null)
             _playerShip = GameManager.ShipObject.transform;
@@ -102,6 +116,37 @@ public abstract class EnemyStateAttackEscapeBase : EnemyStateBase
 
     protected void Divert()
     {
+        _currentFrameCounter++;
+
+        if (_currentFrameCounter >= _framesBetweenSideRayShoot)
+        {
+            RaycastHit2D hitLeft = GetDivertSideRayHit(LEFT);
+            
+            if (hitLeft.collider == null)
+                _divertDirection = LEFT;
+            else if (Vector3.Distance(_thisTransform.position, hitLeft.transform.position) < _sideLookIgnoreRange)
+            {
+                RaycastHit2D hitRight = GetDivertSideRayHit(RIGHT);
+
+                if (hitRight.collider == null)
+                    _divertDirection = RIGHT;
+                else
+                {
+                    if (Vector3.Distance(_thisTransform.position, hitLeft.transform.position) > Vector3.Distance(_thisTransform.position, hitRight.transform.position))
+                        _divertDirection = LEFT;
+                    else
+                        _divertDirection = RIGHT;
+                }
+            }
+            _currentFrameCounter = 0;
+        }
+
         _direction = (_direction + _divertDirection * (Vector2)_thisTransform.up * Time.deltaTime * _dodgeSpeed).normalized * _stateSpeed;
+    }
+
+    private RaycastHit2D GetDivertSideRayHit(int leftRight)
+    {
+        Vector3 rayDirection = Quaternion.AngleAxis(_sideLookRotation * -leftRight, Vector3.back) * _thisTransform.right;
+        return Physics2D.Raycast(_faceTransform.position, rayDirection, _sideViewRayLength, _avoidLayer);
     }
 }

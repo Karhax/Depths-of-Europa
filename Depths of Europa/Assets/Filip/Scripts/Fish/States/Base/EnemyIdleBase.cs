@@ -20,15 +20,13 @@ public class EnemyIdleBase : EnemyStateBase
     protected readonly int NUMBER_OF_TRIES_FIND_NEW_PATH = 3;
     protected readonly int TRY_ANGLE = 60;
 
-    protected LayerMask _avoidLayer;
     protected Timer _idleTimer;
 
-    public override void SetUp(EnemyBase script, bool noticeByHighSpeed)
+    public override void SetUp(EnemyBase script, bool noticeByHighSpeed, Transform faceTransform, float enemyWidth)
     {
         _idleTimer = new Timer(_maxTimeOneDirection);
 
-        base.SetUp(script, noticeByHighSpeed);
-        _avoidLayer = LayerMask.GetMask(Layers.CHASER_SPAWN, Layers.DEFAULT, Layers.BASE, Layers.FLOATING_OBJECT, Layers.GO_THROUGH_WALL);
+        base.SetUp(script, noticeByHighSpeed, faceTransform, enemyWidth);
     }
 
     public override void EnterState()
@@ -66,7 +64,7 @@ public class EnemyIdleBase : EnemyStateBase
             return ShouldAttack(other.transform.position);
         else if (other.CompareTag(Tags.NOTICE_LOW_SPEED) && !_noticeByHighSpeed)
             return ShouldAttack(other.transform.position);
-        else if (other.CompareTag(Tags.WALL))
+        else if (other.CompareTag(Tags.WALL) || other.CompareTag(Tags.ICE))
             BackUp(_thisTransform.position - other.transform.position);
 
         return EnemyStates.STAY;

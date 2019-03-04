@@ -4,6 +4,8 @@ using UnityEngine;
 
 public class BasicScaryFish0 : EnemyBase
 {
+    [SerializeField] Transform _faceTransform;
+
     [Space]
 
     [SerializeField] EnemyScaryIdle _idleState;
@@ -14,9 +16,9 @@ public class BasicScaryFish0 : EnemyBase
     {
         base.Awake();
 
-        _idleState.SetUp(this, _noticeByHighSpeed);
-        _attackState.SetUp(this, _noticeByHighSpeed);
-        _escapeState.SetUp(this, _noticeByHighSpeed);
+        _idleState.SetUp(this, _noticeByHighSpeed, _faceTransform, _enemyRadius);
+        _attackState.SetUp(this, _noticeByHighSpeed, _faceTransform, _enemyRadius);
+        _escapeState.SetUp(this, _noticeByHighSpeed, _faceTransform, _enemyRadius);
 
         ChangeState(_idleState);
     }

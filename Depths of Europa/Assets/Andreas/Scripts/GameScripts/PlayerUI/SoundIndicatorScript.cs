@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 
+//[ExecuteInEditMode]
 public class SoundIndicatorScript : MonoBehaviour {
 
     #region Serialized Variables
@@ -35,7 +36,7 @@ public class SoundIndicatorScript : MonoBehaviour {
 
     private IEnumerator _lineUpdate;
 
-    float _yCenterInterpolator = 0, _traversal, _oldUpdateFrequency, _lineUpdateFraction, _lastColourIndex, _lastColourIndexLoudestVolume;
+    float _yCenterInterpolator = 0, _traversal, _oldUpdateFrequency, _lastColourIndex, _lastColourIndexLoudestVolume;
 
     Gradient _internalColourGradient = new Gradient();
 
@@ -45,7 +46,7 @@ public class SoundIndicatorScript : MonoBehaviour {
 
     bool _gradientFirstGeneratePass = true;
 
-    float _colourUpdateFraction;
+    //float _colourUpdateFraction, _lineUpdateFraction;
 
     [SerializeField,Range(0,1)] float _noise = 0.2f;
 
@@ -87,7 +88,7 @@ public class SoundIndicatorScript : MonoBehaviour {
         _lineRenderer.widthMultiplier = 0;
         GenerateLineData();
         _lineUpdate = LineRender();
-        _colourUpdateFraction = Mathf.InverseLerp(0, MAX_GRADIENT_INDEX, 1);
+        //_colourUpdateFraction = Mathf.InverseLerp(0, MAX_GRADIENT_INDEX, 1);
     }
 
     private void OnValidate()
@@ -98,7 +99,7 @@ public class SoundIndicatorScript : MonoBehaviour {
             _oldLineCount = _numberOfLineSegments;
         }
         GenerateLineData();
-        _lineUpdateFraction = _lineUpdateAmmount / _numberOfLineSegments;
+        //_lineUpdateFraction = _lineUpdateAmmount / _numberOfLineSegments;
     }
 
     /// <summary>
