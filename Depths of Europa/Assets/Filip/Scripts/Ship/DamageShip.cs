@@ -68,6 +68,11 @@ public class DamageShip : MonoBehaviour
         _deathAudio.Play();
         _deathParticles.Play();
 
+        ShipInBase turnOffShip = GetComponent<ShipInBase>();
+
+        if (turnOffShip != null)
+            turnOffShip.InBase(true);
+
         StartCoroutine(Restart());
     }
 
