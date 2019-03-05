@@ -58,7 +58,7 @@ public class ShipSound : MonoBehaviour
 
         if (other.transform.CompareTag(Tags.BASE))
             StartCollisionAudio(_hitMetalAudio, collisionStrength);
-        else if (other.transform.CompareTag(Tags.ENEMY))
+        else if (other.transform.CompareTag(Tags.ENEMY) || other.gameObject.layer == LayerMask.NameToLayer(Layers.FISH_UNDER))
             StartCollisionAudio(_hitFishAudio, collisionStrength);
         else if (other.transform.CompareTag(Tags.ICE))
             StartCollisionAudio(_hitIceAudio, collisionStrength);
