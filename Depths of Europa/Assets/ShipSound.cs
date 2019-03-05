@@ -20,6 +20,7 @@ public class ShipSound : MonoBehaviour
 
     [SerializeField] AudioSource _engineDynamic;
     [SerializeField] AudioSource _engineStressed;
+    [SerializeField] AudioSource _waterDynamic;
 
     [SerializeField] AudioSource _hitMetalAudio;
     [SerializeField] AudioSource _hitIceAudio;
@@ -40,6 +41,7 @@ public class ShipSound : MonoBehaviour
     {
         float newDynamicVolume = _thisRigidBody.velocity.magnitude / _shipMaxSpeed * _dynamicSoundModifier;
         _engineDynamic.volume = newDynamicVolume < _maxEngineDynamicVolume ? newDynamicVolume : _maxEngineDynamicVolume;
+        _waterDynamic.volume = newDynamicVolume < _maxEngineDynamicVolume ? newDynamicVolume : _maxEngineDynamicVolume;
 
         if (_thisRigidBody.velocity.magnitude > _startStressedSpeed)
         {
