@@ -103,6 +103,14 @@ public class GameManager : MonoBehaviour {
         }
     }
 
+    public static void PlayerKilledReaction()
+    {
+        if (_mainMusicParent != null)
+        {
+            _mainMusicParent.StopAllMusic();
+        }
+    }
+
     public static void LevelRestartRequested()
     {
         _fadeHandler.FadeEnded += RestartFadeOutDone;
@@ -112,6 +120,10 @@ public class GameManager : MonoBehaviour {
         if (FadeEvent != null)
         {
             FadeEvent(true);
+        }
+        if (_mainMusicParent != null)
+        {
+            _mainMusicParent.StopAllMusic();
         }
     }
 
