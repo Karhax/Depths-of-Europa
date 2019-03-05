@@ -8,6 +8,10 @@ public class Waypoint : MonoBehaviour
 {
     [Header("Settings")]
 
+    [SerializeField, Range(0, 10)] int _amountOfPulsesPerPulse = 3;
+    [SerializeField, Range(0, 1)] float _pulseStartAlpha = 1;
+    [SerializeField, Range(0, 2)] float _pulseAlphaModifier = 0.5f;
+    [SerializeField, Range(0, 3)] float _waitBetweenEachPulse = 0.1f;
     [SerializeField, Range(0, 15)] float _affectGetPulseSoundStrength;
     [SerializeField, Range(0, 1)] float _rangeAffectTimeBetweenSounds;
     [SerializeField, Range(0, 1)] float _minGetPulseVolume;
@@ -20,6 +24,8 @@ public class Waypoint : MonoBehaviour
 
     [Header("Drop")]
 
+    [SerializeField] Transform _spawnPosition;
+    [SerializeField] GameObject _sonarPulsePrefab;
     [SerializeField] MoveShip _moveShipScript;
     [SerializeField] RectTransform _waypointRectTransform;
     [SerializeField] Transform _waypointTransform;
@@ -105,6 +111,8 @@ public class Waypoint : MonoBehaviour
 
     private void StartPulse()
     {
+        StartCoroutine(SpawnSonarPulse());
+
         _shootSonarAudio.Play();
 
         float distance = Vector2.Distance(_waypointTransform.position, transform.position);
@@ -124,6 +132,19 @@ public class Waypoint : MonoBehaviour
         _waypointRectTransform.gameObject.SetActive(true);
         _wayPointOn = true;
         _moveShipScript.TryMakeSound(_soundStrength, 1, true);
+    }
+
+    IEnumerator SpawnSonarPulse()
+    {
+        float alpha = _pulseStartAlpha;
+
+        for (int i = 0; i < _amountOfPulsesPerPulse; i++)
+        {
+            SonarPulse pulse = (Instantiate(_sonarPulsePrefab, _spawnPosition.position, Quaternion.identity, _spawnPosition) as GameObject).GetComponent<SonarPulse>();
+            pulse.SetAlpha(alpha);
+            alpha *= _pulseAlphaModifier;
+            yield return new WaitForSeconds(_waitBetweenEachPulse);
+        }
     }
 
     private void FadeIn()

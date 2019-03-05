@@ -19,7 +19,7 @@ GameObject:
   serializedVersion: 5
   m_Component:
   - component: {fileID: 4947024850691614}
-  - component: {fileID: 114984921254330510}
+  - component: {fileID: 114859616258290988}
   m_Layer: 0
   m_Name: LineSetup
   m_TagString: Untagged
@@ -40,7 +40,7 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &114984921254330510
+--- !u!114 &114859616258290988
 MonoBehaviour:
   m_ObjectHideFlags: 1
   m_PrefabParentObject: {fileID: 0}
@@ -48,15 +48,9 @@ MonoBehaviour:
   m_GameObject: {fileID: 1367107942340534}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 79fd7846c8e034a4f8a45cc2ab74f2b0, type: 3}
+  m_Script: {fileID: 11500000, guid: 17972db2b6046e7409ee3ed814d3a8f0, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   LineRenderPrefab: {fileID: 1436979893059582, guid: 29fb7cd1715659d47a43538caff124ac,
     type: 2}
-  _lines:
-  - name: 
-    _dataFile: {fileID: 0}
-    _lineColour: {r: 0, g: 0, b: 0, a: 0}
-  - name: 
-    _dataFile: {fileID: 0}
-    _lineColour: {r: 0, g: 0, b: 0, a: 0}
+  _lines: []

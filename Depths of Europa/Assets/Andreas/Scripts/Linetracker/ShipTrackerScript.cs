@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using System;
 using System.IO;
+using UnityEngine.SceneManagement;
 public class ShipTrackerScript : MonoBehaviour
 {
 
@@ -74,12 +75,10 @@ public class ShipTrackerScript : MonoBehaviour
    public void FileCreation()
     {
         string basePath = Environment.GetFolderPath(Environment.SpecialFolder.MyDocuments).ToString();
+        string dirPath = DirectoryPath();
+        _fileName = basePath + dirPath + NameAssembly();
 
-        _fileName = basePath + @"\DOEPositionLogs\Position_log_on " + DateTime.Now.Year + "" 
-            + ((DateTime.Now.Month > 10)?"":"0") + DateTime.Now.Month + "" + DateTime.Now.Day + " at " + DateTime.Now.Hour + "："
-            + DateTime.Now.Minute + "：" + DateTime.Now.Second + ".DOEPLF";
-
-        _path = basePath + @"\DOEPositionLogs\";
+        _path = basePath + dirPath;
         if (!Directory.Exists(_path))
         {
 
@@ -96,5 +95,20 @@ public class ShipTrackerScript : MonoBehaviour
                 ActionWriter.Close();
             }
         }
+    }
+    private string DirectoryPath()
+    {
+        Scene scene = SceneManager.GetActiveScene();
+        return @"\DOEPositionLogs\" + scene.name + "(" + scene.buildIndex + @")\";
+    }
+    private string NameAssembly()
+    {
+        string month = ((DateTime.Now.Month > 10) ? "" : "0") + DateTime.Now.Month;
+        string day = ((DateTime.Now.Day > 10) ? "" : "0") + DateTime.Now.Day;
+        string hour = ((DateTime.Now.Hour > 9) ? "" : "0") + DateTime.Now.Hour;
+        string minute = ((DateTime.Now.Minute > 10) ? "" : "0") + DateTime.Now.Minute;
+        string second = ((DateTime.Now.Second > 10) ? "" : "0") + DateTime.Now.Second;
+
+        return DateTime.Now.Year + "" + month + "" + day + " at " + hour + "：" + minute + "：" + second + ".DOEPLF";
     }
 }

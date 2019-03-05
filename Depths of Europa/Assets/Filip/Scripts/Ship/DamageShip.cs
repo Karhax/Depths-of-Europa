@@ -25,7 +25,7 @@ public class DamageShip : MonoBehaviour
 
     private void OnCollisionEnter2D(Collision2D collision)
     {
-        if (!collision.transform.CompareTag(Tags.ENEMY))
+        if (!collision.transform.CompareTag(Tags.ENEMY) && !(collision.gameObject.layer == LayerMask.NameToLayer(Layers.FISH_UNDER)))
             TakeDamage(collision.relativeVelocity.magnitude);
     }
 

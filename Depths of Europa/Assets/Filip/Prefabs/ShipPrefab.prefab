@@ -1185,7 +1185,7 @@ Transform:
   - {fileID: 224298093682883650}
   m_Father: {fileID: 0}
   m_RootOrder: 0
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 45}
 --- !u!4 &4116428676448348
 Transform:
   m_ObjectHideFlags: 1
@@ -2688,9 +2688,9 @@ AudioSource:
   Priority: 179
   DopplerLevel: 0.6
   MinDistance: 1
-  MaxDistance: 500
+  MaxDistance: 100
   Pan2D: 0
-  rolloffMode: 0
+  rolloffMode: 1
   BypassEffects: 0
   BypassListenerEffects: 0
   BypassReverbZones: 0
@@ -2698,20 +2698,20 @@ AudioSource:
     serializedVersion: 2
     m_Curve:
     - serializedVersion: 2
-      time: 0
+      time: 0.002
       value: 1
       inSlope: 0
       outSlope: 0
       tangentMode: 0
     - serializedVersion: 2
-      time: 1
+      time: 0.6900635
       value: 0
-      inSlope: 0
-      outSlope: 0
+      inSlope: -1.002004
+      outSlope: -1.002004
       tangentMode: 0
     m_PreInfinity: 2
     m_PostInfinity: 2
-    m_RotationOrder: 4
+    m_RotationOrder: 0
   panLevelCustomCurve:
     serializedVersion: 2
     m_Curve:
@@ -3054,7 +3054,7 @@ Light:
   serializedVersion: 8
   m_Type: 0
   m_Color: {r: 1, g: 1, b: 1, a: 1}
-  m_Intensity: 4
+  m_Intensity: 2
   m_Range: 10
   m_SpotAngle: 85
   m_CookieSize: 10
@@ -3090,7 +3090,7 @@ Light:
   serializedVersion: 8
   m_Type: 0
   m_Color: {r: 1, g: 1, b: 1, a: 1}
-  m_Intensity: 4
+  m_Intensity: 2
   m_Range: 10
   m_SpotAngle: 85
   m_CookieSize: 10
@@ -3162,7 +3162,7 @@ Light:
   serializedVersion: 8
   m_Type: 0
   m_Color: {r: 1, g: 1, b: 1, a: 1}
-  m_Intensity: 8
+  m_Intensity: 4
   m_Range: 100
   m_SpotAngle: 80
   m_CookieSize: 10
@@ -3270,7 +3270,7 @@ Light:
   serializedVersion: 8
   m_Type: 2
   m_Color: {r: 1, g: 1, b: 1, a: 1}
-  m_Intensity: 11.8
+  m_Intensity: 4.5
   m_Range: 1.05
   m_SpotAngle: 30
   m_CookieSize: 10
@@ -3306,7 +3306,7 @@ Light:
   serializedVersion: 8
   m_Type: 2
   m_Color: {r: 1, g: 1, b: 1, a: 1}
-  m_Intensity: 2
+  m_Intensity: 1.5
   m_Range: 5
   m_SpotAngle: 30
   m_CookieSize: 10
@@ -3554,6 +3554,8 @@ MonoBehaviour:
   _maxCooldownTime: 7.9
   _minDistance: 3
   _maxDistance: 28.5
+  _minPitch: 0.8
+  _maxPitch: 1.25
   _playing: 1
 --- !u!114 &114334414676791350
 MonoBehaviour:
@@ -3713,6 +3715,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 73518a8122b33754196af41036c9be3f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  _amountOfPulsesPerPulse: 3
+  _pulseStartAlpha: 0.8
+  _pulseAlphaModifier: 0.5
+  _waitBetweenEachPulse: 0.1
   _affectGetPulseSoundStrength: 0.5
   _rangeAffectTimeBetweenSounds: 0.05
   _minGetPulseVolume: 0.01
@@ -3722,6 +3728,9 @@ MonoBehaviour:
   _fadeOutSpeed: 0.25
   _timeActive: 0.5
   _soundStrength: 10
+  _spawnPosition: {fileID: 4500547816314488}
+  _sonarPulsePrefab: {fileID: 1876513566266392, guid: edfe481315aafda4c897e80526ad9fc9,
+    type: 2}
   _moveShipScript: {fileID: 114759706500815724}
   _waypointRectTransform: {fileID: 224855517205630162}
   _waypointTransform: {fileID: 0}

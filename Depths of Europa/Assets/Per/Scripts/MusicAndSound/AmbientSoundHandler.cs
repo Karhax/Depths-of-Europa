@@ -18,6 +18,9 @@ public class AmbientSoundHandler : MonoBehaviour
     [SerializeField] [Range(3f, 99f)] private float _minDistance = 3;
     [SerializeField] [Range(4f, 100f)] private float _maxDistance = 4;
 
+    [SerializeField] [Range(0.5f, 1.9f)] private float _minPitch = 0.8f;
+    [SerializeField] [Range(0.6f, 2f)] private float _maxPitch = 1.5f;
+
     [SerializeField] private bool _playing = true;
     private AudioSource _audioSource;
 
@@ -79,6 +82,7 @@ public class AmbientSoundHandler : MonoBehaviour
                 {
                     RandomiseLocationOffset();
                     RandomiseSound();
+                    RandomisePitch();
                     _audioSource.Play();
                     RandomiseCooldown();
                     _audioCooldownTimer.Reset();
@@ -128,6 +132,11 @@ public class AmbientSoundHandler : MonoBehaviour
         randomValue = Random.Range(0, 360);
 
         transform.parent.localRotation = Quaternion.AngleAxis(randomValue, Vector3.forward);
+    }
+
+    private void RandomisePitch()
+    {
+        _audioSource.pitch = Random.Range(_minPitch, _maxPitch);
     }
 
     public void ToggleAmbientSound()
