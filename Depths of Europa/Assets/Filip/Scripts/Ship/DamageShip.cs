@@ -64,6 +64,7 @@ public class DamageShip : MonoBehaviour
         if (!_isDead)
             _isDead = true;
 
+        GameManager.PlayerKilledReaction();
         _deathAudio.Play();
         _deathParticles.Play();
 

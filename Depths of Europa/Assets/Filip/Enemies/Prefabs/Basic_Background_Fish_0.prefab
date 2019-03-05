@@ -85,7 +85,7 @@ Rigidbody2D:
   m_UseFullKinematicContacts: 0
   m_UseAutoMass: 0
   m_Mass: 0.15
-  m_LinearDrag: 0.3
+  m_LinearDrag: 0.5
   m_AngularDrag: 0.15
   m_GravityScale: 0
   m_Material: {fileID: 0}
@@ -134,12 +134,13 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: eb26277af62e0a54cb30ee3a622452b6, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  _enemyRadius: 0.25
   _noticeByHighSpeed: 0
   _faceTransform: {fileID: 4128076211563036}
   _idleState:
     _stateSpeed: 0.5
     _stateSpeedModifier: 0.35
-    _turnSpeed: 4
+    _turnSpeed: 8
     _turnSmootheness: 0.5
     _idleRadius: 10
     _maxTimeOneDirection: 6

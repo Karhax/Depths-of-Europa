@@ -48,7 +48,7 @@ public class Waypoint : MonoBehaviour
 
         _waypointImage = _waypointRectTransform.GetComponent<Image>();
         _waypointRectTransform.gameObject.SetActive(false);
-        _waypointImage.color = new Color(1, 1, 1, 0);
+        _waypointImage.color = new Color(_waypointImage.color.r, _waypointImage.color.g, _waypointImage.color.b, 0);
 
         if (_waypointTransform == null)
         {
@@ -159,7 +159,7 @@ public class Waypoint : MonoBehaviour
     private float Fade(float speed)
     {
         float newAlphaValue = _waypointImage.color.a + speed * Time.deltaTime;
-        _waypointImage.color = new Color(1, 1, 1, newAlphaValue);
+        _waypointImage.color = new Color(_waypointImage.color.r, _waypointImage.color.g, _waypointImage.color.b, newAlphaValue);
 
         return newAlphaValue;
     }

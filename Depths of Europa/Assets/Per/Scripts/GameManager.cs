@@ -38,12 +38,6 @@ public class GameManager : MonoBehaviour {
         {
             Destroy(this.gameObject);
         }
-
-        _gameOverStinger = _mainMusicParent.gameObject.GetComponentInChildren<GameOverStingerHandler>();
-        if (_gameOverStinger == null)
-        {
-            Debug.LogWarning("The GameManager did not have any GameOverStingerHandler");
-        }
     }
 
 	private void Start ()
@@ -67,6 +61,12 @@ public class GameManager : MonoBehaviour {
         if (_mainMusicParent == null)
         {
             Debug.LogWarning("The GameManager could not find any object that has a MainMusicParent");
+        }
+
+        _gameOverStinger = _mainMusicParent.gameObject.GetComponentInChildren<GameOverStingerHandler>();
+        if (_gameOverStinger == null)
+        {
+            Debug.LogWarning("The GameManager did not have any GameOverStingerHandler");
         }
     }
 

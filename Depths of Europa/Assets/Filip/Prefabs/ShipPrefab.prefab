@@ -566,7 +566,6 @@ GameObject:
   - component: {fileID: 114334414676791350}
   - component: {fileID: 114088520725777722}
   - component: {fileID: 114137206446587488}
-  - component: {fileID: 114093690604268454}
   - component: {fileID: 114185689046097588}
   m_Layer: 10
   m_Name: Ship
@@ -1531,13 +1530,13 @@ Transform:
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1127530673120436}
-  m_LocalRotation: {x: -0.33468756, y: -0.33468756, z: -0.62288386, w: 0.62288386}
-  m_LocalPosition: {x: 0, y: -0.006, z: -0.35}
+  m_LocalRotation: {x: -0.30997524, y: -0.30997524, z: -0.63554335, w: 0.63554335}
+  m_LocalPosition: {x: 0, y: 0.05, z: -0.35}
   m_LocalScale: {x: 1.0000005, y: 1.0000005, z: 1.0000002}
   m_Children: []
   m_Father: {fileID: 4962564630676022}
   m_RootOrder: 0
-  m_LocalEulerAnglesHint: {x: -56.5, y: 0, z: -90}
+  m_LocalEulerAnglesHint: {x: -52, y: 0, z: -90}
 --- !u!4 &4504447661905088
 Transform:
   m_ObjectHideFlags: 1
@@ -3624,22 +3623,6 @@ MonoBehaviour:
   _animator: {fileID: 95234027768424574}
   _hitIceParticleSystem: {fileID: 1043839991977450, guid: 84233af5055daec41a395b6bbc28ddd4,
     type: 2}
---- !u!114 &114093690604268454
-MonoBehaviour:
-  m_ObjectHideFlags: 1
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 1525962020150546}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: ede96e53927609c40bd9e19d5a33ef5d, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  _usePowerUp: 1
-  _rechargeTime: 1
-  _scareFishDuration: 1
-  _scareFishTrigger: {fileID: 1306939106807708}
-  _particleSystem: {fileID: 198935894706768842}
 --- !u!114 &114137206446587488
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -3685,6 +3668,9 @@ MonoBehaviour:
   _maxHp: 100
   _minimumCollisionDamage: 2
   _collisionDamageModifier: 3
+  _waitAfterDeathTilRestart: 2.75
+  _deathAudio: {fileID: 82589871943312026}
+  _deathParticles: {fileID: 198935894706768842}
 --- !u!114 &114166623485405456
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -3697,14 +3683,14 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_Material: {fileID: 0}
-  m_Color: {r: 1, g: 1, b: 1, a: 1}
+  m_Color: {r: 0.83137256, g: 0.96862745, b: 1, a: 1}
   m_RaycastTarget: 1
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
     m_TypeName: UnityEngine.UI.MaskableGraphic+CullStateChangedEvent, UnityEngine.UI,
       Version=1.0.0.0, Culture=neutral, PublicKeyToken=null
-  m_Sprite: {fileID: 21300000, guid: 041c394ff8efe8643a774d37b709e59b, type: 3}
+  m_Sprite: {fileID: 21300000, guid: 3b5a4710f59fdd94bb2ddb3af76d8374, type: 3}
   m_Type: 0
   m_PreserveAspect: 0
   m_FillCenter: 1
@@ -3768,11 +3754,10 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _audioArray:
-  - {fileID: 8300000, guid: 022d7964f1d3e1a4484e3fea4c992137, type: 3}
+  - {fileID: 8300000, guid: 984489cbd630c0245b47097ff99f8891, type: 3}
   - {fileID: 8300000, guid: 59a384287a6c60a4497a77de276c411c, type: 3}
   - {fileID: 8300000, guid: bb7a071e361e29745a6ccebab50d802d, type: 3}
-  - {fileID: 8300000, guid: 984489cbd630c0245b47097ff99f8891, type: 3}
-  _audioRandomWeight: 01000000180000002e00000012000000
+  _audioRandomWeight: 12000000180000002e000000
   _minCooldownTime: 1.6
   _maxCooldownTime: 7.9
   _minDistance: 3
@@ -51309,7 +51294,7 @@ ParticleSystem:
   moveWithTransform: 1
   moveWithCustomTransform: {fileID: 0}
   scalingMode: 1
-  randomSeed: 1593914597
+  randomSeed: -148725290
   InitialModule:
     serializedVersion: 3
     enabled: 1
@@ -51357,8 +51342,8 @@ ParticleSystem:
     startSpeed:
       serializedVersion: 2
       minMaxState: 3
-      scalar: 3
-      minScalar: 2
+      scalar: 0.85
+      minScalar: 0.25
       maxCurve:
         serializedVersion: 2
         m_Curve:
@@ -51869,7 +51854,7 @@ ParticleSystem:
     rateOverTime:
       serializedVersion: 2
       minMaxState: 0
-      scalar: 0
+      scalar: 15
       minScalar: 10
       maxCurve:
         serializedVersion: 2
@@ -51948,53 +51933,8 @@ ParticleSystem:
         m_PreInfinity: 2
         m_PostInfinity: 2
         m_RotationOrder: 4
-    m_BurstCount: 1
-    m_Bursts:
-    - serializedVersion: 2
-      time: 0
-      countCurve:
-        serializedVersion: 2
-        minMaxState: 0
-        scalar: 100
-        minScalar: 0
-        maxCurve:
-          serializedVersion: 2
-          m_Curve:
-          - serializedVersion: 2
-            time: 0
-            value: 1
-            inSlope: 0
-            outSlope: 0
-            tangentMode: 0
-          - serializedVersion: 2
-            time: 1
-            value: 1
-            inSlope: 0
-            outSlope: 0
-            tangentMode: 0
-          m_PreInfinity: 2
-          m_PostInfinity: 2
-          m_RotationOrder: 0
-        minCurve:
-          serializedVersion: 2
-          m_Curve:
-          - serializedVersion: 2
-            time: 0
-            value: 1
-            inSlope: 0
-            outSlope: 0
-            tangentMode: 0
-          - serializedVersion: 2
-            time: 1
-            value: 1
-            inSlope: 0
-            outSlope: 0
-            tangentMode: 0
-          m_PreInfinity: 2
-          m_PostInfinity: 2
-          m_RotationOrder: 0
-      cycleCount: 1
-      repeatInterval: 0.01
+    m_BurstCount: 0
+    m_Bursts: []
   SizeModule:
     enabled: 1
     curve:
@@ -62719,7 +62659,7 @@ RectTransform:
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
   m_AnchoredPosition: {x: 0, y: 0}
-  m_SizeDelta: {x: 21, y: 11}
+  m_SizeDelta: {x: 135, y: 135}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!224 &224918181613277836
 RectTransform:
