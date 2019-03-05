@@ -13,6 +13,7 @@ public class GameManager : MonoBehaviour {
     private static GameObject _shipObject = null;
     private static GameObject _camera = null;
     private static MainMusicParent _mainMusicParent = null;
+    private static GameOverStingerHandler _gameOverStinger = null;
 
     private static string _nextScene = "Main Menu";
 
@@ -36,6 +37,12 @@ public class GameManager : MonoBehaviour {
         else
         {
             Destroy(this.gameObject);
+        }
+
+        _gameOverStinger = _mainMusicParent.gameObject.GetComponentInChildren<GameOverStingerHandler>();
+        if (_gameOverStinger == null)
+        {
+            Debug.LogWarning("The GameManager did not have any GameOverStingerHandler");
         }
     }
 
@@ -108,6 +115,10 @@ public class GameManager : MonoBehaviour {
         if (_mainMusicParent != null)
         {
             _mainMusicParent.StopAllMusic();
+        }
+        if (_gameOverStinger != null)
+        {
+            _gameOverStinger.TriggerGameOverStinger();
         }
     }
 
