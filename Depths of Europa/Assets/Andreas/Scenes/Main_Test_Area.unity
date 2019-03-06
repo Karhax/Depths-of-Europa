@@ -1098,6 +1098,24 @@ Prefab:
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: 205f60a75095c09498ae66f19c0d110c, type: 2}
   m_IsPrefabParent: 0
+--- !u!1 &1086598858 stripped
+GameObject:
+  m_PrefabParentObject: {fileID: 1798089682017952, guid: ba9e0054a37e2ea448671c00b39c453e,
+    type: 2}
+  m_PrefabInternal: {fileID: 1491041952}
+--- !u!114 &1086598862
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 1086598858}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 5ae42c8f78c60684aab6be6c18bd7a9b, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  Type: 0
+  colorblindShader: {fileID: 4800000, guid: b35b8f7ae8cf168488129d5f5f39ebf4, type: 3}
 --- !u!1 &1095143042
 GameObject:
   m_ObjectHideFlags: 0
@@ -1593,6 +1611,21 @@ Prefab:
         type: 2}
       propertyPath: _distanceThreashold
       value: 0.86
+      objectReference: {fileID: 0}
+    - target: {fileID: 114944000509558400, guid: ba9e0054a37e2ea448671c00b39c453e,
+        type: 2}
+      propertyPath: _volumeColourGradient.ctime1
+      value: 13493
+      objectReference: {fileID: 0}
+    - target: {fileID: 114944000509558400, guid: ba9e0054a37e2ea448671c00b39c453e,
+        type: 2}
+      propertyPath: _volumeColourGradient.ctime2
+      value: 36237
+      objectReference: {fileID: 0}
+    - target: {fileID: 114944000509558400, guid: ba9e0054a37e2ea448671c00b39c453e,
+        type: 2}
+      propertyPath: _volumeColourGradient.ctime0
+      value: 4433
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: ba9e0054a37e2ea448671c00b39c453e, type: 2}
