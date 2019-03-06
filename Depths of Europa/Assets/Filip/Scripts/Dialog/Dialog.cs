@@ -295,26 +295,6 @@ public class Dialog : MonoBehaviour
     
     private string SetTags(string text)
     {
-        var inputManager = AssetDatabase.LoadAllAssetsAtPath("ProjectSettings/InputManager.asset")[0];
-        SerializedObject obj = new SerializedObject(inputManager);
-        SerializedProperty axisArray = obj.FindProperty("m_Axes");
-        if (axisArray.arraySize == 0)
-            Debug.Log("No Axes");
-
-        for (int i = 0; i < axisArray.arraySize; ++i)
-        {
-            var axis = axisArray.GetArrayElementAtIndex(i);
-            var name = axis.displayName;      //axis.displayName  "Horizontal"  string
-            axis.Next(true);   //axis.displayName      "Name"  string
-            axis.Next(false);      //axis.displayName  "Descriptive Name"  string
-            axis.Next(false);      //axis.displayName  "Descriptive Negative Name" string
-            axis.Next(false);      //axis.displayName  "Negative Button"   string
-            axis.Next(false);      //axis.displayName  "Positive Button"   string
-            var value = axis.stringValue;  //"right"
-
-            Debug.Log(name + " | " + value);
-        }
-
         StringBuilder stringBuilder = new StringBuilder(text);
         int lastInputIndex = -1;
 
@@ -325,11 +305,11 @@ public class Dialog : MonoBehaviour
 
             if (stringBuilder[i] == '}' && lastInputIndex >= 0)
             {
-                string input = stringBuilder.ToString(lastInputIndex + 1, i - lastInputIndex + 1);
-                string newInput = "S";
+                string input = stringBuilder.ToString(lastInputIndex + 1, i - lastInputIndex - 1);
+                string newInput = InputManager.GetAxis(input).FullButtonName.ToUpper();
 
                 stringBuilder.Replace(stringBuilder.ToString(lastInputIndex, i - lastInputIndex + 1), newInput);
-                i -= newInput.Length - 1;
+                i = i - input.Length + newInput.Length - 1;
                 lastInputIndex = -1;
             }
         }
