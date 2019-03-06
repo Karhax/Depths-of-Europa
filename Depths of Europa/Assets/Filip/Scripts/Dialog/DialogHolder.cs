@@ -16,6 +16,5 @@ public class DialogHolder : MonoBehaviour
             if (dialogScript.StartDialogs(_dialogObject, _isTutorial))
                 Destroy(gameObject);
         }
-            
     }
 }

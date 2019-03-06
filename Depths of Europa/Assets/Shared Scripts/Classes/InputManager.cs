@@ -1,7 +1,9 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+#if UNITY_EDITOR
 using UnityEditor;
+#endif
 using Statics;
 
 public struct Axis
@@ -54,11 +56,13 @@ public class InputManager : MonoBehaviour
 
     private void Awake()
     {
+        bool inEditor = false;
+
         if (_inputManager == null)
             _inputManager = this;
         else
             Destroy(this);
-
+#if UNITY_EDITOR
         Object inputManager = AssetDatabase.LoadAllAssetsAtPath("ProjectSettings/InputManager.asset")[0];
         SerializedObject obj = new SerializedObject(inputManager);
         SerializedProperty axisArray = obj.FindProperty("m_Axes");
@@ -79,14 +83,33 @@ public class InputManager : MonoBehaviour
 
             _allAxis.Add(name, new Axis(name, descriptiveName, descriptiveNegativeName, negativeButton, positiveButton, altNegativeButton, altPositiveButton));
         }
+        inEditor = true;
+#endif
+        if (!inEditor)
+        {
+            _allAxis.Add(GameInput.HORIZONTAL, new Axis(GameInput.HORIZONTAL, string.Empty, string.Empty, "left", "right", "a", "d"));
+            _allAxis.Add(GameInput.VERTICAL, new Axis(GameInput.VERTICAL, string.Empty, string.Empty, "down", "up", "s", "w"));
+            _allAxis.Add(GameInput.ACTION, new Axis(GameInput.ACTION, "Headlights", string.Empty, string.Empty, "mouse 0", string.Empty, string.Empty));
+            _allAxis.Add(GameInput.ACTION2, new Axis(GameInput.ACTION2, "Shoot Flare", string.Empty, string.Empty, "mouse 1", string.Empty, string.Empty));
+            _allAxis.Add(GameInput.ACTION3, new Axis(GameInput.ACTION3, "Turn Lights On/Off", string.Empty, string.Empty, "mouse 2", string.Empty, string.Empty));
+            _allAxis.Add(GameInput.SKIP_DIALOG, new Axis(GameInput.SKIP_DIALOG, "Skip Dialog", string.Empty, string.Empty, "space", string.Empty, string.Empty));
+            _allAxis.Add(GameInput.SUBMIT, new Axis(GameInput.SUBMIT, string.Empty, string.Empty, string.Empty, "enter", string.Empty, string.Empty));
+            _allAxis.Add(GameInput.CANCEL, new Axis(GameInput.CANCEL, string.Empty, string.Empty, string.Empty, "escape", string.Empty, string.Empty));
+            _allAxis.Add(GameInput.ENTER_SUBMARINE, new Axis(GameInput.ENTER_SUBMARINE, string.Empty, string.Empty, string.Empty, "tab", string.Empty, string.Empty));
+            _allAxis.Add(GameInput.SONAR, new Axis(GameInput.SONAR, "Shoot Sonar", string.Empty, string.Empty, "f", string.Empty, string.Empty));
+            _allAxis.Add(GameInput.SIDE_STRAFE_LEFT, new Axis(GameInput.SIDE_STRAFE_LEFT, "Side Strafe Left", string.Empty, string.Empty, "q", string.Empty, string.Empty));
+            _allAxis.Add(GameInput.SIDE_STRAFE_RIGHT, new Axis(GameInput.SIDE_STRAFE_RIGHT, "Side Strafe Right", string.Empty, string.Empty, "e", string.Empty, string.Empty));
+            _allAxis.Add(GameInput.BUBBLE_BLAST, new Axis(GameInput.BUBBLE_BLAST, "BubbleBlast", string.Empty, string.Empty, "left shift", string.Empty, string.Empty));
+        }
     }
 
+#if UNITY_EDITOR
     private string GetNextName(SerializedProperty axis, bool inChildren = false)
     {
         axis.Next(inChildren);
         return axis.stringValue;
     }
-
+#endif
     public static Axis GetAxis(string axisName)
     {
         try
