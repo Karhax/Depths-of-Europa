@@ -6,7 +6,7 @@ public class UIFollowPlayer : MonoBehaviour
 {
     [Header("Settings")]
 
-    [SerializeField] Vector3 _offset;
+    [SerializeField] Vector2 _offset;
 
     [Header("Drop")]
 
@@ -15,6 +15,6 @@ public class UIFollowPlayer : MonoBehaviour
 
 	void Update ()
     {
-        transform.position = _player.position + _offset;
+        transform.position = _player.position + (Vector3)_offset;
 	}
 }

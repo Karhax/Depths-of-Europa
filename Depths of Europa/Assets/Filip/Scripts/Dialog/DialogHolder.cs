@@ -4,7 +4,6 @@ using UnityEngine;
 
 public class DialogHolder : MonoBehaviour
 {
-    [SerializeField] bool _isTutorial = false;
     [SerializeField] DialogBoxScriptableObject _dialogObject;
 
     private void OnTriggerEnter2D(Collider2D other)
@@ -13,8 +12,9 @@ public class DialogHolder : MonoBehaviour
 
         if (dialogScript != null)
         {
-            if (dialogScript.StartDialogs(_dialogObject, _isTutorial))
+            if (dialogScript.StartDialogs(_dialogObject))
                 Destroy(gameObject);
         }
+            
     }
 }

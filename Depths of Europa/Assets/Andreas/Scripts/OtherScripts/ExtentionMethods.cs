@@ -19,4 +19,15 @@ public static class ExtentionMethods {
         adder += ammount;
         return adder = Mathf.Repeat(adder, roof);
     }
+    public static int FindResolutionInArray(this Resolution[] resolutions, Resolution resolution)
+    {
+        for(int i = 0; i < resolutions.Length; i++)
+        {
+            if(resolutions[i].width == resolution.width && resolutions[i].height == resolution.height)
+            {
+                return i;
+            }
+        }
+        return -1;
+    }
 }
