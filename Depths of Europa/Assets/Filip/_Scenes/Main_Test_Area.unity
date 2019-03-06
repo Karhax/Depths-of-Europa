@@ -1770,6 +1770,63 @@ Prefab:
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: 049d3cc33eb62064eb89fa524050b3e3, type: 2}
   m_IsPrefabParent: 0
+--- !u!1001 &348791833
+Prefab:
+  m_ObjectHideFlags: 0
+  serializedVersion: 2
+  m_Modification:
+    m_TransformParent: {fileID: 0}
+    m_Modifications:
+    - target: {fileID: 4603885921506248, guid: f243a4143e8378a44bfa03fa304c08b1, type: 2}
+      propertyPath: m_LocalPosition.x
+      value: -15
+      objectReference: {fileID: 0}
+    - target: {fileID: 4603885921506248, guid: f243a4143e8378a44bfa03fa304c08b1, type: 2}
+      propertyPath: m_LocalPosition.y
+      value: -17.13
+      objectReference: {fileID: 0}
+    - target: {fileID: 4603885921506248, guid: f243a4143e8378a44bfa03fa304c08b1, type: 2}
+      propertyPath: m_LocalPosition.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4603885921506248, guid: f243a4143e8378a44bfa03fa304c08b1, type: 2}
+      propertyPath: m_LocalRotation.x
+      value: -0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4603885921506248, guid: f243a4143e8378a44bfa03fa304c08b1, type: 2}
+      propertyPath: m_LocalRotation.y
+      value: -0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4603885921506248, guid: f243a4143e8378a44bfa03fa304c08b1, type: 2}
+      propertyPath: m_LocalRotation.z
+      value: -0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4603885921506248, guid: f243a4143e8378a44bfa03fa304c08b1, type: 2}
+      propertyPath: m_LocalRotation.w
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 4603885921506248, guid: f243a4143e8378a44bfa03fa304c08b1, type: 2}
+      propertyPath: m_RootOrder
+      value: 10
+      objectReference: {fileID: 0}
+    - target: {fileID: 114119590294936648, guid: f243a4143e8378a44bfa03fa304c08b1,
+        type: 2}
+      propertyPath: _isTutorial
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 114119590294936648, guid: f243a4143e8378a44bfa03fa304c08b1,
+        type: 2}
+      propertyPath: _dialogObject
+      value: 
+      objectReference: {fileID: 11400000, guid: dcc93630e9729174c97c16cf45258b86,
+        type: 2}
+    - target: {fileID: 1717882326673924, guid: f243a4143e8378a44bfa03fa304c08b1, type: 2}
+      propertyPath: m_Name
+      value: DialogTrigger (1)
+      objectReference: {fileID: 0}
+    m_RemovedComponents: []
+  m_ParentPrefab: {fileID: 100100000, guid: f243a4143e8378a44bfa03fa304c08b1, type: 2}
+  m_IsPrefabParent: 0
 --- !u!1001 &350407220
 Prefab:
   m_ObjectHideFlags: 0
@@ -6393,6 +6450,17 @@ Prefab:
       propertyPath: m_RootOrder
       value: 6
       objectReference: {fileID: 0}
+    - target: {fileID: 114119590294936648, guid: f243a4143e8378a44bfa03fa304c08b1,
+        type: 2}
+      propertyPath: _isTutorial
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 114119590294936648, guid: f243a4143e8378a44bfa03fa304c08b1,
+        type: 2}
+      propertyPath: _dialogObject
+      value: 
+      objectReference: {fileID: 11400000, guid: cab3e3ec91ec1b44992d1fa236998a19,
+        type: 2}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: f243a4143e8378a44bfa03fa304c08b1, type: 2}
   m_IsPrefabParent: 0
