@@ -13,6 +13,12 @@ public class DamageShip : MonoBehaviour
     [SerializeField, Range(0, 250)] int _maxHp;
     [SerializeField, Range(0, 25)] int _minimumCollisionDamage;
     [SerializeField, Range(0, 100)] float _collisionDamageModifier;
+    [SerializeField, Range(0, 10)] float _waitAfterDeathTilRestart = 2f;
+
+    [Header("Drop")]
+
+    [SerializeField] AudioSource _deathAudio;
+    [SerializeField] ParticleSystem _deathParticles;
 
     int _currentHp;
 
@@ -58,6 +64,21 @@ public class DamageShip : MonoBehaviour
         if (!_isDead)
             _isDead = true;
 
+        GameManager.PlayerKilledReaction();
+        _deathAudio.Play();
+        _deathParticles.Play();
+
+        ShipInBase turnOffShip = GetComponent<ShipInBase>();
+
+        if (turnOffShip != null)
+            turnOffShip.InBase(true);
+
+        StartCoroutine(Restart());
+    }
+
+    IEnumerator Restart()
+    {
+        yield return new WaitForSeconds(_waitAfterDeathTilRestart);
         GameManager.LevelRestartRequested();
     }
 }

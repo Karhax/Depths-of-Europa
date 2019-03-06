@@ -11,8 +11,10 @@ public class StartDialog : MonoBehaviour
 
     [SerializeField] protected DialogBoxScriptableObject _thisDialogBoxScriptableObject;
     [SerializeField] GameObject _dialog;
+    [SerializeField] GameObject _tutorialDialog;
 
     Dialog _dialogScript;
+    Dialog _tutorialDialogScript;
 
     protected bool _dialogPlaying = false;
 
@@ -20,19 +22,31 @@ public class StartDialog : MonoBehaviour
     {
         _dialogScript = _dialog.GetComponent<Dialog>();
         _dialog.SetActive(false);
+
+        if (_tutorialDialog != null)
+        {
+            _tutorialDialogScript = _tutorialDialog.GetComponent<Dialog>();
+            _tutorialDialog.SetActive(false);
+        }
     }
 
     private void OnDisable()
     {
         _dialogScript.DialogOverEvent -= DialogOver;
+
+        if (_tutorialDialogScript != null)
+            _tutorialDialogScript.DialogOverEvent -= DialogOver;
     }
 
     private void OnEnable()
     {
         _dialogScript.DialogOverEvent += DialogOver;
+
+        if (_tutorialDialogScript != null)
+            _tutorialDialogScript.DialogOverEvent += DialogOver;
     }
 
-    public bool StartDialogs(DialogBoxScriptableObject dialog = null)
+    public bool StartDialogs(DialogBoxScriptableObject dialog = null, bool isTutorial = false)
     {
         if (dialog != null)
             _thisDialogBoxScriptableObject = dialog;
@@ -40,8 +54,17 @@ public class StartDialog : MonoBehaviour
         if (!_dialogPlaying)
         {
             _dialogPlaying = true;
-            _dialog.SetActive(true);
-            _dialogScript.StartAllDialogs(_thisDialogBoxScriptableObject);
+
+            if (isTutorial)
+            {
+                _tutorialDialog.SetActive(true);
+                _tutorialDialogScript.StartAllDialogs(_thisDialogBoxScriptableObject);
+            }
+            else
+            {
+                _dialog.SetActive(true);
+                _dialogScript.StartAllDialogs(_thisDialogBoxScriptableObject);
+            }
 
             return true;
         }
@@ -51,6 +74,11 @@ public class StartDialog : MonoBehaviour
 
     private void DialogOver()
     {
+        if (_tutorialDialog != null)
+        {
+            _tutorialDialog.SetActive(false);
+        }
+
         _dialog.SetActive(false);
         _dialogPlaying = false;
 

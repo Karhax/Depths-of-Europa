@@ -12,6 +12,10 @@ public class ShipInBase : MonoBehaviour
     {
         _moveShipScript.enabled = !state;
         _waypointScript.enabled = !state;
+
+        if (_lightShipScript.enabled)
+            _lightShipScript.TurnHeadLightsOff();
+
         _lightShipScript.enabled = !state;
 
         Dialog dialog = GetComponentInChildren<Dialog>();

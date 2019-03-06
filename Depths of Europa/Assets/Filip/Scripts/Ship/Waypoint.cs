@@ -13,7 +13,7 @@ public class Waypoint : MonoBehaviour
     [SerializeField, Range(0, 2)] float _pulseAlphaModifier = 0.5f;
     [SerializeField, Range(0, 3)] float _waitBetweenEachPulse = 0.1f;
     [SerializeField, Range(0, 15)] float _affectGetPulseSoundStrength;
-    [SerializeField, Range(0, 1)] float _rangeAffectTimeBetweenSounds;
+    [SerializeField, Range(0, 5)] float _waitForPulseTime = 1.5f;
     [SerializeField, Range(0, 1)] float _minGetPulseVolume;
     [SerializeField, Range(0, 1)] float _maxGetPulseVolume;
     [SerializeField, Range(0, 500)] float _radius;
@@ -44,11 +44,12 @@ public class Waypoint : MonoBehaviour
 
     private void Awake()
     {
+        _waitToStartTimer = new Timer(_waitForPulseTime);
         _timerActive = new Timer(_timeActive);
 
         _waypointImage = _waypointRectTransform.GetComponent<Image>();
         _waypointRectTransform.gameObject.SetActive(false);
-        _waypointImage.color = new Color(1, 1, 1, 0);
+        _waypointImage.color = new Color(_waypointImage.color.r, _waypointImage.color.g, _waypointImage.color.b, 0);
 
         if (_waypointTransform == null)
         {
@@ -123,11 +124,8 @@ public class Waypoint : MonoBehaviour
         else if (newSound > _maxGetPulseVolume)
             newSound = _maxGetPulseVolume;
 
-        float newDuration = distance * _rangeAffectTimeBetweenSounds;
-
         _getSonarAudio.volume = newSound;
 
-        _waitToStartTimer.Duration = newDuration;
         _waitToStartTimer.Reset();
         _waypointRectTransform.gameObject.SetActive(true);
         _wayPointOn = true;
@@ -159,7 +157,7 @@ public class Waypoint : MonoBehaviour
     private float Fade(float speed)
     {
         float newAlphaValue = _waypointImage.color.a + speed * Time.deltaTime;
-        _waypointImage.color = new Color(1, 1, 1, newAlphaValue);
+        _waypointImage.color = new Color(_waypointImage.color.r, _waypointImage.color.g, _waypointImage.color.b, newAlphaValue);
 
         return newAlphaValue;
     }

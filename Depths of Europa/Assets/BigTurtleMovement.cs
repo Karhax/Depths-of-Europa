@@ -37,9 +37,9 @@ public class BigTurtleMovement : MonoBehaviour
         Rotate();
     }
 
-    private void OnTriggerEnter2D(Collider2D other)
+    private void OnCollisionEnter2D(Collision2D collision)
     {
-        DamageShip shipScript = other.GetComponent<DamageShip>();
+        DamageShip shipScript = collision.transform.GetComponent<DamageShip>();
 
         if (shipScript != null && _waitTimer.Expired())
         {

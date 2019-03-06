@@ -100,6 +100,12 @@ public class LightShip : MonoBehaviour
             _trigger.SetActive(false);
     }
 
+    public void TurnHeadLightsOff()
+    {
+        _headlight.SetActive(false);
+        _trigger.SetActive(false);
+    }
+
     private void TurnHeadLightsOnOff()
     {
         _trigger.SetActive(!_trigger.activeSelf);
