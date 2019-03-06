@@ -862,7 +862,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 8ac8d557a715532428c812c050a9fb78, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _thisDialogBoxScriptableObject: {fileID: 11400000, guid: c9fdaf95ec8c73e4cbb84281df36da95,
+  _thisDialogBoxScriptableObject: {fileID: 11400000, guid: 7366050e555023943903676e4b7e95fb,
     type: 2}
   _dialog: {fileID: 744215450}
 --- !u!114 &1206062735
@@ -1899,7 +1899,7 @@ Prefab:
     m_Modifications:
     - target: {fileID: 4603885921506248, guid: f243a4143e8378a44bfa03fa304c08b1, type: 2}
       propertyPath: m_LocalPosition.x
-      value: -2.73
+      value: 4.11
       objectReference: {fileID: 0}
     - target: {fileID: 4603885921506248, guid: f243a4143e8378a44bfa03fa304c08b1, type: 2}
       propertyPath: m_LocalPosition.y
@@ -1929,6 +1929,12 @@ Prefab:
       propertyPath: m_RootOrder
       value: 6
       objectReference: {fileID: 0}
+    - target: {fileID: 114119590294936648, guid: f243a4143e8378a44bfa03fa304c08b1,
+        type: 2}
+      propertyPath: _dialogObject
+      value: 
+      objectReference: {fileID: 11400000, guid: 7366050e555023943903676e4b7e95fb,
+        type: 2}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: f243a4143e8378a44bfa03fa304c08b1, type: 2}
   m_IsPrefabParent: 0

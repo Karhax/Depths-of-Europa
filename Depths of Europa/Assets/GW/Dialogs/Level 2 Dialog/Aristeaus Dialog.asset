@@ -1,0 +1,80 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 2bb4ce3b2ac54964d965eb195c679405, type: 3}
+  m_Name: Aristeaus Dialog
+  m_EditorClassIdentifier: 
+  _dialogBoxes:
+  - _rightTalking: 1
+    _rightCharacter: {fileID: 11400000, guid: 4672a090189a03f4b939a2779ae35bbc, type: 2}
+    _leftCharacter: {fileID: 11400000, guid: aaad767b8b144f74b8c00af973d781de, type: 2}
+    _dialogText: "Ah! Hello there, odd to see you here though Ulf, and\u2026?"
+    _textAudio: {fileID: 8300000, guid: 7cae70c2ca7df6145a4354e0a78da54e, type: 3}
+  - _rightTalking: 0
+    _rightCharacter: {fileID: 11400000, guid: 4672a090189a03f4b939a2779ae35bbc, type: 2}
+    _leftCharacter: {fileID: 11400000, guid: aaad767b8b144f74b8c00af973d781de, type: 2}
+    _dialogText: Lykke. Listen, we do not have time for introductions.
+    _textAudio: {fileID: 8300000, guid: 7cae70c2ca7df6145a4354e0a78da54e, type: 3}
+  - _rightTalking: 0
+    _rightCharacter: {fileID: 11400000, guid: 4672a090189a03f4b939a2779ae35bbc, type: 2}
+    _leftCharacter: {fileID: 11400000, guid: aaad767b8b144f74b8c00af973d781de, type: 2}
+    _dialogText: Something big, dangerous and terrible is loose in the sea and everyone
+      out here is in danger. It sent all of the creatures into a panic.
+    _textAudio: {fileID: 8300000, guid: 7cae70c2ca7df6145a4354e0a78da54e, type: 3}
+  - _rightTalking: 1
+    _rightCharacter: {fileID: 11400000, guid: 4672a090189a03f4b939a2779ae35bbc, type: 2}
+    _leftCharacter: {fileID: 11400000, guid: aaad767b8b144f74b8c00af973d781de, type: 2}
+    _dialogText: "Ah\u2026 yes, a big school of\u2026 well, everything really passed
+      by. And some of them\u2026 some of them were predators."
+    _textAudio: {fileID: 8300000, guid: 7cae70c2ca7df6145a4354e0a78da54e, type: 3}
+  - _rightTalking: 1
+    _rightCharacter: {fileID: 11400000, guid: 4672a090189a03f4b939a2779ae35bbc, type: 2}
+    _leftCharacter: {fileID: 11400000, guid: aaad767b8b144f74b8c00af973d781de, type: 2}
+    _dialogText: Predators rarely flee from anything, lesser so their feeding ground
+      unless something more dominant takes their place...
+    _textAudio: {fileID: 8300000, guid: 7cae70c2ca7df6145a4354e0a78da54e, type: 3}
+  - _rightTalking: 0
+    _rightCharacter: {fileID: 11400000, guid: 4672a090189a03f4b939a2779ae35bbc, type: 2}
+    _leftCharacter: {fileID: 11400000, guid: 1af9490199afdaa45bf6027ca3467910, type: 2}
+    _dialogText: "Steve, we need to leave and you must come with us. That\u2026 thing,
+      destroyed Tartarus when it emerged from the depths."
+    _textAudio: {fileID: 8300000, guid: 7cae70c2ca7df6145a4354e0a78da54e, type: 3}
+  - _rightTalking: 1
+    _rightCharacter: {fileID: 11400000, guid: 449a3e9fcc08e854993a19997316efc0, type: 2}
+    _leftCharacter: {fileID: 11400000, guid: 1af9490199afdaa45bf6027ca3467910, type: 2}
+    _dialogText: "Ulf, the animals and plants\u2026 I can\u2019t just leave them.
+      This\u2026 this is my life\u2019s work."
+    _textAudio: {fileID: 8300000, guid: 7cae70c2ca7df6145a4354e0a78da54e, type: 3}
+  - _rightTalking: 0
+    _rightCharacter: {fileID: 11400000, guid: 449a3e9fcc08e854993a19997316efc0, type: 2}
+    _leftCharacter: {fileID: 11400000, guid: aaad767b8b144f74b8c00af973d781de, type: 2}
+    _dialogText: And your life bears more importance. Grab what you need, because
+      we are leaving. And I take no argument for you staying.
+    _textAudio: {fileID: 8300000, guid: 7cae70c2ca7df6145a4354e0a78da54e, type: 3}
+  - _rightTalking: 1
+    _rightCharacter: {fileID: 11400000, guid: 449a3e9fcc08e854993a19997316efc0, type: 2}
+    _leftCharacter: {fileID: 11400000, guid: aaad767b8b144f74b8c00af973d781de, type: 2}
+    _dialogText: '...'
+    _textAudio: {fileID: 8300000, guid: 7cae70c2ca7df6145a4354e0a78da54e, type: 3}
+  - _rightTalking: 1
+    _rightCharacter: {fileID: 11400000, guid: 449a3e9fcc08e854993a19997316efc0, type: 2}
+    _leftCharacter: {fileID: 11400000, guid: aaad767b8b144f74b8c00af973d781de, type: 2}
+    _dialogText: Alright, hold on a moment.
+    _textAudio: {fileID: 8300000, guid: 7cae70c2ca7df6145a4354e0a78da54e, type: 3}
+  - _rightTalking: 1
+    _rightCharacter: {fileID: 11400000, guid: 449a3e9fcc08e854993a19997316efc0, type: 2}
+    _leftCharacter: {fileID: 11400000, guid: aaad767b8b144f74b8c00af973d781de, type: 2}
+    _dialogText: '*A moment passes*'
+    _textAudio: {fileID: 8300000, guid: 7cae70c2ca7df6145a4354e0a78da54e, type: 3}
+  - _rightTalking: 1
+    _rightCharacter: {fileID: 11400000, guid: 449a3e9fcc08e854993a19997316efc0, type: 2}
+    _leftCharacter: {fileID: 11400000, guid: aaad767b8b144f74b8c00af973d781de, type: 2}
+    _dialogText: "I\u2019m ready. Let\u2019s go then."
+    _textAudio: {fileID: 8300000, guid: 7cae70c2ca7df6145a4354e0a78da54e, type: 3}
