@@ -4,6 +4,7 @@ using UnityEngine;
 using UnityEngine.UI;
 using Statics;
 using System.Text;
+using UnityEditor;
 
 public class Dialog : MonoBehaviour
 {
@@ -121,6 +122,7 @@ public class Dialog : MonoBehaviour
         int placeInText = 0;
 
         SetBoxSettings(boxObject);
+        text = SetTags(text);
         text = FixTextLineBreaks(text);
         StringBuilder stringBuilder = new StringBuilder();
 
@@ -200,15 +202,23 @@ public class Dialog : MonoBehaviour
 
     private void SetCharacterSettings(CharacterScriptableObject characterObject, Image characterImage, bool talking, Image nameBoxImage, Text nameText)
     {
-        SetSprite(characterObject.Sprite, characterImage);
+        if (characterImage != null)
+            SetSprite(characterObject.Sprite, characterImage);
 
         if (talking)
         {
-            nameBoxImage.gameObject.SetActive(true);
-            nameText.font = characterObject.Font;
-            nameText.text = characterObject.Name;
+            if (nameBoxImage != null)
+                nameBoxImage.gameObject.SetActive(true);
 
-            TintSprite(characterImage, _tintColorWhenTalking);
+            if (nameBoxImage != null)
+            {
+                nameText.font = characterObject.Font;
+                nameText.text = characterObject.Name;
+            }
+                
+            if (characterImage != null)
+                TintSprite(characterImage, _tintColorWhenTalking);
+
             _dialogText.font = characterObject.Font;
 
             if (characterObject.VoiceAudio != null)
@@ -221,10 +231,13 @@ public class Dialog : MonoBehaviour
 
             _minPlayTimer.Reset();
         }
-        else
+        else 
         {
-            nameBoxImage.gameObject.SetActive(false);
-            TintSprite(characterImage, _tintColorWhenNotTalking);
+            if (nameBoxImage != null)
+                nameBoxImage.gameObject.SetActive(false);
+
+            if (characterImage != null)
+                TintSprite(characterImage, _tintColorWhenNotTalking);
         }
             
     }
@@ -276,6 +289,50 @@ public class Dialog : MonoBehaviour
         }
 
         _dialogText.text = string.Empty;
+
+        return stringBuilder.ToString();
+    }
+    
+    private string SetTags(string text)
+    {
+        var inputManager = AssetDatabase.LoadAllAssetsAtPath("ProjectSettings/InputManager.asset")[0];
+        SerializedObject obj = new SerializedObject(inputManager);
+        SerializedProperty axisArray = obj.FindProperty("m_Axes");
+        if (axisArray.arraySize == 0)
+            Debug.Log("No Axes");
+
+        for (int i = 0; i < axisArray.arraySize; ++i)
+        {
+            var axis = axisArray.GetArrayElementAtIndex(i);
+            var name = axis.displayName;      //axis.displayName  "Horizontal"  string
+            axis.Next(true);   //axis.displayName      "Name"  string
+            axis.Next(false);      //axis.displayName  "Descriptive Name"  string
+            axis.Next(false);      //axis.displayName  "Descriptive Negative Name" string
+            axis.Next(false);      //axis.displayName  "Negative Button"   string
+            axis.Next(false);      //axis.displayName  "Positive Button"   string
+            var value = axis.stringValue;  //"right"
+
+            Debug.Log(name + " | " + value);
+        }
+
+        StringBuilder stringBuilder = new StringBuilder(text);
+        int lastInputIndex = -1;
+
+        for (int i = 0; i < stringBuilder.Length; i++)
+        {
+            if (stringBuilder[i] == '{')
+                lastInputIndex = i;
+
+            if (stringBuilder[i] == '}' && lastInputIndex >= 0)
+            {
+                string input = stringBuilder.ToString(lastInputIndex + 1, i - lastInputIndex + 1);
+                string newInput = "S";
+
+                stringBuilder.Replace(stringBuilder.ToString(lastInputIndex, i - lastInputIndex + 1), newInput);
+                i -= newInput.Length - 1;
+                lastInputIndex = -1;
+            }
+        }
 
         return stringBuilder.ToString();
     }
