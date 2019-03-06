@@ -13,6 +13,7 @@ public class GameManager : MonoBehaviour {
     private static GameObject _shipObject = null;
     private static GameObject _camera = null;
     private static MainMusicParent _mainMusicParent = null;
+    private static GameOverStingerHandler _gameOverStinger = null;
 
     private static string _nextScene = "Main Menu";
 
@@ -61,6 +62,12 @@ public class GameManager : MonoBehaviour {
         {
             Debug.LogWarning("The GameManager could not find any object that has a MainMusicParent");
         }
+
+        _gameOverStinger = _mainMusicParent.gameObject.GetComponentInChildren<GameOverStingerHandler>();
+        if (_gameOverStinger == null)
+        {
+            Debug.LogWarning("The GameManager did not have any GameOverStingerHandler");
+        }
     }
 
     public static void DialogStartedReaction()
@@ -103,6 +110,18 @@ public class GameManager : MonoBehaviour {
         }
     }
 
+    public static void PlayerKilledReaction()
+    {
+        if (_mainMusicParent != null)
+        {
+            _mainMusicParent.StopAllMusic();
+        }
+        if (_gameOverStinger != null)
+        {
+            _gameOverStinger.TriggerGameOverStinger();
+        }
+    }
+
     public static void LevelRestartRequested()
     {
         _fadeHandler.FadeEnded += RestartFadeOutDone;
@@ -112,6 +131,10 @@ public class GameManager : MonoBehaviour {
         if (FadeEvent != null)
         {
             FadeEvent(true);
+        }
+        if (_mainMusicParent != null)
+        {
+            _mainMusicParent.StopAllMusic();
         }
     }
 

@@ -187,7 +187,7 @@ Rigidbody2D:
   m_UseFullKinematicContacts: 0
   m_UseAutoMass: 0
   m_Mass: 0.15
-  m_LinearDrag: 0.3
+  m_LinearDrag: 0.5
   m_AngularDrag: 0.15
   m_GravityScale: 0
   m_Material: {fileID: 0}
@@ -272,12 +272,13 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 50443af62e4fc7e48a4aa30c8cd3a75c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  _enemyRadius: 0.25
   _noticeByHighSpeed: 0
   _faceTransform: {fileID: 4249780380072976}
   _idleState:
     _stateSpeed: 1
     _stateSpeedModifier: 0.2
-    _turnSpeed: 4
+    _turnSpeed: 8
     _turnSmootheness: 0.5
     _idleRadius: 6
     _maxTimeOneDirection: 3
@@ -286,7 +287,7 @@ MonoBehaviour:
   _attackState:
     _stateSpeed: 2.5
     _stateSpeedModifier: 0
-    _turnSpeed: 4
+    _turnSpeed: 8
     _turnSmootheness: 0.5
     _framesBetweenSideRayShoot: 7
     _sideViewRayLength: 10
@@ -301,7 +302,7 @@ MonoBehaviour:
   _escapeState:
     _stateSpeed: 3
     _stateSpeedModifier: 0
-    _turnSpeed: 4
+    _turnSpeed: 8
     _turnSmootheness: 0.5
     _framesBetweenSideRayShoot: 7
     _sideViewRayLength: 10

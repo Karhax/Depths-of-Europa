@@ -20,6 +20,7 @@ public class ShipSound : MonoBehaviour
 
     [SerializeField] AudioSource _engineDynamic;
     [SerializeField] AudioSource _engineStressed;
+    [SerializeField] AudioSource _waterDynamic;
 
     [SerializeField] AudioSource _hitMetalAudio;
     [SerializeField] AudioSource _hitIceAudio;
@@ -40,6 +41,7 @@ public class ShipSound : MonoBehaviour
     {
         float newDynamicVolume = _thisRigidBody.velocity.magnitude / _shipMaxSpeed * _dynamicSoundModifier;
         _engineDynamic.volume = newDynamicVolume < _maxEngineDynamicVolume ? newDynamicVolume : _maxEngineDynamicVolume;
+        _waterDynamic.volume = newDynamicVolume < _maxEngineDynamicVolume ? newDynamicVolume : _maxEngineDynamicVolume;
 
         if (_thisRigidBody.velocity.magnitude > _startStressedSpeed)
         {
@@ -56,7 +58,7 @@ public class ShipSound : MonoBehaviour
 
         if (other.transform.CompareTag(Tags.BASE))
             StartCollisionAudio(_hitMetalAudio, collisionStrength);
-        else if (other.transform.CompareTag(Tags.ENEMY))
+        else if (other.transform.CompareTag(Tags.ENEMY) || other.gameObject.layer == LayerMask.NameToLayer(Layers.FISH_UNDER))
             StartCollisionAudio(_hitFishAudio, collisionStrength);
         else if (other.transform.CompareTag(Tags.ICE))
             StartCollisionAudio(_hitIceAudio, collisionStrength);

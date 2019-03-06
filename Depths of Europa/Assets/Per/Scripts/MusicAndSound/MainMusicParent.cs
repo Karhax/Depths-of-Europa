@@ -60,4 +60,19 @@ public class MainMusicParent : MonoBehaviour {
             _baseMusicManager.EndMusic();
         }
     }
+
+    public void StopAllMusic()
+    {
+        if (_baseMusicManager != null)
+        {
+            if (_baseMusicManager.gameObject.activeSelf)
+            {
+                _baseMusicManager.EndMusic();
+            }
+        }
+        if (_levelMusicManager != null)
+        {
+            _levelMusicManager.EndMusic();
+        }
+    }
 }
