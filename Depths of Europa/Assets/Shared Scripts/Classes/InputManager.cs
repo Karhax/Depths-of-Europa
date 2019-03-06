@@ -31,19 +31,19 @@ public struct Axis
         if (NegativeButton == string.Empty)
             FullOrdinaryButtonName = "(" + PositiveButton + ")";
         else
-            FullOrdinaryButtonName = "(" + NegativeButton + ") (" + PositiveButton + ")";
+            FullOrdinaryButtonName = "(" + NegativeButton + ") & (" + PositiveButton + ")";
 
         if (altPositiveButton == string.Empty)
             FullNegativeButtonName = "";
         else if (altNegativeButton == string.Empty)
             FullNegativeButtonName = "(" + altPositiveButton + ")";
         else
-            FullNegativeButtonName = "(" + AltNegativeButton + ") (" + AltPositiveButton + ")";
+            FullNegativeButtonName = "(" + AltNegativeButton + ") & (" + AltPositiveButton + ")";
 
         if (FullNegativeButtonName == string.Empty)
             FullButtonName = FullOrdinaryButtonName;
         else
-            FullButtonName = FullOrdinaryButtonName + " " + FullNegativeButtonName;
+            FullButtonName = FullOrdinaryButtonName + " / " + FullNegativeButtonName;
     }
 }
 
