@@ -1,6 +1,8 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
+using UnityEngine.Audio;
 
 public static class ExtentionMethods {
 
@@ -29,5 +31,28 @@ public static class ExtentionMethods {
             }
         }
         return -1;
+    }
+    public static string SliderValueToPercentString(this Slider slider)
+    {
+        int percentage = Mathf.FloorToInt(slider.value != 0 ? slider.value * (100 / slider.maxValue):0);
+        return percentage + "%";
+    }
+    public static string ValueToPercentString(this float value, float maxValue)
+    {
+        int percentage = Mathf.FloorToInt(value!=0?value * (100 / maxValue):0);
+        return percentage + "%";
+    }
+    public static float GetVolumeValue(this AudioMixer audioMixer,string name)
+    {
+        float value;
+        bool result = audioMixer.GetFloat(name, out value);
+        return result ? value : -1;
+    }
+    public static float GetVolumeValue(this AudioMixer audioMixer, string name, float min, float max)
+    {
+        float value;
+        bool result = audioMixer.GetFloat(name, out value);
+        value = Mathf.InverseLerp(min, max, value);
+        return result ? value : -1;
     }
 }
