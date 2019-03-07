@@ -16,7 +16,8 @@ public class Dialog : MonoBehaviour
     [SerializeField, Range(1, 300)] float _fastTextSpeed;
     [SerializeField] Color _tintColorWhenNotTalking;
     [SerializeField] Color _tintColorWhenTalking;
-    [SerializeField, Range(0.1f, 10f)] float _timeToForceSkip;
+    [SerializeField, Range(0.1f, 50f)] float _timeToForceSkip;
+    [SerializeField] bool _willForceSkip = true;
 
     [Header("Drop")]
 
@@ -32,9 +33,19 @@ public class Dialog : MonoBehaviour
     [SerializeField] Text _rigthNameText;
     [SerializeField] Text _leftNameText;
 
+    public Text DialogText { get { return _dialogText; } }
+    public Image BackgroundImage { get { return _backgroundImage; } }
+    public Image LeftImage { get { return _leftImage; } }
+    public Image RightImage { get { return _rightImage; } }
+    public Image RightNameBox { get { return _rightNameBox; } }
+    public Image LeftNameBox { get { return _leftNameBox; } }
+    public Text RightNameText { get { return _rigthNameText; } }
+    public Text LeftNameText { get { return _leftNameText; } }
+
     bool _dialogPlaying = false;
 
     DialogBoxScriptableObject _currentScriptableObject;
+    List<DialogEffectBase> _currentEffects = new List<DialogEffectBase>();
     int _currentDialogBox = 0;
 
     Timer _forceSkipTimer;
@@ -87,6 +98,14 @@ public class Dialog : MonoBehaviour
     {
         if (_dialogPlaying && !_isPaused)
         {
+            if (_currentEffects.Count > 0)
+            {
+                foreach ( DialogEffectBase effect in _currentEffects)
+                {
+                    effect.UpdateEffect();
+                }
+            }
+
             _pressedDown = Input.GetButtonDown(GameInput.SKIP_DIALOG);
 
             if (_pressedDown)
@@ -122,6 +141,7 @@ public class Dialog : MonoBehaviour
         int placeInText = 0;
 
         SetBoxSettings(boxObject);
+
         text = FixTextLineBreaks(text);
         StringBuilder stringBuilder = new StringBuilder();
 
@@ -133,7 +153,7 @@ public class Dialog : MonoBehaviour
             if (placeInText >= text.Length)
                 _forceSkipTimer.Time += Time.deltaTime;
 
-            if (_pressedDown || _forceSkipTimer.Expired())
+            if (_pressedDown || (_forceSkipTimer.Expired() && _willForceSkip))
             {
                 if (placeInText < text.Length)
                     SetSpeed(_fastTextSpeed);
@@ -193,6 +213,55 @@ public class Dialog : MonoBehaviour
 
     private void SetBoxSettings(DialogBoxObject boxObject)
     {
+        if (boxObject.StopEffects != null)
+        {
+            for (int stopEffect = 0; stopEffect < boxObject.StopEffects.Length; stopEffect++)
+            {
+                for (int effect = 0; effect < _currentEffects.Count; effect++)
+                {
+                    if (_currentEffects[effect].GetStopEffect() == AllDialogEffects.COLOR && boxObject.StopEffects[stopEffect] == StopEffects.COLOR ||
+                        _currentEffects[effect].GetStopEffect() == AllDialogEffects.SHAKE && boxObject.StopEffects[stopEffect] == StopEffects.SHAKE)
+                    {
+                        _currentEffects[effect].ResetEffect();
+                        _currentEffects.Remove(_currentEffects[effect]);
+                        effect--;
+                    }
+                }
+            }
+        }
+
+        if (boxObject.Effects != null)
+        {
+            bool startedColor = false;
+            bool startedShake = false;
+
+            for (int i = 0; i < _currentEffects.Count; i++)
+            {
+                if (_currentEffects[i].GetStopEffect() == AllDialogEffects.COLOR)
+                    startedColor = true;
+                else if (_currentEffects[i].GetStopEffect() == AllDialogEffects.SHAKE)
+                    startedShake = true;
+            }
+
+            for (int i = 0; i < boxObject.Effects.Length; i++)
+            {
+                AllDialogEffects thisEffect = boxObject.Effects[i].GetStopEffect();
+
+                if (thisEffect == AllDialogEffects.CHARACTER_SHAKE ||
+                    (!(thisEffect == AllDialogEffects.COLOR && startedColor) && !(thisEffect == AllDialogEffects.SHAKE && startedShake)))
+                {
+                    if (thisEffect == AllDialogEffects.COLOR)
+                        startedColor = true;
+                    else if (thisEffect == AllDialogEffects.SHAKE)
+                        startedShake = true;
+
+                    DialogEffectBase newEffect = Instantiate(boxObject.Effects[i]);
+                    newEffect.SetUpEffect(this);
+                    _currentEffects.Add(newEffect);
+                }         
+            }
+        }
+
         if (boxObject.BackgroundSprite != null)
             _backgroundImage.sprite = boxObject.BackgroundSprite;
 
