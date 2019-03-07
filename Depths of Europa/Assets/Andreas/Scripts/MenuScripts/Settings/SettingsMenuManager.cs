@@ -8,30 +8,49 @@ public class SettingsMenuManager : MonoBehaviour {
 
     [SerializeField] string _menuSceneName;
     [SerializeField] Dropdown _resolutionDropdown;
-    float _soundVolumeMaster, _soundVolumeMusic;
+    [SerializeField] Toggle _fullScreenToggle;
+    float _soundVolumeMaster, _soundVolumeMusic, _soundVolumeSFX;
+    bool _isFullScreen;
+    
 
     Resolution[] _screenResolutions;
 
-	// Use this for initialization
-	void Start () {
+    // Use this for initialization
+    void Start() {
         _screenResolutions = Screen.resolutions;
-
         //_ResolutionQuickSort(_screenResolutions, 0, _screenResolutions.Length-1);
-
+        _isFullScreen = Screen.fullScreen;
+        _fullScreenToggle.isOn = _isFullScreen;
+        _fullScreenToggle.onValueChanged.AddListener(delegate { _isFullScreen = _fullScreenToggle.isOn; Screen.fullScreen = _isFullScreen; });
         
-        _resolutionDropdown.onValueChanged.AddListener(delegate { Screen.SetResolution(_screenResolutions[_resolutionDropdown.value].width,
-            _screenResolutions[_resolutionDropdown.value].height, false); });
+
         for(int i = 0; i < _screenResolutions.Length;i++)
         {
 
             _resolutionDropdown.options[i].text = ResolutionToString(_screenResolutions[i]);
-            Debug.Log(ResolutionToString(_screenResolutions[i]));
+            //Debug.Log(ResolutionToString(_screenResolutions[i]));
             _resolutionDropdown.value = i;
             if((i != _screenResolutions.Length-1))
             _resolutionDropdown.options.Add(new Dropdown.OptionData(_resolutionDropdown.options[i].text));
         }
-        
-	}
+
+        Resolution currentResolution = new Resolution();
+        currentResolution.width = Screen.width;
+        currentResolution.height = Screen.height;
+        //Debug.Log(_screenResolutions.FindResolutionInArray(currentResolution));
+        _resolutionDropdown.value = _screenResolutions.FindResolutionInArray(currentResolution);
+        _resolutionDropdown.RefreshShownValue();
+        _resolutionDropdown.onValueChanged.AddListener(delegate {
+            Screen.SetResolution(_screenResolutions[_resolutionDropdown.value].width,
+            _screenResolutions[_resolutionDropdown.value].height, _isFullScreen);
+        });
+    }
+
+
+    public void SetFullScreen(bool mode)
+    {
+        Screen.fullScreen = mode;
+    }
 
     void _ResolutionQuickSort(Resolution[] data, int left, int right)
     {
@@ -89,6 +108,10 @@ public class SettingsMenuManager : MonoBehaviour {
     public void SetMusicVolume(float volume)
     {
         _soundVolumeMusic = volume;
+    }
+    public void SetSFXVolume(float volume)
+    {
+        _soundVolumeSFX = volume;
     }
 
     public void BackToMenu()

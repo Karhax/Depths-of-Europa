@@ -121,6 +121,7 @@ public class Dialog : MonoBehaviour
         int placeInText = 0;
 
         SetBoxSettings(boxObject);
+        text = SetTags(text);
         text = FixTextLineBreaks(text);
         StringBuilder stringBuilder = new StringBuilder();
 
@@ -200,15 +201,23 @@ public class Dialog : MonoBehaviour
 
     private void SetCharacterSettings(CharacterScriptableObject characterObject, Image characterImage, bool talking, Image nameBoxImage, Text nameText)
     {
-        SetSprite(characterObject.Sprite, characterImage);
+        if (characterImage != null)
+            SetSprite(characterObject.Sprite, characterImage);
 
         if (talking)
         {
-            nameBoxImage.gameObject.SetActive(true);
-            nameText.font = characterObject.Font;
-            nameText.text = characterObject.Name;
+            if (nameBoxImage != null)
+                nameBoxImage.gameObject.SetActive(true);
 
-            TintSprite(characterImage, _tintColorWhenTalking);
+            if (nameBoxImage != null)
+            {
+                nameText.font = characterObject.Font;
+                nameText.text = characterObject.Name;
+            }
+                
+            if (characterImage != null)
+                TintSprite(characterImage, _tintColorWhenTalking);
+
             _dialogText.font = characterObject.Font;
 
             if (characterObject.VoiceAudio != null)
@@ -221,10 +230,13 @@ public class Dialog : MonoBehaviour
 
             _minPlayTimer.Reset();
         }
-        else
+        else 
         {
-            nameBoxImage.gameObject.SetActive(false);
-            TintSprite(characterImage, _tintColorWhenNotTalking);
+            if (nameBoxImage != null)
+                nameBoxImage.gameObject.SetActive(false);
+
+            if (characterImage != null)
+                TintSprite(characterImage, _tintColorWhenNotTalking);
         }
             
     }
@@ -276,6 +288,30 @@ public class Dialog : MonoBehaviour
         }
 
         _dialogText.text = string.Empty;
+
+        return stringBuilder.ToString();
+    }
+    
+    private string SetTags(string text)
+    {
+        StringBuilder stringBuilder = new StringBuilder(text);
+        int lastInputIndex = -1;
+
+        for (int i = 0; i < stringBuilder.Length; i++)
+        {
+            if (stringBuilder[i] == '{')
+                lastInputIndex = i;
+
+            if (stringBuilder[i] == '}' && lastInputIndex >= 0)
+            {
+                string input = stringBuilder.ToString(lastInputIndex + 1, i - lastInputIndex - 1);
+                string newInput = InputManager.GetAxis(input).FullButtonName.ToUpper();
+
+                stringBuilder.Replace(stringBuilder.ToString(lastInputIndex, i - lastInputIndex + 1), newInput);
+                i = i - input.Length + newInput.Length - 1;
+                lastInputIndex = -1;
+            }
+        }
 
         return stringBuilder.ToString();
     }
