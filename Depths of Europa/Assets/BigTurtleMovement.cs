@@ -71,6 +71,10 @@ public class BigTurtleMovement : MonoBehaviour
 
     private void Rotate()
     {
-        transform.right = Vector2.Lerp(transform.right, _direction, Time.deltaTime * _rotateSpeed);
+        Vector3 newRightVector = Vector2.Lerp(transform.right, _direction, Time.deltaTime * _rotateSpeed);
+        transform.right = newRightVector;
+
+        if (transform.rotation.eulerAngles.y != 0)
+            transform.rotation = Quaternion.Euler(0, 0, 180);
     }
 }
