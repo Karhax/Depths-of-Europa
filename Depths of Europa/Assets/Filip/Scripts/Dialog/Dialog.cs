@@ -47,7 +47,11 @@ public class Dialog : MonoBehaviour
     bool _dialogPlaying = false;
 
     DialogBoxScriptableObject _currentScriptableObject;
+
     List<DialogEffectBase> _currentEffects = new List<DialogEffectBase>();
+    DialogEffectColor _currentColorEffect;
+    DialogEffectShake _currentShakeEffect;
+
     int _currentDialogBox = 0;
 
     Timer _forceSkipTimer;
@@ -100,6 +104,11 @@ public class Dialog : MonoBehaviour
     {
         if (_dialogPlaying && !_isPaused)
         {
+            if (_currentColorEffect != null)
+                _currentColorEffect.UpdateEffect();
+            if (_currentShakeEffect != null)
+                _currentShakeEffect.UpdateEffect();
+
             if (_currentEffects.Count > 0)
             {
                 foreach ( DialogEffectBase effect in _currentEffects)
@@ -213,47 +222,40 @@ public class Dialog : MonoBehaviour
             image.gameObject.SetActive(false);
     }
 
+    private DialogEffectBase SetNewEffect(DialogEffectBase effect)
+    {
+        if (effect == null)
+            return null;
+
+        DialogEffectBase newEffect = Instantiate(effect);
+        newEffect.SetUpEffect(this);
+        return newEffect;
+    }
+
     private void SetBoxSettings(DialogBoxObject boxObject)
     {
-        for (int i = 0; i < _currentEffects.Count; i++)
+        if (_currentColorEffect != null && (boxObject.StopColorEffect || boxObject.ColorEffect != null))
         {
-            if ((_currentEffects[i].GetType() == typeof(DialogEffectColor) && boxObject.StopColorEffect) ||
-                (_currentEffects[i].GetType() == typeof(DialogEffectShake) && boxObject.StopShakeEffect))
-            {
-                _currentEffects[i].ResetEffect();
-                _currentEffects.Remove(_currentEffects[i]);
-                i--;
-            }
+            _currentColorEffect.ResetEffect();
+            _currentColorEffect = null;
         }
+        if (_currentShakeEffect != null && (boxObject.StopShakeEffect || boxObject.ShakeEffect != null))
+        {
+            _currentShakeEffect.ResetEffect();
+            _currentShakeEffect = null;
+        }
+
+        _currentColorEffect = (DialogEffectColor)SetNewEffect(boxObject.ColorEffect);
+        _currentShakeEffect = (DialogEffectShake)SetNewEffect(boxObject.ShakeEffect);
+
 
         if (boxObject.Effects != null)
         {
-            bool hasColorEffect = false;
-            bool hasShakeEffect = false;
-
-            for (int i = 0; i < _currentEffects.Count; i++)
-            {
-                if (_currentEffects[i].GetType() == typeof(DialogEffectColor))
-                    hasColorEffect = true;
-                else if (_currentEffects[i].GetType() == typeof(DialogEffectShake))
-                    hasShakeEffect = true;
-            }
-
             for (int i = 0; i < boxObject.Effects.Length; i++)
             {
-                DialogEffectBase effect = boxObject.Effects[i];
-
-                if ((effect.GetType() == typeof(DialogEffectColor) && hasColorEffect) || (effect.GetType() == typeof(DialogEffectShake) && hasShakeEffect))
-                    continue;
-
-                if (effect.GetType() == typeof(DialogEffectColor))
-                    hasColorEffect = true;
-                else if (effect.GetType() == typeof(DialogEffectShake))
-                    hasShakeEffect = true;
-
-                DialogEffectBase newEffect = Instantiate(boxObject.Effects[i]);
-                newEffect.SetUpEffect(this);
-                _currentEffects.Add(newEffect);
+                DialogEffectBase newEffect = SetNewEffect(boxObject.Effects[i]);
+                if (newEffect != null)
+                    _currentEffects.Add(newEffect);
             }
         }
 
@@ -324,6 +326,13 @@ public class Dialog : MonoBehaviour
 
     private void ResetAfterBox()
     {
+        foreach (DialogEffectBase effect in _currentEffects)
+        {
+            effect.ResetEffect();
+        }
+
+        _currentEffects.Clear();
+
         _forceSkipTimer.Reset();
         _timesPressedSkip = 0;
         SetSpeed(_normalTextSpeed);

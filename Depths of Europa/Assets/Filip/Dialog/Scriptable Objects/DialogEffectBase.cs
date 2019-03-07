@@ -12,3 +12,7 @@ public abstract class DialogEffectBase : ScriptableObject
 
     public abstract void ResetEffect();
 }
+
+[System.Serializable]
+public abstract class DialogEffectOneTime : DialogEffectBase
+{}

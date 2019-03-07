@@ -21,8 +21,7 @@ public class ShakeObject
         {
             this.newPosition = originalPosition + newPosition * strength;
             SmoothMove(_smoothSpeed);
-        }
-            
+        }     
         else
             rectTransform.position = originalPosition + newPosition * strength * Time.deltaTime;
     }
