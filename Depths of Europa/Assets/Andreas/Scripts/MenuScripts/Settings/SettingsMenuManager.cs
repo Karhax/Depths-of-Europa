@@ -3,13 +3,17 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 using UnityEngine.UI;
+using UnityEngine.Audio;
 
 public class SettingsMenuManager : MonoBehaviour {
 
     [SerializeField] string _menuSceneName;
     [SerializeField] Dropdown _resolutionDropdown;
     [SerializeField] Toggle _fullScreenToggle;
-    float _soundVolumeMaster, _soundVolumeMusic, _soundVolumeSFX;
+    [SerializeField] Text _masterVolumeText, _musicVolumeText, _sfxVolumeText, _dialogVolumeText;
+    [SerializeField] Slider _masterVolumeSlider, _musicVolumeSlider, _sfxVolumeSlider,_dialogVolumeSlider;
+    [SerializeField] AudioMixer _audioMixer;
+    float _soundVolumeMaster, _soundVolumeMusic, _soundVolumeSFX, _soundVolumeDialog;
     bool _isFullScreen;
     
 
@@ -22,7 +26,6 @@ public class SettingsMenuManager : MonoBehaviour {
         _isFullScreen = Screen.fullScreen;
         _fullScreenToggle.isOn = _isFullScreen;
         _fullScreenToggle.onValueChanged.AddListener(delegate { _isFullScreen = _fullScreenToggle.isOn; Screen.fullScreen = _isFullScreen; });
-        
 
         for(int i = 0; i < _screenResolutions.Length;i++)
         {
@@ -44,6 +47,15 @@ public class SettingsMenuManager : MonoBehaviour {
             Screen.SetResolution(_screenResolutions[_resolutionDropdown.value].width,
             _screenResolutions[_resolutionDropdown.value].height, _isFullScreen);
         });
+
+        _masterVolumeSlider.onValueChanged.AddListener(delegate { SetMasterVolume(_masterVolumeSlider); });
+        _musicVolumeSlider.onValueChanged.AddListener(delegate { SetMusicVolume(_musicVolumeSlider); });
+        _dialogVolumeSlider.onValueChanged.AddListener(delegate { SetDialogVolume(_dialogVolumeSlider); });
+        _sfxVolumeSlider.onValueChanged.AddListener(delegate { SetSFXVolume(_sfxVolumeSlider); });
+        _sfxVolumeSlider.value = _audioMixer.GetVolumeValue("SFX", -80, 0); _musicVolumeSlider.value = _audioMixer.GetVolumeValue("Music", -80, 0);
+        _masterVolumeSlider.value =_audioMixer.GetVolumeValue("Master", -80, 0); _dialogVolumeSlider.value =  _audioMixer.GetVolumeValue("Dialog", -80, 0);
+        Debug.Log(_audioMixer.GetVolumeValue("Music", -80, 0));     
+
     }
 
 
@@ -101,17 +113,29 @@ public class SettingsMenuManager : MonoBehaviour {
 
 
 
-    public void SetMasterVolume(float volume)
+    void SetMasterVolume(Slider volume)
     {
-        _soundVolumeMaster = volume;
+        _soundVolumeMaster = volume.value;
+        _masterVolumeText.text = volume.SliderValueToPercentString();
+        _audioMixer.SetFloat("Master", volume.value != 0 ? Mathf.Lerp(-80, 0, volume.value):-80);
     }
-    public void SetMusicVolume(float volume)
+    void SetMusicVolume(Slider volume)
     {
-        _soundVolumeMusic = volume;
+        _soundVolumeMusic = volume.value;
+        _musicVolumeText.text = volume.SliderValueToPercentString();
+        _audioMixer.SetFloat("Music", volume.value != 0 ? Mathf.Lerp(-80, 0, volume.value) : -80);
     }
-    public void SetSFXVolume(float volume)
+    void SetSFXVolume(Slider volume)
     {
-        _soundVolumeSFX = volume;
+        _soundVolumeSFX = volume.value;
+        _sfxVolumeText.text = volume.SliderValueToPercentString();
+        _audioMixer.SetFloat("SFX", volume.value != 0 ? Mathf.Lerp(-80, 0, volume.value) : -80);
+    }
+    void SetDialogVolume(Slider volume)
+    {
+        _soundVolumeDialog = volume.value;
+        _dialogVolumeText.text = volume.SliderValueToPercentString();
+        _audioMixer.SetFloat("Dialog", volume.value != 0 ? Mathf.Lerp(-80, 0, volume.value) : -80);
     }
 
     public void BackToMenu()
