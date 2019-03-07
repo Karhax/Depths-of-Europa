@@ -21,6 +21,7 @@ public class Dialog : MonoBehaviour
 
     [Header("Drop")]
 
+    [SerializeField] Image _dialogBox;
     [SerializeField] Text _dialogText;
     [SerializeField] Image _backgroundImage;
     [SerializeField] Image _leftImage;
@@ -33,6 +34,7 @@ public class Dialog : MonoBehaviour
     [SerializeField] Text _rigthNameText;
     [SerializeField] Text _leftNameText;
 
+    public Image DialogBox { get { return _dialogBox; } }
     public Text DialogText { get { return _dialogText; } }
     public Image BackgroundImage { get { return _backgroundImage; } }
     public Image LeftImage { get { return _leftImage; } }
@@ -213,52 +215,45 @@ public class Dialog : MonoBehaviour
 
     private void SetBoxSettings(DialogBoxObject boxObject)
     {
-        if (boxObject.StopEffects != null)
+        for (int i = 0; i < _currentEffects.Count; i++)
         {
-            for (int stopEffect = 0; stopEffect < boxObject.StopEffects.Length; stopEffect++)
+            if ((_currentEffects[i].GetType() == typeof(DialogEffectColor) && boxObject.StopColorEffect) ||
+                (_currentEffects[i].GetType() == typeof(DialogEffectShake) && boxObject.StopShakeEffect))
             {
-                for (int effect = 0; effect < _currentEffects.Count; effect++)
-                {
-                    if (_currentEffects[effect].GetStopEffect() == AllDialogEffects.COLOR && boxObject.StopEffects[stopEffect] == StopEffects.COLOR ||
-                        _currentEffects[effect].GetStopEffect() == AllDialogEffects.SHAKE && boxObject.StopEffects[stopEffect] == StopEffects.SHAKE)
-                    {
-                        _currentEffects[effect].ResetEffect();
-                        _currentEffects.Remove(_currentEffects[effect]);
-                        effect--;
-                    }
-                }
+                _currentEffects[i].ResetEffect();
+                _currentEffects.Remove(_currentEffects[i]);
+                i--;
             }
         }
 
         if (boxObject.Effects != null)
         {
-            bool startedColor = false;
-            bool startedShake = false;
+            bool hasColorEffect = false;
+            bool hasShakeEffect = false;
 
             for (int i = 0; i < _currentEffects.Count; i++)
             {
-                if (_currentEffects[i].GetStopEffect() == AllDialogEffects.COLOR)
-                    startedColor = true;
-                else if (_currentEffects[i].GetStopEffect() == AllDialogEffects.SHAKE)
-                    startedShake = true;
+                if (_currentEffects[i].GetType() == typeof(DialogEffectColor))
+                    hasColorEffect = true;
+                else if (_currentEffects[i].GetType() == typeof(DialogEffectShake))
+                    hasShakeEffect = true;
             }
 
             for (int i = 0; i < boxObject.Effects.Length; i++)
             {
-                AllDialogEffects thisEffect = boxObject.Effects[i].GetStopEffect();
+                DialogEffectBase effect = boxObject.Effects[i];
 
-                if (thisEffect == AllDialogEffects.CHARACTER_SHAKE ||
-                    (!(thisEffect == AllDialogEffects.COLOR && startedColor) && !(thisEffect == AllDialogEffects.SHAKE && startedShake)))
-                {
-                    if (thisEffect == AllDialogEffects.COLOR)
-                        startedColor = true;
-                    else if (thisEffect == AllDialogEffects.SHAKE)
-                        startedShake = true;
+                if ((effect.GetType() == typeof(DialogEffectColor) && hasColorEffect) || (effect.GetType() == typeof(DialogEffectShake) && hasShakeEffect))
+                    continue;
 
-                    DialogEffectBase newEffect = Instantiate(boxObject.Effects[i]);
-                    newEffect.SetUpEffect(this);
-                    _currentEffects.Add(newEffect);
-                }         
+                if (effect.GetType() == typeof(DialogEffectColor))
+                    hasColorEffect = true;
+                else if (effect.GetType() == typeof(DialogEffectShake))
+                    hasShakeEffect = true;
+
+                DialogEffectBase newEffect = Instantiate(boxObject.Effects[i]);
+                newEffect.SetUpEffect(this);
+                _currentEffects.Add(newEffect);
             }
         }
 
@@ -363,5 +358,4 @@ public class Dialog : MonoBehaviour
 
         return stringBuilder.ToString();
     }
-   
 }

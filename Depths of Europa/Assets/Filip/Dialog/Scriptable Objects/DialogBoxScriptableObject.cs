@@ -10,30 +10,23 @@ public class DialogBoxScriptableObject : ScriptableObject
     public DialogBoxObject[] DialogBoxes { get { return _dialogBoxes; } private set { _dialogBoxes = value; } }
 }
 
-public enum AllDialogEffects
-{
-    COLOR,
-    SHAKE,
-    CHARACTER_SHAKE
-}
-
-public enum StopEffects
-{
-    COLOR,
-    SHAKE,
-}
-
 [System.Serializable]
 public class DialogBoxObject
 {
+    [Header("Settings")]
+
     [SerializeField] bool _rightTalking = true;
     [SerializeField] CharacterScriptableObject _rightCharacter;
     [SerializeField] CharacterScriptableObject _leftCharacter;
     [SerializeField] Sprite _backgroundSprite;
     [SerializeField] AudioClip _textAudio;
     [SerializeField, TextAreaAttribute(3, 3)] string _dialogText;
+
+    [Header("Effects")]
+
+    [SerializeField] bool _stopPreviousColorEffect = false;
+    [SerializeField] bool _stopPreviousShakeEffect = false;
     [SerializeField] DialogEffectBase[] _effects;
-    [SerializeField] StopEffects[] _stopEffects;
 
     public bool RightTalking { get { return _rightTalking; } private set { _rightTalking = value; } }
     public CharacterScriptableObject RightCharacter { get { return _rightCharacter; } private set { _rightCharacter = value; } }
@@ -42,5 +35,6 @@ public class DialogBoxObject
     public Sprite BackgroundSprite { get { return _backgroundSprite; } private set { _backgroundSprite = value; } }
     public AudioClip TextAudio { get { return _textAudio; } private set { _textAudio = value; } }
     public DialogEffectBase[] Effects { get { return _effects; } private set { _effects = value; } }
-    public StopEffects[] StopEffects { get { return _stopEffects; } private set { _stopEffects = value; } }
+    public bool StopColorEffect { get { return _stopPreviousColorEffect; } private set { _stopPreviousColorEffect = value; } }
+    public bool StopShakeEffect { get { return _stopPreviousShakeEffect; } private set { _stopPreviousShakeEffect = value; } }
 }

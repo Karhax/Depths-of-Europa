@@ -18,9 +18,4 @@ public class DialogEffectCharacterShake : DialogEffectBase
     public override void ResetEffect()
     {
     }
-
-    public override AllDialogEffects GetStopEffect()
-    {
-        return AllDialogEffects.CHARACTER_SHAKE;
-    }
 }

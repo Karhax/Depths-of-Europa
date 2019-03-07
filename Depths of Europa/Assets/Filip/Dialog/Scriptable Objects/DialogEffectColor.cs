@@ -64,9 +64,4 @@ public class DialogEffectColor : DialogEffectBase
     {
         return _backgroundImage.color == checkColor;
     }
-
-    public override AllDialogEffects GetStopEffect()
-    {
-        return AllDialogEffects.COLOR;
-    }
 }

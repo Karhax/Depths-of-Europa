@@ -11,6 +11,4 @@ public abstract class DialogEffectBase : ScriptableObject
     public abstract void UpdateEffect();
 
     public abstract void ResetEffect();
-
-    public abstract AllDialogEffects GetStopEffect();
 }
