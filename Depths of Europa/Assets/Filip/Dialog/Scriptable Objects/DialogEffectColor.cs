@@ -6,18 +6,20 @@ using UnityEngine.UI;
 [CreateAssetMenu(fileName = "New DialogEffectColor", menuName = "Dialog/Effect/Color")]
 public class DialogEffectColor : DialogEffectBase
 {
-    [SerializeField] Color _effectColor1 = Color.white;
-    [SerializeField] Color _effectColor2 = Color.white;
+    [SerializeField] Gradient _gradient;
     [SerializeField] float _changeColorSpeed = 5;
 
     Color _startColor;
     Image _backgroundImage;
-    bool firstLerp = true;
+    bool _firstLerp = true;
+    float _placeInGradient = 0;
 
     bool _play = true;
+    readonly float MAKE_COLOR_CHANGE_SPEED_BIGGER_THAN_1 = 10;
 
     public override void SetUpEffect(Dialog dialogScript)
     {
+        _changeColorSpeed /= MAKE_COLOR_CHANGE_SPEED_BIGGER_THAN_1;
         _backgroundImage = dialogScript.BackgroundImage;
 
         if (_backgroundImage == null)
@@ -33,18 +35,17 @@ public class DialogEffectColor : DialogEffectBase
     {
         if (_play)
         {
-            if (firstLerp)
-            {
-                ChangeColor(_effectColor1);
-                if (HasReachedColor(_effectColor1))
-                    firstLerp = false;
-            }
+            _backgroundImage.color = _gradient.Evaluate(_placeInGradient);
+
+            if (_firstLerp)
+                _placeInGradient += Time.deltaTime * _changeColorSpeed;
             else
-            {
-                ChangeColor(_effectColor2);
-                if (HasReachedColor(_effectColor2))
-                    firstLerp = true;
-            }
+                _placeInGradient -= Time.deltaTime * _changeColorSpeed;
+
+            if (_placeInGradient > 1)
+                _firstLerp = false;
+            else if (_placeInGradient < 0)
+                _firstLerp = true;
         }
     }
 
