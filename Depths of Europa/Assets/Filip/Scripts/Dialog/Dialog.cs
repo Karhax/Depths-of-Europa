@@ -21,6 +21,7 @@ public class Dialog : MonoBehaviour
     [Header("Drop")]
 
     [SerializeField] Text _dialogText;
+    [SerializeField] Image _backgroundImage;
     [SerializeField] Image _leftImage;
     [SerializeField] Image _rightImage;
     [SerializeField] AudioSource _textAudioSource;
@@ -121,7 +122,6 @@ public class Dialog : MonoBehaviour
         int placeInText = 0;
 
         SetBoxSettings(boxObject);
-        text = SetTags(text);
         text = FixTextLineBreaks(text);
         StringBuilder stringBuilder = new StringBuilder();
 
@@ -193,6 +193,9 @@ public class Dialog : MonoBehaviour
 
     private void SetBoxSettings(DialogBoxObject boxObject)
     {
+        if (boxObject.BackgroundSprite != null)
+            _backgroundImage.sprite = boxObject.BackgroundSprite;
+
         SetCharacterSettings(boxObject.RightCharacter, _rightImage, boxObject.RightTalking, _rightNameBox, _rigthNameText);
         SetCharacterSettings(boxObject.LeftCharacter, _leftImage, !boxObject.RightTalking, _leftNameBox, _leftNameText);
 
@@ -291,28 +294,5 @@ public class Dialog : MonoBehaviour
 
         return stringBuilder.ToString();
     }
-    
-    private string SetTags(string text)
-    {
-        StringBuilder stringBuilder = new StringBuilder(text);
-        int lastInputIndex = -1;
-
-        for (int i = 0; i < stringBuilder.Length; i++)
-        {
-            if (stringBuilder[i] == '{')
-                lastInputIndex = i;
-
-            if (stringBuilder[i] == '}' && lastInputIndex >= 0)
-            {
-                string input = stringBuilder.ToString(lastInputIndex + 1, i - lastInputIndex - 1);
-                string newInput = InputManager.GetAxis(input).FullButtonName.ToUpper();
-
-                stringBuilder.Replace(stringBuilder.ToString(lastInputIndex, i - lastInputIndex + 1), newInput);
-                i = i - input.Length + newInput.Length - 1;
-                lastInputIndex = -1;
-            }
-        }
-
-        return stringBuilder.ToString();
-    }
+   
 }

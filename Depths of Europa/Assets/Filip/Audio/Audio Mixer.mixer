@@ -14,7 +14,15 @@ AudioMixerController:
   m_SuspendThreshold: -80
   m_EnableSuspend: 1
   m_UpdateMode: 0
-  m_ExposedParameters: []
+  m_ExposedParameters:
+  - guid: 8ab2c510c679d764e90a48d50955f6f9
+    name: Dialog
+  - guid: 66b789c60530534468f2fad643f20590
+    name: Master
+  - guid: 2d88519bf5e2fee46b844e5bf1f306dd
+    name: Music
+  - guid: 3f46eeb9fdebc3b4b834da0d91d35568
+    name: SFX
   m_AudioMixerGroupViews:
   - guids:
     - 292818cd02740dc4cb7a6a781a62f1a1
@@ -162,7 +170,7 @@ AudioMixerSnapshotController:
   m_AudioMixer: {fileID: 24100000}
   m_SnapshotID: 119b2671a3a89244fbe6fc06363c7309
   m_FloatValues:
-    8ab2c510c679d764e90a48d50955f6f9: -80
+    8ab2c510c679d764e90a48d50955f6f9: 0.23288241
     1a294790601f7a243a0fc1f4ea081ee1: -10.345207
     13fa1c90445cfce4e99261b0649279b0: -4.560346
     93d882c0e3a9f2642bf60164fcea7a37: -12.498478
@@ -173,6 +181,7 @@ AudioMixerSnapshotController:
     b2eefaf1c84087c46803a55f491394f4: -7.436936
     bf769712a5e775f41811bc6a8cb16497: -30.320126
     31128d42c5ab56d4f98f9222b22d2385: -10.345207
+    9d6901e25a9ceaf41ba6f41c8f0d389b: 0.27000841
     56dd48448ad39a74b8573f0f32176932: 5.02454
     e7f484c41508b1143bf9aabb378e6796: 5.1526933
     d65903056f5c5a74db8d42ff92cacf4c: 0.27000841
