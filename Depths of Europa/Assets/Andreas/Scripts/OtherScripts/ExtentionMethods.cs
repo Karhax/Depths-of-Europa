@@ -55,4 +55,8 @@ public static class ExtentionMethods {
         value = Mathf.InverseLerp(min, max, value);
         return result ? value : -1;
     }
+    public static string FloatToSecondsRemaining(this float value)
+    {
+        return "Reverting in " + Mathf.FloorToInt(value) + " Seconds";
+    }
 }
