@@ -245,9 +245,10 @@ public class Dialog : MonoBehaviour
             _currentShakeEffect = null;
         }
 
-        _currentColorEffect = (DialogEffectColor)SetNewEffect(boxObject.ColorEffect);
-        _currentShakeEffect = (DialogEffectShake)SetNewEffect(boxObject.ShakeEffect);
-
+        if (_currentColorEffect == null)
+            _currentColorEffect = (DialogEffectColor)SetNewEffect(boxObject.ColorEffect);
+        if (_currentShakeEffect == null)
+            _currentShakeEffect = (DialogEffectShake)SetNewEffect(boxObject.ShakeEffect);
 
         if (boxObject.Effects != null)
         {
@@ -330,7 +331,6 @@ public class Dialog : MonoBehaviour
         {
             effect.ResetEffect();
         }
-
         _currentEffects.Clear();
 
         _forceSkipTimer.Reset();
