@@ -18,6 +18,7 @@ public class PauseMenuScript : MonoBehaviour {
     {
         _pauseMenuBackdrop.SetActive(false);
         GameManager.FadeEvent += OnFade;
+        Time.timeScale = 1;
     }
 
     void Update () {
