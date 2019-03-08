@@ -10,7 +10,7 @@ public class MenuButtonScript : MonoBehaviour {
     [SerializeField] string _settingMenuSceneName;
 	// Use this for initialization
 	void Start () {
-		
+        //Time.timeScale = 1;
 	}
 	
 	// Update is called once per frame
