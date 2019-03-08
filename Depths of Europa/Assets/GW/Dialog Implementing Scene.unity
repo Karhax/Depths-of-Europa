@@ -568,7 +568,10 @@ MonoBehaviour:
   _tintColorWhenNotTalking: {r: 0.49019608, g: 0.49019608, b: 0.49019608, a: 1}
   _tintColorWhenTalking: {r: 1, g: 1, b: 1, a: 1}
   _timeToForceSkip: 3
+  _willForceSkip: 1
+  _dialogBox: {fileID: 0}
   _dialogText: {fileID: 1891070483}
+  _backgroundImage: {fileID: 0}
   _leftImage: {fileID: 1339403574}
   _rightImage: {fileID: 1870400814}
   _textAudioSource: {fileID: 2098384228}
@@ -864,7 +867,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 8ac8d557a715532428c812c050a9fb78, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _thisDialogBoxScriptableObject: {fileID: 11400000, guid: 6a29176ca44af5c439f5d984ee96d50f,
+  _thisDialogBoxScriptableObject: {fileID: 11400000, guid: cab3e3ec91ec1b44992d1fa236998a19,
     type: 2}
   _dialog: {fileID: 744215450}
   _tutorialDialog: {fileID: 0}
@@ -941,6 +944,11 @@ Prefab:
       propertyPath: _waypointTransform
       value: 
       objectReference: {fileID: 1424963720}
+    - target: {fileID: 224495568657711592, guid: cf6bfa4f89233a4478d1bd961872fb1f,
+        type: 2}
+      propertyPath: m_AnchoredPosition.x
+      value: -75
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: cf6bfa4f89233a4478d1bd961872fb1f, type: 2}
   m_IsPrefabParent: 0
