@@ -1,0 +1,93 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 2bb4ce3b2ac54964d965eb195c679405, type: 3}
+  m_Name: Hepheastus Dialog
+  m_EditorClassIdentifier: 
+  _dialogBoxes:
+  - _rightTalking: 0
+    _rightCharacter: {fileID: 11400000, guid: 6c4f93f5908f695499ef82a347a801a8, type: 2}
+    _leftCharacter: {fileID: 11400000, guid: aaad767b8b144f74b8c00af973d781de, type: 2}
+    _dialogText: "Hello?!\u2019"
+    _textAudio: {fileID: 8300000, guid: bb7a071e361e29745a6ccebab50d802d, type: 3}
+  - _rightTalking: 1
+    _rightCharacter: {fileID: 11400000, guid: 6c4f93f5908f695499ef82a347a801a8, type: 2}
+    _leftCharacter: {fileID: 11400000, guid: aaad767b8b144f74b8c00af973d781de, type: 2}
+    _dialogText: You are loud. What is it? Who are you?
+    _textAudio: {fileID: 8300000, guid: bb7a071e361e29745a6ccebab50d802d, type: 3}
+  - _rightTalking: 0
+    _rightCharacter: {fileID: 11400000, guid: 6c4f93f5908f695499ef82a347a801a8, type: 2}
+    _leftCharacter: {fileID: 11400000, guid: aaad767b8b144f74b8c00af973d781de, type: 2}
+    _dialogText: "This month\u2019s delivery service, however right now I\u2019m here
+      to evacuate you."
+    _textAudio: {fileID: 8300000, guid: bb7a071e361e29745a6ccebab50d802d, type: 3}
+  - _rightTalking: 1
+    _rightCharacter: {fileID: 11400000, guid: 6c4f93f5908f695499ef82a347a801a8, type: 2}
+    _leftCharacter: {fileID: 11400000, guid: aaad767b8b144f74b8c00af973d781de, type: 2}
+    _dialogText: "Evacuate me? Hephaestus is one of the strongest bases and hasn\u2019t
+      needed any evacuations in three decades."
+    _textAudio: {fileID: 8300000, guid: bb7a071e361e29745a6ccebab50d802d, type: 3}
+  - _rightTalking: 0
+    _rightCharacter: {fileID: 11400000, guid: 6c4f93f5908f695499ef82a347a801a8, type: 2}
+    _leftCharacter: {fileID: 11400000, guid: aaad767b8b144f74b8c00af973d781de, type: 2}
+    _dialogText: There is something big and monstrous loose in the sea, it broke out
+      from the rock surrounding Tartarus and destroyed it. Aristaeus is gone as well.
+      If you remain here your life is in grave danger.
+    _textAudio: {fileID: 8300000, guid: bb7a071e361e29745a6ccebab50d802d, type: 3}
+  - _rightTalking: 0
+    _rightCharacter: {fileID: 11400000, guid: 6c4f93f5908f695499ef82a347a801a8, type: 2}
+    _leftCharacter: {fileID: 11400000, guid: aaad767b8b144f74b8c00af973d781de, type: 2}
+    _dialogText: If you remain here your life is in grave danger.
+    _textAudio: {fileID: 8300000, guid: bb7a071e361e29745a6ccebab50d802d, type: 3}
+  - _rightTalking: 1
+    _rightCharacter: {fileID: 11400000, guid: 6c4f93f5908f695499ef82a347a801a8, type: 2}
+    _leftCharacter: {fileID: 11400000, guid: aaad767b8b144f74b8c00af973d781de, type: 2}
+    _dialogText: Wouldn't be the first time, what makes this different?
+    _textAudio: {fileID: 8300000, guid: bb7a071e361e29745a6ccebab50d802d, type: 3}
+  - _rightTalking: 1
+    _rightCharacter: {fileID: 11400000, guid: 6c4f93f5908f695499ef82a347a801a8, type: 2}
+    _leftCharacter: {fileID: 11400000, guid: aaad767b8b144f74b8c00af973d781de, type: 2}
+    _dialogText: "Because even Hephaestus won\u2019t survive this. Every base out
+      in the deeper ends need to be evacuated. And with haste, preferably."
+    _textAudio: {fileID: 8300000, guid: bb7a071e361e29745a6ccebab50d802d, type: 3}
+  - _rightTalking: 1
+    _rightCharacter: {fileID: 11400000, guid: 6c4f93f5908f695499ef82a347a801a8, type: 2}
+    _leftCharacter: {fileID: 11400000, guid: aaad767b8b144f74b8c00af973d781de, type: 2}
+    _dialogText: '...Let us go then.'
+    _textAudio: {fileID: 8300000, guid: bb7a071e361e29745a6ccebab50d802d, type: 3}
+  - _rightTalking: 0
+    _rightCharacter: {fileID: 11400000, guid: 6c4f93f5908f695499ef82a347a801a8, type: 2}
+    _leftCharacter: {fileID: 11400000, guid: 1bf1e916f249d794bbb8449ac34ffad2, type: 2}
+    _dialogText: Miss Demidov, where are you headed off to?
+    _textAudio: {fileID: 8300000, guid: bb7a071e361e29745a6ccebab50d802d, type: 3}
+  - _rightTalking: 1
+    _rightCharacter: {fileID: 11400000, guid: 6c4f93f5908f695499ef82a347a801a8, type: 2}
+    _leftCharacter: {fileID: 11400000, guid: 1bf1e916f249d794bbb8449ac34ffad2, type: 2}
+    _dialogText: Oh...I had almost forgotten. The base is being evacuated, mister
+      Satou.
+    _textAudio: {fileID: 8300000, guid: bb7a071e361e29745a6ccebab50d802d, type: 3}
+  - _rightTalking: 0
+    _rightCharacter: {fileID: 11400000, guid: 6c4f93f5908f695499ef82a347a801a8, type: 2}
+    _leftCharacter: {fileID: 11400000, guid: 1bf1e916f249d794bbb8449ac34ffad2, type: 2}
+    _dialogText: Evacuated?!
+    _textAudio: {fileID: 8300000, guid: bb7a071e361e29745a6ccebab50d802d, type: 3}
+  - _rightTalking: 0
+    _rightCharacter: {fileID: 11400000, guid: 1bf1e916f249d794bbb8449ac34ffad2, type: 2}
+    _leftCharacter: {fileID: 11400000, guid: aaad767b8b144f74b8c00af973d781de, type: 2}
+    _dialogText: Large and dangerous creature has broken free from wherever it came
+      from, Tartarus was torn apart and Aristaeus suffered heavy malfunctions. Now
+      can we -please- go?
+    _textAudio: {fileID: 8300000, guid: bb7a071e361e29745a6ccebab50d802d, type: 3}
+  - _rightTalking: 1
+    _rightCharacter: {fileID: 11400000, guid: 1bf1e916f249d794bbb8449ac34ffad2, type: 2}
+    _leftCharacter: {fileID: 11400000, guid: aaad767b8b144f74b8c00af973d781de, type: 2}
+    _dialogText: "Partially this sounds quite astonishing, and partially terrifying!
+      Let\u2019s go then!"
+    _textAudio: {fileID: 8300000, guid: bb7a071e361e29745a6ccebab50d802d, type: 3}

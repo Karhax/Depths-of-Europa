@@ -392,9 +392,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 8ac8d557a715532428c812c050a9fb78, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _thisDialogBoxScriptableObject: {fileID: 11400000, guid: e6de2e08a45ba634db411c8c851d124c,
+  _thisDialogBoxScriptableObject: {fileID: 11400000, guid: 6ae82449580a00f408a7c902e4d69d87,
     type: 2}
   _dialog: {fileID: 744215450}
+  _tutorialDialog: {fileID: 0}
 --- !u!114 &618457871
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -406,7 +407,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 5bce8c5d553cc3549ad12a1edeeafbf0, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _dialogObject: {fileID: 11400000, guid: c9fdaf95ec8c73e4cbb84281df36da95, type: 2}
+  _isTutorial: 0
+  _dialogObject: {fileID: 11400000, guid: 6ae82449580a00f408a7c902e4d69d87, type: 2}
 --- !u!1 &627237629
 GameObject:
   m_ObjectHideFlags: 0
@@ -862,9 +864,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 8ac8d557a715532428c812c050a9fb78, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _thisDialogBoxScriptableObject: {fileID: 11400000, guid: 7366050e555023943903676e4b7e95fb,
+  _thisDialogBoxScriptableObject: {fileID: 11400000, guid: 6a29176ca44af5c439f5d984ee96d50f,
     type: 2}
   _dialog: {fileID: 744215450}
+  _tutorialDialog: {fileID: 0}
 --- !u!114 &1206062735
 MonoBehaviour:
   m_ObjectHideFlags: 0
