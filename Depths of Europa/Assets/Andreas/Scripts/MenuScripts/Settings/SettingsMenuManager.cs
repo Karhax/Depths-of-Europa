@@ -17,9 +17,9 @@ public class SettingsMenuManager : MonoBehaviour {
     float _soundVolumeMaster, _soundVolumeMusic, _soundVolumeSFX, _soundVolumeDialog;
     bool _isFullScreen, _keepNewResolution, _revertToOldResolution, _oldFullScreenMode;
     Resolution _previousResolution;
-    readonly float RESET_RESOLUTION_CONFIRM_DURATION = 15;
+    readonly float RESET_RESOLUTION_CONFIRM_DURATION = 15, DECIMAL_TO_DECIBEL = 20, INVERSE_LOG = 10;
     Timer _secondsToResolutionReset;
-    
+    float binky;
     struct Settings
     {
         internal float _soundVolumeMaster, _soundVolumeMusic, _soundVolumeSFX, _soundVolumeDialog;
@@ -55,10 +55,10 @@ public class SettingsMenuManager : MonoBehaviour {
         _oldSettings = new Settings();
         _oldSettings._isFullScreen = Screen.fullScreen;
         _oldSettings._resolution = currentResolution;
-        _oldSettings._soundVolumeMaster = _audioMixer.GetVolumeValue("Master", -80, 0);
-        _oldSettings._soundVolumeMusic = _audioMixer.GetVolumeValue("Music", -80, 0);
-        _oldSettings._soundVolumeDialog = _audioMixer.GetVolumeValue("Dialog", -80, 0);
-        _oldSettings._soundVolumeSFX = _audioMixer.GetVolumeValue("SFX", -80, 0);
+        _oldSettings._soundVolumeMaster = Mathf.Pow(INVERSE_LOG, (_audioMixer.GetVolumeValue("Master")/ DECIMAL_TO_DECIBEL));
+        _oldSettings._soundVolumeMusic = Mathf.Pow(INVERSE_LOG, (_audioMixer.GetVolumeValue("Music") / DECIMAL_TO_DECIBEL));
+        _oldSettings._soundVolumeDialog = Mathf.Pow(INVERSE_LOG, (_audioMixer.GetVolumeValue("Dialog") / DECIMAL_TO_DECIBEL));
+        _oldSettings._soundVolumeSFX = Mathf.Pow(INVERSE_LOG, (_audioMixer.GetVolumeValue("SFX") / DECIMAL_TO_DECIBEL));
         #endregion
 
         //_ResolutionQuickSort(_screenResolutions, 0, _screenResolutions.Length-1);
@@ -90,9 +90,9 @@ public class SettingsMenuManager : MonoBehaviour {
         _musicVolumeSlider.onValueChanged.AddListener(delegate { SetMusicVolume(_musicVolumeSlider); });
         _dialogVolumeSlider.onValueChanged.AddListener(delegate { SetDialogVolume(_dialogVolumeSlider); });
         _sfxVolumeSlider.onValueChanged.AddListener(delegate { SetSFXVolume(_sfxVolumeSlider); });
-        _sfxVolumeSlider.value = _audioMixer.GetVolumeValue("SFX", -80, 0); _musicVolumeSlider.value = _audioMixer.GetVolumeValue("Music", -80, 0);
-        _masterVolumeSlider.value =_audioMixer.GetVolumeValue("Master", -80, 0); _dialogVolumeSlider.value =  _audioMixer.GetVolumeValue("Dialog", -80, 0);
-        Debug.Log(_audioMixer.GetVolumeValue("Music", -80, 0));     
+        _sfxVolumeSlider.value = Mathf.Pow(INVERSE_LOG, (_audioMixer.GetVolumeValue("SFX")/ DECIMAL_TO_DECIBEL)); _musicVolumeSlider.value = Mathf.Pow(INVERSE_LOG, (_audioMixer.GetVolumeValue("Music")/ DECIMAL_TO_DECIBEL));
+        _masterVolumeSlider.value = Mathf.Pow(INVERSE_LOG, ( _audioMixer.GetVolumeValue("Master")/ DECIMAL_TO_DECIBEL)); _dialogVolumeSlider.value = Mathf.Pow(INVERSE_LOG, (_audioMixer.GetVolumeValue("Dialog")/ DECIMAL_TO_DECIBEL));
+        //Debug.Log(_audioMixer.GetVolumeValue("Music", -80, 0));     
 
     }
 
@@ -145,9 +145,9 @@ public class SettingsMenuManager : MonoBehaviour {
     }
 
     // Update is called once per frame
-    void Update () {
-		
-	}
+    //void Update () {
+		//binky = Mathf.Pow(10, (_audioMixer.GetVolumeValue("Master") / DECIMAL_TO_DECIBEL));
+   // }
 
 
 
@@ -155,26 +155,26 @@ public class SettingsMenuManager : MonoBehaviour {
     {
         _soundVolumeMaster = volume.value;
         _masterVolumeText.text = volume.SliderValueToPercentString();
-        _audioMixer.SetFloat("Master", volume.value != 0 ? Mathf.Lerp(-80, 0, volume.value):-80);
-        Debug.Log(_audioMixer.GetVolumeValue("Master"));
+        _audioMixer.SetFloat("Master", volume.value != 0 ?(DECIMAL_TO_DECIBEL * Mathf.Log10(volume.value)):-80);
+        //Debug.Log(_audioMixer.GetVolumeValue("Master"));
     }
     void SetMusicVolume(Slider volume)
     {
         _soundVolumeMusic = volume.value;
         _musicVolumeText.text = volume.SliderValueToPercentString();
-        _audioMixer.SetFloat("Music", volume.value != 0 ? Mathf.Lerp(-80, 0, volume.value) : -80);
+        _audioMixer.SetFloat("Music", volume.value != 0 ? (DECIMAL_TO_DECIBEL * Mathf.Log10(volume.value)) : -80);
     }
     void SetSFXVolume(Slider volume)
     {
         _soundVolumeSFX = volume.value;
         _sfxVolumeText.text = volume.SliderValueToPercentString();
-        _audioMixer.SetFloat("SFX", volume.value != 0 ? Mathf.Lerp(-80, 0, volume.value) : -80);
+        _audioMixer.SetFloat("SFX", volume.value != 0 ?(DECIMAL_TO_DECIBEL * Mathf.Log10(volume.value)) : -80);
     }
     void SetDialogVolume(Slider volume)
     {
         _soundVolumeDialog = volume.value;
         _dialogVolumeText.text = volume.SliderValueToPercentString();
-        _audioMixer.SetFloat("Dialog", volume.value != 0 ? Mathf.Lerp(-80, 0, volume.value) : -80);
+        _audioMixer.SetFloat("Dialog", volume.value != 0 ? (DECIMAL_TO_DECIBEL * Mathf.Log10(volume.value)) : -80);
     }
 
     public void ButtonRevert()
