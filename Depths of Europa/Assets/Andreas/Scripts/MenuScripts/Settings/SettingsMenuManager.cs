@@ -4,6 +4,7 @@ using UnityEngine;
 using UnityEngine.SceneManagement;
 using UnityEngine.UI;
 using UnityEngine.Audio;
+using UnityEngine.PostProcessing;
 
 public class SettingsMenuManager : MonoBehaviour {
 
@@ -14,6 +15,9 @@ public class SettingsMenuManager : MonoBehaviour {
     [SerializeField] Slider _masterVolumeSlider, _musicVolumeSlider, _sfxVolumeSlider,_dialogVolumeSlider;
     [SerializeField] AudioMixer _audioMixer;
     [SerializeField] GameObject _confirmMenu;
+    [SerializeField] PostProcessingProfile _postProcessor;
+
+
     float _soundVolumeMaster, _soundVolumeMusic, _soundVolumeSFX, _soundVolumeDialog;
     bool _isFullScreen, _keepNewResolution, _revertToOldResolution, _oldFullScreenMode;
     Resolution _previousResolution;

@@ -346,6 +346,7 @@ GameObject:
   - component: {fileID: 4907700001378756}
   - component: {fileID: 20982100175023110}
   - component: {fileID: 124303211266204342}
+  - component: {fileID: 114618239083550220}
   m_Layer: 0
   m_Name: Camera
   m_TagString: Untagged
@@ -506,6 +507,7 @@ GameObject:
   - component: {fileID: 124118968716615814}
   - component: {fileID: 114856476806618136}
   - component: {fileID: 114181495643211348}
+  - component: {fileID: 114415543012182474}
   m_Layer: 0
   m_Name: Main_Camera
   m_TagString: MainCamera
@@ -982,13 +984,13 @@ MonoBehaviour:
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1914604121581280}
-  m_Enabled: 0
+  m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 01ea34ec1d8e5ed48be698f4b1e75136, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _pollingIntervall: 0.291
-  _distanceThreashold: 0.84
+  _pollingIntervall: 0.233
+  _distanceThreashold: 0.86
   _maxLineWidth: 1.98
   _minimumLineWidth: 0.147
 --- !u!114 &114182707576363126
@@ -1270,6 +1272,18 @@ MonoBehaviour:
   m_FillAmount: 1
   m_FillClockwise: 1
   m_FillOrigin: 0
+--- !u!114 &114415543012182474
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1914604121581280}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ff26db721962cdf4a8edcdfa9a767d2a, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  profile: {fileID: 11400000, guid: 2b644edfebc38554a9acbaabb3a069e6, type: 2}
 --- !u!114 &114426631060023136
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -1453,6 +1467,19 @@ MonoBehaviour:
         m_CallState: 2
     m_TypeName: UnityEngine.UI.Button+ButtonClickedEvent, UnityEngine.UI, Version=1.0.0.0,
       Culture=neutral, PublicKeyToken=null
+--- !u!114 &114618239083550220
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1798089682017952}
+  m_Enabled: 0
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 5ae42c8f78c60684aab6be6c18bd7a9b, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  Type: 0
+  colorblindShader: {fileID: 4800000, guid: b35b8f7ae8cf168488129d5f5f39ebf4, type: 3}
 --- !u!114 &114618937144616384
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -1898,9 +1925,9 @@ MonoBehaviour:
     key5: {r: 0, g: 0, b: 0, a: 0}
     key6: {r: 0, g: 0, b: 0, a: 0}
     key7: {r: 0, g: 0, b: 0, a: 0}
-    ctime0: 0
-    ctime1: 29105
-    ctime2: 65535
+    ctime0: 4433
+    ctime1: 13493
+    ctime2: 36237
     ctime3: 0
     ctime4: 0
     ctime5: 0
