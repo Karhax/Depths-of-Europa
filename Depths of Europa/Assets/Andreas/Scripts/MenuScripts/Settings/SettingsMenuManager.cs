@@ -12,10 +12,13 @@ public class SettingsMenuManager : MonoBehaviour {
     [SerializeField] Dropdown _resolutionDropdown;
     [SerializeField] Toggle _fullScreenToggle;
     [SerializeField] Text _masterVolumeText, _musicVolumeText, _sfxVolumeText, _dialogVolumeText, _secondMarkerText, _titleText;
-    [SerializeField] Slider _masterVolumeSlider, _musicVolumeSlider, _sfxVolumeSlider,_dialogVolumeSlider;
+    [SerializeField] Slider _masterVolumeSlider, _musicVolumeSlider, _sfxVolumeSlider, _dialogVolumeSlider, _gammaSlider;
     [SerializeField] AudioMixer _audioMixer;
     [SerializeField] GameObject _confirmMenu;
     [SerializeField] PostProcessingProfile _postProcessor;
+    [SerializeField] Image _mainSettings, _gammaScreen;
+    [SerializeField] Camera _camera;
+    [SerializeField] GameObject _screenParent;
 
 
     float _soundVolumeMaster, _soundVolumeMusic, _soundVolumeSFX, _soundVolumeDialog;
@@ -23,7 +26,7 @@ public class SettingsMenuManager : MonoBehaviour {
     Resolution _previousResolution;
     readonly float RESET_RESOLUTION_CONFIRM_DURATION = 15, DECIMAL_TO_DECIBEL = 20, INVERSE_LOG = 10;
     Timer _secondsToResolutionReset;
-    float binky;
+    //float binky;
     struct Settings
     {
         internal float _soundVolumeMaster, _soundVolumeMusic, _soundVolumeSFX, _soundVolumeDialog;
@@ -94,13 +97,27 @@ public class SettingsMenuManager : MonoBehaviour {
         _musicVolumeSlider.onValueChanged.AddListener(delegate { SetMusicVolume(_musicVolumeSlider); });
         _dialogVolumeSlider.onValueChanged.AddListener(delegate { SetDialogVolume(_dialogVolumeSlider); });
         _sfxVolumeSlider.onValueChanged.AddListener(delegate { SetSFXVolume(_sfxVolumeSlider); });
-        _sfxVolumeSlider.value = Mathf.Pow(INVERSE_LOG, (_audioMixer.GetVolumeValue("SFX")/ DECIMAL_TO_DECIBEL)); _musicVolumeSlider.value = Mathf.Pow(INVERSE_LOG, (_audioMixer.GetVolumeValue("Music")/ DECIMAL_TO_DECIBEL));
-        _masterVolumeSlider.value = Mathf.Pow(INVERSE_LOG, ( _audioMixer.GetVolumeValue("Master")/ DECIMAL_TO_DECIBEL)); _dialogVolumeSlider.value = Mathf.Pow(INVERSE_LOG, (_audioMixer.GetVolumeValue("Dialog")/ DECIMAL_TO_DECIBEL));
+        _gammaSlider.onValueChanged.AddListener(delegate { SetNewGamma(_gammaSlider); });
+        _gammaSlider.value = _postProcessor.colorGrading.settings.colorWheels.log.power.a;
+        _sfxVolumeSlider.value = Mathf.Pow(INVERSE_LOG, (_audioMixer.GetVolumeValue("SFX")/ DECIMAL_TO_DECIBEL));
+        _musicVolumeSlider.value = Mathf.Pow(INVERSE_LOG, (_audioMixer.GetVolumeValue("Music")/ DECIMAL_TO_DECIBEL));
+        _masterVolumeSlider.value = Mathf.Pow(INVERSE_LOG, ( _audioMixer.GetVolumeValue("Master")/ DECIMAL_TO_DECIBEL));
+        _dialogVolumeSlider.value = Mathf.Pow(INVERSE_LOG, (_audioMixer.GetVolumeValue("Dialog")/ DECIMAL_TO_DECIBEL));
         //Debug.Log(_audioMixer.GetVolumeValue("Music", -80, 0));     
 
     }
 
-
+    public void MoveToGamma()
+    {
+        float positionDifference = Mathf.Abs(_camera.transform.position.x - _gammaScreen.transform.position.x);
+        //_gammaScreen.transform.position = 
+        _screenParent.transform.position = new Vector2(_screenParent.transform.position.x - positionDifference, _screenParent.transform.position.y);
+    }
+    public void BackToSettings()
+    {
+        float positionDifference = Mathf.Abs(_camera.transform.position.x - _mainSettings.transform.position.x);
+        _screenParent.transform.position = new Vector2(_screenParent.transform.position.x + positionDifference, _screenParent.transform.position.y);
+    }
     public void SetFullScreen(bool mode)
     {
         Screen.fullScreen = mode;
@@ -150,10 +167,18 @@ public class SettingsMenuManager : MonoBehaviour {
 
     // Update is called once per frame
     //void Update () {
-		//binky = Mathf.Pow(10, (_audioMixer.GetVolumeValue("Master") / DECIMAL_TO_DECIBEL));
-   // }
+    //binky = Mathf.Pow(10, (_audioMixer.GetVolumeValue("Master") / DECIMAL_TO_DECIBEL));
+    // }
 
 
+    void SetNewGamma(Slider slider)
+    {
+        ColorGradingModel.Settings biggerSettings = _postProcessor.colorGrading.settings;
+        ColorGradingModel.LogWheelsSettings settings = _postProcessor.colorGrading.settings.colorWheels.log;
+        settings.power.a = slider.SliderToGamma();
+        biggerSettings.colorWheels.log = settings;
+        _postProcessor.colorGrading.settings = biggerSettings;
+    }
 
     void SetMasterVolume(Slider volume)
     {
@@ -180,7 +205,6 @@ public class SettingsMenuManager : MonoBehaviour {
         _dialogVolumeText.text = volume.SliderValueToPercentString();
         _audioMixer.SetFloat("Dialog", volume.value != 0 ? (DECIMAL_TO_DECIBEL * Mathf.Log10(volume.value)) : -80);
     }
-
     public void ButtonRevert()
     {
         _revertToOldResolution = true;
