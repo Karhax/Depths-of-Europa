@@ -11,10 +11,8 @@ public class TextScript : MonoBehaviour {
     [SerializeField] Text Text;
 
 
-
     // Use this for initialization
     void Start () {
-		
 	}
 	
 	// Update is called once per frame
