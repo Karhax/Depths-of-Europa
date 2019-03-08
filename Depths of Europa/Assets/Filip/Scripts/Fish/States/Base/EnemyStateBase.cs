@@ -60,7 +60,13 @@ public abstract class EnemyStateBase
     protected void TurnTowardsTravelDistance(float turnSpeed)
     {
         if (_direction != (Vector2)_thisTransform.right)
+        {
             _thisTransform.right = Vector2.MoveTowards(_thisTransform.right, _thisRigidbody.velocity, Time.deltaTime * turnSpeed);
+
+            if (_thisTransform.rotation.eulerAngles.y != 0)
+                _thisTransform.rotation = Quaternion.Euler(0, 0, 180);
+        }
+            
     }
 
     protected void SetNewDirection(Vector2 newDirection)

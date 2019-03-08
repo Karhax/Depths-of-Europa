@@ -620,6 +620,7 @@ GameObject:
   - component: {fileID: 114088520725777722}
   - component: {fileID: 114137206446587488}
   - component: {fileID: 114185689046097588}
+  - component: {fileID: 114974363935708044}
   m_Layer: 10
   m_Name: Ship
   m_TagString: PlayerOutside
@@ -1278,7 +1279,7 @@ Transform:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1111445617526158}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: -19.84, y: -16.8, z: -0.25}
+  m_LocalPosition: {x: -19.84, y: -12.88, z: -0.25}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 4142588805641138}
@@ -4138,7 +4139,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_Material: {fileID: 0}
-  m_Color: {r: 1, g: 1, b: 1, a: 1}
+  m_Color: {r: 1, g: 1, b: 1, a: 0.5882353}
   m_RaycastTarget: 1
   m_OnCullStateChanged:
     m_PersistentCalls:
@@ -4275,7 +4276,10 @@ MonoBehaviour:
   _tintColorWhenNotTalking: {r: 0.49019608, g: 0.49019608, b: 0.49019608, a: 1}
   _tintColorWhenTalking: {r: 1, g: 1, b: 1, a: 1}
   _timeToForceSkip: 9
+  _willForceSkip: 1
+  _dialogBox: {fileID: 114426436128903982}
   _dialogText: {fileID: 114493042376159020}
+  _backgroundImage: {fileID: 0}
   _leftImage: {fileID: 0}
   _rightImage: {fileID: 0}
   _textAudioSource: {fileID: 82816997574052480}
@@ -4515,7 +4519,10 @@ MonoBehaviour:
   _tintColorWhenNotTalking: {r: 0.49019608, g: 0.49019608, b: 0.49019608, a: 1}
   _tintColorWhenTalking: {r: 1, g: 1, b: 1, a: 0.78431374}
   _timeToForceSkip: 3
+  _willForceSkip: 1
+  _dialogBox: {fileID: 114729891434973432}
   _dialogText: {fileID: 114389119508839966}
+  _backgroundImage: {fileID: 0}
   _leftImage: {fileID: 114378620732342136}
   _rightImage: {fileID: 114663085759599512}
   _textAudioSource: {fileID: 82745264845718132}
@@ -4524,6 +4531,20 @@ MonoBehaviour:
   _leftNameBox: {fileID: 114792389847397606}
   _rigthNameText: {fileID: 114416580719120878}
   _leftNameText: {fileID: 114858995623590238}
+--- !u!114 &114974363935708044
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1525962020150546}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: b9e6815c2a6e5624f82a60e408fbc0bb, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _shakeLength: 1.25
+  _maxShakeModifier: 35
+  _maxDamageShake: 40
 --- !u!198 &198009903786771848
 ParticleSystem:
   m_ObjectHideFlags: 1
@@ -62783,7 +62804,7 @@ Canvas:
   m_SortingBucketNormalizedSize: 0
   m_AdditionalShaderChannelsFlag: 0
   m_SortingLayerID: 0
-  m_SortingOrder: 0
+  m_SortingOrder: 2
   m_TargetDisplay: 0
 --- !u!224 &224053844941839266
 RectTransform:
@@ -62893,9 +62914,9 @@ RectTransform:
   m_Father: {fileID: 224094745700186874}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
-  m_AnchorMin: {x: 0, y: 1}
-  m_AnchorMax: {x: 0, y: 1}
-  m_AnchoredPosition: {x: 960, y: -1126}
+  m_AnchorMin: {x: 0.5, y: 0}
+  m_AnchorMax: {x: 0.5, y: 0}
+  m_AnchoredPosition: {x: 0, y: 50}
   m_SizeDelta: {x: 840, y: 180}
   m_Pivot: {x: 0.5, y: 0}
 --- !u!224 &224337030502293326
@@ -62955,7 +62976,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 0, y: 0}
-  m_AnchoredPosition: {x: -75, y: -300}
+  m_AnchoredPosition: {x: -75.00012, y: -300}
   m_SizeDelta: {x: 800, y: 1000}
   m_Pivot: {x: 0, y: 0}
 --- !u!224 &224551104970759938

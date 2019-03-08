@@ -37,6 +37,8 @@ public class DamageShip : MonoBehaviour
 
     public void Hit(int damage)
     {
+        GetComponent<CameraShake>().DoShake(damage);
+
         _currentHp -= damage;
 
         if (ShipTakeDamageEvent != null)

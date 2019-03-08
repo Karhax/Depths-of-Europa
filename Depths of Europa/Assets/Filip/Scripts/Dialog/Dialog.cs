@@ -16,11 +16,14 @@ public class Dialog : MonoBehaviour
     [SerializeField, Range(1, 300)] float _fastTextSpeed;
     [SerializeField] Color _tintColorWhenNotTalking;
     [SerializeField] Color _tintColorWhenTalking;
-    [SerializeField, Range(0.1f, 10f)] float _timeToForceSkip;
+    [SerializeField, Range(0.1f, 50f)] float _timeToForceSkip;
+    [SerializeField] bool _willForceSkip = true;
 
     [Header("Drop")]
 
+    [SerializeField] Image _dialogBox;
     [SerializeField] Text _dialogText;
+    [SerializeField] Image _backgroundImage;
     [SerializeField] Image _leftImage;
     [SerializeField] Image _rightImage;
     [SerializeField] AudioSource _textAudioSource;
@@ -31,9 +34,24 @@ public class Dialog : MonoBehaviour
     [SerializeField] Text _rigthNameText;
     [SerializeField] Text _leftNameText;
 
+    public Image DialogBox { get { return _dialogBox; } }
+    public Text DialogText { get { return _dialogText; } }
+    public Image BackgroundImage { get { return _backgroundImage; } }
+    public Image LeftImage { get { return _leftImage; } }
+    public Image RightImage { get { return _rightImage; } }
+    public Image RightNameBox { get { return _rightNameBox; } }
+    public Image LeftNameBox { get { return _leftNameBox; } }
+    public Text RightNameText { get { return _rigthNameText; } }
+    public Text LeftNameText { get { return _leftNameText; } }
+
     bool _dialogPlaying = false;
 
     DialogBoxScriptableObject _currentScriptableObject;
+
+    List<DialogEffectBase> _currentEffects = new List<DialogEffectBase>();
+    DialogEffectColor _currentColorEffect;
+    DialogEffectShake _currentShakeEffect;
+
     int _currentDialogBox = 0;
 
     Timer _forceSkipTimer;
@@ -86,6 +104,19 @@ public class Dialog : MonoBehaviour
     {
         if (_dialogPlaying && !_isPaused)
         {
+            if (_currentColorEffect != null)
+                _currentColorEffect.UpdateEffect();
+            if (_currentShakeEffect != null)
+                _currentShakeEffect.UpdateEffect();
+
+            if (_currentEffects.Count > 0)
+            {
+                foreach ( DialogEffectBase effect in _currentEffects)
+                {
+                    effect.UpdateEffect();
+                }
+            }
+
             _pressedDown = Input.GetButtonDown(GameInput.SKIP_DIALOG);
 
             if (_pressedDown)
@@ -121,7 +152,7 @@ public class Dialog : MonoBehaviour
         int placeInText = 0;
 
         SetBoxSettings(boxObject);
-        text = SetTags(text);
+
         text = FixTextLineBreaks(text);
         StringBuilder stringBuilder = new StringBuilder();
 
@@ -133,7 +164,7 @@ public class Dialog : MonoBehaviour
             if (placeInText >= text.Length)
                 _forceSkipTimer.Time += Time.deltaTime;
 
-            if (_pressedDown || _forceSkipTimer.Expired())
+            if (_pressedDown || (_forceSkipTimer.Expired() && _willForceSkip))
             {
                 if (placeInText < text.Length)
                     SetSpeed(_fastTextSpeed);
@@ -191,8 +222,46 @@ public class Dialog : MonoBehaviour
             image.gameObject.SetActive(false);
     }
 
+    private DialogEffectBase SetNewEffect(DialogEffectBase effect)
+    {
+        if (effect == null)
+            return null;
+
+        DialogEffectBase newEffect = Instantiate(effect);
+        newEffect.SetUpEffect(this);
+        return newEffect;
+    }
+
     private void SetBoxSettings(DialogBoxObject boxObject)
     {
+        if (_currentColorEffect != null && (boxObject.StopColorEffect || boxObject.ColorEffect != null))
+        {
+            _currentColorEffect.ResetEffect();
+            _currentColorEffect = null;
+        }
+        if (_currentShakeEffect != null && (boxObject.StopShakeEffect || boxObject.ShakeEffect != null))
+        {
+            _currentShakeEffect.ResetEffect();
+            _currentShakeEffect = null;
+        }
+
+        _currentColorEffect = (DialogEffectColor)SetNewEffect(boxObject.ColorEffect);
+        _currentShakeEffect = (DialogEffectShake)SetNewEffect(boxObject.ShakeEffect);
+
+
+        if (boxObject.Effects != null)
+        {
+            for (int i = 0; i < boxObject.Effects.Length; i++)
+            {
+                DialogEffectBase newEffect = SetNewEffect(boxObject.Effects[i]);
+                if (newEffect != null)
+                    _currentEffects.Add(newEffect);
+            }
+        }
+
+        if (boxObject.BackgroundSprite != null)
+            _backgroundImage.sprite = boxObject.BackgroundSprite;
+
         SetCharacterSettings(boxObject.RightCharacter, _rightImage, boxObject.RightTalking, _rightNameBox, _rigthNameText);
         SetCharacterSettings(boxObject.LeftCharacter, _leftImage, !boxObject.RightTalking, _leftNameBox, _leftNameText);
 
@@ -257,6 +326,13 @@ public class Dialog : MonoBehaviour
 
     private void ResetAfterBox()
     {
+        foreach (DialogEffectBase effect in _currentEffects)
+        {
+            effect.ResetEffect();
+        }
+
+        _currentEffects.Clear();
+
         _forceSkipTimer.Reset();
         _timesPressedSkip = 0;
         SetSpeed(_normalTextSpeed);
@@ -288,30 +364,6 @@ public class Dialog : MonoBehaviour
         }
 
         _dialogText.text = string.Empty;
-
-        return stringBuilder.ToString();
-    }
-    
-    private string SetTags(string text)
-    {
-        StringBuilder stringBuilder = new StringBuilder(text);
-        int lastInputIndex = -1;
-
-        for (int i = 0; i < stringBuilder.Length; i++)
-        {
-            if (stringBuilder[i] == '{')
-                lastInputIndex = i;
-
-            if (stringBuilder[i] == '}' && lastInputIndex >= 0)
-            {
-                string input = stringBuilder.ToString(lastInputIndex + 1, i - lastInputIndex - 1);
-                string newInput = InputManager.GetAxis(input).FullButtonName.ToUpper();
-
-                stringBuilder.Replace(stringBuilder.ToString(lastInputIndex, i - lastInputIndex + 1), newInput);
-                i = i - input.Length + newInput.Length - 1;
-                lastInputIndex = -1;
-            }
-        }
 
         return stringBuilder.ToString();
     }
