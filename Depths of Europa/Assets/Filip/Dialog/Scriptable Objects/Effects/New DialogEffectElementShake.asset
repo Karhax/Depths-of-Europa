@@ -8,16 +8,13 @@ MonoBehaviour:
   m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 6fa862dbd5778f34ba1ed5fb7f99e7c6, type: 3}
-  m_Name: Test dialog shake
+  m_Script: {fileID: 11500000, guid: a49967086c604dc42a39a7fda052eaf2, type: 3}
+  m_Name: New DialogEffectElementShake
   m_EditorClassIdentifier: 
-  _shakeTextBox: 1
-  _shakeBackground: 1
-  _shakeRightImage: 1
-  _shakeLeftImage: 1
+  _shakeEntireDialog: 0
+  _shakeTime: 2
+  _shakeElement: 3
   _doNotShakeHorizontal: 0
   _doNotShakeVertical: 0
   _shakeSpeed: 150
   _ignoreFrames: 1
-  _smooth: 0
-  _smoothSpeed: 50

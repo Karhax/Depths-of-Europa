@@ -12,10 +12,10 @@ public class ShakeObject
     public ShakeObject(RectTransform rectTransform)
     {
         this.rectTransform = rectTransform;
-        originalPosition = this.rectTransform.position;
+        originalPosition = this.rectTransform.anchoredPosition + (Vector2)this.rectTransform.position;
     }
 
-    public void SetNewPosition(Vector3 newPosition, float strength, bool smooth, float _smoothSpeed)
+    public void SetNewPosition(Vector3 newPosition, float strength, bool smooth = false, float _smoothSpeed = 0)
     {
         if (smooth)
         {
@@ -41,10 +41,14 @@ public class ShakeObject
 public class DialogEffectShake : DialogEffectBase
 {
     [SerializeField] bool _shakeTextBox = false;
+    [SerializeField] bool _shakeBackground = true;
+    [SerializeField] bool _shakeRightImage = true;
+    [SerializeField] bool _shakeLeftImage = true;
+
     [SerializeField] bool _doNotShakeHorizontal = false;
     [SerializeField] bool _doNotShakeVertical = false;
     [SerializeField] float _shakeSpeed;
-    [SerializeField] int ignoreFrames = 10;
+    [SerializeField] int _ignoreFrames = 10;
 
     [SerializeField] bool _smooth = false;
     [SerializeField] float _smoothSpeed = 10f;
@@ -55,27 +59,29 @@ public class DialogEffectShake : DialogEffectBase
 
     public override void SetUpEffect(Dialog dialogScript)
     {
-        _currentIgnoreFrames = ignoreFrames;
+        _currentIgnoreFrames = _ignoreFrames;
 
         if (_doNotShakeHorizontal && _doNotShakeVertical)
             Debug.LogWarning("There will be no shake because both vertical and horizontal movement is disabled!", this);
 
-        if (_shakeTextBox && dialogScript.DialogBox != null)
-            _shakeables.Add(new ShakeObject(dialogScript.DialogBox.GetComponent<RectTransform>()));
+        AddShakeable(dialogScript.DialogBox, _shakeTextBox);
+        AddShakeable(dialogScript.BackgroundImage, _shakeBackground);
+        AddShakeable(dialogScript.RightImage, _shakeRightImage);
+        AddShakeable(dialogScript.LeftImage, _shakeLeftImage);
 
-        if (dialogScript.BackgroundImage != null)
-            _shakeables.Add(new ShakeObject(dialogScript.BackgroundImage.GetComponent<RectTransform>()));
+        if (!(_shakeTextBox && _shakeBackground && _shakeLeftImage && _shakeRightImage))
+            Debug.LogWarning("There will be no shake because no element is set to shake!");
+    }
 
-        if (dialogScript.RightImage != null)
-            _shakeables.Add(new ShakeObject(dialogScript.RightImage.GetComponent<RectTransform>()));
-
-        if (dialogScript.LeftImage != null)
-            _shakeables.Add(new ShakeObject(dialogScript.LeftImage.GetComponent<RectTransform>()));
+    private void AddShakeable(Component component, bool shouldAdd)
+    {
+        if (component != null && shouldAdd)
+            _shakeables.Add(new ShakeObject(component.GetComponent<RectTransform>()));
     }
 
     public override void UpdateEffect()
     {
-        if (_currentIgnoreFrames >= ignoreFrames)
+        if (_currentIgnoreFrames >= _ignoreFrames)
         {
             _currentIgnoreFrames = 0;
 
@@ -104,7 +110,7 @@ public class DialogEffectShake : DialogEffectBase
 
     public override void ResetEffect()
     {
-        foreach(ShakeObject shakeObject in _shakeables)
+        foreach (ShakeObject shakeObject in _shakeables)
         {
             shakeObject.Revert();
         }
