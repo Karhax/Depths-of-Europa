@@ -68,7 +68,7 @@ public class SettingsMenuManager : MonoBehaviour {
         _oldSettings._soundVolumeSFX = Mathf.Pow(INVERSE_LOG, (_audioMixer.GetVolumeValue("SFX") / DECIMAL_TO_DECIBEL));
         #endregion
 
-        //_ResolutionQuickSort(_screenResolutions, 0, _screenResolutions.Length-1);
+        _ResolutionQuickSort(_screenResolutions, 0, _screenResolutions.Length-1);
         _isFullScreen = Screen.fullScreen;
         _fullScreenToggle.isOn = _isFullScreen;
         _oldFullScreenMode = _isFullScreen;
