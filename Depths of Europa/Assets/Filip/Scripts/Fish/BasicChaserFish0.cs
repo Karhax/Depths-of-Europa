@@ -1,6 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using Statics;
 
 public class BasicChaserFish0 : EnemyBase
 {
@@ -37,6 +38,12 @@ public class BasicChaserFish0 : EnemyBase
     public Transform GetSpawn()
     {
         return _spawn;
+    }
+
+    public void ReachedSpawn()
+    {
+        GetComponent<Rigidbody2D>().simulated = false;
+        Destroy(this);
     }
 
     protected override void OnTriggerExit2D(Collider2D other)

@@ -64,7 +64,7 @@ public class GameManager : MonoBehaviour {
         }
 
        
-        if (_gameOverStinger == null)
+        if (_mainMusicParent == null)
         {
             Debug.LogWarning("The GameManager did not have any GameOverStingerHandler");
         }
