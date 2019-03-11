@@ -4,7 +4,7 @@ using UnityEngine;
 using UnityEngine.SceneManagement;
 using UnityEngine.UI;
 using UnityEngine.Audio;
-using UnityEngine.PostProcessing;
+using UnityEngine.Rendering.PostProcessing;
 
 public class SettingsMenuManager : MonoBehaviour {
 
@@ -15,12 +15,12 @@ public class SettingsMenuManager : MonoBehaviour {
     [SerializeField] Slider _masterVolumeSlider, _musicVolumeSlider, _sfxVolumeSlider, _dialogVolumeSlider, _gammaSlider;
     [SerializeField] AudioMixer _audioMixer;
     [SerializeField] GameObject _confirmMenu;
-    [SerializeField] PostProcessingProfile _postProcessor;
+    [SerializeField] PostProcessProfile _postProcessor;
     [SerializeField] Image _mainSettings, _gammaScreen, _mainMenu;
     [SerializeField] Camera _camera;
     [SerializeField] GameObject _screenParent;
 
-
+    Image _currentSet;
     float _soundVolumeMaster, _soundVolumeMusic, _soundVolumeSFX, _soundVolumeDialog;
     bool _isFullScreen, _keepNewResolution, _revertToOldResolution, _oldFullScreenMode;
     Resolution _previousResolution;
@@ -68,12 +68,14 @@ public class SettingsMenuManager : MonoBehaviour {
         _oldSettings._soundVolumeSFX = Mathf.Pow(INVERSE_LOG, (_audioMixer.GetVolumeValue("SFX") / DECIMAL_TO_DECIBEL));
         #endregion
 
+        _currentSet = _mainMenu;
         _ResolutionQuickSort(_screenResolutions, 0, _screenResolutions.Length-1);
         _isFullScreen = Screen.fullScreen;
         _fullScreenToggle.isOn = _isFullScreen;
         _oldFullScreenMode = _isFullScreen;
         _fullScreenToggle.onValueChanged.AddListener(delegate { _isFullScreen = _fullScreenToggle.isOn; Screen.fullScreen = _isFullScreen;
-            _secondsToResolutionReset = new Timer(RESET_RESOLUTION_CONFIRM_DURATION); StartCoroutine(ChangeWindowMode()); });
+            _secondsToResolutionReset = new Timer(RESET_RESOLUTION_CONFIRM_DURATION); StartCoroutine(ChangeWindowMode()); ReCentre();
+        });
 
         for(int i = 0; i < _screenResolutions.Length;i++)
         {
@@ -90,15 +92,22 @@ public class SettingsMenuManager : MonoBehaviour {
         _resolutionDropdown.RefreshShownValue();
         _resolutionDropdown.onValueChanged.AddListener(delegate {
             Screen.SetResolution(_screenResolutions[_resolutionDropdown.value].width,
-            _screenResolutions[_resolutionDropdown.value].height, _isFullScreen); _secondsToResolutionReset = new Timer(RESET_RESOLUTION_CONFIRM_DURATION); StartCoroutine(ChangeResolution());
+            _screenResolutions[_resolutionDropdown.value].height, _isFullScreen); _secondsToResolutionReset = new Timer(RESET_RESOLUTION_CONFIRM_DURATION);
+            StartCoroutine(ChangeResolution()); ReCentre();
         });
 
         _masterVolumeSlider.onValueChanged.AddListener(delegate { SetMasterVolume(_masterVolumeSlider); });
         _musicVolumeSlider.onValueChanged.AddListener(delegate { SetMusicVolume(_musicVolumeSlider); });
         _dialogVolumeSlider.onValueChanged.AddListener(delegate { SetDialogVolume(_dialogVolumeSlider); });
         _sfxVolumeSlider.onValueChanged.AddListener(delegate { SetSFXVolume(_sfxVolumeSlider); });
+        //Debug.LogError("old slider value: "+ _gammaSlider.value); Debug.LogError("old alpha value: " + _postProcessor.colorGrading.settings.colorWheels.log.power.a);
+        //Debug.LogError("new slider value: " + _postProcessor.colorGrading.settings.colorWheels.log.power.a.GammaToSlider());
+
+        _gammaSlider.GammaToSlider(_postProcessor.GetSetting<ColorGrading>().gamma.value.w);
+        // Debug.LogError(_gammaSlider.value);
         _gammaSlider.onValueChanged.AddListener(delegate { SetNewGamma(_gammaSlider); });
-        _gammaSlider.GammaToSlider(_postProcessor.colorGrading.settings.colorWheels.log.power.a);
+         _gammaSlider.GammaToSlider(_postProcessor.GetSetting<ColorGrading>().gamma.value.w);
+    
         //Debug.Log(_gammaSlider.value); Debug.Log(_postProcessor.colorGrading.settings.colorWheels.log.power.a);
         _sfxVolumeSlider.value = Mathf.Pow(INVERSE_LOG, (_audioMixer.GetVolumeValue("SFX")/ DECIMAL_TO_DECIBEL));
         _musicVolumeSlider.value = Mathf.Pow(INVERSE_LOG, (_audioMixer.GetVolumeValue("Music")/ DECIMAL_TO_DECIBEL));
@@ -107,27 +116,37 @@ public class SettingsMenuManager : MonoBehaviour {
         //Debug.Log(_audioMixer.GetVolumeValue("Music", -80, 0));     
 
     }
+    public void ReCentre()
+    {
+        float positionDifference = Mathf.Abs(_camera.transform.position.x - _currentSet.transform.position.x);
+        _screenParent.transform.position = new Vector2(_screenParent.transform.position.x - positionDifference, _screenParent.transform.position.y);
+    }
 
     public void MoveToGamma()
     {
         float positionDifference = Mathf.Abs(_camera.transform.position.x - _gammaScreen.transform.position.x);
         _screenParent.transform.position = new Vector2(_screenParent.transform.position.x - positionDifference, _screenParent.transform.position.y);
+        _currentSet = _gammaScreen;
     }
     public void BackToSettings()
     {
         float positionDifference = Mathf.Abs(_camera.transform.position.x - _mainSettings.transform.position.x);
         _screenParent.transform.position = new Vector2(_screenParent.transform.position.x + positionDifference, _screenParent.transform.position.y);
+        _currentSet = _mainSettings;
     }
 
     public void BackToMainMenu()
     {
         float positionDifference = Mathf.Abs(_camera.transform.position.x - _mainMenu.transform.position.x);
         _screenParent.transform.position = new Vector2(_screenParent.transform.position.x + positionDifference, _screenParent.transform.position.y);
+        _currentSet = _mainMenu;
     }
     public void MoveToSettings()
     {
         float positionDifference = Mathf.Abs(_camera.transform.position.x - _mainSettings.transform.position.x);
+
         _screenParent.transform.position = new Vector2(_screenParent.transform.position.x - positionDifference, _screenParent.transform.position.y);
+        _currentSet = _mainSettings;
     }
 
 
@@ -190,11 +209,18 @@ public class SettingsMenuManager : MonoBehaviour {
 
     void SetNewGamma(Slider slider)
     {
-        ColorGradingModel.Settings biggerSettings = _postProcessor.colorGrading.settings;
-        ColorGradingModel.LogWheelsSettings settings = _postProcessor.colorGrading.settings.colorWheels.log;
-        settings.power.a = slider.SliderToGamma();
-        biggerSettings.colorWheels.log = settings;
-        _postProcessor.colorGrading.settings = biggerSettings;
+        //PostProcessProfile biggerSettings = _postProcessor.settings;
+        //ColorGradingModel.LogWheelsSettings settings = _postProcessor.colorGrading.settings.colorWheels.log;
+        //settings.power.a = slider.SliderToGamma();
+        //biggerSettings.colorWheels.log = settings;
+        //_postProcessor.colorGrading.settings = biggerSettings;
+        //PostProcessProfile bigge = _postProcessor;
+        //ColorGrading colourGradingSettings;
+
+        //bigge.TryGetSettings(out colourGradingSettings);
+        //colourGradingSettings.gamma.value.z = slider.SliderToGamma();
+        //bigge.GetSetting<ColorGrading>().gamma = colourGradingSettings.gamma;
+        _postProcessor.GetSetting<ColorGrading>().gamma.value.w = slider.SliderToGamma();
     }
 
     void SetMasterVolume(Slider volume)
