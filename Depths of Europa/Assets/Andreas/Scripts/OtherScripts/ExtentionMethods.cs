@@ -76,4 +76,25 @@ public static class ExtentionMethods {
         //Debug.Log(slider.value);
             return slider.value;
     }
+    public static void GammaToSlider(this Slider slider, float value)
+    {
+        //Debug.Log(slider.value);
+        if (value > 0)
+        {
+            //  Debug.Log(Mathf.InverseLerp(0, 2, value));
+
+            slider.value = Mathf.InverseLerp(0, 2, value);
+           // Debug.Log(slider.value);
+        }
+        else if (value < 0)
+        {
+            //Debug.Log(-Mathf.InverseLerp(0,1.5f,Mathf.Abs(value)));
+            //  Debug.Log(Mathf.Lerp(0f ,- 1.5f,Mathf.Abs(slider.value)));
+            slider.value = -Mathf.InverseLerp(0, 1.5f ,Mathf.Abs(value));
+            //Debug.Log(slider.value);
+        }
+        else
+            //Debug.Log(slider.value);
+            slider.value = 0;
+    }
 }
