@@ -16,7 +16,7 @@ public class SettingsMenuManager : MonoBehaviour {
     [SerializeField] AudioMixer _audioMixer;
     [SerializeField] GameObject _confirmMenu;
     [SerializeField] PostProcessingProfile _postProcessor;
-    [SerializeField] Image _mainSettings, _gammaScreen;
+    [SerializeField] Image _mainSettings, _gammaScreen, _mainMenu;
     [SerializeField] Camera _camera;
     [SerializeField] GameObject _screenParent;
 
@@ -98,7 +98,8 @@ public class SettingsMenuManager : MonoBehaviour {
         _dialogVolumeSlider.onValueChanged.AddListener(delegate { SetDialogVolume(_dialogVolumeSlider); });
         _sfxVolumeSlider.onValueChanged.AddListener(delegate { SetSFXVolume(_sfxVolumeSlider); });
         _gammaSlider.onValueChanged.AddListener(delegate { SetNewGamma(_gammaSlider); });
-        _gammaSlider.value = _postProcessor.colorGrading.settings.colorWheels.log.power.a;
+        _gammaSlider.GammaToSlider(_postProcessor.colorGrading.settings.colorWheels.log.power.a);
+        //Debug.Log(_gammaSlider.value); Debug.Log(_postProcessor.colorGrading.settings.colorWheels.log.power.a);
         _sfxVolumeSlider.value = Mathf.Pow(INVERSE_LOG, (_audioMixer.GetVolumeValue("SFX")/ DECIMAL_TO_DECIBEL));
         _musicVolumeSlider.value = Mathf.Pow(INVERSE_LOG, (_audioMixer.GetVolumeValue("Music")/ DECIMAL_TO_DECIBEL));
         _masterVolumeSlider.value = Mathf.Pow(INVERSE_LOG, ( _audioMixer.GetVolumeValue("Master")/ DECIMAL_TO_DECIBEL));
@@ -110,7 +111,6 @@ public class SettingsMenuManager : MonoBehaviour {
     public void MoveToGamma()
     {
         float positionDifference = Mathf.Abs(_camera.transform.position.x - _gammaScreen.transform.position.x);
-        //_gammaScreen.transform.position = 
         _screenParent.transform.position = new Vector2(_screenParent.transform.position.x - positionDifference, _screenParent.transform.position.y);
     }
     public void BackToSettings()
@@ -118,6 +118,19 @@ public class SettingsMenuManager : MonoBehaviour {
         float positionDifference = Mathf.Abs(_camera.transform.position.x - _mainSettings.transform.position.x);
         _screenParent.transform.position = new Vector2(_screenParent.transform.position.x + positionDifference, _screenParent.transform.position.y);
     }
+
+    public void BackToMainMenu()
+    {
+        float positionDifference = Mathf.Abs(_camera.transform.position.x - _mainMenu.transform.position.x);
+        _screenParent.transform.position = new Vector2(_screenParent.transform.position.x + positionDifference, _screenParent.transform.position.y);
+    }
+    public void MoveToSettings()
+    {
+        float positionDifference = Mathf.Abs(_camera.transform.position.x - _mainSettings.transform.position.x);
+        _screenParent.transform.position = new Vector2(_screenParent.transform.position.x - positionDifference, _screenParent.transform.position.y);
+    }
+
+
     public void SetFullScreen(bool mode)
     {
         Screen.fullScreen = mode;
@@ -169,6 +182,10 @@ public class SettingsMenuManager : MonoBehaviour {
     //void Update () {
     //binky = Mathf.Pow(10, (_audioMixer.GetVolumeValue("Master") / DECIMAL_TO_DECIBEL));
     // }
+    /* private void Update()
+    {
+        Debug.Log(_postProcessor.colorGrading.settings.colorWheels.log.power.a);
+    }*/
 
 
     void SetNewGamma(Slider slider)
