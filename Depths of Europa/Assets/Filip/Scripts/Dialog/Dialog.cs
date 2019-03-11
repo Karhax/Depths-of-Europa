@@ -104,6 +104,11 @@ public class Dialog : MonoBehaviour
     {
         if (_dialogPlaying && !_isPaused)
         {
+            _pressedDown = Input.GetButtonDown(GameInput.SKIP_DIALOG);
+
+            if (_pressedDown)
+                _timesPressedSkip++;
+
             if (_currentColorEffect != null)
                 _currentColorEffect.UpdateEffect();
             if (_currentShakeEffect != null)
@@ -116,11 +121,6 @@ public class Dialog : MonoBehaviour
                     effect.UpdateEffect();
                 }
             }
-
-            _pressedDown = Input.GetButtonDown(GameInput.SKIP_DIALOG);
-
-            if (_pressedDown)
-                _timesPressedSkip++;
         }
     }
 
@@ -260,7 +260,7 @@ public class Dialog : MonoBehaviour
             }
         }
 
-        if (boxObject.BackgroundSprite != null)
+        if (boxObject.BackgroundSprite != null && _backgroundImage != null)
             _backgroundImage.sprite = boxObject.BackgroundSprite;
 
         SetCharacterSettings(boxObject.RightCharacter, _rightImage, boxObject.RightTalking, _rightNameBox, _rigthNameText);

@@ -9,31 +9,39 @@ public class ShakeObject
     Vector3 originalPosition;
     Vector3 newPosition = Vector3.zero;
 
+    bool canShake = false;
+
     public ShakeObject(RectTransform rectTransform)
     {
         this.rectTransform = rectTransform;
-        originalPosition = this.rectTransform.anchoredPosition + (Vector2)this.rectTransform.position;
+
+        originalPosition = this.rectTransform.localPosition;
+        canShake = true;
     }
 
     public void SetNewPosition(Vector3 newPosition, float strength, bool smooth = false, float _smoothSpeed = 0)
     {
-        if (smooth)
+        if (canShake)
         {
-            this.newPosition = originalPosition + newPosition * strength;
-            SmoothMove(_smoothSpeed);
-        }     
-        else
-            rectTransform.position = originalPosition + newPosition * strength * Time.deltaTime;
+            if (smooth)
+            {
+                this.newPosition = originalPosition + newPosition * strength;
+                SmoothMove(_smoothSpeed);
+            }
+            else
+                rectTransform.localPosition = originalPosition + newPosition * strength * Time.deltaTime;
+        }
     }
 
     public void SmoothMove(float _smoothSpeed)
     {
-        rectTransform.position = Vector2.MoveTowards(rectTransform.position, newPosition, Time.deltaTime * _smoothSpeed);
+        if (canShake)
+            rectTransform.localPosition = Vector2.MoveTowards(rectTransform.position, newPosition, Time.deltaTime * _smoothSpeed);
     }
 
     public void Revert()
     {
-        rectTransform.position = originalPosition;
+        rectTransform.localPosition = originalPosition;
     }
 }
 

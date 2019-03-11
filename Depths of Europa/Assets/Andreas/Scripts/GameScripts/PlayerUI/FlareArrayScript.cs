@@ -9,7 +9,7 @@ public class FlareArrayScript : MonoBehaviour {
     readonly int FIRST_ARRAY = 0;
     private RectTransform RectTransform;
     protected static Vector2 BASE_POSITION = new Vector2(0,0);
-    readonly float X_POSITION_INCREMENT = 30f;
+    readonly float X_POSITION_INCREMENT = 36f;
 
     private void Awake()
     {

@@ -21,11 +21,6 @@ public abstract class EnemyBase : MonoBehaviour
         _colliders = GetComponents<Collider2D>();
     }
 
-    private void Start()
-    {
-        GetComponent<SpriteRenderer>().sortingOrder = _currentMaxSortOrder++;
-    }
-
     protected virtual void FixedUpdate()
     {
         if (_shouldMove)

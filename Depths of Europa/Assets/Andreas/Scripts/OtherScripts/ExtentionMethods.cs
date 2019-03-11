@@ -69,11 +69,11 @@ public static class ExtentionMethods {
         }
         else if (slider.value < 0)
         {
-            Debug.Log(Mathf.Lerp(0f ,- 1.5f,Mathf.Abs(slider.value)));
+          //  Debug.Log(Mathf.Lerp(0f ,- 1.5f,Mathf.Abs(slider.value)));
             return Mathf.Lerp(0f ,- 1.5f,Mathf.Abs(slider.value));
         }
         else
-        Debug.Log(slider.value);
+        //Debug.Log(slider.value);
             return slider.value;
     }
 }
