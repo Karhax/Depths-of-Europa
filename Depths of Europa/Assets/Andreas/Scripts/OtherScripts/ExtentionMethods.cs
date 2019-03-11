@@ -64,13 +64,14 @@ public static class ExtentionMethods {
         //Debug.Log(slider.value);
         if (slider.value > 0)
         {
-
+            //Debug.Log(Mathf.Lerp(0, 2, slider.value));
             return Mathf.Lerp(0, 2, slider.value);
         }
         else if (slider.value < 0)
         {
-          //  Debug.Log(Mathf.Lerp(0f ,- 1.5f,Mathf.Abs(slider.value)));
-            return Mathf.Lerp(0f ,- 1.5f,Mathf.Abs(slider.value));
+            //  Debug.Log(Mathf.Lerp(0f ,- 1.5f,Mathf.Abs(slider.value)));
+            //Debug.Log(Mathf.Lerp(0f, -1f, Mathf.Abs(slider.value)));
+            return Mathf.Lerp(0f ,- 1f,Mathf.Abs(slider.value));
         }
         else
         //Debug.Log(slider.value);
@@ -90,11 +91,37 @@ public static class ExtentionMethods {
         {
             //Debug.Log(-Mathf.InverseLerp(0,1.5f,Mathf.Abs(value)));
             //  Debug.Log(Mathf.Lerp(0f ,- 1.5f,Mathf.Abs(slider.value)));
-            slider.value = -Mathf.InverseLerp(0, 1.5f ,Mathf.Abs(value));
+            slider.value = -Mathf.InverseLerp(0, 1f ,Mathf.Abs(value));
             //Debug.Log(slider.value);
         }
         else
             //Debug.Log(slider.value);
             slider.value = 0;
+
+        //Debug.LogError(-Mathf.InverseLerp(0, 1.5f, Mathf.Abs(value)));
+    }
+    public static float GammaToSlider(this float value)
+    {
+        //Debug.Log(slider.value);
+        if (value > 0)
+        {
+            //  Debug.Log(Mathf.InverseLerp(0, 2, value));
+
+            return Mathf.InverseLerp(0, 2, value);
+            // Debug.Log(slider.value);
+        }
+        else if (value < 0)
+        {
+            //Debug.Log(-Mathf.InverseLerp(0,1.5f,Mathf.Abs(value)));
+            //  Debug.Log(Mathf.Lerp(0f ,- 1.5f,Mathf.Abs(slider.value)));
+            return -Mathf.InverseLerp(0, 1f, Mathf.Abs(value));
+
+            //Debug.Log(slider.value);
+        }
+        else
+            //Debug.Log(slider.value);
+            return 0;
+
+        //Debug.LogError(-Mathf.InverseLerp(0, 1.5f, Mathf.Abs(value)));
     }
 }
