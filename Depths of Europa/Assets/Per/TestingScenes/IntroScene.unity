@@ -1120,7 +1120,7 @@ AudioSource:
   serializedVersion: 4
   OutputAudioMixerGroup: {fileID: 0}
   m_audioClip: {fileID: 8300000, guid: bd89f3661d6a68b4bb08922628cf7906, type: 3}
-  m_PlayOnAwake: 1
+  m_PlayOnAwake: 0
   m_Volume: 1
   m_Pitch: 1
   Loop: 1
@@ -4189,7 +4189,6 @@ GameObject:
   - component: {fileID: 1179655086}
   - component: {fileID: 1179655085}
   - component: {fileID: 1179655090}
-  - component: {fileID: 1179655091}
   m_Layer: 5
   m_Name: IntroUI
   m_TagString: Untagged
@@ -4314,25 +4313,14 @@ MonoBehaviour:
   m_GameObject: {fileID: 1179655084}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 2a7c3f26fc770e74f88da45827cc3d8d, type: 3}
+  m_Script: {fileID: 11500000, guid: 4eb2090654415614e8e7dbdaa3cceea0, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  _nextSceneName: Main Menu
   _skipBoolName: SkipTriggered
   _skipRequestBoolName: SkipRequested
   _musicHandler: {fileID: 290685078}
   _skipMusicFadeDuration: 2
---- !u!114 &1179655091
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 0}
-  m_GameObject: {fileID: 1179655084}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: df7a55f266b68eb44bd913bee0788347, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  _nextSceneName: Main Menu
 --- !u!1 &1181668661
 GameObject:
   m_ObjectHideFlags: 0
