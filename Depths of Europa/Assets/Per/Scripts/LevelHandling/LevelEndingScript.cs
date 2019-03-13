@@ -3,7 +3,12 @@ using System.Collections.Generic;
 using UnityEngine;
 
 public class LevelEndingScript : MonoBehaviour {
-    
+
+    [SerializeField] Transform _waypoint;
+    [SerializeField] Transform _moveShipToPosition;
+    [SerializeField, Range(0, 360)] float _moveShipRoationZ;
+    [SerializeField, Range(0, 15)] float _timeToWaitToStartDialog = 1.5f;
+    [SerializeField] Animator _clawAnimator;
     [SerializeField] private string _nextScene;
 
     private StartDialog _dialogScript = null;
@@ -11,6 +16,9 @@ public class LevelEndingScript : MonoBehaviour {
     // [SerializeField] private SoundObject _goalReachedSound = null;
 
     bool _shipInBase = false;
+
+    readonly float ANGLE_BACKWARD_FORWARD_ENTER_BASE = 60;
+    readonly string CLAW_ANIMATOR_ENTERED_TRIGGER = "Entered Base";
 
     private void Awake()
     {
@@ -37,7 +45,12 @@ public class LevelEndingScript : MonoBehaviour {
     private void OnTriggerEnter2D(Collider2D other)
     {
         if (other.CompareTag(Statics.Tags.PLAYER_OUTSIDE) && !_shipInBase)
-            ShipInBase(other);
+        {
+            Vector3 facingBase = _waypoint.position - other.transform.position;
+
+            if (Vector3.Angle(facingBase, other.transform.up) < ANGLE_BACKWARD_FORWARD_ENTER_BASE)
+                ShipInBase(other);     
+        }        
     }
 
     private void ShipInBase(Collider2D other)
@@ -45,15 +58,21 @@ public class LevelEndingScript : MonoBehaviour {
         _shipInBase = true;
 
         ShipInBase shipInBaseScript = other.GetComponent<ShipInBase>();
-        shipInBaseScript.InBase(true);
+        shipInBaseScript.InBase(true, _moveShipToPosition.position, _moveShipRoationZ, true);
 
         PlayerGUIScript playerUI = GameManager.CameraObject.GetComponentInChildren<PlayerGUIScript>();
         playerUI.gameObject.SetActive(false);
 
-        // Call function in the base object that plays the docking animation
-
         // Play sound here, or perhaps in the function EndLevel()
-        
+
+        StartCoroutine(DockingAnimation());
+    }
+
+    IEnumerator DockingAnimation()
+    {
+        _clawAnimator.SetTrigger(CLAW_ANIMATOR_ENTERED_TRIGGER);
+
+        yield return new WaitForSeconds(_timeToWaitToStartDialog);
 
         if (_hasDialog)
             BeginEndingDialog();
