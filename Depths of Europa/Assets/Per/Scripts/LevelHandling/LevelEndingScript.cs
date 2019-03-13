@@ -9,6 +9,8 @@ public class LevelEndingScript : MonoBehaviour {
     [SerializeField, Range(0, 360)] float _moveShipRoationZ;
     [SerializeField, Range(0, 15)] float _timeToWaitToStartDialog = 1.5f;
     [SerializeField] Animator _clawAnimator;
+    [SerializeField] Light _enterLight;
+    [SerializeField] Color _enterLightColor = Color.white;
     [SerializeField] private string _nextScene;
 
     private StartDialog _dialogScript = null;
@@ -55,6 +57,9 @@ public class LevelEndingScript : MonoBehaviour {
 
     private void ShipInBase(Collider2D other)
     {
+        if (_enterLight != null)
+            _enterLight.color = _enterLightColor;
+
         _shipInBase = true;
 
         ShipInBase shipInBaseScript = other.GetComponent<ShipInBase>();

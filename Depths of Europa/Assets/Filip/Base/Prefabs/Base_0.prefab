@@ -4162,6 +4162,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 8ac8d557a715532428c812c050a9fb78, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  _playOnAwake: 0
   _thisDialogBoxScriptableObject: {fileID: 11400000, guid: cab3e3ec91ec1b44992d1fa236998a19,
     type: 2}
   _dialog: {fileID: 1730204315758180}
@@ -4474,6 +4475,8 @@ MonoBehaviour:
   _moveShipRoationZ: 35
   _timeToWaitToStartDialog: 3.5
   _clawAnimator: {fileID: 95733726498624294}
+  _enterLight: {fileID: 108159920698664864}
+  _enterLightColor: {r: 0, g: 1, b: 0.33793116, a: 1}
   _nextScene: Main Menu
 --- !u!114 &114912771762991418
 MonoBehaviour:
