@@ -82,7 +82,9 @@ public class Dialog : MonoBehaviour
         if (GameManager.CameraObject != null)
         {
             _pauseMenuScript = GameManager.CameraObject.GetComponentInChildren<PauseMenuScript>();
-            _pauseMenuScript.PauseState += Paused;
+
+            if (_pauseMenuScript != null)
+                _pauseMenuScript.PauseState += Paused;
         }
     }
 
