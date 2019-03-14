@@ -10,9 +10,11 @@ public class SpawnChaser : MonoBehaviour
     [SerializeField, Range(0.1f, 10f)] float _timeInLightBeforeAggro;
     [SerializeField, Range(0, 5)] float _startPositionBack;
     [SerializeField, Range(0.1f, 10)] float _timeToWaitAfterReturning;
+    [SerializeField, Range(0, 5f)] float _enterSpawnSpeed = 0.25f;
 
     [Header("Drop")]
 
+    [SerializeField] Transform _spawn;
     [SerializeField] GameObject _chaserFish;
     [SerializeField] Transform _sprite;
 
@@ -59,8 +61,8 @@ public class SpawnChaser : MonoBehaviour
 
             if (_inLight && !_spawned)
             {
-                RaycastHit2D hit = Physics2D.Raycast(transform.position, _player.position - transform.position, Vector2.Distance(transform.position, _player.position), LayerMask.GetMask(Layers.DEFAULT, Layers.CHASER_SPAWN));
-                
+                RaycastHit2D hit = Physics2D.Raycast(transform.position, _player.position - transform.position, Vector2.Distance(transform.position, _player.position), LayerMask.GetMask(Layers.DEFAULT, Layers.BASE, Layers.FLOATING_OBJECT));
+
                 if (hit.collider == null)
                 {
                     _currentAggroTime += Time.deltaTime;
@@ -115,18 +117,28 @@ public class SpawnChaser : MonoBehaviour
 
     private void ResetSpawn()
     {
+        StartCoroutine(WaitForNextSpawn());
+    }
+
+    IEnumerator WaitForNextSpawn()
+    {
+        _fish.GetComponent<BasicChaserFish0>().ReachedSpawn();
+        
+        while (_fish.position != _spawn.position)
+        {
+            _fish.position = Vector3.MoveTowards(_fish.position, _spawn.position, Time.deltaTime * _enterSpawnSpeed);
+
+            yield return new WaitForEndOfFrame();
+        }
+
         _fishHasLeft = false;
         _sprite.gameObject.SetActive(true);
         Destroy(_fish.gameObject);
         _spawned = false;
         _currentAggroTime = 0;
 
-        StartCoroutine(WaitForNextSpawn());
-    }
-
-    IEnumerator WaitForNextSpawn()
-    {
         yield return new WaitForSeconds(_timeToWaitAfterReturning);
+
         _canSpawn = true;
     }
 }
