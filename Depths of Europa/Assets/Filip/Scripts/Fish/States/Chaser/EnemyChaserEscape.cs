@@ -14,6 +14,8 @@ public class EnemyChaserEscape : EnemyStateAttackEscapeBase
     {
         base.SetUp(script, noticeByHighSpeed, faceTransform, enemyWidth);
         _spawn = ((BasicChaserFish0)script).GetSpawn();
+
+        _avoidLayer = LayerMask.GetMask(Layers.DEFAULT, Layers.BASE, Layers.FLOATING_OBJECT);
     }
 
     public override void EnterState()
