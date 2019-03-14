@@ -9,7 +9,6 @@ public class StartDialog : MonoBehaviour
     public delegate void DialogOverDel();
     public event DialogOverDel DialogOverEvent;
 
-    [SerializeField] bool _playOnAwake = false;
     [SerializeField] protected DialogBoxScriptableObject _thisDialogBoxScriptableObject;
     [SerializeField] GameObject _dialog;
     [SerializeField] GameObject _tutorialDialog;
@@ -31,12 +30,6 @@ public class StartDialog : MonoBehaviour
         }
     }
 
-    private void Start()
-    {
-        if (_playOnAwake)
-            StartDialogs();
-    }
-
     private void OnDisable()
     {
         _dialogScript.DialogOverEvent -= DialogOver;
@@ -55,8 +48,6 @@ public class StartDialog : MonoBehaviour
 
     public bool StartDialogs(DialogBoxScriptableObject dialog = null, bool isTutorial = false)
     {
-        Debug.Log(Time.time);
-
         if (dialog != null)
             _thisDialogBoxScriptableObject = dialog;
 
