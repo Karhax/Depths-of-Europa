@@ -1279,7 +1279,7 @@ Transform:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1111445617526158}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 4.9, y: 177.3, z: -0.25}
+  m_LocalPosition: {x: -19.84, y: -12.88, z: -0.25}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 4142588805641138}
@@ -4315,6 +4315,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e3a14052748c9174c9198fd8d4d1d531, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  _inBaseMoveSpeed: 0.2
+  _inBaseRotateSpeed: 8.5
   _moveShipScript: {fileID: 114759706500815724}
   _waypointScript: {fileID: 114552126873397090}
   _lightShipScript: {fileID: 114473593790976888}
@@ -62976,7 +62978,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 0, y: 0}
-  m_AnchoredPosition: {x: -75.00012, y: -300}
+  m_AnchoredPosition: {x: -75, y: -300}
   m_SizeDelta: {x: 800, y: 1000}
   m_Pivot: {x: 0, y: 0}
 --- !u!224 &224551104970759938

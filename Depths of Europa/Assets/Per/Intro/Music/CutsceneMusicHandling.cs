@@ -28,6 +28,14 @@ public class CutsceneMusicHandling : MonoBehaviour {
         }
 	}
 
+    public void StartMusic()
+    {
+        if (_musicPlayer != null)
+        {
+            _musicPlayer.Play();
+        }
+    }
+
     public void StartFadeOut(float fadeDuration = 1)
     {
         if (fadeDuration <= 0)

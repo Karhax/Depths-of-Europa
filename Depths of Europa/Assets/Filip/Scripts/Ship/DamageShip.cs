@@ -73,7 +73,7 @@ public class DamageShip : MonoBehaviour
         ShipInBase turnOffShip = GetComponent<ShipInBase>();
 
         if (turnOffShip != null)
-            turnOffShip.InBase(true);
+            turnOffShip.InBase(true, Vector3.zero);
 
         StartCoroutine(Restart());
     }
