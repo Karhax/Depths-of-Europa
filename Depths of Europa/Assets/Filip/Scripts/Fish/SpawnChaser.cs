@@ -15,7 +15,8 @@ public class SpawnChaser : MonoBehaviour
 
     [Header("Drop")]
 
-    [SerializeField] Transform _spawn;
+    [SerializeField] Transform _spawnLoc;
+    [SerializeField] Transform _spawnGoBack;
     [SerializeField] GameObject _chaserFish;
     [SerializeField] Transform _sprite;
 
@@ -104,7 +105,7 @@ public class SpawnChaser : MonoBehaviour
         _canSpawn = false;
         _spawned = true;
 
-        _fish = (Instantiate(_chaserFish, transform.position, Quaternion.identity) as GameObject).transform;
+        _fish = (Instantiate(_chaserFish, _spawnLoc.position, Quaternion.identity) as GameObject).transform;
         _fish.right = GameManager.ShipObject.transform.position - _fish.position;
 
         BasicChaserFish0 script = _fish.GetComponent<BasicChaserFish0>();
@@ -124,9 +125,9 @@ public class SpawnChaser : MonoBehaviour
     {
         _fish.GetComponent<BasicChaserFish0>().ReachedSpawn();
         
-        while (_fish.position != _spawn.position)
+        while (_fish.position != _spawnGoBack.position)
         {
-            _fish.position = Vector3.MoveTowards(_fish.position, _spawn.position, Time.deltaTime * _enterSpawnSpeed);
+            _fish.position = Vector3.MoveTowards(_fish.position, _spawnGoBack.position, Time.deltaTime * _enterSpawnSpeed);
 
             yield return new WaitForEndOfFrame();
         }
