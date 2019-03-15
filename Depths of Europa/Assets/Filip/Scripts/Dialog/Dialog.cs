@@ -195,6 +195,7 @@ public class Dialog : MonoBehaviour
             {
                 placeInText = text.Length;
                 _dialogText.text = text;
+                _textAudioSource.Stop();
             }
 
             yield return new WaitForEndOfFrame();
@@ -209,6 +210,7 @@ public class Dialog : MonoBehaviour
 
         if (!StartNextDialogBox())
         {
+            _voiceAudioSource.clip = null;
             _dialogPlaying = false;
 
             if (DialogOverEvent != null)
@@ -271,7 +273,7 @@ public class Dialog : MonoBehaviour
         SetCharacterSettings(boxObject.RightCharacter, _rightImage, boxObject.RightTalking, _rightNameBox, _rigthNameText);
         SetCharacterSettings(boxObject.LeftCharacter, _leftImage, !boxObject.RightTalking, _leftNameBox, _leftNameText);
 
-        PlayAudioClip(_textAudioSource, boxObject.TextAudio);     
+        _textAudioSource.Play();
     }
 
     private void SetCharacterSettings(CharacterScriptableObject characterObject, Image characterImage, bool talking, Image nameBoxImage, Text nameText)
@@ -298,7 +300,8 @@ public class Dialog : MonoBehaviour
 
             if (characterObject.VoiceAudio != null)
             {
-                PlayAudioClip(_voiceAudioSource, characterObject.VoiceAudio);
+                if (_voiceAudioSource.clip != characterObject.VoiceAudio)
+                    PlayAudioClip(_voiceAudioSource, characterObject.VoiceAudio);
                 _minPlayTimer.Duration = _voiceAudioSource.clip.length;
             }
             else
@@ -352,21 +355,26 @@ public class Dialog : MonoBehaviour
 
     private string FixTextLineBreaks(string text)
     {
+        float textChanger = 0; //It does something important
         StringBuilder stringBuilder = new StringBuilder();
-        int lastSpaceIndex = 0;
+        int firstSpaceIndex = 0;
 
         for (int i = 0; i < text.Length; i++)
         {
-            if (text[i] == SPACE)
-                lastSpaceIndex = i;
-
             stringBuilder.Append(text[i].ToString());
+
+            if (stringBuilder[i] == SPACE)
+                firstSpaceIndex = i;
+
             _dialogText.text = stringBuilder.ToString();
 
             float textWidth = LayoutUtility.GetPreferredWidth(_dialogText.rectTransform);
 
-            if (textWidth > _dialogParentWidth && text[i] != SPACE)
-                stringBuilder.Replace(SPACE.ToString(), System.Environment.NewLine, lastSpaceIndex, i - lastSpaceIndex);
+            if (textWidth > _dialogParentWidth + textChanger)
+            {
+                stringBuilder.Replace(SPACE.ToString(), System.Environment.NewLine, firstSpaceIndex, i - firstSpaceIndex);
+                textChanger += 10; //Random number that seems to work
+            }      
         }
 
         _dialogText.text = string.Empty;

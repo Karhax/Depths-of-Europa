@@ -120,11 +120,6 @@ public class EnemyIdleBase : EnemyStateBase
 
     protected virtual EnemyStates ShouldAttack(Vector2 attackPosition)
     {
-        RaycastHit2D hit = Physics2D.Raycast(_thisTransform.position, attackPosition - (Vector2)_thisTransform.position, Vector2.Distance(_thisTransform.position, attackPosition), _avoidLayer);
-
-        if (hit.collider == null)
-            return EnemyStates.ATTACK;
-
-        return EnemyStates.STAY;
+        return EnemyStates.ATTACK;
     }
 }

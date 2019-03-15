@@ -19,7 +19,6 @@ public class DialogBoxObject
     [SerializeField] CharacterScriptableObject _rightCharacter;
     [SerializeField] CharacterScriptableObject _leftCharacter;
     [SerializeField] Sprite _backgroundSprite;
-    [SerializeField] AudioClip _textAudio;
     [SerializeField, TextAreaAttribute(3, 3)] string _dialogText;
 
     [Header("Effects")]
@@ -37,7 +36,6 @@ public class DialogBoxObject
     public CharacterScriptableObject LeftCharacter { get { return _leftCharacter; } private set { _leftCharacter = value; } }
     public string DialogText { get { return _dialogText; } private set { _dialogText = value; } }
     public Sprite BackgroundSprite { get { return _backgroundSprite; } private set { _backgroundSprite = value; } }
-    public AudioClip TextAudio { get { return _textAudio; } private set { _textAudio = value; } }
 
     public bool StopColorEffect { get { return _stopPreviousColorEffect; } private set { _stopPreviousColorEffect = value; } }
     public bool StopShakeEffect { get { return _stopPreviousShakeEffect; } private set { _stopPreviousShakeEffect = value; } }

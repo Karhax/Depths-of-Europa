@@ -44,7 +44,7 @@ public class ShipInBase : MonoBehaviour
         while (transform.position != worldPosition || transform.rotation.eulerAngles.z != worldZRotation)
         {
             transform.position = Vector3.MoveTowards(transform.position, worldPosition, Time.deltaTime * _inBaseMoveSpeed);
-            transform.rotation = Quaternion.Euler(0, 0, Mathf.MoveTowards(transform.rotation.eulerAngles.z, worldZRotation, Time.deltaTime * _inBaseRotateSpeed));
+            transform.rotation = Quaternion.RotateTowards(transform.rotation, Quaternion.Euler(0, 0, worldZRotation), Time.deltaTime * _inBaseRotateSpeed);
             yield return new WaitForEndOfFrame();
         }
     }
