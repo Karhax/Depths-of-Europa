@@ -22,6 +22,9 @@ public class LightShip : MonoBehaviour
     [SerializeField] GameObject _lightHolder;
     [SerializeField] GameObject _headlight;
 
+    [SerializeField] AudioSource _headlightAudio;
+    [SerializeField] AudioSource _allLightAudio;
+
     int _currentFlareCount;
     int _floorMask;
     float _camRayLength = 100f;
@@ -92,6 +95,7 @@ public class LightShip : MonoBehaviour
 
     private void TurnLightsOnOff()
     {
+        _allLightAudio.Play();
         _lightHolder.SetActive(!_lightHolder.activeSelf);
 
         if (_lightHolder.activeSelf)
@@ -108,6 +112,7 @@ public class LightShip : MonoBehaviour
 
     private void TurnHeadLightsOnOff()
     {
+        _headlightAudio.Play();
         _trigger.SetActive(!_trigger.activeSelf);
         _headlight.SetActive(!_headlight.activeSelf);
     }

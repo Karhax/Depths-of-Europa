@@ -7,6 +7,7 @@ public class SpawnChaser : MonoBehaviour
 {
     [Header("Settings")]
 
+	[SerializeField, Range(0.1f, 10f)] float _minAttackTime = 3f;
     [SerializeField, Range(0.1f, 10f)] float _timeInLightBeforeAggro;
     [SerializeField, Range(0, 5)] float _startPositionBack;
     [SerializeField, Range(0.1f, 10)] float _timeToWaitAfterReturning;
@@ -26,10 +27,11 @@ public class SpawnChaser : MonoBehaviour
     bool _fishHasLeft = false;
 
     bool _canSpawn = true;
-
+	Timer _minAttackTimer;
 
     private void Awake()
     {
+		_minAttackTimer = new Timer (_minAttackTime);
         _startPosition = _sprite.localPosition - new Vector3(_startPositionBack, 0, 0);
         _sprite.localPosition = _startPosition;
     }
@@ -72,19 +74,17 @@ public class SpawnChaser : MonoBehaviour
             else if (_currentAggroTime > 0)
                 _currentAggroTime -= Time.deltaTime;
         }
+
+		if (_spawned)
+			_minAttackTimer.Time += Time.deltaTime;
     }
 
     private void OnTriggerEnter2D(Collider2D other)
     {
-        if (other.CompareTag(Tags.LIGHT) || other.CompareTag(Tags.FLARE_TRIGGER))
-            _inLight = true;
-        else
-        {
-            BasicChaserFish0 fish = other.GetComponent<BasicChaserFish0>();
-
-            if (fish != null && _fishHasLeft)
-                ResetSpawn();
-        }
+		if (other.CompareTag (Tags.LIGHT) || other.CompareTag (Tags.FLARE_TRIGGER))
+			_inLight = true;
+		else if (other.transform == _fish && _fishHasLeft && _minAttackTimer.Expired())
+			ResetSpawn();
     }
 
     private void OnTriggerExit2D(Collider2D other)

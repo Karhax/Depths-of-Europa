@@ -79,8 +79,13 @@ public class Dialog : MonoBehaviour
 
     private void Start()
     {
-        _pauseMenuScript = GameManager.CameraObject.GetComponentInChildren<PauseMenuScript>();
-        _pauseMenuScript.PauseState += Paused;
+        if (GameManager.CameraObject != null)
+        {
+            _pauseMenuScript = GameManager.CameraObject.GetComponentInChildren<PauseMenuScript>();
+
+            if (_pauseMenuScript != null)
+                _pauseMenuScript.PauseState += Paused;
+        }
     }
 
     private void OnEnable()
@@ -287,6 +292,7 @@ public class Dialog : MonoBehaviour
             if (characterImage != null)
                 TintSprite(characterImage, _tintColorWhenTalking);
 
+            if (characterObject.Font != null)
             _dialogText.font = characterObject.Font;
 
             if (characterObject.VoiceAudio != null)
