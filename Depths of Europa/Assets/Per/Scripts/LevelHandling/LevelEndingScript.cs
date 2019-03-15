@@ -17,6 +17,7 @@ public class LevelEndingScript : MonoBehaviour {
     bool _hasDialog = false;
     // [SerializeField] private SoundObject _goalReachedSound = null;
 
+    AudioSource _clawAudio;
     bool _shipInBase = false;
 
     readonly float ANGLE_BACKWARD_FORWARD_ENTER_BASE = 60;
@@ -24,6 +25,7 @@ public class LevelEndingScript : MonoBehaviour {
 
     private void Awake()
     {
+        _clawAudio = GetComponent<AudioSource>();
         _dialogScript = GetComponent<StartDialog>();
 
         if (_dialogScript != null)
@@ -79,6 +81,7 @@ public class LevelEndingScript : MonoBehaviour {
 
     IEnumerator DockingAnimation()
     {
+        _clawAudio.Play();
         _clawAnimator.SetTrigger(CLAW_ANIMATOR_ENTERED_TRIGGER);
 
         yield return new WaitForSeconds(_timeToWaitToStartDialog);
