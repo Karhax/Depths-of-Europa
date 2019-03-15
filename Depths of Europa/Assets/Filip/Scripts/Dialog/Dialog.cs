@@ -28,6 +28,8 @@ public class Dialog : MonoBehaviour
     [SerializeField] Image _rightImage;
     [SerializeField] AudioSource _textAudioSource;
     [SerializeField] AudioSource _voiceAudioSource;
+    [SerializeField] AudioSource _skipAudioSource;
+    [SerializeField] AudioSource _effectAudioSource;
 
     [SerializeField] Image _rightNameBox;
     [SerializeField] Image _leftNameBox;
@@ -43,6 +45,8 @@ public class Dialog : MonoBehaviour
     public Image LeftNameBox { get { return _leftNameBox; } }
     public Text RightNameText { get { return _rigthNameText; } }
     public Text LeftNameText { get { return _leftNameText; } }
+
+    public AudioSource EffectAudioSource { get { return _effectAudioSource; } }
 
     bool _dialogPlaying = false;
 
@@ -172,9 +176,20 @@ public class Dialog : MonoBehaviour
             if (_pressedDown || (_forceSkipTimer.Expired() && _willForceSkip))
             {
                 if (placeInText < text.Length)
+                {
                     SetSpeed(_fastTextSpeed);
+                    if (_skipAudioSource != null)
+                        _skipAudioSource.Play();
+                }
+                   
                 else if (_minPlayTimer.Expired())
+                {
+                    if (_skipAudioSource != null)
+                        _skipAudioSource.Play();
+
                     canSkip = true;
+                }
+                   
             }
 
             if (placeInText < text.Length)

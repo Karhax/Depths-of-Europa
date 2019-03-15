@@ -6,9 +6,11 @@ using UnityEngine.UI;
 [CreateAssetMenu(fileName = "New DialogEffectColor", menuName = "Dialog/Effect/Color")]
 public class DialogEffectColor : DialogEffectBase
 {
+    [SerializeField] AudioClip _audio;
     [SerializeField] Gradient _gradient;
     [SerializeField] float _changeColorSpeed = 5;
 
+    AudioSource _thisAudioSource;
     Color _startColor;
     Image _backgroundImage;
     bool _firstLerp = true;
@@ -19,6 +21,14 @@ public class DialogEffectColor : DialogEffectBase
 
     public override void SetUpEffect(Dialog dialogScript)
     {
+        _thisAudioSource = dialogScript.EffectAudioSource;
+
+        if (_thisAudioSource != null)
+        {
+            _thisAudioSource.clip = _audio;
+            _thisAudioSource.Play();
+        }
+
         _changeColorSpeed /= MAKE_COLOR_CHANGE_SPEED_BIGGER_THAN_1;
         _backgroundImage = dialogScript.BackgroundImage;
 
@@ -51,6 +61,9 @@ public class DialogEffectColor : DialogEffectBase
 
     public override void ResetEffect()
     {
+        if (_thisAudioSource != null)
+            _thisAudioSource.Stop();
+
         if (_play)
             _backgroundImage.color = _startColor;
     }

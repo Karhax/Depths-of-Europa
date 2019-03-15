@@ -85,16 +85,8 @@ public class PauseMenuScript : MonoBehaviour {
         /// </summary>
     public void ExitToMenu()
     {
-        try
-        {
-            SceneManager.LoadScene(_mainMenuName);
-        }
-        catch (System.Exception)
-        {
-            Debug.LogError("No scene with that name exists, please ensure that you have entered the scene name correctly");
-        }
-        
-
+        GameManager.LevelEndReached(_mainMenuName);
+        SetPause();
     }
 
     public void ExitToDesktop()
@@ -110,7 +102,6 @@ public class PauseMenuScript : MonoBehaviour {
     }
     public void RestartLevel()
     {
-        
         ResumeFromGUI();
         GameManager.LevelRestartRequested();
     }
