@@ -12,6 +12,9 @@ public class ShipSideStrafing : MonoBehaviour
 
     [Header("Drop")]
 
+    [SerializeField] AudioSource _leftBubbleAudio;
+    [SerializeField] AudioSource _rightBubbleAudio;
+
     [SerializeField] ParticleSystem _leftParticleSystem;
     [SerializeField] ParticleSystem _rightParticleSystem;
 
@@ -32,13 +35,39 @@ public class ShipSideStrafing : MonoBehaviour
         bool right = Input.GetButton(GameInput.SIDE_STRAFE_RIGHT);
 
         if (left)
+        {
             AddForce(Vector2.left, _rightParticleSystem, ref _rightStopped);
+            TurnOnAudio(_rightBubbleAudio);
+        }   
         else
-            TurnOff(_rightParticleSystem, ref _rightStopped);
+        {
+            TurnOff(_rightParticleSystem, ref _rightStopped, true);
+            TurnOffAudio(_rightBubbleAudio);
+        }
+            
         if (right)
+        {
             AddForce(Vector2.right, _leftParticleSystem, ref _leftStopped);
+            TurnOnAudio(_leftBubbleAudio);
+        }
+            
         else
+        {
             TurnOff(_leftParticleSystem, ref _leftStopped);
+            TurnOffAudio(_leftBubbleAudio);
+        }
+    }     
+
+    private void TurnOnAudio(AudioSource source)
+    {
+        if (!source.isPlaying)
+            source.Play();
+    }
+
+    private void TurnOffAudio(AudioSource source)
+    {
+        if (source.isPlaying)
+            source.Pause();
     }
 
     private void AddForce(Vector2 direction, ParticleSystem particleSystem, ref bool stopped)
@@ -52,7 +81,7 @@ public class ShipSideStrafing : MonoBehaviour
         }  
     }
 
-    private void TurnOff(ParticleSystem particleSystem, ref bool stopped)
+    private void TurnOff(ParticleSystem particleSystem, ref bool stopped, bool isRight = false)
     {
         if (particleSystem.isPlaying)
         {
