@@ -285,6 +285,21 @@ GameObject:
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
+--- !u!1 &1940889201935556
+GameObject:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  serializedVersion: 5
+  m_Component:
+  - component: {fileID: 4361029403887370}
+  m_Layer: 14
+  m_Name: Spawn_Go_Back
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
 --- !u!4 &4052538827469452
 Transform:
   m_ObjectHideFlags: 1
@@ -331,10 +346,11 @@ Transform:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1690869894194994}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -21.57528, y: -12.779714, z: 0.001}
+  m_LocalPosition: {x: -28.805138, y: -13.1370325, z: 0.001}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 4827125699001754}
+  - {fileID: 4361029403887370}
   - {fileID: 4222684584622834}
   m_Father: {fileID: 0}
   m_RootOrder: 0
@@ -345,12 +361,12 @@ Transform:
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1152819978054014}
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -0.59, y: -0.05, z: 0}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: 0.225, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 4191356339197826}
-  m_RootOrder: 1
+  m_RootOrder: 2
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!4 &4287826133742968
 Transform:
@@ -377,6 +393,19 @@ Transform:
   m_Children: []
   m_Father: {fileID: 4507979615008092}
   m_RootOrder: 2
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!4 &4361029403887370
+Transform:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1940889201935556}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: -0.59, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 4191356339197826}
+  m_RootOrder: 1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!4 &4446108093610206
 Transform:
@@ -780,11 +809,13 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 368f6b6f7a3a6dc4a84dd27beca6acb7, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  _minAttackTime: 3
   _timeInLightBeforeAggro: 4.5
   _startPositionBack: 0.5
   _timeToWaitAfterReturning: 3
   _enterSpawnSpeed: 0.65
-  _spawn: {fileID: 4222684584622834}
+  _spawnLoc: {fileID: 4222684584622834}
+  _spawnGoBack: {fileID: 4361029403887370}
   _chaserFish: {fileID: 1007087164518454, guid: dc36df65cbe0710478fc02a71897e076,
     type: 2}
   _sprite: {fileID: 4827125699001754}
