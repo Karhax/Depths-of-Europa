@@ -36,6 +36,9 @@ public class ShipInBase : MonoBehaviour
 
     IEnumerator MoveShip(Vector3 worldPosition, float worldZRotation)
     {
+        if (worldZRotation > 180)
+            worldZRotation -= 360;
+
         GetComponent<Rigidbody2D>().simulated = false;
 
         while (transform.position != worldPosition || transform.rotation.eulerAngles.z != worldZRotation)

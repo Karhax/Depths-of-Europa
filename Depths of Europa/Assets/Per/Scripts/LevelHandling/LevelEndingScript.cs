@@ -63,7 +63,11 @@ public class LevelEndingScript : MonoBehaviour {
         _shipInBase = true;
 
         ShipInBase shipInBaseScript = other.GetComponent<ShipInBase>();
-        shipInBaseScript.InBase(true, _moveShipToPosition.position, _moveShipRoationZ, true);
+
+        if (transform.parent.parent != null)
+            shipInBaseScript.InBase(true, _moveShipToPosition.position, _moveShipRoationZ + transform.parent.parent.rotation.eulerAngles.z, true);
+        else
+            shipInBaseScript.InBase(true, _moveShipToPosition.position, _moveShipRoationZ, true);
 
         PlayerGUIScript playerUI = GameManager.CameraObject.GetComponentInChildren<PlayerGUIScript>();
         playerUI.gameObject.SetActive(false);
