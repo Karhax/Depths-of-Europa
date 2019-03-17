@@ -44,6 +44,7 @@ public class MoveShip : MonoBehaviour
     float _lowSpeedTriggerNormalRadius;
 
     bool _otherSoundAffectingTriggers = false;
+    float _currentTurnSpeedModifier = 0;
 
     private void Awake()
     {
@@ -55,6 +56,8 @@ public class MoveShip : MonoBehaviour
 
     private void FixedUpdate()
     {
+        SetTurnSpeedModifier();
+
         float move = Input.GetAxis(GameInput.VERTICAL);
         float turn = Input.GetAxis(GameInput.HORIZONTAL);
         float dotProduct = Vector3.Dot(_thisRigidbody.velocity, transform.up);
@@ -74,6 +77,18 @@ public class MoveShip : MonoBehaviour
             ChangeSpeedTriggers();
 
         CallSoundMeter();
+    }
+
+    private void SetTurnSpeedModifier()
+    {
+        float currentSpeed = _thisRigidbody.velocity.magnitude;
+
+        if (currentSpeed <= _slowSpeedMagnitude)
+            _currentTurnSpeedModifier = _slowTurnSpeed;
+        else if (currentSpeed <= _mediumSpeedMagnitude)
+            _currentTurnSpeedModifier = _mediumTurnSpeed;
+        else
+            _currentTurnSpeedModifier = _fastTurnSpeed;
     }
 
     private void OnCollisionEnter2D(Collision2D collision)
@@ -115,16 +130,8 @@ public class MoveShip : MonoBehaviour
     private void Turn(float turn, float dotProduct)
     {
         float speedMagnitude = _thisRigidbody.velocity.magnitude;
-        float speedModifier = 1;
 
-        if (speedMagnitude <= _slowSpeedMagnitude)
-            speedModifier = _slowTurnSpeed;
-        else if (speedMagnitude <= _mediumSpeedMagnitude)
-            speedModifier = _mediumTurnSpeed;
-        else
-            speedModifier = _fastTurnSpeed;
-
-        _thisRigidbody.AddTorque(turn * -dotProduct * Time.deltaTime * speedModifier);
+        _thisRigidbody.AddTorque(turn * -dotProduct * Time.deltaTime * _currentTurnSpeedModifier);
     }
 
     private void SetNewSpeed(float move, float forwardSpeedType, float backwardSpeedType, float dotProduct)

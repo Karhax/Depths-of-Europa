@@ -4732,6 +4732,7 @@ MonoBehaviour:
   _textAudioSource: {fileID: 82816997574052480}
   _voiceAudioSource: {fileID: 82269123148705252}
   _skipAudioSource: {fileID: 82152712534253096}
+  _effectAudioSource: {fileID: 0}
   _rightNameBox: {fileID: 0}
   _leftNameBox: {fileID: 0}
   _rigthNameText: {fileID: 0}
@@ -4860,11 +4861,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 0ace8c58b8bad5b4aa76433885985d68, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _slowTurnSpeed: 3
-  _mediumTurnSpeed: 4
-  _fastTurnSpeed: 1
-  _slowSpeedMagnitude: 0.75
-  _mediumSpeedMagnitude: 1.5
+  _slowTurnSpeed: 8.5
+  _mediumTurnSpeed: 5
+  _fastTurnSpeed: 1.25
+  _slowSpeedMagnitude: 0.35
+  _mediumSpeedMagnitude: 1.7
   _maxSpeedMagnitude: 2.25
   _maxReverseSpeedMagnitude: 1
   _baseForwardSpeed: 0.6
@@ -4978,6 +4979,7 @@ MonoBehaviour:
   _textAudioSource: {fileID: 82745264845718132}
   _voiceAudioSource: {fileID: 82124319530245328}
   _skipAudioSource: {fileID: 82300682809678364}
+  _effectAudioSource: {fileID: 0}
   _rightNameBox: {fileID: 114648196248638432}
   _leftNameBox: {fileID: 114792389847397606}
   _rigthNameText: {fileID: 114416580719120878}
