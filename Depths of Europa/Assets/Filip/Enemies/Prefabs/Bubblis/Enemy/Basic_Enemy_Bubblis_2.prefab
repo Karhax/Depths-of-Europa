@@ -1008,7 +1008,7 @@ Transform:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1176604129754292}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: -20.316, y: -10.605, z: 0}
+  m_LocalPosition: {x: -21.160414, y: -11.938055, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 4478710960831156}
@@ -1952,7 +1952,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_SpriteMesh: {fileID: 11400000, guid: 798afbac15228b2438c64b4532472efc, type: 2}
-  m_Color: {r: 0.41176468, g: 0.31487888, b: 0.16955015, a: 1}
+  m_Color: {r: 0.2794118, g: 0.10683392, b: 0.10683392, a: 1}
   m_Materials:
   - {fileID: 2100000, guid: a901732b48a8e5f42a924d0bc43700b1, type: 2}
   m_SortingLayerID: -1211141719
@@ -2046,7 +2046,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_SpriteMesh: {fileID: 11400000, guid: 2cc0aa286a0ca204fabdbe5ef9a51f17, type: 2}
-  m_Color: {r: 0.41176468, g: 0.31487888, b: 0.16955015, a: 1}
+  m_Color: {r: 0.2794118, g: 0.10683392, b: 0.10683392, a: 1}
   m_Materials:
   - {fileID: 2100000, guid: ae2cf1d6953af2440b3430b12993395a, type: 2}
   m_SortingLayerID: -1211141719
@@ -2080,7 +2080,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_SpriteMesh: {fileID: 11400000, guid: f09d4a72207f71d49b928c23f54f89cc, type: 2}
-  m_Color: {r: 0.41176468, g: 0.31487888, b: 0.16955015, a: 1}
+  m_Color: {r: 0.2794118, g: 0.10683392, b: 0.10683392, a: 1}
   m_Materials:
   - {fileID: 2100000, guid: ae2cf1d6953af2440b3430b12993395a, type: 2}
   m_SortingLayerID: -1211141719
@@ -2295,7 +2295,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_SpriteMesh: {fileID: 11400000, guid: 46e74d75f6c43214bab6087e4f42fe0e, type: 2}
-  m_Color: {r: 0.41176468, g: 0.31487888, b: 0.16955015, a: 1}
+  m_Color: {r: 0.2794118, g: 0.10683392, b: 0.10683392, a: 1}
   m_Materials:
   - {fileID: 2100000, guid: ae2cf1d6953af2440b3430b12993395a, type: 2}
   m_SortingLayerID: -1211141719
@@ -2509,7 +2509,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 90addcaa1cb676948859f0c1fa2ddbd5, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _enemyRadius: 0.25
+  _enemyRadius: 0.4
   _noticeByHighSpeed: 1
   _faceTransform: {fileID: 4535202797369530}
   _idleState:
@@ -2522,7 +2522,7 @@ MonoBehaviour:
     _minBackUpDistance: 1
     _maxBackUpDistance: 6
   _attackState:
-    _stateSpeed: 4.25
+    _stateSpeed: 3.5
     _stateSpeedModifier: 0.5
     _turnSpeed: 8
     _turnSmootheness: 0.5
@@ -2534,8 +2534,8 @@ MonoBehaviour:
     _avoidRange: 2
     _attackRange: 6
     _damage: 10
-    _timeToHunt: 20
-    _maxDistanceFromPlayerToStopAttack: 20
+    _timeToHunt: 7
+    _maxDistanceFromPlayerToStopAttack: 15
   _escapeState:
     _stateSpeed: 3.75
     _stateSpeedModifier: 0.25
@@ -2546,7 +2546,7 @@ MonoBehaviour:
     _sideLookRotation: 25
     _sideLookIgnoreRange: 8
     _dodgeSpeed: 25
-    _durationToEscapePastLight: 3
+    _durationToEscapePastLight: 7
     _lookRange: 2
 --- !u!114 &114987538556630486
 MonoBehaviour:

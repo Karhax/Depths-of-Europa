@@ -2186,7 +2186,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 90addcaa1cb676948859f0c1fa2ddbd5, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _enemyRadius: 0.25
+  _enemyRadius: 0.4
   _noticeByHighSpeed: 1
   _faceTransform: {fileID: 4480469097586110}
   _idleState:
@@ -2199,7 +2199,7 @@ MonoBehaviour:
     _minBackUpDistance: 1
     _maxBackUpDistance: 6
   _attackState:
-    _stateSpeed: 4.25
+    _stateSpeed: 3.5
     _stateSpeedModifier: 0.5
     _turnSpeed: 8
     _turnSmootheness: 0.5
@@ -2211,8 +2211,8 @@ MonoBehaviour:
     _avoidRange: 2
     _attackRange: 6
     _damage: 10
-    _timeToHunt: 20
-    _maxDistanceFromPlayerToStopAttack: 20
+    _timeToHunt: 7
+    _maxDistanceFromPlayerToStopAttack: 15
   _escapeState:
     _stateSpeed: 3.75
     _stateSpeedModifier: 0.25
@@ -2223,7 +2223,7 @@ MonoBehaviour:
     _sideLookRotation: 25
     _sideLookIgnoreRange: 8
     _dodgeSpeed: 25
-    _durationToEscapePastLight: 3
+    _durationToEscapePastLight: 7
     _lookRange: 2
 --- !u!114 &114538218223547758
 MonoBehaviour:

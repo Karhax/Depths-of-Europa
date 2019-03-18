@@ -1861,7 +1861,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9e4f54e7fac69d848b4a39c29c9d3d71, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _enemyRadius: 0.25
+  _enemyRadius: 0.4
   _noticeByHighSpeed: 1
   _faceTransform: {fileID: 4877076009407814}
   _idleState:
@@ -1874,7 +1874,7 @@ MonoBehaviour:
     _minBackUpDistance: 1
     _maxBackUpDistance: 6
   _escapeState:
-    _stateSpeed: 3.5
+    _stateSpeed: 5
     _stateSpeedModifier: 0.25
     _turnSpeed: 8
     _turnSmootheness: 0.25
@@ -1883,7 +1883,7 @@ MonoBehaviour:
     _sideLookRotation: 25
     _sideLookIgnoreRange: 8
     _dodgeSpeed: 15
-    _durationToEscapePastLight: 3
+    _durationToEscapePastLight: 6
     _lookRange: 2
 --- !u!114 &114204169592120216
 MonoBehaviour:
