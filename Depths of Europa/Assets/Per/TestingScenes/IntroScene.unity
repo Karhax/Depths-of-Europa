@@ -1084,6 +1084,7 @@ GameObject:
   m_Component:
   - component: {fileID: 290685076}
   - component: {fileID: 290685077}
+  - component: {fileID: 290685078}
   m_Layer: 0
   m_Name: CutsceneMusicPlayer
   m_TagString: Untagged
@@ -1098,11 +1099,11 @@ Transform:
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 290685075}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: -960, y: -540, z: 0}
+  m_LocalPosition: {x: -960, y: -540.00006, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 1179655089}
-  m_RootOrder: 1
+  m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!82 &290685077
 AudioSource:
@@ -1115,8 +1116,8 @@ AudioSource:
   OutputAudioMixerGroup: {fileID: 243724083684085594, guid: d8088fd3eccd90840a9dd3bb30644618,
     type: 2}
   m_audioClip: {fileID: 8300000, guid: f4680f715d09ff941bb312b2645a3491, type: 3}
-  m_PlayOnAwake: 1
-  m_Volume: 0.05
+  m_PlayOnAwake: 0
+  m_Volume: 1
   m_Pitch: 1
   Loop: 1
   Mute: 0
@@ -1185,6 +1186,17 @@ AudioSource:
     m_PreInfinity: 2
     m_PostInfinity: 2
     m_RotationOrder: 0
+--- !u!114 &290685078
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 290685075}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e2ef978af86dbef4bb35f4ecefb3299e, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &305911834
 GameObject:
   m_ObjectHideFlags: 0
@@ -2059,7 +2071,7 @@ RectTransform:
   - {fileID: 1210794093}
   - {fileID: 2055499104}
   m_Father: {fileID: 1179655089}
-  m_RootOrder: 0
+  m_RootOrder: 1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
@@ -4396,8 +4408,8 @@ RectTransform:
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 0, y: 0, z: 0}
   m_Children:
-  - {fileID: 665346984}
   - {fileID: 290685076}
+  - {fileID: 665346984}
   - {fileID: 749537754}
   - {fileID: 263228342}
   - {fileID: 230514330}
@@ -4436,7 +4448,7 @@ MonoBehaviour:
   _nextSceneName: level_prologue
   _skipBoolName: SkipTriggered
   _skipRequestBoolName: SkipRequested
-  _musicHandler: {fileID: 0}
+  _musicHandler: {fileID: 290685078}
   _skipMusicFadeDuration: 2
 --- !u!1 &1181668661
 GameObject:
