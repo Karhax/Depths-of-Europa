@@ -80,6 +80,23 @@ public class GameManager : MonoBehaviour {
         }
     }
 
+    public void StartGameFromMenu(string sceneName)
+    {
+        _nextScene = sceneName;
+        _fadeHandler.FadeEnded += EndingFadeOutDone;
+        _fadeHandler.FadeEnded -= RestartFadeOutDone;
+        _fadeHandler.FadeEnded -= BeginningFadeDone;
+        _fadeHandler.StartFadeOut();
+        if (FadeEvent != null)
+        {
+            FadeEvent(true);
+        }
+        if (_mainMusicParent != null)
+        {
+            _mainMusicParent.EndBaseMusic();
+        }
+    }
+
     public static void LevelEndReached(string sceneName)
     {
         _nextScene = sceneName;

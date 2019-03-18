@@ -26,7 +26,8 @@ public class CutsceneEventHandler : MonoBehaviour {
         }
     }
 	
-	void Update () {
+	void Update ()
+    {
         if (_cutsceneAnimator != null)
         {
             // If the skip question is active, see if the player confirms the skip

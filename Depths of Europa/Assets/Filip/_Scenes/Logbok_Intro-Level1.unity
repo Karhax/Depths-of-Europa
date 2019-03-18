@@ -325,6 +325,36 @@ Prefab:
       propertyPath: m_Camera
       value: 
       objectReference: {fileID: 1876652524}
+    - target: {fileID: 114789386048604174, guid: 8486a1a53b77a7340bf3212e0646148c,
+        type: 2}
+      propertyPath: m_Text
+      value: 
+      objectReference: {fileID: 0}
+    - target: {fileID: 114789386048604174, guid: 8486a1a53b77a7340bf3212e0646148c,
+        type: 2}
+      propertyPath: m_FontData.m_FontStyle
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 224027646866776856, guid: 8486a1a53b77a7340bf3212e0646148c,
+        type: 2}
+      propertyPath: m_AnchoredPosition.x
+      value: 14.4
+      objectReference: {fileID: 0}
+    - target: {fileID: 224027646866776856, guid: 8486a1a53b77a7340bf3212e0646148c,
+        type: 2}
+      propertyPath: m_AnchoredPosition.y
+      value: -0.2
+      objectReference: {fileID: 0}
+    - target: {fileID: 224027646866776856, guid: 8486a1a53b77a7340bf3212e0646148c,
+        type: 2}
+      propertyPath: m_SizeDelta.x
+      value: 1306
+      objectReference: {fileID: 0}
+    - target: {fileID: 82435558884010116, guid: 8486a1a53b77a7340bf3212e0646148c,
+        type: 2}
+      propertyPath: m_audioClip
+      value: 
+      objectReference: {fileID: 8300000, guid: bd084815a07216545b8d44f15e13b071, type: 3}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: 8486a1a53b77a7340bf3212e0646148c, type: 2}
   m_IsPrefabParent: 0
@@ -359,10 +389,10 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _music: {fileID: 196561876}
   _fadeMusicSpeed: 0.25
-  _thisDialogBoxScriptableObject: {fileID: 11400000, guid: 7fc682855b52833438c5ba034712b07e,
+  _thisDialogBoxScriptableObject: {fileID: 11400000, guid: 69364f97bbeb3e74ab3e2df44d982272,
     type: 2}
   _dialog: {fileID: 1236154243}
-  _nextSceneName: Main Menu
+  _nextSceneName: level_1
 --- !u!4 &495402136
 Transform:
   m_ObjectHideFlags: 0
@@ -446,7 +476,7 @@ AudioSource:
       tangentMode: 0
     m_PreInfinity: 2
     m_PostInfinity: 2
-    m_RotationOrder: 4
+    m_RotationOrder: 0
   reverbZoneMixCustomCurve:
     serializedVersion: 2
     m_Curve:

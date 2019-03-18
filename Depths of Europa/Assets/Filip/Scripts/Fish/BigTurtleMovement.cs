@@ -7,6 +7,8 @@ public class BigTurtleMovement : MonoBehaviour
 {
     [Header("Settings")]
 
+    [SerializeField] bool _circlePath = true;
+
     [SerializeField, Range(0, 10)] float _reachedTolerance = 0.5f;
     [SerializeField, Range(0, 100)] float _speed = 1;
     [SerializeField, Range(0, 15)] float _rotateSpeed = 0.25f;
@@ -61,7 +63,10 @@ public class BigTurtleMovement : MonoBehaviour
 
     private void NextPathPosition()
     {
-        _currentPathIndex = ++_currentPathIndex % _path.Length == 0 ? 0 : _currentPathIndex;
+        if (++_currentPathIndex == _path.Length && _circlePath)
+            _currentPathIndex = 0;
+        else
+            Destroy(transform.parent.gameObject);
     }
 
     private void SetDirection()

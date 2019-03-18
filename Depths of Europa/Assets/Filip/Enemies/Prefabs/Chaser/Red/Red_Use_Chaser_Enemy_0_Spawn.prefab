@@ -75,6 +75,21 @@ GameObject:
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
+--- !u!1 &1228165134857940
+GameObject:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  serializedVersion: 5
+  m_Component:
+  - component: {fileID: 4549923754619946}
+  m_Layer: 14
+  m_Name: Spawn_Go_Back
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
 --- !u!1 &1373148478486964
 GameObject:
   m_ObjectHideFlags: 1
@@ -331,10 +346,11 @@ Transform:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1690869894194994}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 131.062, y: 0.96199995, z: 0.001}
+  m_LocalPosition: {x: -28.681509, y: -12.271639, z: 0.001}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 4827125699001754}
+  - {fileID: 4549923754619946}
   - {fileID: 4222684584622834}
   m_Father: {fileID: 0}
   m_RootOrder: 0
@@ -345,12 +361,12 @@ Transform:
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1152819978054014}
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -0.59, y: -0.05, z: 0}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: 0.225, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 4191356339197826}
-  m_RootOrder: 1
+  m_RootOrder: 2
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!4 &4287826133742968
 Transform:
@@ -409,6 +425,19 @@ Transform:
   - {fileID: 4093997694575764}
   m_Father: {fileID: 4827125699001754}
   m_RootOrder: 0
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!4 &4549923754619946
+Transform:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1228165134857940}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: -0.59, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 4191356339197826}
+  m_RootOrder: 1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!4 &4564994333554940
 Transform:
@@ -549,7 +578,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_Color: {r: 1, g: 1, b: 1, a: 1}
-  m_Length: 0.41555944
+  m_Length: 0.41550604
   m_ChildTransform: {fileID: 4851556667302582}
   m_AttachedIK: {fileID: 0}
 --- !u!114 &114164076821357922
@@ -564,7 +593,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_Color: {r: 1, g: 1, b: 1, a: 1}
-  m_Length: 0.25905958
+  m_Length: 0.25905052
   m_ChildTransform: {fileID: 4287826133742968}
   m_AttachedIK: {fileID: 0}
 --- !u!114 &114269257721277950
@@ -579,7 +608,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_Color: {r: 1, g: 1, b: 1, a: 1}
-  m_Length: 0.67797464
+  m_Length: 0.67793727
   m_ChildTransform: {fileID: 4936598693204538}
   m_AttachedIK: {fileID: 0}
 --- !u!114 &114335945165936218
@@ -649,7 +678,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_Color: {r: 1, g: 1, b: 1, a: 1}
-  m_Length: 0.8642631
+  m_Length: 0.8642445
   m_ChildTransform: {fileID: 4152748775559260}
   m_AttachedIK: {fileID: 0}
 --- !u!114 &114604140411424688
@@ -664,7 +693,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_Color: {r: 1, g: 1, b: 1, a: 0.8}
-  m_Length: 0.38736784
+  m_Length: 0.38732943
   m_ChildTransform: {fileID: 4938682526038386}
   m_AttachedIK: {fileID: 0}
 --- !u!114 &114715419403185536
@@ -766,7 +795,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_Color: {r: 1, g: 1, b: 1, a: 1}
-  m_Length: 0.8632599
+  m_Length: 0.8632786
   m_ChildTransform: {fileID: 4943269957190060}
   m_AttachedIK: {fileID: 0}
 --- !u!114 &114985205202821756
@@ -785,7 +814,8 @@ MonoBehaviour:
   _startPositionBack: 0.5
   _timeToWaitAfterReturning: 3
   _enterSpawnSpeed: 0.65
-  _spawn: {fileID: 4222684584622834}
+  _spawnLoc: {fileID: 4222684584622834}
+  _spawnGoBack: {fileID: 4549923754619946}
   _chaserFish: {fileID: 1007087164518454, guid: 30bb13293d5951948be97899123999d5,
     type: 2}
   _sprite: {fileID: 4827125699001754}
