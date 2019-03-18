@@ -35,6 +35,13 @@ public class DamageShip : MonoBehaviour
             TakeDamage(collision.relativeVelocity.magnitude);
     }
 
+    public void RecoverDamage(int damageToRecover)
+    {
+        _currentHp = _currentHp + damageToRecover > _maxHp ? _maxHp : _currentHp + damageToRecover;
+
+        if (ShipTakeDamageEvent != null)
+            ShipTakeDamageEvent.Invoke((float)_currentHp / _maxHp);
+    }
     public void Hit(int damage)
     {
         GetComponent<CameraShake>().DoShake(damage);

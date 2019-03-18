@@ -63,10 +63,13 @@ public class BigTurtleMovement : MonoBehaviour
 
     private void NextPathPosition()
     {
-        if (++_currentPathIndex == _path.Length && _circlePath)
-            _currentPathIndex = 0;
-        else
-            Destroy(transform.parent.gameObject);
+        if (++_currentPathIndex == _path.Length)
+        {
+            if (_circlePath)
+                _currentPathIndex = 0;
+            else
+                Destroy(transform.parent.gameObject);
+        }       
     }
 
     private void SetDirection()
