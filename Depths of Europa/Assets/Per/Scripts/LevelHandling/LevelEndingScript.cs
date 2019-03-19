@@ -43,6 +43,7 @@ public class LevelEndingScript : MonoBehaviour {
         if (_hasDialog)
             _dialogScript.DialogOverEvent -= EndLevel;
 
+        Cursor.visible = true;
         GameManager.LevelEndReached(_nextScene);
     }
 
@@ -59,6 +60,8 @@ public class LevelEndingScript : MonoBehaviour {
 
     private void ShipInBase(Collider2D other)
     {
+        Cursor.visible = false;
+
         if (_enterLight != null)
             _enterLight.color = _enterLightColor;
 

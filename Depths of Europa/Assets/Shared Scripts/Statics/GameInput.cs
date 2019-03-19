@@ -10,7 +10,6 @@ namespace Statics
         public static readonly string VERTICAL = "Vertical";
         public static readonly string ACTION = "Action";
         public static readonly string ACTION2 = "Action2";
-        public static readonly string ACTION3 = "Action3";
         public static readonly string JUMP = "Jump";
 
         public static readonly string MOUSE_X = "Mouse X";

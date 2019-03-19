@@ -79,7 +79,7 @@ public class LightShip : MonoBehaviour
             _waitBetweenFlare.Time += Time.deltaTime;
 
             bool flare = Input.GetButton(GameInput.ACTION2);
-            bool onOff = Input.GetButtonDown(GameInput.ACTION3);
+            bool onOff = false;
             bool headLight = Input.GetButtonDown(GameInput.ACTION);
 
             if (onOff)

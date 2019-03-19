@@ -13,7 +13,10 @@ public class CutsceneEventHandler : MonoBehaviour {
 
     private Animator _cutsceneAnimator = null;
     
-    void Awake () {
+    void Awake ()
+    {
+        Cursor.visible = false;
+
         _cutsceneAnimator = gameObject.GetComponent<Animator>();
         if (_cutsceneAnimator == null)
         {
@@ -65,6 +68,7 @@ public class CutsceneEventHandler : MonoBehaviour {
 
     public void CutsceneEndReaction()
     {
+        Cursor.visible = true;
         SceneManager.LoadScene(_nextSceneName);
     }
 }
