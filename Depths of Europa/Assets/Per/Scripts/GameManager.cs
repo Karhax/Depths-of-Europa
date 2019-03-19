@@ -14,6 +14,8 @@ public class GameManager : MonoBehaviour {
     private static GameObject _camera = null;
     private static MainMusicParent _mainMusicParent = null;
     private static GameOverStingerHandler _gameOverStinger = null;
+    private static PauseMenuScript _pauseMenuScript = null;
+    private static Tutorial _tutorialScript = null;
 
     private static string _nextScene = "Main Menu";
 
@@ -38,6 +40,9 @@ public class GameManager : MonoBehaviour {
         {
             Destroy(this.gameObject);
         }
+
+        if (_camera != null)
+            _tutorialScript = _camera.GetComponentInChildren<Tutorial>();
     }
 
 	private void Start ()
@@ -70,6 +75,32 @@ public class GameManager : MonoBehaviour {
         }
         else
             _gameOverStinger = _mainMusicParent.gameObject.GetComponentInChildren<GameOverStingerHandler>();
+
+        if (_camera != null)
+            _pauseMenuScript = _camera.GetComponentInChildren<PauseMenuScript>();
+    }
+
+    private void OnEnable()
+    {
+        if (_tutorialScript != null)
+            _tutorialScript.TutorialOverEvent += TutorialStop;
+
+
+    }
+
+    public static void TutorialStart(Sprite tutorialImage)
+    {
+        if (_tutorialScript != null)
+            _tutorialScript.StartTutorial(tutorialImage);
+
+        if (_pauseMenuScript != null)
+            _pauseMenuScript.TutorialStart();
+    }
+
+    private static void TutorialStop()
+    {
+        if (_pauseMenuScript != null)
+            _pauseMenuScript.TutorialStop();
     }
 
     public static void DialogStartedReaction()
@@ -171,5 +202,8 @@ public class GameManager : MonoBehaviour {
             _fadeHandler.FadeEnded -= RestartFadeOutDone;
             _fadeHandler.FadeEnded -= EndingFadeOutDone;
         }
+
+        if (_tutorialScript != null)
+            _tutorialScript.TutorialOverEvent -= TutorialStop;
     }
 }

@@ -6,6 +6,8 @@ using UnityEngine.UI;
 
 public class PlayerGUIScript : MonoBehaviour {
 
+    [SerializeField] Color _healthBarFlashColor = Color.white;
+    [SerializeField, Range(0.1f, 10f)] float _healthBarFlashDuration;
     [SerializeField] Image _healthBarImage;
     public delegate void FlareAmmountChangeHandler(int ammountOFFlares);
     public event FlareAmmountChangeHandler FlareAmmountChange;
@@ -20,6 +22,9 @@ public class PlayerGUIScript : MonoBehaviour {
     LightShip _lightShipScript;
     MoveShip _moveShipScript;
 
+    bool _changingHealthBarColor = false;
+    Color _originalHealthBarColor;
+
     void Start()
     {
         _damageShipScript = GameManager.ShipObject.GetComponent<DamageShip>();
@@ -28,6 +33,8 @@ public class PlayerGUIScript : MonoBehaviour {
         _damageShipScript.ShipTakeDamageEvent += OnHealthChange;
         _lightShipScript.ShipUsedFlareEvent += OnFlare;
         _moveShipScript.ShipSoundEvent += OnNoiseChange;
+
+        _originalHealthBarColor = _healthBarImage.color;
     }
 
     private void OnEnable()
@@ -54,6 +61,27 @@ public class PlayerGUIScript : MonoBehaviour {
     private void OnHealthChange(float HPRatio)
     {
         _healthBarImage.fillAmount = HPRatio;
+        if (!_changingHealthBarColor)
+            StartCoroutine(ChangeHealthBarColor());
+    }
+
+    IEnumerator ChangeHealthBarColor()
+    {
+        _changingHealthBarColor = true;
+        _healthBarImage.color = _healthBarFlashColor;
+        Timer waitTimer = new Timer(_healthBarFlashDuration);
+
+        while(!waitTimer.Expired())
+        {
+            waitTimer.Time += Time.deltaTime;
+
+            _healthBarImage.color = Color.Lerp(_healthBarImage.color, _originalHealthBarColor, waitTimer.Ratio());
+
+            yield return new WaitForEndOfFrame();
+        }
+
+        _changingHealthBarColor = false;
+        _healthBarImage.color = _originalHealthBarColor;
     }
 
     private void OnNoiseChange(float noise)
