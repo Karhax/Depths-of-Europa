@@ -14,6 +14,8 @@ public class PauseMenuScript : MonoBehaviour {
 
     public event PauseStateHandler PauseState;
 
+    bool _tutorialPause = false;
+
     private void Awake()
     {
         _pauseMenuBackdrop.SetActive(false);
@@ -22,7 +24,7 @@ public class PauseMenuScript : MonoBehaviour {
     }
 
     void Update () {
-		if(Input.GetButtonDown(GameInput.CANCEL) && !_isFading)
+		if(Input.GetButtonDown(GameInput.CANCEL) && !_isFading && !_tutorialPause)
         {
             SetPause();
         }
@@ -33,6 +35,20 @@ public class PauseMenuScript : MonoBehaviour {
     private void OnFade(bool fadeState)
     {
         _isFading = fadeState;
+    }
+
+    public void TutorialStart()
+    {
+        _tutorialPause = true;
+        _isPaused = false;
+        SetPause();
+        _pauseMenuBackdrop.SetActive(false);
+    }
+
+    public void TutorialStop()
+    {
+        _tutorialPause = false;
+        SetPause();
     }
 
         /// <summary>
