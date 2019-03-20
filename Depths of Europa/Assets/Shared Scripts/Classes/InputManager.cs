@@ -91,7 +91,6 @@ public class InputManager : MonoBehaviour
             _allAxis.Add(GameInput.VERTICAL, new Axis(GameInput.VERTICAL, string.Empty, string.Empty, "down", "up", "s", "w"));
             _allAxis.Add(GameInput.ACTION, new Axis(GameInput.ACTION, "Headlights", string.Empty, string.Empty, "mouse 0", string.Empty, string.Empty));
             _allAxis.Add(GameInput.ACTION2, new Axis(GameInput.ACTION2, "Shoot Flare", string.Empty, string.Empty, "mouse 1", string.Empty, string.Empty));
-            _allAxis.Add(GameInput.ACTION3, new Axis(GameInput.ACTION3, "Turn Lights On/Off", string.Empty, string.Empty, "mouse 2", string.Empty, string.Empty));
             _allAxis.Add(GameInput.SKIP_DIALOG, new Axis(GameInput.SKIP_DIALOG, "Skip Dialog", string.Empty, string.Empty, "space", string.Empty, string.Empty));
             _allAxis.Add(GameInput.SUBMIT, new Axis(GameInput.SUBMIT, string.Empty, string.Empty, string.Empty, "enter", string.Empty, string.Empty));
             _allAxis.Add(GameInput.CANCEL, new Axis(GameInput.CANCEL, string.Empty, string.Empty, string.Empty, "escape", string.Empty, string.Empty));

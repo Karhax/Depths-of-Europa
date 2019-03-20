@@ -17,6 +17,8 @@ public class LogBook : MonoBehaviour
 
     private void Awake()
     {
+        Cursor.visible = false;
+
         _dialogScript = _dialog.GetComponent<Dialog>();
         _dialog.SetActive(false);
     }
@@ -46,6 +48,8 @@ public class LogBook : MonoBehaviour
 
     private void DialogOver()
     {
+        Cursor.visible = true;
+
         _dialogPlaying = false;
 
         GameManager.LevelEndReached(_nextSceneName);
