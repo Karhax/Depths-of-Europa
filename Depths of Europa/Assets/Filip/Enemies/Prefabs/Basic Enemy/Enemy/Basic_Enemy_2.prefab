@@ -71,6 +71,7 @@ GameObject:
   - component: {fileID: 66085125037031788}
   - component: {fileID: 58094970376008900}
   - component: {fileID: 114960283303232078}
+  - component: {fileID: 82970687888584422}
   m_Layer: 12
   m_Name: Basic_Enemy_2
   m_TagString: Enemy
@@ -1140,6 +1141,87 @@ CompositeCollider2D:
       - {x: -0.026010301, y: -0.1114584}
       - {x: 0.1020853, y: -0.1138445}
   m_VertexDistance: 0.0005
+--- !u!82 &82970687888584422
+AudioSource:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1176604129754292}
+  m_Enabled: 1
+  serializedVersion: 4
+  OutputAudioMixerGroup: {fileID: 243147562860025152, guid: d8088fd3eccd90840a9dd3bb30644618,
+    type: 2}
+  m_audioClip: {fileID: 8300000, guid: d9450661023402c4f86a661d3eb930ae, type: 3}
+  m_PlayOnAwake: 0
+  m_Volume: 1
+  m_Pitch: 1
+  Loop: 0
+  Mute: 0
+  Spatialize: 0
+  SpatializePostEffects: 0
+  Priority: 128
+  DopplerLevel: 1
+  MinDistance: 1
+  MaxDistance: 500
+  Pan2D: 0
+  rolloffMode: 0
+  BypassEffects: 0
+  BypassListenerEffects: 0
+  BypassReverbZones: 0
+  rolloffCustomCurve:
+    serializedVersion: 2
+    m_Curve:
+    - serializedVersion: 2
+      time: 0
+      value: 1
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+    - serializedVersion: 2
+      time: 1
+      value: 0
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 4
+  panLevelCustomCurve:
+    serializedVersion: 2
+    m_Curve:
+    - serializedVersion: 2
+      time: 0
+      value: 0.95
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 0
+  spreadCustomCurve:
+    serializedVersion: 2
+    m_Curve:
+    - serializedVersion: 2
+      time: 0
+      value: 0
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 0
+  reverbZoneMixCustomCurve:
+    serializedVersion: 2
+    m_Curve:
+    - serializedVersion: 2
+      time: 0
+      value: 1
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 0
 --- !u!95 &95688657019222032
 Animator:
   serializedVersion: 3
@@ -1615,6 +1697,9 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _enemyRadius: 0.4
   _noticeByHighSpeed: 1
+  _maxPitchDeviation: 0.25
+  _maxSoundWaitTime: 0.5
+  _attackSound: {fileID: 82970687888584422}
   _faceTransform: {fileID: 4087409045232132}
   _idleState:
     _stateSpeed: 1
