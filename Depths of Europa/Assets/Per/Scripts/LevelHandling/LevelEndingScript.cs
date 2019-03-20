@@ -12,6 +12,7 @@ public class LevelEndingScript : MonoBehaviour {
     [SerializeField] Light _enterLight;
     [SerializeField] Color _enterLightColor = Color.white;
     [SerializeField] private string _nextScene;
+    [SerializeField] GameObject _trailLight;
 
     private StartDialog _dialogScript = null;
     bool _hasDialog = false;
@@ -60,6 +61,7 @@ public class LevelEndingScript : MonoBehaviour {
 
     private void ShipInBase(Collider2D other)
     {
+        Destroy(_trailLight);
         Cursor.visible = false;
 
         if (_enterLight != null)
