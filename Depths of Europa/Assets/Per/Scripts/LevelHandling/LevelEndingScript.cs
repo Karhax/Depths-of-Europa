@@ -13,6 +13,7 @@ public class LevelEndingScript : MonoBehaviour {
     [SerializeField] Color _enterLightColor = Color.white;
     [SerializeField] private string _nextScene;
     [SerializeField] GameObject _trailLight;
+    [SerializeField] AudioSource _lightSwitchingAudio;
 
     private StartDialog _dialogScript = null;
     bool _hasDialog = false;
@@ -61,6 +62,8 @@ public class LevelEndingScript : MonoBehaviour {
 
     private void ShipInBase(Collider2D other)
     {
+        if (_lightSwitchingAudio != null)
+            _lightSwitchingAudio.Play();
         Destroy(_trailLight);
         Cursor.visible = false;
 
