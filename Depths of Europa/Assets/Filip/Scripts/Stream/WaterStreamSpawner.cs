@@ -6,7 +6,7 @@ public class WaterStreamSpawner : MonoBehaviour
 {
     [Header("Settings")]
 
-    [SerializeField, Range(0.1f, 10)] float _spawnSpeed;
+    [SerializeField, Range(0.1f, 100)] float _spawnSpeed;
     [SerializeField, Range(0, 30)] float _maxRotationSpeed;
 
     [Header("Drop")]

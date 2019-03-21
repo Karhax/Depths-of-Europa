@@ -15,7 +15,7 @@ public class MenuLogoGlow : MonoBehaviour
     private void Awake()
     {
         _timer = new Timer(_speed);
-        _material = GetComponent<UnityEngine.UI.Image>().material;
+        _material = GetComponent<SpriteRenderer>().material;
     }
 
     private void Update()
