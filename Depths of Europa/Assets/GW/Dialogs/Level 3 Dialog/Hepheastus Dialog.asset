@@ -15,79 +15,242 @@ MonoBehaviour:
   - _rightTalking: 0
     _rightCharacter: {fileID: 11400000, guid: 6c4f93f5908f695499ef82a347a801a8, type: 2}
     _leftCharacter: {fileID: 11400000, guid: aaad767b8b144f74b8c00af973d781de, type: 2}
-    _dialogText: "Hello?!\u2019"
-    _textAudio: {fileID: 8300000, guid: bb7a071e361e29745a6ccebab50d802d, type: 3}
+    _backgroundSprite: {fileID: 0}
+    _dialogText: Hello?!
+    _stopPreviousColorEffect: 0
+    _stopPreviousShakeEffect: 0
+    _colorEffect: {fileID: 0}
+    _shakeEffect: {fileID: 0}
+    _OneTimeEffects: []
   - _rightTalking: 1
     _rightCharacter: {fileID: 11400000, guid: 6c4f93f5908f695499ef82a347a801a8, type: 2}
     _leftCharacter: {fileID: 11400000, guid: aaad767b8b144f74b8c00af973d781de, type: 2}
+    _backgroundSprite: {fileID: 0}
     _dialogText: You are loud. What is it? Who are you?
-    _textAudio: {fileID: 8300000, guid: bb7a071e361e29745a6ccebab50d802d, type: 3}
+    _stopPreviousColorEffect: 0
+    _stopPreviousShakeEffect: 0
+    _colorEffect: {fileID: 0}
+    _shakeEffect: {fileID: 0}
+    _OneTimeEffects: []
   - _rightTalking: 0
     _rightCharacter: {fileID: 11400000, guid: 6c4f93f5908f695499ef82a347a801a8, type: 2}
     _leftCharacter: {fileID: 11400000, guid: aaad767b8b144f74b8c00af973d781de, type: 2}
+    _backgroundSprite: {fileID: 0}
     _dialogText: "This month\u2019s delivery service, however right now I\u2019m here
       to evacuate you."
-    _textAudio: {fileID: 8300000, guid: bb7a071e361e29745a6ccebab50d802d, type: 3}
+    _stopPreviousColorEffect: 0
+    _stopPreviousShakeEffect: 0
+    _colorEffect: {fileID: 0}
+    _shakeEffect: {fileID: 0}
+    _OneTimeEffects: []
   - _rightTalking: 1
     _rightCharacter: {fileID: 11400000, guid: 6c4f93f5908f695499ef82a347a801a8, type: 2}
     _leftCharacter: {fileID: 11400000, guid: aaad767b8b144f74b8c00af973d781de, type: 2}
-    _dialogText: "Evacuate me? Hephaestus is one of the strongest bases and hasn\u2019t
-      needed any evacuations in three decades."
-    _textAudio: {fileID: 8300000, guid: bb7a071e361e29745a6ccebab50d802d, type: 3}
+    _backgroundSprite: {fileID: 0}
+    _dialogText: "Evacuate me? Hephaestus hasn\u2019t needed any evacuations in three
+      decades."
+    _stopPreviousColorEffect: 0
+    _stopPreviousShakeEffect: 0
+    _colorEffect: {fileID: 0}
+    _shakeEffect: {fileID: 0}
+    _OneTimeEffects: []
   - _rightTalking: 0
     _rightCharacter: {fileID: 11400000, guid: 6c4f93f5908f695499ef82a347a801a8, type: 2}
     _leftCharacter: {fileID: 11400000, guid: aaad767b8b144f74b8c00af973d781de, type: 2}
+    _backgroundSprite: {fileID: 0}
     _dialogText: There is something big and monstrous loose in the sea, it broke out
-      from the rock surrounding Tartarus and destroyed it. Aristaeus is gone as well.
-      If you remain here your life is in grave danger.
-    _textAudio: {fileID: 8300000, guid: bb7a071e361e29745a6ccebab50d802d, type: 3}
+      from the rock surrounding Tartarus and destroyed it.
+    _stopPreviousColorEffect: 0
+    _stopPreviousShakeEffect: 0
+    _colorEffect: {fileID: 0}
+    _shakeEffect: {fileID: 0}
+    _OneTimeEffects: []
   - _rightTalking: 0
     _rightCharacter: {fileID: 11400000, guid: 6c4f93f5908f695499ef82a347a801a8, type: 2}
     _leftCharacter: {fileID: 11400000, guid: aaad767b8b144f74b8c00af973d781de, type: 2}
-    _dialogText: If you remain here your life is in grave danger.
-    _textAudio: {fileID: 8300000, guid: bb7a071e361e29745a6ccebab50d802d, type: 3}
+    _backgroundSprite: {fileID: 0}
+    _dialogText: Aristaeus is gone as well. It's dangerous to remain here.
+    _stopPreviousColorEffect: 0
+    _stopPreviousShakeEffect: 0
+    _colorEffect: {fileID: 0}
+    _shakeEffect: {fileID: 0}
+    _OneTimeEffects: []
   - _rightTalking: 1
     _rightCharacter: {fileID: 11400000, guid: 6c4f93f5908f695499ef82a347a801a8, type: 2}
     _leftCharacter: {fileID: 11400000, guid: aaad767b8b144f74b8c00af973d781de, type: 2}
+    _backgroundSprite: {fileID: 0}
     _dialogText: Wouldn't be the first time, what makes this different?
-    _textAudio: {fileID: 8300000, guid: bb7a071e361e29745a6ccebab50d802d, type: 3}
+    _stopPreviousColorEffect: 0
+    _stopPreviousShakeEffect: 0
+    _colorEffect: {fileID: 0}
+    _shakeEffect: {fileID: 0}
+    _OneTimeEffects: []
   - _rightTalking: 1
     _rightCharacter: {fileID: 11400000, guid: 6c4f93f5908f695499ef82a347a801a8, type: 2}
     _leftCharacter: {fileID: 11400000, guid: aaad767b8b144f74b8c00af973d781de, type: 2}
+    _backgroundSprite: {fileID: 0}
     _dialogText: "Because even Hephaestus won\u2019t survive this. Every base out
       in the deeper ends need to be evacuated. And with haste, preferably."
-    _textAudio: {fileID: 8300000, guid: bb7a071e361e29745a6ccebab50d802d, type: 3}
-  - _rightTalking: 1
-    _rightCharacter: {fileID: 11400000, guid: 6c4f93f5908f695499ef82a347a801a8, type: 2}
-    _leftCharacter: {fileID: 11400000, guid: aaad767b8b144f74b8c00af973d781de, type: 2}
-    _dialogText: '...Let us go then.'
-    _textAudio: {fileID: 8300000, guid: bb7a071e361e29745a6ccebab50d802d, type: 3}
+    _stopPreviousColorEffect: 0
+    _stopPreviousShakeEffect: 0
+    _colorEffect: {fileID: 0}
+    _shakeEffect: {fileID: 0}
+    _OneTimeEffects: []
   - _rightTalking: 0
     _rightCharacter: {fileID: 11400000, guid: 6c4f93f5908f695499ef82a347a801a8, type: 2}
     _leftCharacter: {fileID: 11400000, guid: 1bf1e916f249d794bbb8449ac34ffad2, type: 2}
-    _dialogText: Miss Demidov, where are you headed off to?
-    _textAudio: {fileID: 8300000, guid: bb7a071e361e29745a6ccebab50d802d, type: 3}
+    _backgroundSprite: {fileID: 21300000, guid: c751d9951b4500342874b6417b8bcff1,
+      type: 3}
+    _dialogText: What's going on? Oh, we have a visitor, Hello!
+    _stopPreviousColorEffect: 0
+    _stopPreviousShakeEffect: 0
+    _colorEffect: {fileID: 0}
+    _shakeEffect: {fileID: 0}
+    _OneTimeEffects: []
   - _rightTalking: 1
     _rightCharacter: {fileID: 11400000, guid: 6c4f93f5908f695499ef82a347a801a8, type: 2}
     _leftCharacter: {fileID: 11400000, guid: 1bf1e916f249d794bbb8449ac34ffad2, type: 2}
+    _backgroundSprite: {fileID: 21300000, guid: c751d9951b4500342874b6417b8bcff1,
+      type: 3}
     _dialogText: Oh...I had almost forgotten. The base is being evacuated, mister
       Satou.
-    _textAudio: {fileID: 8300000, guid: bb7a071e361e29745a6ccebab50d802d, type: 3}
+    _stopPreviousColorEffect: 0
+    _stopPreviousShakeEffect: 0
+    _colorEffect: {fileID: 0}
+    _shakeEffect: {fileID: 0}
+    _OneTimeEffects: []
   - _rightTalking: 0
     _rightCharacter: {fileID: 11400000, guid: 6c4f93f5908f695499ef82a347a801a8, type: 2}
     _leftCharacter: {fileID: 11400000, guid: 1bf1e916f249d794bbb8449ac34ffad2, type: 2}
+    _backgroundSprite: {fileID: 21300000, guid: c751d9951b4500342874b6417b8bcff1,
+      type: 3}
     _dialogText: Evacuated?!
-    _textAudio: {fileID: 8300000, guid: bb7a071e361e29745a6ccebab50d802d, type: 3}
+    _stopPreviousColorEffect: 0
+    _stopPreviousShakeEffect: 0
+    _colorEffect: {fileID: 0}
+    _shakeEffect: {fileID: 0}
+    _OneTimeEffects: []
   - _rightTalking: 0
-    _rightCharacter: {fileID: 11400000, guid: 1bf1e916f249d794bbb8449ac34ffad2, type: 2}
+    _rightCharacter: {fileID: 11400000, guid: 6c4f93f5908f695499ef82a347a801a8, type: 2}
     _leftCharacter: {fileID: 11400000, guid: aaad767b8b144f74b8c00af973d781de, type: 2}
-    _dialogText: Large and dangerous creature has broken free from wherever it came
-      from, Tartarus was torn apart and Aristaeus suffered heavy malfunctions. Now
-      can we -please- go?
-    _textAudio: {fileID: 8300000, guid: bb7a071e361e29745a6ccebab50d802d, type: 3}
+    _backgroundSprite: {fileID: 21300000, guid: c751d9951b4500342874b6417b8bcff1,
+      type: 3}
+    _dialogText: Something large and dangerous broke free from the depths around Tartarus
+      and caused the base's destruction.
+    _stopPreviousColorEffect: 0
+    _stopPreviousShakeEffect: 0
+    _colorEffect: {fileID: 0}
+    _shakeEffect: {fileID: 0}
+    _OneTimeEffects: []
+  - _rightTalking: 0
+    _rightCharacter: {fileID: 11400000, guid: 6c4f93f5908f695499ef82a347a801a8, type: 2}
+    _leftCharacter: {fileID: 11400000, guid: aaad767b8b144f74b8c00af973d781de, type: 2}
+    _backgroundSprite: {fileID: 21300000, guid: c751d9951b4500342874b6417b8bcff1,
+      type: 3}
+    _dialogText: Aristeaus too...Can we please go?
+    _stopPreviousColorEffect: 0
+    _stopPreviousShakeEffect: 0
+    _colorEffect: {fileID: 0}
+    _shakeEffect: {fileID: 0}
+    _OneTimeEffects: []
   - _rightTalking: 1
-    _rightCharacter: {fileID: 11400000, guid: 1bf1e916f249d794bbb8449ac34ffad2, type: 2}
+    _rightCharacter: {fileID: 11400000, guid: 6c4f93f5908f695499ef82a347a801a8, type: 2}
+    _leftCharacter: {fileID: 11400000, guid: 1bf1e916f249d794bbb8449ac34ffad2, type: 2}
+    _backgroundSprite: {fileID: 21300000, guid: c751d9951b4500342874b6417b8bcff1,
+      type: 3}
+    _dialogText: Go with them, mister Satou, Aether is your home base and your assignment
+      here is done. Time for you to get back.
+    _stopPreviousColorEffect: 0
+    _stopPreviousShakeEffect: 0
+    _colorEffect: {fileID: 0}
+    _shakeEffect: {fileID: 0}
+    _OneTimeEffects: []
+  - _rightTalking: 0
+    _rightCharacter: {fileID: 11400000, guid: 6c4f93f5908f695499ef82a347a801a8, type: 2}
+    _leftCharacter: {fileID: 11400000, guid: 1bf1e916f249d794bbb8449ac34ffad2, type: 2}
+    _backgroundSprite: {fileID: 21300000, guid: c751d9951b4500342874b6417b8bcff1,
+      type: 3}
+    _dialogText: And your coming with us of course.
+    _stopPreviousColorEffect: 0
+    _stopPreviousShakeEffect: 0
+    _colorEffect: {fileID: 0}
+    _shakeEffect: {fileID: 0}
+    _OneTimeEffects: []
+  - _rightTalking: 1
+    _rightCharacter: {fileID: 11400000, guid: 6c4f93f5908f695499ef82a347a801a8, type: 2}
+    _leftCharacter: {fileID: 11400000, guid: 1bf1e916f249d794bbb8449ac34ffad2, type: 2}
+    _backgroundSprite: {fileID: 21300000, guid: c751d9951b4500342874b6417b8bcff1,
+      type: 3}
+    _dialogText: Hephaestus will stand, I remain here.
+    _stopPreviousColorEffect: 0
+    _stopPreviousShakeEffect: 0
+    _colorEffect: {fileID: 0}
+    _shakeEffect: {fileID: 0}
+    _OneTimeEffects: []
+  - _rightTalking: 0
+    _rightCharacter: {fileID: 11400000, guid: 6c4f93f5908f695499ef82a347a801a8, type: 2}
     _leftCharacter: {fileID: 11400000, guid: aaad767b8b144f74b8c00af973d781de, type: 2}
-    _dialogText: "Partially this sounds quite astonishing, and partially terrifying!
-      Let\u2019s go then!"
-    _textAudio: {fileID: 8300000, guid: bb7a071e361e29745a6ccebab50d802d, type: 3}
+    _backgroundSprite: {fileID: 21300000, guid: c751d9951b4500342874b6417b8bcff1,
+      type: 3}
+    _dialogText: This is nonsense, you're putting yourself in danger by staying here.
+    _stopPreviousColorEffect: 0
+    _stopPreviousShakeEffect: 0
+    _colorEffect: {fileID: 0}
+    _shakeEffect: {fileID: 0}
+    _OneTimeEffects: []
+  - _rightTalking: 0
+    _rightCharacter: {fileID: 11400000, guid: 6c4f93f5908f695499ef82a347a801a8, type: 2}
+    _leftCharacter: {fileID: 11400000, guid: 1bf1e916f249d794bbb8449ac34ffad2, type: 2}
+    _backgroundSprite: {fileID: 21300000, guid: c751d9951b4500342874b6417b8bcff1,
+      type: 3}
+    _dialogText: Lada, please, I'd rather not be the one to deliver the message to
+      your family about your passing. Your work isn't worth it.
+    _stopPreviousColorEffect: 0
+    _stopPreviousShakeEffect: 0
+    _colorEffect: {fileID: 0}
+    _shakeEffect: {fileID: 0}
+    _OneTimeEffects: []
+  - _rightTalking: 1
+    _rightCharacter: {fileID: 11400000, guid: 6c4f93f5908f695499ef82a347a801a8, type: 2}
+    _leftCharacter: {fileID: 11400000, guid: 1bf1e916f249d794bbb8449ac34ffad2, type: 2}
+    _backgroundSprite: {fileID: 21300000, guid: c751d9951b4500342874b6417b8bcff1,
+      type: 3}
+    _dialogText: It is this work that supports them!
+    _stopPreviousColorEffect: 0
+    _stopPreviousShakeEffect: 0
+    _colorEffect: {fileID: 0}
+    _shakeEffect: {fileID: 0}
+    _OneTimeEffects: []
+  - _rightTalking: 0
+    _rightCharacter: {fileID: 11400000, guid: 6c4f93f5908f695499ef82a347a801a8, type: 2}
+    _leftCharacter: {fileID: 11400000, guid: aaad767b8b144f74b8c00af973d781de, type: 2}
+    _backgroundSprite: {fileID: 21300000, guid: c751d9951b4500342874b6417b8bcff1,
+      type: 3}
+    _dialogText: Something that you can't do if you are dead.
+    _stopPreviousColorEffect: 0
+    _stopPreviousShakeEffect: 0
+    _colorEffect: {fileID: 0}
+    _shakeEffect: {fileID: 0}
+    _OneTimeEffects: []
+  - _rightTalking: 0
+    _rightCharacter: {fileID: 11400000, guid: 6c4f93f5908f695499ef82a347a801a8, type: 2}
+    _leftCharacter: {fileID: 11400000, guid: 1bf1e916f249d794bbb8449ac34ffad2, type: 2}
+    _backgroundSprite: {fileID: 21300000, guid: c751d9951b4500342874b6417b8bcff1,
+      type: 3}
+    _dialogText: Lada, please-
+    _stopPreviousColorEffect: 0
+    _stopPreviousShakeEffect: 0
+    _colorEffect: {fileID: 0}
+    _shakeEffect: {fileID: 0}
+    _OneTimeEffects: []
+  - _rightTalking: 1
+    _rightCharacter: {fileID: 11400000, guid: 6c4f93f5908f695499ef82a347a801a8, type: 2}
+    _leftCharacter: {fileID: 11400000, guid: 1bf1e916f249d794bbb8449ac34ffad2, type: 2}
+    _backgroundSprite: {fileID: 21300000, guid: c751d9951b4500342874b6417b8bcff1,
+      type: 3}
+    _dialogText: Enough! I'll come with you.
+    _stopPreviousColorEffect: 0
+    _stopPreviousShakeEffect: 0
+    _colorEffect: {fileID: 0}
+    _shakeEffect: {fileID: 0}
+    _OneTimeEffects: []
