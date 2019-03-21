@@ -49,7 +49,10 @@ public class EnemyEscapeBase : EnemyStateAttackEscapeBase
         RaycastHit2D hit = Physics2D.BoxCast(_faceTransform.position, _boxCastBox, 0, _thisTransform.right, _lookRange, _avoidLayer);
 
         if (hit.collider != null)
+        {
             Divert();
+            Debug.Log(hit.collider);
+        }
         else
             return Flee();
 
