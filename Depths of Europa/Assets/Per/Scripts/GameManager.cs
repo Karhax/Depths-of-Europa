@@ -111,6 +111,11 @@ public class GameManager : MonoBehaviour {
         }
     }
 
+    public void FadeMenuMusic()
+    {
+        FindObjectOfType<MenuMusic>().FadeMusic();
+    }
+
     public void StartGameFromMenu(string sceneName)
     {
         _nextScene = sceneName;
