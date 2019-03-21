@@ -22,6 +22,8 @@ GameObject:
   - component: {fileID: 212779103284202072}
   - component: {fileID: 50419505806991894}
   - component: {fileID: 60370013854770430}
+  - component: {fileID: 114661953607430614}
+  - component: {fileID: 114338526847528996}
   m_Layer: 17
   m_Name: Metalscrap1
   m_TagString: Base
@@ -52,9 +54,9 @@ Transform:
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1819088694806420}
-  m_LocalRotation: {x: -0, y: -0, z: -0.9479752, w: 0.31834424}
-  m_LocalPosition: {x: 0.1058197, y: -5.532936, z: 0}
-  m_LocalScale: {x: 0.50000036, y: 0.50000036, z: 1}
+  m_LocalRotation: {x: -0, y: -0, z: 0.35836798, w: 0.93358046}
+  m_LocalPosition: {x: -89.47336, y: 32.639744, z: 0}
+  m_LocalScale: {x: 0.466813, y: 0.466813, z: 0}
   m_Children:
   - {fileID: 4510330446197368}
   m_Father: {fileID: 0}
@@ -125,7 +127,7 @@ Rigidbody2D:
   m_Simulated: 1
   m_UseFullKinematicContacts: 0
   m_UseAutoMass: 0
-  m_Mass: 1
+  m_Mass: 0.05
   m_LinearDrag: 0.35
   m_AngularDrag: 0.15
   m_GravityScale: 0
@@ -169,6 +171,28 @@ PolygonCollider2D:
       - {x: 0.29206848, y: -0.07419205}
       - {x: 0.3527527, y: 0.21466637}
       - {x: 0.3487091, y: 0.36953926}
+--- !u!114 &114338526847528996
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1819088694806420}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 8e4974ab8836d9e4d859a5f5d7285839, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+--- !u!114 &114661953607430614
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1819088694806420}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 4597bb500b905ba448852b3319b999ca, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!212 &212779103284202072
 SpriteRenderer:
   m_ObjectHideFlags: 1

@@ -22,6 +22,8 @@ GameObject:
   - component: {fileID: 212268232139034380}
   - component: {fileID: 50361928160088946}
   - component: {fileID: 60654887761329132}
+  - component: {fileID: 114616351448617402}
+  - component: {fileID: 114749964572708638}
   m_Layer: 17
   m_Name: Barrel2
   m_TagString: Base
@@ -52,9 +54,9 @@ Transform:
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1327412041611978}
-  m_LocalRotation: {x: 0, y: 0, z: -0.956991, w: 0.29011768}
-  m_LocalPosition: {x: 65.81016, y: -56.922226, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_LocalRotation: {x: -0, y: -0, z: 0.94832367, w: 0.3173047}
+  m_LocalPosition: {x: -87.38725, y: 40.450607, z: 0}
+  m_LocalScale: {x: 0.23075464, y: 0.23075464, z: 0}
   m_Children:
   - {fileID: 4918917884650078}
   m_Father: {fileID: 0}
@@ -168,6 +170,28 @@ PolygonCollider2D:
       - {x: 0.3554145, y: -0.1787134}
       - {x: 0.412935, y: -0.08938894}
       - {x: 0.40889353, y: 0.06865159}
+--- !u!114 &114616351448617402
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1327412041611978}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 4597bb500b905ba448852b3319b999ca, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+--- !u!114 &114749964572708638
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1327412041611978}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 8e4974ab8836d9e4d859a5f5d7285839, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!212 &212268232139034380
 SpriteRenderer:
   m_ObjectHideFlags: 1
