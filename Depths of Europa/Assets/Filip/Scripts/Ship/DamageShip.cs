@@ -10,7 +10,7 @@ public class DamageShip : MonoBehaviour
 
     [Header("Settings")]
 
-    [SerializeField, Range(0, 50)] float _minCollisionMassForDamage;
+    [SerializeField, Range(0, 50)] float _minCollisionMassForDamage = 0.1f;
     [SerializeField, Range(0, 250)] int _maxHp;
     [SerializeField, Range(0, 25)] int _minimumCollisionDamage;
     [SerializeField, Range(0, 100)] float _collisionDamageModifier;
