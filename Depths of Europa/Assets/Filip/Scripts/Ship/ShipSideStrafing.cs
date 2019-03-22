@@ -34,29 +34,39 @@ public class ShipSideStrafing : MonoBehaviour
         bool left = Input.GetButton(GameInput.SIDE_STRAFE_LEFT);
         bool right = Input.GetButton(GameInput.SIDE_STRAFE_RIGHT);
 
-        if (left)
+        if (_usePowerUp)
         {
-            AddForce(Vector2.left, _rightParticleSystem, ref _rightStopped);
-            TurnOnAudio(_rightBubbleAudio);
-        }   
-        else
-        {
-            TurnOff(_rightParticleSystem, ref _rightStopped, true);
-            TurnOffAudio(_rightBubbleAudio);
-        }
-            
-        if (right)
-        {
-            AddForce(Vector2.right, _leftParticleSystem, ref _leftStopped);
-            TurnOnAudio(_leftBubbleAudio);
-        }
-            
-        else
-        {
-            TurnOff(_leftParticleSystem, ref _leftStopped);
-            TurnOffAudio(_leftBubbleAudio);
+            if (left)
+            {
+                AddForce(Vector2.left, _rightParticleSystem, ref _rightStopped);
+                TurnOnAudio(_rightBubbleAudio);
+            }
+            else
+            {
+                TurnOff(_rightParticleSystem, ref _rightStopped, true);
+                TurnOffAudio(_rightBubbleAudio);
+            }
+
+            if (right)
+            {
+                AddForce(Vector2.right, _leftParticleSystem, ref _leftStopped);
+                TurnOnAudio(_leftBubbleAudio);
+            }
+
+            else
+            {
+                TurnOff(_leftParticleSystem, ref _leftStopped);
+                TurnOffAudio(_leftBubbleAudio);
+            }
         }
     }     
+
+    public void TurnOff()
+    {
+        _usePowerUp = false;
+        _leftParticleSystem.Stop();
+        _rightParticleSystem.Stop();
+    }
 
     private void TurnOnAudio(AudioSource source)
     {

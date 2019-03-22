@@ -14,6 +14,7 @@ public class ShipInBase : MonoBehaviour
     [SerializeField] MoveShip _moveShipScript;
     [SerializeField] Waypoint _waypointScript;
     [SerializeField] LightShip _lightShipScript;
+    [SerializeField] ShipEffects _effectScript;
 
     public void InBase(bool state, Vector3 worldPosition, float worldZRotation = 0, bool moveShip = false)
     {
@@ -23,7 +24,17 @@ public class ShipInBase : MonoBehaviour
         if (_lightShipScript.enabled)
             _lightShipScript.TurnHeadLightsOff();
 
+        if (_effectScript.enabled)
+            _effectScript.TurnOffEngine();
+            
+
         _lightShipScript.enabled = !state;
+        _effectScript.enabled = !state;
+
+        ShipSideStrafing strafeScript = GetComponent<ShipSideStrafing>();
+
+        if (strafeScript != null)
+            strafeScript.TurnOff();
 
         Dialog dialog = GetComponentInChildren<Dialog>();
 

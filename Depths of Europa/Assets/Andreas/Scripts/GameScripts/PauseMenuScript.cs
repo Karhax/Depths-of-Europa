@@ -48,6 +48,7 @@ public class PauseMenuScript : MonoBehaviour {
     public void TutorialStop()
     {
         _tutorialPause = false;
+        _isPaused = true;
         SetPause();
     }
 

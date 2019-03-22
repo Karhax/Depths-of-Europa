@@ -10,6 +10,7 @@ public class DamageShip : MonoBehaviour
 
     [Header("Settings")]
 
+    [SerializeField, Range(0, 50)] float _minCollisionMassForDamage;
     [SerializeField, Range(0, 250)] int _maxHp;
     [SerializeField, Range(0, 25)] int _minimumCollisionDamage;
     [SerializeField, Range(0, 100)] float _collisionDamageModifier;
@@ -32,7 +33,11 @@ public class DamageShip : MonoBehaviour
     private void OnCollisionEnter2D(Collision2D collision)
     {
         if (!collision.transform.CompareTag(Tags.ENEMY) && !(collision.gameObject.layer == LayerMask.NameToLayer(Layers.FISH_UNDER)))
-            TakeDamage(collision.relativeVelocity.magnitude);
+        {
+            if (collision.transform.GetComponent<Rigidbody2D>().mass > _minCollisionMassForDamage)
+                TakeDamage(collision.relativeVelocity.magnitude);
+        }
+            
     }
 
     public void RecoverDamage(int damageToRecover)
