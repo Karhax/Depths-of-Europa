@@ -36,6 +36,9 @@ public class LightShip : MonoBehaviour
     Timer _waitBetweenFlare;
 
     PauseMenuScript _pauseMenuScript;
+
+    bool _hasSentFirstFlareCount = false;
+
     private void Awake()
     {
         _waitBetweenFlare = new Timer(_minTimeBetweenFlares, _minTimeBetweenFlares);
@@ -50,9 +53,6 @@ public class LightShip : MonoBehaviour
     {
         _pauseMenuScript = GameManager.CameraObject.GetComponentInChildren<PauseMenuScript>();
         _pauseMenuScript.PauseState += Paused;
-
-        if (ShipUsedFlareEvent != null)
-            ShipUsedFlareEvent.Invoke(_currentFlareCount);
     }
 
     private void OnEnable()
@@ -74,6 +74,15 @@ public class LightShip : MonoBehaviour
 
     private void Update()
     {
+        if (!_hasSentFirstFlareCount)
+        {
+            if (ShipUsedFlareEvent != null)
+            {
+                ShipUsedFlareEvent.Invoke(_currentFlareCount);
+                _hasSentFirstFlareCount = true;
+            }      
+        }
+
         if (!_isPaused)
         {
             _waitBetweenFlare.Time += Time.deltaTime;
