@@ -5,12 +5,13 @@ using UnityEngine;
 
 public class AssignRandomScale : MonoBehaviour
 {
-    private float scale;
 
+    [SerializeField, Range(0,10)] float MaxScale;
+    [SerializeField, Range(0, 10)] float MinScale;
     // Use this for initialization
     void Awake()
     {
-        scale = Random.Range(0.1f, 0.5f);
+        float scale = Random.Range(MinScale, MaxScale);
         transform.localScale = new Vector3(scale, scale, 0);
     }
 
