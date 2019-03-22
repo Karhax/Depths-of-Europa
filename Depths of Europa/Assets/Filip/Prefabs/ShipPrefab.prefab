@@ -4351,6 +4351,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 07e5d365c2085884a96744ea58d660ad, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  _minCollisionMassForDamage: 0.1
   _maxHp: 100
   _minimumCollisionDamage: 2
   _collisionDamageModifier: 3
@@ -4418,8 +4419,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _dynamicSoundModifier: 1
   _stressedSoundModifier: 0.5
-  _maxEngineDynamicVolume: 1
-  _maxEngineStressedVolume: 1
+  _maxEngineDynamicVolume: 0.5
+  _maxEngineStressedVolume: 0.5
   _stressedSoundStart: 0.75
   _collisionSoundStrengthModifier: 4
   _engineDynamic: {fileID: 82634193124149662}

@@ -34,8 +34,13 @@ public class DamageShip : MonoBehaviour
     {
         if (!collision.transform.CompareTag(Tags.ENEMY) && !(collision.gameObject.layer == LayerMask.NameToLayer(Layers.FISH_UNDER)))
         {
-            if (collision.transform.GetComponent<Rigidbody2D>().mass > _minCollisionMassForDamage)
-                TakeDamage(collision.relativeVelocity.magnitude);
+            Rigidbody2D collisionRigidBody = collision.transform.GetComponent<Rigidbody2D>();
+
+            if (collisionRigidBody != null)
+            {
+                if (collision.transform.GetComponent<Rigidbody2D>().mass > _minCollisionMassForDamage)
+                    TakeDamage(collision.relativeVelocity.magnitude);
+            }
         }
             
     }
