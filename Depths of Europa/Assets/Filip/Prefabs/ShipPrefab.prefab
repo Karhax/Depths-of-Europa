@@ -1357,7 +1357,7 @@ Transform:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1111445617526158}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: -19.853, y: -12.408, z: -0.25}
+  m_LocalPosition: {x: -29.04, y: 4.243, z: -0.25}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 4142588805641138}
@@ -1828,7 +1828,7 @@ Transform:
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1525962020150546}
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalRotation: {x: 0, y: 0, z: -0.9063079, w: 0.42261827}
   m_LocalPosition: {x: 0, y: 0, z: -0.1}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
@@ -1841,7 +1841,7 @@ Transform:
   - {fileID: 4993390935781268}
   m_Father: {fileID: 4074453311509002}
   m_RootOrder: 1
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: -130}
 --- !u!4 &4736036385123604
 Transform:
   m_ObjectHideFlags: 1
@@ -2298,8 +2298,8 @@ PolygonCollider2D:
       - {x: -0.75, y: 0.9}
       - {x: -1, y: 1.5}
       - {x: -1.3, y: 2.5}
-      - {x: -2.07, y: 9}
-      - {x: 2.07, y: 9}
+      - {x: -1.2323112, y: 6.7895465}
+      - {x: 1.4269056, y: 6.7758155}
       - {x: 1.3, y: 2.5}
       - {x: 1, y: 1.5}
       - {x: 0.75, y: 0.9}
@@ -4197,8 +4197,8 @@ Light:
   serializedVersion: 8
   m_Type: 2
   m_Color: {r: 1, g: 1, b: 1, a: 1}
-  m_Intensity: 4.5
-  m_Range: 1.05
+  m_Intensity: 1
+  m_Range: 10
   m_SpotAngle: 30
   m_CookieSize: 10
   m_Shadows:
@@ -4351,6 +4351,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 07e5d365c2085884a96744ea58d660ad, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  _highMassCollision: 10
+  _leastHighMassVelocity: 0.75
+  _highMassCollisionModifier: 2.5
   _minCollisionMassForDamage: 0.1
   _maxHp: 100
   _minimumCollisionDamage: 2
