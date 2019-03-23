@@ -10,6 +10,10 @@ public class DamageShip : MonoBehaviour
 
     [Header("Settings")]
 
+    [SerializeField, Range(0, 100)] float _highMassCollision = 10;
+    [SerializeField, Range(0, 100)] float _leastHighMassVelocity = 2f;
+    [SerializeField, Range(0, 20)] float _highMassCollisionModifier = 2.5f;
+
     [SerializeField, Range(0, 50)] float _minCollisionMassForDamage = 0.1f;
     [SerializeField, Range(0, 250)] int _maxHp;
     [SerializeField, Range(0, 25)] int _minimumCollisionDamage;
@@ -32,14 +36,14 @@ public class DamageShip : MonoBehaviour
 
     private void OnCollisionEnter2D(Collision2D collision)
     {
-        if (!collision.transform.CompareTag(Tags.ENEMY) && !(collision.gameObject.layer == LayerMask.NameToLayer(Layers.FISH_UNDER)))
+        if (!collision.transform.CompareTag(Tags.ENEMY) && !(collision.gameObject.layer == LayerMask.NameToLayer(Layers.FISH_UNDER)) || collision.transform.CompareTag(Tags.BASE))
         {
             Rigidbody2D collisionRigidBody = collision.transform.GetComponent<Rigidbody2D>();
 
             if (collisionRigidBody != null)
             {
-                if (collision.transform.GetComponent<Rigidbody2D>().mass > _minCollisionMassForDamage)
-                    TakeDamage(collision.relativeVelocity.magnitude);
+                if (collisionRigidBody.mass > _minCollisionMassForDamage)
+                    TakeDamage(collision.relativeVelocity.magnitude, collisionRigidBody);
             }
         }
             
@@ -64,9 +68,12 @@ public class DamageShip : MonoBehaviour
         CheckIfDead();
     }
 
-    private void TakeDamage(float crashForce)
+    private void TakeDamage(float crashForce, Rigidbody2D collisionRigidBody)
     {
         int damage = (int)(crashForce * _collisionDamageModifier);
+
+        if (collisionRigidBody.mass > _highMassCollision && collisionRigidBody.velocity.magnitude > _leastHighMassVelocity)
+            damage = (int)(damage * _highMassCollisionModifier);
 
         if (damage >= _minimumCollisionDamage)
             Hit(damage);
