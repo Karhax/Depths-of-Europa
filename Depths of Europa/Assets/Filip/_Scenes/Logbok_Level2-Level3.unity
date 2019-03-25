@@ -139,7 +139,7 @@ AudioSource:
   serializedVersion: 4
   OutputAudioMixerGroup: {fileID: 243938264350683744, guid: d8088fd3eccd90840a9dd3bb30644618,
     type: 2}
-  m_audioClip: {fileID: 8300000, guid: 094e5f4606e97e247bf483f97aef5620, type: 3}
+  m_audioClip: {fileID: 8300000, guid: 0567636faa2810643acabc3e48e620ff, type: 3}
   m_PlayOnAwake: 1
   m_Volume: 1
   m_Pitch: 1
@@ -330,6 +330,37 @@ Prefab:
       propertyPath: m_audioClip
       value: 
       objectReference: {fileID: 8300000, guid: bd084815a07216545b8d44f15e13b071, type: 3}
+    - target: {fileID: 114282570403005182, guid: 8486a1a53b77a7340bf3212e0646148c,
+        type: 2}
+      propertyPath: m_Sprite
+      value: 
+      objectReference: {fileID: 21300000, guid: 7a57892d2d522894fa5303738546a5c1,
+        type: 3}
+    - target: {fileID: 224810915363551936, guid: 8486a1a53b77a7340bf3212e0646148c,
+        type: 2}
+      propertyPath: m_AnchoredPosition.x
+      value: 366
+      objectReference: {fileID: 0}
+    - target: {fileID: 114789386048604174, guid: 8486a1a53b77a7340bf3212e0646148c,
+        type: 2}
+      propertyPath: m_Text
+      value: 
+      objectReference: {fileID: 0}
+    - target: {fileID: 224027646866776856, guid: 8486a1a53b77a7340bf3212e0646148c,
+        type: 2}
+      propertyPath: m_AnchoredPosition.x
+      value: -10
+      objectReference: {fileID: 0}
+    - target: {fileID: 224027646866776856, guid: 8486a1a53b77a7340bf3212e0646148c,
+        type: 2}
+      propertyPath: m_AnchoredPosition.y
+      value: -4
+      objectReference: {fileID: 0}
+    - target: {fileID: 224810915363551936, guid: 8486a1a53b77a7340bf3212e0646148c,
+        type: 2}
+      propertyPath: m_AnchoredPosition.y
+      value: -72
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: 8486a1a53b77a7340bf3212e0646148c, type: 2}
   m_IsPrefabParent: 0
@@ -364,7 +395,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _music: {fileID: 196561876}
   _fadeMusicSpeed: 0.25
-  _thisDialogBoxScriptableObject: {fileID: 11400000, guid: 7fc682855b52833438c5ba034712b07e,
+  _thisDialogBoxScriptableObject: {fileID: 11400000, guid: 8e1faf505bcb3ee4597e2f96969f1645,
     type: 2}
   _dialog: {fileID: 1236154243}
   _nextSceneName: level_3

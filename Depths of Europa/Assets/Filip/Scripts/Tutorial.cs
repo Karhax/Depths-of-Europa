@@ -19,14 +19,10 @@ public class Tutorial : MonoBehaviour
     [SerializeField] GameObject _background;
     [SerializeField] GameObject _skipObject;
 
-    AudioSource _audio;
+    [SerializeField] AudioSource _stopAudio;
+    [SerializeField] AudioSource _startAudio;
 
     bool _isInTutorial = false;
-
-    private void Awake()
-    {
-        _audio = GetComponent<AudioSource>();
-    }
 
     private void Update()
     {
@@ -43,6 +39,7 @@ public class Tutorial : MonoBehaviour
     {
         StartCoroutine(Wait());
 
+        _startAudio.Play();
         _tutorialImage.sprite = sprite;
         _tutorialImage.gameObject.SetActive(true);
         _background.SetActive(true);
@@ -57,7 +54,7 @@ public class Tutorial : MonoBehaviour
 
     public void StopTutorial()
     {
-        _audio.Play();
+        _stopAudio.Play();
         _isInTutorial = false;
 
         _tutorialImage.gameObject.SetActive(false);

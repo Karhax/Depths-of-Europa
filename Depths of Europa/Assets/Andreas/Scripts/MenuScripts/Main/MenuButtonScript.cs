@@ -9,7 +9,10 @@ public class MenuButtonScript : MonoBehaviour {
     [SerializeField, Tooltip("The Name of the scene that is to be loaded when the start game button is clicked.")] string _gameStartSceneName;
     [SerializeField] string _settingMenuSceneName;
 	// Use this for initialization
-	void Start () {
+	void Start ()
+    {
+        Cursor.visible = true;
+
         //Time.timeScale = 1;
 	}
 	

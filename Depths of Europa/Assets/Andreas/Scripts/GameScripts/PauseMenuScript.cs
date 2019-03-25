@@ -3,12 +3,20 @@ using System.Collections.Generic;
 using UnityEngine;
 using Statics;
 using UnityEngine.SceneManagement;
+using UnityEngine.Audio;
 
 public class PauseMenuScript : MonoBehaviour {
 
     bool _isPaused = false, _isFading = false;
     [SerializeField] GameObject _pauseMenuBackdrop;
     [SerializeField] string _mainMenuName;
+    [SerializeField] string _soundAudioEffectName = "Sound_Effect";
+    [SerializeField] string _musicAudioEffectName = "Music_Effect";
+    [SerializeField] AudioMixer _audioMixer;
+    [SerializeField, Range(0, 2000)] float _soundCutOffFreqPause = 275f;
+    [SerializeField, Range(0, 2000)] float _musicCutOffFreqPause = 350f;
+
+    readonly float NORMAL_CUTOFF_FREQ_PAUSE = 5000f;
 
     public delegate void PauseStateHandler(bool pauseState);
 
@@ -48,6 +56,7 @@ public class PauseMenuScript : MonoBehaviour {
     public void TutorialStop()
     {
         _tutorialPause = false;
+        _isPaused = true;
         SetPause();
     }
 
@@ -59,7 +68,10 @@ public class PauseMenuScript : MonoBehaviour {
         _isPaused = !_isPaused;
         if(_isPaused)
         {
-            if(_pauseMenuBackdrop != null)
+            _audioMixer.SetFloat(_soundAudioEffectName, _soundCutOffFreqPause);
+            _audioMixer.SetFloat(_musicAudioEffectName, _musicCutOffFreqPause);
+
+            if (_pauseMenuBackdrop != null)
                 _pauseMenuBackdrop.SetActive(true);
 
             Time.timeScale = 0;
@@ -69,6 +81,9 @@ public class PauseMenuScript : MonoBehaviour {
         }
         else if(!_isPaused)
         {
+            _audioMixer.SetFloat(_soundAudioEffectName, NORMAL_CUTOFF_FREQ_PAUSE);
+            _audioMixer.SetFloat(_musicAudioEffectName, NORMAL_CUTOFF_FREQ_PAUSE);
+
             if (_pauseMenuBackdrop != null)
                 _pauseMenuBackdrop.SetActive(false);
 

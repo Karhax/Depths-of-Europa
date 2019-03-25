@@ -31,13 +31,22 @@ public class ShipEffects : MonoBehaviour
         _particleSystemEmission = _bubblesParticleSystem.emission;
     }
 
+    bool _doParticles = true;
+
     private void Update()
     {
         float dotProduct = Vector3.Dot(_thisRigidbody.velocity, transform.up);
         SetAnimation();
-        AmountOfBubbles(dotProduct);
+
+        if (_doParticles)
+            AmountOfBubbles(dotProduct);
     }
 
+    public void TurnOffEngine()
+    {
+        _particleSystemEmission.rateOverTime = new ParticleSystem.MinMaxCurve(1, 1);
+        _doParticles = false;
+    }
     private void SetAnimation()
     {
         float currentAnimationSpeed = _thisRigidbody.velocity.magnitude * _animationSpeedModifier;

@@ -29,7 +29,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6050e2d5de785ce4d931e4dbdbf2d755, type: 3}
   m_Name: ChromaticAberration
   m_EditorClassIdentifier: 
-  active: 1
+  active: 0
   enabled:
     overrideState: 1
     value: 1
@@ -38,8 +38,8 @@ MonoBehaviour:
     value: {fileID: 0}
     defaultState: 1
   intensity:
-    overrideState: 1
-    value: 0.1
+    overrideState: 0
+    value: 0.017
   fastMode:
     overrideState: 0
     value: 0
@@ -60,7 +60,7 @@ MonoBehaviour:
     value: 1
   intensity:
     overrideState: 1
-    value: 10
+    value: 12.5
   threshold:
     overrideState: 1
     value: 1
@@ -68,16 +68,16 @@ MonoBehaviour:
     overrideState: 1
     value: 1
   clamp:
-    overrideState: 0
-    value: 65472
+    overrideState: 1
+    value: 1
   diffusion:
-    overrideState: 0
-    value: 6.46
+    overrideState: 1
+    value: 7.25
   anamorphicRatio:
-    overrideState: 0
-    value: -1
+    overrideState: 1
+    value: 1
   color:
-    overrideState: 0
+    overrideState: 1
     value: {r: 1, g: 1, b: 1, a: 1}
   fastMode:
     overrideState: 0
@@ -164,13 +164,13 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9b77c5407dc277943b591ade9e6b18c5, type: 3}
   m_Name: LensDistortion
   m_EditorClassIdentifier: 
-  active: 0
+  active: 1
   enabled:
     overrideState: 1
     value: 1
   intensity:
-    overrideState: 1
-    value: -20
+    overrideState: 0
+    value: 0
   intensityX:
     overrideState: 0
     value: 1
@@ -292,7 +292,7 @@ MonoBehaviour:
     value: {x: 0.93293095, y: 0.93219876, z: 1, w: 0.000614526}
   gamma:
     overrideState: 1
-    value: {x: 1, y: 1, z: 1, w: -0.0035333633}
+    value: {x: 1, y: 1, z: 1, w: 0.054861546}
   gain:
     overrideState: 1
     value: {x: 0.96691996, y: 1, z: 0.9976519, w: -0.016001686}
