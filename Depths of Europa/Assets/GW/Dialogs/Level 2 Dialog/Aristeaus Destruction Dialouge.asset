@@ -11,4 +11,35 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 2bb4ce3b2ac54964d965eb195c679405, type: 3}
   m_Name: Aristeaus Destruction Dialouge
   m_EditorClassIdentifier: 
-  _dialogBoxes: []
+  _dialogBoxes:
+  - _rightTalking: 1
+    _rightCharacter: {fileID: 11400000, guid: 56d3a7895bcdd5441aeb7f965e226b7a, type: 2}
+    _leftCharacter: {fileID: 11400000, guid: 3e3ddf4f39f39a94bbcc24bf6a3ebc77, type: 2}
+    _backgroundSprite: {fileID: 0}
+    _dialogText: "That\u2026 no. What is that\u2026 it just. All of it. No, no no
+      no."
+    _stopPreviousColorEffect: 0
+    _stopPreviousShakeEffect: 0
+    _colorEffect: {fileID: 0}
+    _shakeEffect: {fileID: 0}
+    _OneTimeEffects: []
+  - _rightTalking: 0
+    _rightCharacter: {fileID: 11400000, guid: 56d3a7895bcdd5441aeb7f965e226b7a, type: 2}
+    _leftCharacter: {fileID: 11400000, guid: 3e3ddf4f39f39a94bbcc24bf6a3ebc77, type: 2}
+    _backgroundSprite: {fileID: 0}
+    _dialogText: I am really sorry, Steve. Had there been ways to prevent it...
+    _stopPreviousColorEffect: 0
+    _stopPreviousShakeEffect: 0
+    _colorEffect: {fileID: 0}
+    _shakeEffect: {fileID: 0}
+    _OneTimeEffects: []
+  - _rightTalking: 0
+    _rightCharacter: {fileID: 11400000, guid: 56d3a7895bcdd5441aeb7f965e226b7a, type: 2}
+    _leftCharacter: {fileID: 11400000, guid: 3e3ddf4f39f39a94bbcc24bf6a3ebc77, type: 2}
+    _backgroundSprite: {fileID: 0}
+    _dialogText: I know...
+    _stopPreviousColorEffect: 0
+    _stopPreviousShakeEffect: 0
+    _colorEffect: {fileID: 0}
+    _shakeEffect: {fileID: 0}
+    _OneTimeEffects: []
