@@ -45,6 +45,8 @@ public class DamageShip : MonoBehaviour
                 if (collisionRigidBody.mass > _minCollisionMassForDamage)
                     TakeDamage(collision.relativeVelocity.magnitude, collisionRigidBody);
             }
+            else
+                TakeDamage(collision.relativeVelocity.magnitude, null);
         }
             
     }
@@ -72,9 +74,12 @@ public class DamageShip : MonoBehaviour
     {
         int damage = (int)(crashForce * _collisionDamageModifier);
 
-        if (collisionRigidBody.mass > _highMassCollision && collisionRigidBody.velocity.magnitude > _leastHighMassVelocity)
-            damage = (int)(damage * _highMassCollisionModifier);
-
+        if (collisionRigidBody != null)
+        {
+            if (collisionRigidBody.mass > _highMassCollision && collisionRigidBody.velocity.magnitude > _leastHighMassVelocity)
+                damage = (int)(damage * _highMassCollisionModifier);
+        }
+        
         if (damage >= _minimumCollisionDamage)
             Hit(damage);
     }

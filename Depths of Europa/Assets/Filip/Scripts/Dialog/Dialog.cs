@@ -67,6 +67,7 @@ public class Dialog : MonoBehaviour
     int _timesPressedSkip = 0;
     
     bool _isPaused = false;
+    bool _textPlayingWhenPaused = false;
     PauseMenuScript _pauseMenuScript;
 
     float _dialogParentWidth;
@@ -106,6 +107,19 @@ public class Dialog : MonoBehaviour
 
     private void Paused(bool state)
     {
+        if (state && _textAudioSource.isPlaying)
+        {
+            _textAudioSource.Pause();
+            _textPlayingWhenPaused = true;
+        }
+        else 
+        {
+            if (!state && _textPlayingWhenPaused)
+                _textAudioSource.Play();
+
+            _textPlayingWhenPaused = false;
+        }    
+
         _isPaused = state;
     }
 

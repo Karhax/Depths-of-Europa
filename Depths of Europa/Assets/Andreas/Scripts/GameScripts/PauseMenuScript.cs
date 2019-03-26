@@ -23,6 +23,7 @@ public class PauseMenuScript : MonoBehaviour {
     public event PauseStateHandler PauseState;
 
     bool _tutorialPause = false;
+    bool _cursorShouldBeOn = true;
 
     private void Awake()
     {
@@ -68,6 +69,9 @@ public class PauseMenuScript : MonoBehaviour {
         _isPaused = !_isPaused;
         if(_isPaused)
         {
+            _cursorShouldBeOn = Cursor.visible;
+            Cursor.visible = true;
+
             _audioMixer.SetFloat(_soundAudioEffectName, _soundCutOffFreqPause);
             _audioMixer.SetFloat(_musicAudioEffectName, _musicCutOffFreqPause);
 
@@ -81,6 +85,8 @@ public class PauseMenuScript : MonoBehaviour {
         }
         else if(!_isPaused)
         {
+            Cursor.visible = _cursorShouldBeOn;
+
             _audioMixer.SetFloat(_soundAudioEffectName, NORMAL_CUTOFF_FREQ_PAUSE);
             _audioMixer.SetFloat(_musicAudioEffectName, NORMAL_CUTOFF_FREQ_PAUSE);
 
