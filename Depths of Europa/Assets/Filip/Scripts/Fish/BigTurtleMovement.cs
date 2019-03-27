@@ -10,7 +10,7 @@ public class BigTurtleMovement : MonoBehaviour
     [SerializeField] bool _circlePath = true;
 
     [SerializeField, Range(0, 10)] float _reachedTolerance = 0.5f;
-    [SerializeField, Range(0, 100)] float _speed = 1;
+    [SerializeField, Range(0, 1000)] float _speed = 1;
     [SerializeField, Range(0, 15)] float _rotateSpeed = 0.25f;
     [SerializeField, Range(0, 100)] int _damage = 15;
     [SerializeField, Range(0, 5)] float _waitBeforeDamageAgain = 1f;

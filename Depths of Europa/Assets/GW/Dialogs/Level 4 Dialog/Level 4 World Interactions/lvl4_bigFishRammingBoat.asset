@@ -28,7 +28,7 @@ MonoBehaviour:
     _backgroundSprite: {fileID: 0}
     _dialogText: What was that sound? Did something break?!
     _stopPreviousColorEffect: 0
-    _stopPreviousShakeEffect: 1
+    _stopPreviousShakeEffect: 0
     _colorEffect: {fileID: 0}
     _shakeEffect: {fileID: 0}
     _OneTimeEffects: []
@@ -39,9 +39,9 @@ MonoBehaviour:
     _dialogText: It was the oxygen tank that broke. I'll go down and see what I can
       do to minimize the damage.
     _stopPreviousColorEffect: 0
-    _stopPreviousShakeEffect: 0
+    _stopPreviousShakeEffect: 1
     _colorEffect: {fileID: 0}
-    _shakeEffect: {fileID: 11400000, guid: 79733766c7ed6ed4ca4ca6c971c776b0, type: 2}
+    _shakeEffect: {fileID: 0}
     _OneTimeEffects: []
   - _rightTalking: 1
     _rightCharacter: {fileID: 11400000, guid: f314c2f2f58bda44b81ca894b5e143ae, type: 2}
