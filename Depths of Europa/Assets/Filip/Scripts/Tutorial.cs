@@ -28,7 +28,7 @@ public class Tutorial : MonoBehaviour
     {
         if (_isInTutorial)
         {
-            bool skip = Input.GetButtonDown(GameInput.SKIP_DIALOG);
+            bool skip = Input.GetButtonDown(GameInput.SKIP_DIALOG) || Input.GetKeyDown("Space") || Input.GetKeyDown("Mouse0");
 
             if (skip)
                 StopTutorial();
