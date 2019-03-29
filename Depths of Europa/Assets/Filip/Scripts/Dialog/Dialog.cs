@@ -127,7 +127,7 @@ public class Dialog : MonoBehaviour
     {
         if (_dialogPlaying && !_isPaused)
         {
-            _pressedDown = Input.GetButtonDown(GameInput.SKIP_DIALOG) || Input.GetKeyDown("Space") || Input.GetKeyDown("Mouse0");
+            _pressedDown = Input.GetButtonDown(GameInput.SKIP_DIALOG) || Input.GetKeyDown("space") || Input.GetKeyDown("mouse 0");
 
             if (_pressedDown)
                 _timesPressedSkip++;
