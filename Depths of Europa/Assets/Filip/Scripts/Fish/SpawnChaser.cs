@@ -44,18 +44,6 @@ public class SpawnChaser : MonoBehaviour
         _player = GameManager.ShipObject.transform;
     }
 
-    private void OnEnable()
-    {
-        if (_fish != null)
-            _fish.GetComponent<BasicChaserFish0>().FishOffScreenEvent += ResetSpawn;
-    }
-
-    private void OnDisable()
-    {
-        if (_fish != null)
-            _fish.GetComponent<BasicChaserFish0>().FishOffScreenEvent -= ResetSpawn;
-    }
-
     private void Update()
     {
         if (_canSpawn)
@@ -109,7 +97,6 @@ public class SpawnChaser : MonoBehaviour
         _fish.right = GameManager.ShipObject.transform.position - _fish.position;
 
         BasicChaserFish0 script = _fish.GetComponent<BasicChaserFish0>();
-        script.FishOffScreenEvent += ResetSpawn;
         script.SetSpawn(transform);
 
         _fish.gameObject.SetActive(true);

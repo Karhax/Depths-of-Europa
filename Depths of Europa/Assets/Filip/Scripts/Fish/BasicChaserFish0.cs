@@ -5,9 +5,6 @@ using Statics;
 
 public class BasicChaserFish0 : EnemyBase
 {
-    public delegate void FishOffScreen();
-    public event FishOffScreen FishOffScreenEvent;
-
     [SerializeField] Transform _faceTransform;
 
     [Space]
@@ -49,9 +46,6 @@ public class BasicChaserFish0 : EnemyBase
     protected override void OnTriggerExit2D(Collider2D other)
     {
         base.OnTriggerExit2D(other);
-
-        if (!_shouldMove && FishOffScreenEvent != null)
-            FishOffScreenEvent.Invoke();
     }
 
     protected override void ChangeState(EnemyStates state)
