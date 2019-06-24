@@ -124,28 +124,28 @@ public class SettingsMenuManager : MonoBehaviour {
 
     public void MoveToGamma()
     {
-        float positionDifference = Mathf.Abs(_camera.transform.position.x - _gammaScreen.transform.position.x);
+        float positionDifference = Mathf.Abs(_mainSettings.transform.position.x - _gammaScreen.transform.position.x);
         _screenParent.transform.position = new Vector2(_screenParent.transform.position.x - positionDifference, _screenParent.transform.position.y);
         _currentSet = _gammaScreen;
     }
     public void BackToSettings()
     {
-        float positionDifference = Mathf.Abs(_camera.transform.position.x - _mainSettings.transform.position.x);
+        float positionDifference = Mathf.Abs(_gammaScreen.transform.position.x - _mainSettings.transform.position.x);
         _screenParent.transform.position = new Vector2(_screenParent.transform.position.x + positionDifference, _screenParent.transform.position.y);
         _currentSet = _mainSettings;
     }
 
     public void BackToMainMenu()
     {
-        float positionDifference = Mathf.Abs(_camera.transform.position.x - _mainMenu.transform.position.x);
+        float positionDifference = Mathf.Abs(_mainSettings.transform.position.x - _mainMenu.transform.position.x);
         _screenParent.transform.position = new Vector2(_screenParent.transform.position.x + positionDifference, _screenParent.transform.position.y);
         _currentSet = _mainMenu;
     }
     public void MoveToSettings()
     {
-        float positionDifference = Mathf.Abs(_camera.transform.position.x - _mainSettings.transform.position.x);
+        float positionDifference = Mathf.Abs(_mainMenu.transform.position.x - _mainSettings.transform.position.x);
 
-        _screenParent.transform.position = new Vector2(_screenParent.transform.position.x - positionDifference, _screenParent.transform.position.y);
+        _screenParent.transform.position = new Vector2(_screenParent.transform.transform.position.x - positionDifference, _screenParent.transform.position.y);
         _currentSet = _mainSettings;
     }
 
