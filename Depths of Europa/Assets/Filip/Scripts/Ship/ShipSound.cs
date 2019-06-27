@@ -15,6 +15,7 @@ public class ShipSound : MonoBehaviour
     [SerializeField, Range(0, 1)] float _stressedSoundStart = 0.5f;
 
     [SerializeField, Range(1, 10)] float _collisionSoundStrengthModifier = 3f;
+	[SerializeField, Range(0, 1)] float _collisionSoundPitchModifier = 0.15f;
 
     [Header("Drop")]
 
@@ -69,6 +70,7 @@ public class ShipSound : MonoBehaviour
         if (!source.isPlaying)
         {
             source.volume = strength / _collisionSoundStrengthModifier;
+			source.pitch = Random.Range (1 - _collisionSoundPitchModifier, 1 + _collisionSoundPitchModifier);
             source.Play();
         }
     }
