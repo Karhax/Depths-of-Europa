@@ -8,7 +8,9 @@ using UnityEngine.Audio;
 public class PauseMenuScript : MonoBehaviour {
 
     bool _isPaused = false, _isFading = false;
+    Vector2 _parentingPos;
     [SerializeField] GameObject _pauseMenuBackdrop;
+    [SerializeField] GameObject _parentingIsHard;
     [SerializeField] string _mainMenuName;
     [SerializeField] string _soundAudioEffectName = "Sound_Effect";
     [SerializeField] string _musicAudioEffectName = "Music_Effect";
@@ -30,6 +32,7 @@ public class PauseMenuScript : MonoBehaviour {
         _pauseMenuBackdrop.SetActive(false);
         GameManager.FadeEvent += OnFade;
         Time.timeScale = 1;
+        _parentingPos = _parentingIsHard.transform.position;
     }
 
     void Update () {
@@ -97,6 +100,8 @@ public class PauseMenuScript : MonoBehaviour {
 
             if (PauseState != null)
                 PauseState.Invoke(_isPaused);
+
+            _parentingIsHard.transform.position = _parentingPos;
         }
     }
     /// <summary>
